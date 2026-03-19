@@ -236,7 +236,8 @@ const AccessSettingsPage: React.FC = () => {
     userSettings?.replicate_key ||
     userSettings?.rapid_api_key ||
     userSettings?.coinmarketcap_key ||
-    userSettings?.x_key
+    userSettings?.x_key ||
+    userSettings?.x_ai_key
   );
 
   // Check if user has credits
@@ -258,6 +259,7 @@ const AccessSettingsPage: React.FC = () => {
     delete clearedSettings.rapid_api_key;
     delete clearedSettings.coinmarketcap_key;
     delete clearedSettings.x_key;
+    delete clearedSettings.x_ai_key;
 
     setUserSettings(clearedSettings);
     toast(t("access_keys_cleared_message"));

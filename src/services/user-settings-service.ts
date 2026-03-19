@@ -19,6 +19,7 @@ export interface UserSettings {
   rapid_api_key?: string;
   coinmarketcap_key?: string;
   x_key?: string;
+  x_ai_key?: string;
   tool_choice_chat?: string;
   tool_choice_reasoning?: string;
   tool_choice_copywriting?: string;
@@ -56,6 +57,7 @@ const PROVIDER_ID_TO_SETTING: Record<string, keyof UserSettings> = {
   "rapid-api": "rapid_api_key",
   "coinmarketcap-api": "coinmarketcap_key",
   x: "x_key",
+  x_ai: "x_ai_key",
 };
 
 export function getSettingsFieldName(providerId: string): keyof UserSettings {
@@ -73,6 +75,7 @@ export interface UserSettingsPayload {
   rapid_api_key?: string;
   coinmarketcap_key?: string;
   x_key?: string;
+  x_ai_key?: string;
   tool_choice_chat?: string;
   tool_choice_reasoning?: string;
   tool_choice_copywriting?: string;
@@ -97,6 +100,7 @@ const MASKED_FIELDS = [
   "rapid_api_key",
   "coinmarketcap_key",
   "x_key",
+  "x_ai_key",
 ] as const satisfies readonly (keyof UserSettingsPayload)[];
 
 const STRING_FIELDS = [

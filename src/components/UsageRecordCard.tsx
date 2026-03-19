@@ -130,7 +130,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   };
 
   // Format credits
-  const formatCredits = (credits: number, decimals: number = 1): string => {
+  const formatCredits = (credits: number, decimals: number = 2): string => {
     return credits.toFixed(decimals);
   };
 
