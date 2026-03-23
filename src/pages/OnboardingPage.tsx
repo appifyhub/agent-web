@@ -5,11 +5,13 @@ import { t } from "@/lib/translations";
 import { PageError, cn } from "@/lib/utils";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useUserSettings } from "@/hooks/useUserSettings";
+import { useExternalTools } from "@/hooks/useExternalTools";
 import { useNavigation } from "@/hooks/useNavigation";
 import {
   saveUserSettings,
   UserSettingsPayload,
 } from "@/services/user-settings-service";
+import { IntelligencePreset } from "@/services/external-tools-service";
 import { clearUserSettingsCache } from "@/services/user-settings-cache";
 import { computePresetChoices } from "@/lib/tool-presets";
 import { ApiError } from "@/lib/api-error";
@@ -39,7 +41,6 @@ import {
   CircleCheck,
 } from "lucide-react";
 
-type OnboardingPreset = "lowest_price" | "highest_price" | "agent_choice";
 type AccessChoice = "api_keys" | "credits";
 
 const TOTAL_STEPS = 4;
@@ -63,10 +64,12 @@ const OnboardingPage: React.FC = () => {
   const { navigateToAccess, navigateToPurchases, navigateToSponsorships } =
     useNavigation();
 
+  const { externalTools } = useExternalTools(user_id, accessToken?.raw);
+
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
   const [fullName, setFullName] = useState("");
   const [aboutMe, setAboutMe] = useState("");
-  const [selectedPreset, setSelectedPreset] = useState<OnboardingPreset | null>(
+  const [selectedPreset, setSelectedPreset] = useState<IntelligencePreset | null>(
     "agent_choice",
   );
   const [accessChoice, setAccessChoice] = useState<AccessChoice | null>(null);
@@ -99,6 +102,7 @@ const OnboardingPage: React.FC = () => {
   const canFinish =
     isPolicyAccepted &&
     selectedPreset !== null &&
+    !!externalTools?.presets &&
     (isSponsored || accessChoice !== null) &&
     currentStep === TOTAL_STEPS - 1;
 
@@ -106,14 +110,15 @@ const OnboardingPage: React.FC = () => {
   const handlePrev = () => carouselApi?.scrollPrev();
 
   const handleFinish = async () => {
-    if (!user_id || !accessToken || !selectedPreset) return;
+    const presets = externalTools?.presets;
+    if (!user_id || !accessToken || !selectedPreset || !presets) return;
     if (!isSponsored && !accessChoice) return;
 
     setIsLoadingState(true);
     setError(null);
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-      const presetChoices = computePresetChoices(selectedPreset);
+      const presetChoices = computePresetChoices(selectedPreset, presets);
 
       const payload: UserSettingsPayload = { are_policies_accepted: true };
       if (fullName.trim()) payload.full_name = fullName.trim();
@@ -298,7 +303,7 @@ const OnboardingPage: React.FC = () => {
                   <SettingSelector
                     label={t("intelligence_presets.label")}
                     value={selectedPreset ?? undefined}
-                    onChange={(v) => setSelectedPreset(v as OnboardingPreset)}
+                    onChange={(v) => setSelectedPreset(v as IntelligencePreset)}
                     disabled={!!error?.isBlocker || !isPolicyAccepted}
                     options={[
                       {
