@@ -138,7 +138,7 @@ const OnboardingPage: React.FC = () => {
       });
 
       if (remoteSettings) {
-        updateSettingsCache({ ...remoteSettings, are_policies_accepted: true });
+        updateSettingsCache({ ...remoteSettings, ...payload });
       } else {
         clearUserSettingsCache(user_id);
       }
