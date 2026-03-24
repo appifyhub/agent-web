@@ -59,9 +59,13 @@ export interface ExternalToolProviderResponse {
   is_configured: boolean;
 }
 
+export type IntelligencePreset = "lowest_price" | "highest_price" | "agent_choice";
+export type PresetChoices = Partial<Record<ToolType, string>>;
+
 export interface ExternalToolsResponse {
   tools: ExternalToolResponse[];
   providers: ExternalToolProviderResponse[];
+  presets: Record<IntelligencePreset, PresetChoices>;
 }
 
 export async function fetchExternalTools({

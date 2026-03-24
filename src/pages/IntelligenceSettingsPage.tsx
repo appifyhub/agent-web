@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
@@ -24,11 +24,8 @@ import {
   areSettingsChanged,
 } from "@/services/user-settings-service";
 import { useUserSettings } from "@/hooks/useUserSettings";
-import {
-  fetchExternalTools,
-  ExternalToolsResponse,
-  ToolType,
-} from "@/services/external-tools-service";
+import { useExternalTools } from "@/hooks/useExternalTools";
+import { ToolType } from "@/services/external-tools-service";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useNavigation } from "@/hooks/useNavigation";
 import {
@@ -53,60 +50,37 @@ const IntelligenceSettingsPage: React.FC = () => {
     accessToken?.raw,
   );
 
+  const {
+    externalTools: externalToolsData,
+    isLoading: isExternalToolsLoading,
+    refreshExternalTools,
+  } = useExternalTools(user_id, accessToken?.raw);
+
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
-  const [externalToolsData, setExternalToolsData] =
-    useState<ExternalToolsResponse | null>(null);
   const [openAccordionSection, setOpenAccordionSection] = useState<string>("");
-  const [selectedPreset, setSelectedPreset] = useState<ToolPreset>("custom");
+  const [selectedPreset, setSelectedPreset] = useState<ToolPreset | null>(null);
   const [isWarningDismissed, setIsWarningDismissed] = useState(false);
 
   // Initialize local editing state when remote settings first load
   useEffect(() => {
     if (remoteSettings && !userSettings) {
       setUserSettings(remoteSettings);
-      setSelectedPreset(detectCurrentPreset(remoteSettings));
     }
   }, [remoteSettings, userSettings]);
 
-  // Fetch external tools and check sponsorship when session and settings are ready
+  // Detect current preset when both settings and presets are available (only on initial load)
   useEffect(() => {
-    if (!accessToken || !user_id || error?.isBlocker || !remoteSettings) return;
-
-    if (remoteSettings.is_sponsored) {
-      setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
-      return;
+    if (remoteSettings && externalToolsData?.presets && selectedPreset === null) {
+      setSelectedPreset(detectCurrentPreset(remoteSettings, externalToolsData.presets));
     }
+  }, [remoteSettings, externalToolsData, selectedPreset]);
 
-    const fetchData = async () => {
-      setIsLoadingState(true);
-      setError(null);
-      try {
-        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-        const externalTools = await fetchExternalTools({
-          apiBaseUrl,
-          user_id,
-          rawToken: accessToken.raw,
-        });
-        console.info("Fetched external tools!", externalTools);
-        setExternalToolsData(externalTools);
-      } catch (err) {
-        console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
-      } finally {
-        setIsLoadingState(false);
-      }
-    };
-
-    fetchData();
-  }, [
-    accessToken,
-    user_id,
-    lang_iso_code,
-    error,
-    setError,
-    setIsLoadingState,
-    remoteSettings,
-  ]);
+  // Check sponsorship and set blocker error if sponsored
+  useEffect(() => {
+    if (remoteSettings?.is_sponsored && !error?.isBlocker) {
+      setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
+    }
+  }, [remoteSettings, lang_iso_code, user_id, error, setError]);
 
   const hasSettingsChanged = !!(
     userSettings &&
@@ -114,8 +88,13 @@ const IntelligenceSettingsPage: React.FC = () => {
     areSettingsChanged(userSettings, remoteSettings)
   );
 
+  const remotePreset = useMemo(() => {
+    if (!remoteSettings || !externalToolsData?.presets) return null;
+    return detectCurrentPreset(remoteSettings, externalToolsData.presets);
+  }, [remoteSettings, externalToolsData?.presets]);
+
   const handleSave = async () => {
-    if (!userSettings || !remoteSettings || !user_id || !accessToken) return;
+    if (!userSettings || !remoteSettings || !user_id || !accessToken || !externalToolsData) return;
 
     // Save current scroll position
     const scrollPosition = window.scrollY;
@@ -136,15 +115,10 @@ const IntelligenceSettingsPage: React.FC = () => {
       });
 
       // Refetch external tools data to get updated is_configured status
-      const updatedExternalTools = await fetchExternalTools({
-        apiBaseUrl,
-        user_id,
-        rawToken: accessToken.raw,
-      });
+      await refreshExternalTools();
 
       updateSettingsCache(userSettings!);
-      setExternalToolsData(updatedExternalTools);
-      setSelectedPreset(detectCurrentPreset(userSettings));
+      setSelectedPreset(detectCurrentPreset(userSettings, externalToolsData.presets));
       toast(t("saved"));
 
       // Restore scroll position after state updates
@@ -163,7 +137,7 @@ const IntelligenceSettingsPage: React.FC = () => {
     const typedPreset = preset as ToolPreset;
     setSelectedPreset(typedPreset);
     if (typedPreset === "custom" || !userSettings || !externalToolsData) return;
-    const choices = computePresetChoices(typedPreset);
+    const choices = computePresetChoices(typedPreset, externalToolsData.presets);
     const newSettings = { ...userSettings };
     for (const [toolType, toolId] of Object.entries(choices)) {
       const fieldName = `tool_choice_${toolType}` as keyof UserSettings;
@@ -177,13 +151,13 @@ const IntelligenceSettingsPage: React.FC = () => {
     const fieldName = `tool_choice_${toolType}` as keyof UserSettings;
     const newSettings = { ...userSettings, [fieldName]: toolId };
     setUserSettings(newSettings);
-    setSelectedPreset(detectCurrentPreset(newSettings));
+    setSelectedPreset(detectCurrentPreset(newSettings, externalToolsData.presets));
   };
 
   const handleRestoreSettings = () => {
     if (!remoteSettings || !externalToolsData) return;
     setUserSettings(remoteSettings);
-    setSelectedPreset(detectCurrentPreset(remoteSettings));
+    setSelectedPreset(detectCurrentPreset(remoteSettings, externalToolsData.presets));
   };
 
   const handleProviderNavigate = (providerId: string) => {
@@ -212,7 +186,7 @@ const IntelligenceSettingsPage: React.FC = () => {
       onCancelClicked={handleRestoreSettings}
       cancelIcon={<Undo2 className="h-6 w-6" />}
       cancelTooltipText={t("restore")}
-      isContentLoading={isLoadingState}
+      isContentLoading={isLoadingState || isExternalToolsLoading}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
       topBanner={
@@ -237,10 +211,10 @@ const IntelligenceSettingsPage: React.FC = () => {
           <div className="flex flex-col items-center gap-4">
             <SettingSelector
               label={t("intelligence_presets.label")}
-              value={selectedPreset}
+              value={selectedPreset ?? undefined}
               onChange={handlePresetChange}
               onUndo={
-                remoteSettings && selectedPreset !== detectCurrentPreset(remoteSettings)
+                selectedPreset !== null && selectedPreset !== remotePreset
                   ? handleRestoreSettings
                   : undefined
               }
