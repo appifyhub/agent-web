@@ -1,4 +1,5 @@
 import React, {
+  useRef,
   useState,
   useImperativeHandle,
   forwardRef,
@@ -21,6 +22,7 @@ import { useUserSettings } from "@/hooks/useUserSettings";
 import { useNavigation } from "@/hooks/useNavigation";
 import { ChatInfo } from "@/services/user-settings-service";
 import { PageError, cn } from "@/lib/utils";
+import { useIsSticky } from "@/hooks/useIsSticky";
 
 type Page =
   | "sponsorships"
@@ -141,6 +143,8 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     const { chats } = useChats(accessToken?.decoded?.sub, accessToken?.raw);
 
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const stickySentinelRef = useRef<HTMLDivElement>(null);
+    const isActionBarSticky = useIsSticky(stickySentinelRef);
 
     useImperativeHandle(ref, () => ({
       openDrawer: () => setDrawerOpen(true),
@@ -207,36 +211,48 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
               {topBanner}
               {topBanner && <div className="h-8" />}
 
+              {/* Sentinel for sticky detection */}
+              <div ref={stickySentinelRef} className="h-px" />
+
               {/* The Session Expiry timer and Action buttons */}
-              <SettingActionBar
-                expiryTimestamp={accessToken?.decoded?.exp || 0}
-                onTokenExpired={handleTokenExpired}
-                onActionClicked={onActionClicked}
-                actionDisabled={
-                  actionDisabled || isLoadingState || !!displayError?.isBlocker
-                }
-                showActionButton={showActionButton}
-                actionIcon={actionIcon}
-                actionButtonText={actionButtonText}
-                showSecondaryButton={showSecondaryButton}
-                onSecondaryClicked={onSecondaryClicked}
-                secondaryDisabled={
-                  secondaryDisabled ||
-                  isLoadingState ||
-                  !!displayError?.isBlocker
-                }
-                secondaryIcon={secondaryIcon}
-                secondaryText={secondaryText}
-                secondaryTooltipText={secondaryTooltipText}
-                secondaryClassName={secondaryClassName}
-                showCancelButton={showCancelButton}
-                onCancelClicked={onCancelClicked}
-                cancelDisabled={
-                  cancelDisabled || isLoadingState || !!displayError?.isBlocker
-                }
-                cancelIcon={cancelIcon}
-                cancelTooltipText={cancelTooltipText}
-              />
+              <div
+                className={cn(
+                  "sticky top-0 z-30 transition-all duration-200 ease-in-out",
+                  isActionBarSticky
+                    ? "glass-dark-static rounded-b-2xl py-3 px-4 -mx-4 sm:-mx-6 lg:-mx-8 shadow-lg shadow-black/40"
+                    : "",
+                )}
+              >
+                <SettingActionBar
+                  expiryTimestamp={accessToken?.decoded?.exp || 0}
+                  onTokenExpired={handleTokenExpired}
+                  onActionClicked={onActionClicked}
+                  actionDisabled={
+                    actionDisabled || isLoadingState || !!displayError?.isBlocker
+                  }
+                  showActionButton={showActionButton}
+                  actionIcon={actionIcon}
+                  actionButtonText={actionButtonText}
+                  showSecondaryButton={showSecondaryButton}
+                  onSecondaryClicked={onSecondaryClicked}
+                  secondaryDisabled={
+                    secondaryDisabled ||
+                    isLoadingState ||
+                    !!displayError?.isBlocker
+                  }
+                  secondaryIcon={secondaryIcon}
+                  secondaryText={secondaryText}
+                  secondaryTooltipText={secondaryTooltipText}
+                  secondaryClassName={secondaryClassName}
+                  showCancelButton={showCancelButton}
+                  onCancelClicked={onCancelClicked}
+                  cancelDisabled={
+                    cancelDisabled || isLoadingState || !!displayError?.isBlocker
+                  }
+                  cancelIcon={cancelIcon}
+                  cancelTooltipText={cancelTooltipText}
+                />
+              </div>
 
               {/* The Settings card */}
               <Card
