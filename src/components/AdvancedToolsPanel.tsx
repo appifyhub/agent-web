@@ -11,7 +11,7 @@ import {
   DatabaseZap,
   Euro,
   Bitcoin,
-  Twitter,
+  Bird,
   BookOpenText,
   BrainCog,
   Image,
@@ -205,7 +205,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
       embedding: DatabaseZap,
       api_fiat_exchange: Euro,
       api_crypto_exchange: Bitcoin,
-      api_twitter: Twitter,
+      api_twitter: Bird,
     };
     return iconMap[toolType];
   };
