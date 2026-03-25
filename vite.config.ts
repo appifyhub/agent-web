@@ -15,32 +15,28 @@ export default defineConfig({
     chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
-        manualChunks: {
-          "vendor-react": ["react", "react-dom", "react-router-dom"],
-          "vendor-radix": [
-            "radix-ui",
-            "@radix-ui/react-accordion",
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-dropdown-menu",
-            "@radix-ui/react-label",
-            "@radix-ui/react-navigation-menu",
-            "@radix-ui/react-select",
-            "@radix-ui/react-slot",
-            "@radix-ui/react-switch",
-            "@radix-ui/react-tabs",
-            "@radix-ui/react-tooltip",
-          ],
-          "vendor-ui": [
-            "lucide-react",
-            "sonner",
-            "tailwind-merge",
-            "clsx",
-            "class-variance-authority",
-            "embla-carousel-react",
-            "vaul",
-            "next-themes",
-            "input-otp",
-          ],
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react-dom") || id.includes("react-router-dom") || id.match(/\/react\//)) {
+              return "vendor-react";
+            }
+            if (id.includes("radix-ui")) {
+              return "vendor-radix";
+            }
+            if (
+              id.includes("lucide-react") ||
+              id.includes("sonner") ||
+              id.includes("tailwind-merge") ||
+              id.includes("clsx") ||
+              id.includes("class-variance-authority") ||
+              id.includes("embla-carousel-react") ||
+              id.includes("vaul") ||
+              id.includes("next-themes") ||
+              id.includes("input-otp")
+            ) {
+              return "vendor-ui";
+            }
+          }
         },
       },
     },

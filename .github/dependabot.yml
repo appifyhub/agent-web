@@ -11,6 +11,13 @@ updates:
       npm-all:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "typescript"
+        versions: [">=6.0.0"]
+      - dependency-name: "eslint"
+        versions: [">=10.0.0"]
+      - dependency-name: "@eslint/js"
+        versions: [">=10.0.0"]
     open-pull-requests-limit: 5
     rebase-strategy: "auto"
     labels:
