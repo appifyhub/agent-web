@@ -2,6 +2,19 @@ import { request } from "@/services/networking";
 import { ExternalTool, ToolType } from "@/services/external-tools-service";
 import { parseApiError } from "@/lib/api-error";
 
+export interface ParticipantInfo {
+  user_id: string;
+  full_name: string | null;
+  platform: string | null;
+  handle: string | null;
+}
+
+export interface ParticipantDetails {
+  payer: ParticipantInfo;
+  owner: ParticipantInfo;
+  counterpart: ParticipantInfo | null;
+}
+
 export interface UsageRecord {
   user_id: string;
   payer_id: string;
@@ -24,6 +37,9 @@ export interface UsageRecord {
   output_image_sizes?: string[];
   input_image_sizes?: string[];
   is_failed: boolean;
+  participant_details?: ParticipantDetails;
+  counterpart_id?: string;
+  note?: string;
 }
 
 export interface AggregateStats {
@@ -63,6 +79,8 @@ export interface UsageRecordsParams {
   end_date?: string;
   exclude_self?: boolean;
   include_sponsored?: boolean;
+  include_transfers?: boolean;
+  only_transfers?: boolean;
   tool_id?: string;
   purpose?: string;
   provider_id?: string;
@@ -76,6 +94,8 @@ export interface UsageStatsParams {
   end_date?: string;
   exclude_self?: boolean;
   include_sponsored?: boolean;
+  include_transfers?: boolean;
+  only_transfers?: boolean;
   tool_id?: string;
   purpose?: string;
   provider_id?: string;
@@ -102,6 +122,8 @@ export async function fetchUsageRecords({
   end_date,
   exclude_self,
   include_sponsored,
+  include_transfers,
+  only_transfers,
   tool_id,
   purpose,
   provider_id,
@@ -117,6 +139,8 @@ export async function fetchUsageRecords({
     end_date,
     exclude_self,
     include_sponsored,
+    include_transfers,
+    only_transfers,
     tool_id,
     purpose,
     provider_id,
@@ -142,6 +166,8 @@ export async function fetchUsageStats({
   end_date,
   exclude_self,
   include_sponsored,
+  include_transfers,
+  only_transfers,
   tool_id,
   purpose,
   provider_id,
@@ -155,6 +181,8 @@ export async function fetchUsageStats({
     end_date,
     exclude_self,
     include_sponsored,
+    include_transfers,
+    only_transfers,
     tool_id,
     purpose,
     provider_id,

@@ -15,6 +15,7 @@ export type ToolType =
   | "api_fiat_exchange"
   | "api_crypto_exchange"
   | "api_twitter"
+  | "credit_transfer"
   | "deprecated";
 
 export interface CostEstimate {

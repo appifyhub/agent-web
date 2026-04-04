@@ -8,6 +8,7 @@ import CoinMarketCapLogo from "@/assets/svg/coinmarketcap-white.svg";
 import ReplicateLogo from "@/assets/svg/replicate-white.svg";
 import XLogo from "@/assets/svg/x-logo-white.svg";
 import XAILogo from "@/assets/svg/x-ai-logo-white.svg";
+import InternalLogo from "@/assets/logo-monochrome-vector.svg";
 import PlatformIcon from "@/components/PlatformIcon";
 import { Platform } from "@/lib/platform";
 
@@ -33,6 +34,7 @@ const ProviderIcon: React.FC<ProviderIconProps> = ({
       replicate: ReplicateLogo,
       x: XLogo,
       x_ai: XAILogo,
+      internal: InternalLogo,
     };
     return logoMap[id] || null;
   };

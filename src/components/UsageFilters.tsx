@@ -34,6 +34,10 @@ interface UsageFiltersProps {
   onIncludeSponsoredChange: (value: boolean) => void;
   excludeSelf: boolean;
   onExcludeSelfChange: (value: boolean) => void;
+  includeTransfers: boolean;
+  onIncludeTransfersChange: (value: boolean) => void;
+  onlyTransfers: boolean;
+  onOnlyTransfersChange: (value: boolean) => void;
   stats: UsageAggregatesResponse;
   disabled?: boolean;
   isExpanded?: boolean;
@@ -53,6 +57,10 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
   onIncludeSponsoredChange,
   excludeSelf,
   onExcludeSelfChange,
+  includeTransfers,
+  onIncludeTransfersChange,
+  onlyTransfers,
+  onOnlyTransfersChange,
   stats,
   disabled = false,
   isExpanded: externalIsExpanded,
@@ -95,19 +103,6 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
           {t("usage.filters.scope_section")}
         </h3>
 
-        <InlineSettingSelector
-          label={t("usage.filters.time_range_label")}
-          value={timeRange}
-          onChange={(value) => onTimeRangeChange(value as TimeRange)}
-          options={timeRangeOptions.map((opt) => ({
-            ...opt,
-            disabled: opt.value === timeRange,
-          }))}
-          disabled={disabled}
-          placeholder={disabled ? "—" : t("usage.filters.time_range_all")}
-          className="-mt-2"
-        />
-
         <SettingToggle
           id="include-sponsored"
           label={t("usage.filters.include_sponsored_label")}
@@ -125,12 +120,46 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
             disabled={disabled}
           />
         )}
+
+        <SettingToggle
+          id="include-transfers"
+          label={t("usage.filters.include_transfers_label")}
+          checked={includeTransfers}
+          onChange={(value) => {
+            onIncludeTransfersChange(value);
+            if (!value) onOnlyTransfersChange(false);
+          }}
+          disabled={disabled || onlyTransfers}
+        />
+
+        {includeTransfers && (
+          <SettingToggle
+            id="only-transfers"
+            label={t("usage.filters.only_transfers_label")}
+            checked={onlyTransfers}
+            onChange={onOnlyTransfersChange}
+            disabled={disabled}
+          />
+        )}
       </div>
 
       <div className="border-1 border-muted-foreground/30 rounded-xl space-y-4 p-[1rem]">
         <h3 className="text-md font-medium text-blue-300/80 uppercase truncate">
           {t("usage.filters.filters_section")}
         </h3>
+
+        <InlineSettingSelector
+          label={t("usage.filters.time_range_label")}
+          value={timeRange}
+          onChange={(value) => onTimeRangeChange(value as TimeRange)}
+          options={timeRangeOptions.map((opt) => ({
+            ...opt,
+            disabled: opt.value === timeRange,
+          }))}
+          disabled={disabled}
+          placeholder={disabled ? "—" : t("usage.filters.time_range_all")}
+          className="-mt-2"
+        />
 
         <InlineSettingSelector
           label={t("usage.filters.tool_label")}

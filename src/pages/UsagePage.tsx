@@ -12,10 +12,6 @@ import {
 } from "@/services/usage-service";
 import { fetchProducts, Product } from "@/services/purchase-service";
 import ProductPickerDialog from "@/components/ProductPickerDialog";
-import {
-  fetchUserSponsorships,
-  SponsorshipResponse,
-} from "@/services/sponsorships-service";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useChats } from "@/hooks/useChats";
 import { useUserSettings } from "@/hooks/useUserSettings";
@@ -60,7 +56,6 @@ const UsagePage: React.FC = () => {
   }, [user_id]);
 
   const [usageRecords, setUsageRecords] = useState<UsageRecord[]>([]);
-  const [sponsorships, setSponsorships] = useState<SponsorshipResponse[]>([]);
   const [stats, setStats] = useState<UsageAggregatesResponse | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -72,6 +67,8 @@ const UsagePage: React.FC = () => {
   const [selectedProvider, setSelectedProvider] = useState<string>("all");
   const [includeSponsored, setIncludeSponsored] = useState<boolean>(true);
   const [excludeSelf, setExcludeSelf] = useState<boolean>(false);
+  const [includeTransfers, setIncludeTransfers] = useState<boolean>(true);
+  const [onlyTransfers, setOnlyTransfers] = useState<boolean>(false);
   const [filtersExpanded, setFiltersExpanded] = useState<boolean>(false);
 
   const currentInterfaceLanguage =
@@ -107,7 +104,7 @@ const UsagePage: React.FC = () => {
 
         const dateRange = getDateRange(timeRange);
 
-        const [records, statsData, sponsorshipsData] = await Promise.all([
+        const [records, statsData] = await Promise.all([
           fetchUsageRecords({
             apiBaseUrl,
             user_id,
@@ -115,6 +112,8 @@ const UsagePage: React.FC = () => {
             limit: RECORDS_PER_PAGE + 1,
             include_sponsored: includeSponsored,
             exclude_self: excludeSelf,
+            include_transfers: includeTransfers,
+            only_transfers: onlyTransfers,
             tool_id: selectedTool !== "all" ? selectedTool : undefined,
             purpose: selectedPurpose !== "all" ? selectedPurpose : undefined,
             provider_id: selectedProvider !== "all" ? selectedProvider : undefined,
@@ -127,25 +126,20 @@ const UsagePage: React.FC = () => {
             rawToken: accessToken.raw,
             include_sponsored: includeSponsored,
             exclude_self: excludeSelf,
+            include_transfers: includeTransfers,
+            only_transfers: onlyTransfers,
             tool_id: selectedTool !== "all" ? selectedTool : undefined,
             purpose: selectedPurpose !== "all" ? selectedPurpose : undefined,
             provider_id: selectedProvider !== "all" ? selectedProvider : undefined,
             start_date: dateRange.start?.toISOString(),
             end_date: dateRange.end?.toISOString(),
           }),
-          fetchUserSponsorships({
-            apiBaseUrl,
-            resource_id: user_id,
-            rawToken: accessToken.raw,
-          }),
         ]);
 
         console.info("Fetched usage records!", records.length);
         console.info("Fetched usage stats!", statsData);
-        console.info("Fetched sponsorships!", sponsorshipsData);
 
         setStats(statsData);
-        setSponsorships(sponsorshipsData.sponsorships);
 
         if (records.length > RECORDS_PER_PAGE) {
           setUsageRecords(records.slice(0, RECORDS_PER_PAGE));
@@ -175,6 +169,8 @@ const UsagePage: React.FC = () => {
     selectedProvider,
     includeSponsored,
     excludeSelf,
+    includeTransfers,
+    onlyTransfers,
   ]);
 
   const getDateRange = (range: TimeRange): { start: Date | null; end: Date | null } => {
@@ -238,6 +234,8 @@ const UsagePage: React.FC = () => {
         limit: RECORDS_PER_PAGE + 1,
         include_sponsored: includeSponsored,
         exclude_self: excludeSelf,
+        include_transfers: includeTransfers,
+        only_transfers: onlyTransfers,
         tool_id: selectedTool !== "all" ? selectedTool : undefined,
         purpose: selectedPurpose !== "all" ? selectedPurpose : undefined,
         provider_id: selectedProvider !== "all" ? selectedProvider : undefined,
@@ -319,6 +317,10 @@ const UsagePage: React.FC = () => {
           onProviderChange={setSelectedProvider}
           onIncludeSponsoredChange={setIncludeSponsored}
           onExcludeSelfChange={setExcludeSelf}
+          includeTransfers={includeTransfers}
+          onIncludeTransfersChange={setIncludeTransfers}
+          onlyTransfers={onlyTransfers}
+          onOnlyTransfersChange={setOnlyTransfers}
           stats={stats}
           disabled={isLoadingState}
           isExpanded={filtersExpanded}
@@ -361,7 +363,6 @@ const UsagePage: React.FC = () => {
                     isSingleItem={usageRecords.length === 1}
                     currentUserId={accessToken?.decoded?.sub || ""}
                     chats={chats}
-                    sponsorships={sponsorships}
                     locale={currentInterfaceLanguage.isoCode}
                   />
                 );

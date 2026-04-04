@@ -1,11 +1,10 @@
 import React from "react";
-import { ChevronDown, BadgeCent, Gift, Key, Clock, XCircle } from "lucide-react";
+import { ChevronDown, BadgeCent, Gift, Key, Clock, XCircle, SquareArrowRightExit, SquareArrowRightEnter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import { TranslationKey } from "@/lib/translation-keys";
 import { UsageRecord } from "@/services/usage-service";
 import { ChatInfo } from "@/services/user-settings-service";
-import { SponsorshipResponse } from "@/services/sponsorships-service";
 import { Badge } from "@/components/ui/badge";
 import ProviderIcon from "@/components/ProviderIcon";
 
@@ -18,7 +17,6 @@ interface UsageRecordCardProps {
   isSingleItem: boolean;
   currentUserId: string;
   chats?: ChatInfo[];
-  sponsorships?: SponsorshipResponse[];
   locale: string;
 }
 
@@ -31,7 +29,6 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   isSingleItem,
   currentUserId,
   chats,
-  sponsorships,
   locale,
 }) => {
   // Border/rounded classes
@@ -67,6 +64,11 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   const isSponsoredByOthersForMe = normalizedPayerId !== normalizedUserId && normalizedUserId === normalizedCurrentId;
   const isSponsoredByMeForOthers = normalizedPayerId === normalizedCurrentId && normalizedUserId !== normalizedCurrentId;
 
+  const isTransfer = record.tool_purpose === "credit_transfer";
+  const normalizedCounterpartId = record.counterpart_id?.replace(/-/g, "") ?? "";
+  const isTransferReceived = isTransfer && normalizedCounterpartId === normalizedCurrentId;
+  const isTransferSent = isTransfer && !isTransferReceived;
+
   // Get translated purpose title
   const getPurposeTitle = (): string => {
     const key = `tools.types.${record.tool_purpose}.title` as TranslationKey;
@@ -84,14 +86,8 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
 
     let displayName = t("usage.context_ids.user_me");
     if (!isCurrentUserRecord) {
-      displayName = t("usage.context_ids.user_sponsored");
-      const sponsorship = sponsorships?.find(
-        (s) => s.user_id_hex.replace(/-/g, "") === normalizedRecordId
-      );
-
-      if (sponsorship) {
-        displayName = sponsorship.full_name || sponsorship.platform_handle || displayName;
-      }
+      const owner = record.participant_details?.owner;
+      displayName = owner?.full_name || owner?.handle || t("usage.context_ids.user_sponsored");
     }
 
     return (
@@ -105,6 +101,23 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
         )}
       </span>
     );
+  };
+
+  const middleTruncateId = (id: string): string => {
+    if (id.length <= 16) return id;
+    return `${id.slice(0, 8)}…${id.slice(-6)}`;
+  };
+
+  const getOwnerDisplay = (): string => {
+    const owner = record.participant_details?.owner;
+    if (!owner) return "—";
+    return owner.full_name || owner.handle || middleTruncateId(owner.user_id);
+  };
+
+  const getCounterpartDisplay = (): string | null => {
+    const cp = record.participant_details?.counterpart;
+    if (!cp) return null;
+    return cp.full_name || cp.handle || middleTruncateId(cp.user_id);
   };
 
   // Get chat display - try to find chat name from chats list
@@ -126,7 +139,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
 
   // Format runtime
   const formatRuntime = (seconds: number): string => {
-    return `${seconds.toFixed(1)}s`;
+    return `${seconds.toFixed(2)}s`;
   };
 
   // Format credits
@@ -179,12 +192,30 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
         </div>
 
         <div className="flex flex-col flex-1 min-w-0 pr-4 md:px-4">
-          <span className={cn("text-md font-medium truncate", record.is_failed && "line-through")}>
-            {record.tool.name}
-          </span>
-          <span className={cn("text-sm text-muted-foreground truncate", record.is_failed && "line-through")}>
-            {getPurposeTitle()}
-          </span>
+          {isTransfer ? (
+            <>
+              <span className="text-md font-medium truncate">
+                {getPurposeTitle()}
+              </span>
+              <span className="text-sm text-muted-foreground truncate flex items-center gap-1">
+                {isTransferSent ? (
+                  <SquareArrowRightExit className="h-3.5 w-3.5 text-red-400 shrink-0" />
+                ) : (
+                  <SquareArrowRightEnter className="h-3.5 w-3.5 text-green-200 shrink-0 -scale-x-100" />
+                )}
+                {getOwnerDisplay()}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className={cn("text-md font-medium truncate", record.is_failed && "line-through")}>
+                {record.tool.name}
+              </span>
+              <span className={cn("text-sm text-muted-foreground truncate", record.is_failed && "line-through")}>
+                {getPurposeTitle()}
+              </span>
+            </>
+          )}
         </div>
 
         <div className="flex items-center space-x-3 shrink-0">
@@ -192,7 +223,14 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
             "flex items-center min-w-[4rem] justify-end",
             !isSponsoredByOthersForMe && "space-x-1"
           )}>
-            {isSponsoredByOthersForMe ? (
+            {isTransferReceived ? (
+              <>
+                <BadgeCent className="h-4 w-4 text-green-200" />
+                <span className="text-base font-medium font-mono text-green-200">
+                  +{formatCredits(record.total_cost_credits)}
+                </span>
+              </>
+            ) : isSponsoredByOthersForMe ? (
               <Gift className="h-4 w-4 text-blue-300" />
             ) : record.is_failed ? (
               <>
@@ -391,12 +429,30 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                 </span>
                 <span className="shrink-0">{getUserDisplayName()}</span>
               </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground shrink-0">
-                  {t("usage.context_ids.chat_label")}
-                </span>
-                <span className="min-w-0 truncate">{getChatDisplay()}</span>
-              </div>
+              {isTransfer && getCounterpartDisplay() && (
+                <div className="flex justify-between gap-4">
+                  <span className="text-muted-foreground min-w-0 truncate">
+                    {isTransferSent ? t("usage.transfer.to") : t("usage.transfer.from")}
+                  </span>
+                  <span className="shrink-0">{getCounterpartDisplay()}</span>
+                </div>
+              )}
+              {(!isTransfer || record.chat_id) && (
+                <div className="flex justify-between gap-4">
+                  <span className="text-muted-foreground shrink-0">
+                    {t("usage.context_ids.chat_label")}
+                  </span>
+                  <span className="min-w-0 truncate">{getChatDisplay()}</span>
+                </div>
+              )}
+              {isTransfer && record.note && (
+                <div className="flex justify-between gap-4">
+                  <span className="text-muted-foreground shrink-0">
+                    {t("usage.transfer.note")}
+                  </span>
+                  <span className="max-w-1/2 text-right break-words">{record.note}</span>
+                </div>
+              )}
               {record.remote_runtime_seconds != null && (
                 <div className="flex justify-between gap-4">
                   <span className="text-muted-foreground min-w-0 truncate">

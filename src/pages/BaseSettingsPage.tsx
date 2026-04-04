@@ -219,7 +219,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
                 className={cn(
                   "sticky top-0 z-30 transition-all duration-200 ease-in-out",
                   isActionBarSticky
-                    ? "glass-dark-static rounded-b-2xl py-3 px-4 -mx-4 sm:-mx-6 lg:-mx-8 shadow-lg shadow-black/40"
+                    ? "glass-dark-static rounded-2xl py-3 px-4 -mx-4 sm:-mx-6 lg:-mx-8 shadow-lg shadow-black/40"
                     : "",
                 )}
               >

@@ -80,11 +80,14 @@ const AccessSettingsPage: React.FC = () => {
           rawToken: accessToken.raw,
         });
         console.info("Fetched external tools!", externalTools);
+        const visibleProviders = externalTools.providers.filter(
+          (p) => p.definition.id !== "internal",
+        );
         setExternalToolProviders(
-          externalTools.providers.map((p) => p.definition),
+          visibleProviders.map((p) => p.definition),
         );
         const statusMap = new Map<string, boolean>();
-        externalTools.providers.forEach((p) => {
+        visibleProviders.forEach((p) => {
           statusMap.set(p.definition.id, p.is_configured);
         });
         setProviderConfigStatus(statusMap);
@@ -201,12 +204,15 @@ const AccessSettingsPage: React.FC = () => {
       });
 
       updateSettingsCache(userSettings!);
+      const updatedVisibleProviders = updatedExternalTools.providers.filter(
+        (p) => p.definition.id !== "internal",
+      );
       setExternalToolProviders(
-        updatedExternalTools.providers.map((p) => p.definition),
+        updatedVisibleProviders.map((p) => p.definition),
       );
       // Update provider configuration status
       const statusMap = new Map<string, boolean>();
-      updatedExternalTools.providers.forEach((p) => {
+      updatedVisibleProviders.forEach((p) => {
         statusMap.set(p.definition.id, p.is_configured);
       });
       setProviderConfigStatus(statusMap);

@@ -12,6 +12,7 @@ import {
   Euro,
   Bitcoin,
   Bird,
+  ArrowLeftRight,
   BookOpenText,
   BrainCog,
   Image,
@@ -89,6 +90,7 @@ const getToolGroupCategory = (toolType: ToolType): ToolGroupCategory => {
     api_fiat_exchange: "integrations",
     api_crypto_exchange: "integrations",
     api_twitter: "integrations",
+    credit_transfer: "integrations",
     deprecated: "integrations",
   };
   return categoryMap[toolType];
@@ -180,6 +182,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
       api_fiat_exchange: "integrations",
       api_crypto_exchange: "integrations",
       api_twitter: "integrations",
+      credit_transfer: "integrations",
     } as Record<ToolType, ToolGroupCategory>)
       .filter(([, cat]) => cat === category)
       .map(([type]) => type as ToolType);
@@ -206,6 +209,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
       api_fiat_exchange: Euro,
       api_crypto_exchange: Bitcoin,
       api_twitter: Bird,
+      credit_transfer: ArrowLeftRight,
     };
     return iconMap[toolType];
   };
