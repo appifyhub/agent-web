@@ -108,6 +108,11 @@
       "status_completed": "Tamamlandı",
       "status_failed": "Başarısız"
     },
+    "transfer": {
+      "to": "Kime",
+      "from": "Kimden",
+      "note": "Not"
+    },
     "load_more": "Daha fazla yükle",
     "credit_balance": "Sahip olduğum krediler: {balance}",
     "filters": {
@@ -135,7 +140,9 @@
       "show_scope_and_filters": "Kapsam ve filtreleri göster",
       "hide_scope_and_filters": "Kapsam ve filtreleri gizle",
       "include_sponsored_label": "Sponsorlu kullanıcıları dahil et",
-      "exclude_self_label": "Kullanımımı hariç tut"
+      "exclude_self_label": "Kullanımımı hariç tut",
+      "include_transfers_label": "Transferleri dahil et",
+      "only_transfers_label": "Sadece transferleri göster"
     },
     "stats": {
       "total_records": "Toplam Kayıt",
@@ -346,7 +353,6 @@
     "audio_transcription_failed": "Ses transkripsionu başarısız",
     "announcement_not_received": "AI duyurusu alınamadı",
     "user_limit_reached": "Kullanıcı limitine ulaşıldı",
-    "insufficient_credits": "Yetersiz kredi",
     "unsupported_chat_type": "Desteklenmeyen sohbet türü",
     "unsupported_provider": "Desteklenmeyen sağlayıcı",
     "missing_chat_context": "Sohbet bağlamı mevcut değil",
@@ -364,6 +370,12 @@
     "profile_connect_failed": "Profil bağlantısı başarısız",
     "unexpected_error": "Beklenmeyen bir hata oluştu",
     "policy_acceptance_revocation_forbidden": "Politika kabulü iptal edilemez",
+    "invalid_transfer_amount": "Transfer tutarı minimumun altında (1,0 kredi)",
+    "self_transfer_not_allowed": "Kendinize kredi transfer edemezsiniz",
+    "insufficient_credits": "Bu işlem için yetersiz kredi",
+    "sponsored_user_transfer_not_allowed": "Sponsorlu kullanıcılar kredi transferi gönderemez veya alamaz",
+    "transfer_recipient_not_found": "Transfer alıcısı bu platformda bulunamadı",
+    "transfer_failed": "Kredi transferi dahili bir hata nedeniyle başarısız oldu",
     "waitlist_account_not_active": "Hesabınız henüz aktif değil",
     "waitlist_invited_policies_required": "Davet hesabınızı etkinleştirmek için politikaları kabul edin"
   },
@@ -433,6 +445,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Twitter içeriğini okumak ve analiz etmek için erişim."
+      },
+      "credit_transfer": {
+        "title": "Kredi Transferi",
+        "description": "Kullanıcılar arasında kredi transferi için dahili araç."
       },
       "deprecated": {
         "title": "Kullanımdan Kaldırıldı",

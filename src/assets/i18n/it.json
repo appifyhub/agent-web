@@ -108,6 +108,11 @@
       "status_completed": "Completato",
       "status_failed": "Fallito"
     },
+    "transfer": {
+      "to": "A",
+      "from": "Da",
+      "note": "Nota"
+    },
     "load_more": "Carica altro",
     "credit_balance": "Crediti che possiedo: {balance}",
     "filters": {
@@ -135,7 +140,9 @@
       "show_scope_and_filters": "Mostra ambito e filtri",
       "hide_scope_and_filters": "Nascondi ambito e filtri",
       "include_sponsored_label": "Includi utenti sponsorizzati",
-      "exclude_self_label": "Escludi il mio utilizzo"
+      "exclude_self_label": "Escludi il mio utilizzo",
+      "include_transfers_label": "Includi trasferimenti",
+      "only_transfers_label": "Mostra solo trasferimenti"
     },
     "stats": {
       "total_records": "Totale record",
@@ -346,7 +353,6 @@
     "audio_transcription_failed": "Trascrizione audio non riuscita",
     "announcement_not_received": "Annuncio IA non ricevuto",
     "user_limit_reached": "Limite utenti raggiunto",
-    "insufficient_credits": "Crediti insufficienti",
     "unsupported_chat_type": "Tipo di chat non supportato",
     "unsupported_provider": "Provider non supportato",
     "missing_chat_context": "Il contesto della chat non è disponibile",
@@ -364,6 +370,12 @@
     "profile_connect_failed": "Connessione del profilo non riuscita",
     "unexpected_error": "Si è verificato un errore imprevisto",
     "policy_acceptance_revocation_forbidden": "L'accettazione delle politiche non può essere revocata",
+    "invalid_transfer_amount": "L'importo del trasferimento è inferiore al minimo (1,0 crediti)",
+    "self_transfer_not_allowed": "Non puoi trasferire crediti a te stesso",
+    "insufficient_credits": "Crediti insufficienti per questa operazione",
+    "sponsored_user_transfer_not_allowed": "Gli utenti sponsorizzati non possono inviare o ricevere trasferimenti di crediti",
+    "transfer_recipient_not_found": "Destinatario del trasferimento non trovato su questa piattaforma",
+    "transfer_failed": "Trasferimento crediti fallito a causa di un errore interno",
     "waitlist_account_not_active": "Il tuo account non è ancora attivo",
     "waitlist_invited_policies_required": "Accetta le politiche per attivare il tuo account invitato"
   },
@@ -479,6 +491,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Accesso per leggere e analizzare i contenuti di Twitter."
+      },
+      "credit_transfer": {
+        "title": "Trasferimento crediti",
+        "description": "Strumento interno per trasferire crediti tra utenti."
       },
       "deprecated": {
         "title": "Obsoleto",

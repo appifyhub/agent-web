@@ -108,6 +108,11 @@
       "status_completed": "पूर्ण",
       "status_failed": "विफल"
     },
+    "transfer": {
+      "to": "को",
+      "from": "से",
+      "note": "नोट"
+    },
     "load_more": "और लोड करें",
     "credit_balance": "मेरे पास क्रेडिट: {balance}",
     "filters": {
@@ -135,7 +140,9 @@
       "show_scope_and_filters": "दायरा और फ़िल्टर दिखाएं",
       "hide_scope_and_filters": "दायरा और फ़िल्टर छुपाएं",
       "include_sponsored_label": "प्रायोजित उपयोगकर्ताओं को शामिल करें",
-      "exclude_self_label": "मेरे उपयोग को बाहर करें"
+      "exclude_self_label": "मेरे उपयोग को बाहर करें",
+      "include_transfers_label": "ट्रांसफर शामिल करें",
+      "only_transfers_label": "केवल ट्रांसफर दिखाएं"
     },
     "stats": {
       "total_records": "कुल रिकॉर्ड",
@@ -346,7 +353,6 @@
     "audio_transcription_failed": "ऑडियो ट्रांसक्रिप्शन में विफल",
     "announcement_not_received": "AI घोषणा प्राप्त नहीं हुई",
     "user_limit_reached": "उपयोगकर्ता सीमा पूर्ण हो गई",
-    "insufficient_credits": "अपर्याप्त क्रेडिट",
     "unsupported_chat_type": "असमर्थित चैट प्रकार",
     "unsupported_provider": "असमर्थित प्रदाता",
     "missing_chat_context": "चैट संदर्भ उपलब्ध नहीं है",
@@ -364,6 +370,12 @@
     "profile_connect_failed": "प्रोफाइल कनेक्शन में विफल",
     "unexpected_error": "एक अप्रत्याशित त्रुटि हुई",
     "policy_acceptance_revocation_forbidden": "नीति स्वीकृति को रद्द नहीं किया जा सकता",
+    "invalid_transfer_amount": "ट्रांसफर राशि न्यूनतम से कम है (1.0 क्रेडिट)",
+    "self_transfer_not_allowed": "आप अपने आप को क्रेडिट ट्रांसफर नहीं कर सकते",
+    "insufficient_credits": "इस ऑपरेशन के लिए अपर्याप्त क्रेडिट",
+    "sponsored_user_transfer_not_allowed": "प्रायोजित उपयोगकर्ता क्रेडिट ट्रांसफर नहीं भेज या प्राप्त कर सकते",
+    "transfer_recipient_not_found": "इस प्लेटफ़ॉर्म पर ट्रांसफर प्राप्तकर्ता नहीं मिला",
+    "transfer_failed": "आंतरिक त्रुटि के कारण क्रेडिट ट्रांसफर विफल हुआ",
     "waitlist_account_not_active": "आपका खाता अभी सक्रिय नहीं है",
     "waitlist_invited_policies_required": "अपने आमंत्रित खाते को सक्रिय करने के लिए नीतियाँ स्वीकार करें"
   },
@@ -433,6 +445,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Twitter सामग्री पढ़ने और विश्लेषण करने के लिए पहुंच।"
+      },
+      "credit_transfer": {
+        "title": "क्रेडिट ट्रांसफर",
+        "description": "उपयोगकर्ताओं के बीच क्रेडिट ट्रांसफर करने के लिए आंतरिक उपकरण।"
       },
       "deprecated": {
         "title": "अप्रचलित",

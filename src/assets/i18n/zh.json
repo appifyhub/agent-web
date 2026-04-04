@@ -108,6 +108,11 @@
       "status_completed": "已完成",
       "status_failed": "失败"
     },
+    "transfer": {
+      "to": "发送至",
+      "from": "来自",
+      "note": "备注"
+    },
     "load_more": "加载更多",
     "credit_balance": "我拥有的积分：{balance}",
     "filters": {
@@ -135,7 +140,9 @@
       "show_scope_and_filters": "显示范围和筛选器",
       "hide_scope_and_filters": "隐藏范围和筛选器",
       "include_sponsored_label": "包括赞助用户",
-      "exclude_self_label": "排除我的使用"
+      "exclude_self_label": "排除我的使用",
+      "include_transfers_label": "包含转账",
+      "only_transfers_label": "仅显示转账"
     },
     "stats": {
       "total_records": "总记录数",
@@ -346,7 +353,6 @@
     "audio_transcription_failed": "音频转录失败",
     "announcement_not_received": "未收到AI公告",
     "user_limit_reached": "已达到用户限制",
-    "insufficient_credits": "积分不足",
     "unsupported_chat_type": "不支持的聊天类型",
     "unsupported_provider": "不支持的提供商",
     "missing_chat_context": "聊天上下文不可用",
@@ -364,6 +370,12 @@
     "profile_connect_failed": "配置文件连接失败",
     "unexpected_error": "发生意外错误",
     "policy_acceptance_revocation_forbidden": "无法撤销政策接受",
+    "invalid_transfer_amount": "转账金额低于最低限额（1.0积分）",
+    "self_transfer_not_allowed": "不能向自己转账积分",
+    "insufficient_credits": "积分不足，无法完成此操作",
+    "sponsored_user_transfer_not_allowed": "被赞助的用户无法发送或接收积分转账",
+    "transfer_recipient_not_found": "在此平台上未找到转账接收者",
+    "transfer_failed": "由于内部错误，积分转账失败",
     "waitlist_account_not_active": "您的账户尚未激活",
     "waitlist_invited_policies_required": "请接受政策以激活您的受邀账户"
   },
@@ -479,6 +491,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "访问以读取和分析Twitter内容。"
+      },
+      "credit_transfer": {
+        "title": "积分转账",
+        "description": "用于用户之间转移积分的内部工具。"
       },
       "deprecated": {
         "title": "已弃用",

@@ -100,7 +100,9 @@
       "show_scope_and_filters": "Prikaži opseg i filtere",
       "hide_scope_and_filters": "Sakrij opseg i filtere",
       "include_sponsored_label": "Uključi sponzorisane korisnike",
-      "exclude_self_label": "Isključi moje korišćenje"
+      "exclude_self_label": "Isključi moje korišćenje",
+      "include_transfers_label": "Uključi transfere",
+      "only_transfers_label": "Prikaži samo transfere"
     },
     "stats": {
       "total_records": "Ukupno zapisa",
@@ -144,6 +146,11 @@
       "status_label": "Status",
       "status_completed": "Uspešno",
       "status_failed": "Neuspešno"
+    },
+    "transfer": {
+      "to": "Za",
+      "from": "Od",
+      "note": "Napomena"
     },
     "load_more": "Učitaj još",
     "credit_balance": "Krediti koje posedujem: {balance}"
@@ -346,7 +353,6 @@
     "audio_transcription_failed": "Transkripcija zvuka nije uspela",
     "announcement_not_received": "AI obaveštenje nije primljeno",
     "user_limit_reached": "Dostignut je limit korisnika",
-    "insufficient_credits": "Nedovoljno kredita",
     "unsupported_chat_type": "Nepodržana vrsta četa",
     "unsupported_provider": "Nepodržan provajder",
     "missing_chat_context": "Kontekst četa nije dostupan",
@@ -364,6 +370,12 @@
     "profile_connect_failed": "Povezivanje profila nije uspelo",
     "unexpected_error": "Došlo je do neočekivane greške",
     "policy_acceptance_revocation_forbidden": "Prihvatanje politika se ne može opozvati",
+    "invalid_transfer_amount": "Iznos transfera je ispod minimuma (1,0 kredit)",
+    "self_transfer_not_allowed": "Ne možete preneti kredite sebi",
+    "insufficient_credits": "Nedovoljno kredita za ovu operaciju",
+    "sponsored_user_transfer_not_allowed": "Sponzorisani korisnici ne mogu slati ili primati transfere kredita",
+    "transfer_recipient_not_found": "Primalac transfera nije pronađen na ovoj platformi",
+    "transfer_failed": "Transfer kredita nije uspeo zbog interne greške",
     "waitlist_account_not_active": "Vaš nalog još nije aktivan",
     "waitlist_invited_policies_required": "Prihvatite politike da biste aktivirali pozvani nalog"
   },
@@ -479,6 +491,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Pristup za čitanje i analizu Twitter sadržaja."
+      },
+      "credit_transfer": {
+        "title": "Transfer kredita",
+        "description": "Interni alat za transfer kredita između korisnika."
       },
       "deprecated": {
         "title": "Zastarelo",
