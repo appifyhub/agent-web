@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
+import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import WarningBanner from "@/components/WarningBanner";
@@ -94,7 +95,11 @@ const AccessSettingsPage: React.FC = () => {
         hasLoadedOnce.current = true;
       } catch (err) {
         console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }
@@ -219,7 +224,11 @@ const AccessSettingsPage: React.FC = () => {
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        saveError instanceof ApiError
+          ? PageError.fromApiError(saveError)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }

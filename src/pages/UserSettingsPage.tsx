@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { usePageSession } from "@/hooks/usePageSession";
+import { ApiError } from "@/lib/api-error";
 import { PageError } from "@/lib/utils";
 import { toast } from "sonner";
 import { ChevronsRight } from "lucide-react";
@@ -70,7 +71,11 @@ const UserSettingsPage: React.FC = () => {
         setExternalToolProviders(externalTools.providers);
       } catch (err) {
         console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }
@@ -121,7 +126,11 @@ const UserSettingsPage: React.FC = () => {
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        saveError instanceof ApiError
+          ? PageError.fromApiError(saveError)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }

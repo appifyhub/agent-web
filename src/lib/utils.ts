@@ -64,7 +64,7 @@ export class PageError {
   public static fromApiError(
     apiError: ApiError,
     isBlocker: boolean = false,
-    showGenericAppendix: boolean = true
+    showGenericAppendix: boolean = false
   ) {
     const translationKey = getErrorTranslationKey(apiError.errorCode) || "errors.unknown";
     const variables = translationKey === "errors.unknown"

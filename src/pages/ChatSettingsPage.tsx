@@ -9,6 +9,7 @@ import type {
 } from "@/services/chat-settings-service";
 import SettingSelector from "@/components/SettingSelector";
 import { toast } from "sonner";
+import { ApiError } from "@/lib/api-error";
 import { PageError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import {
@@ -69,7 +70,11 @@ const ChatSettingsPage: React.FC = () => {
         setRemoteSettings(settings);
       } catch (err) {
         console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }
@@ -111,7 +116,11 @@ const ChatSettingsPage: React.FC = () => {
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        saveError instanceof ApiError
+          ? PageError.fromApiError(saveError)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
