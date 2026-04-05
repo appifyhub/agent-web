@@ -92,6 +92,10 @@ const UserSettingsPage: React.FC = () => {
           userSettings.about_me === undefined
             ? undefined
             : userSettings.about_me.trim(),
+        custom_prompt:
+          userSettings.custom_prompt === undefined
+            ? undefined
+            : userSettings.custom_prompt.trim(),
       };
 
       // Only send fields that have actually changed (smart diffing)
@@ -199,8 +203,44 @@ const UserSettingsPage: React.FC = () => {
                   name: userSettings?.full_name || t("about_me_name_fallback"),
                 })
           }
-          minRows={1}
-          maxRows={10}
+          minRows={2}
+          maxRows={6}
+          className="w-full sm:w-auto"
+        />
+
+        {/* Custom prompt textarea */}
+        <SettingTextarea
+          id="custom-prompt"
+          label={t("custom_prompt_label", { botName })}
+          value={userSettings?.custom_prompt || ""}
+          onChange={(value) =>
+            setUserSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    custom_prompt: value,
+                  }
+                : prev
+            )
+          }
+          onClear={() =>
+            setUserSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    custom_prompt: "",
+                  }
+                : prev
+            )
+          }
+          disabled={!!error?.isBlocker}
+          placeholder={
+            error?.isBlocker
+              ? "—"
+              : t("custom_prompt_placeholder", { botName })
+          }
+          minRows={2}
+          maxRows={6}
           className="w-full sm:w-auto"
         />
 

@@ -69,6 +69,7 @@ const OnboardingPage: React.FC = () => {
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
   const [fullName, setFullName] = useState("");
   const [aboutMe, setAboutMe] = useState("");
+  const [customPrompt, setCustomPrompt] = useState("");
   const [selectedPreset, setSelectedPreset] = useState<IntelligencePreset | null>(
     "agent_choice",
   );
@@ -80,6 +81,7 @@ const OnboardingPage: React.FC = () => {
     if (remoteSettings) {
       setFullName(remoteSettings.full_name || "");
       setAboutMe(remoteSettings.about_me || "");
+      setCustomPrompt(remoteSettings.custom_prompt || "");
     }
   }, [remoteSettings]);
 
@@ -123,6 +125,7 @@ const OnboardingPage: React.FC = () => {
       const payload: UserSettingsPayload = { are_policies_accepted: true };
       if (fullName.trim()) payload.full_name = fullName.trim();
       if (aboutMe.trim()) payload.about_me = aboutMe.trim();
+      if (customPrompt.trim()) payload.custom_prompt = customPrompt.trim();
 
       for (const [toolType, toolId] of Object.entries(presetChoices)) {
         const fieldName =
@@ -283,7 +286,23 @@ const OnboardingPage: React.FC = () => {
                           })
                         : "—"
                     }
-                    minRows={1}
+                    minRows={2}
+                    maxRows={6}
+                    className="w-full sm:w-auto"
+                  />
+                  <SettingTextarea
+                    id="custom-prompt"
+                    label={t("custom_prompt_label", { botName })}
+                    value={customPrompt}
+                    onChange={setCustomPrompt}
+                    onClear={() => setCustomPrompt("")}
+                    disabled={!!error?.isBlocker || !isPolicyAccepted}
+                    placeholder={
+                      isPolicyAccepted
+                        ? t("custom_prompt_placeholder", { botName })
+                        : "—"
+                    }
+                    minRows={2}
                     maxRows={6}
                     className="w-full sm:w-auto"
                   />

@@ -1,11 +1,11 @@
-![License](https://img.shields.io/github/license/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=License&color=FA3080)
-![Code](https://img.shields.io/github/repo-size/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=Sources&color=FAFA20)
-![Issues](https://img.shields.io/github/issues-closed/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=Issues&color=blue)
-![PRs](https://img.shields.io/github/issues-pr-closed/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=PRs&color=blue)
+![License](https://img.shields.io/github/license/appifyhub/agent-web?logo=github&logoColor=white&label=License&color=FA3080)
+![Code](https://img.shields.io/github/repo-size/appifyhub/agent-web?logo=github&logoColor=white&label=Sources&color=FAFA20)
+![Issues](https://img.shields.io/github/issues-closed/appifyhub/agent-web?logo=github&logoColor=white&label=Issues&color=blue)
+![PRs](https://img.shields.io/github/issues-pr-closed/appifyhub/agent-web?logo=github&logoColor=white&label=PRs&color=blue)
 
 # The Agent's Web App
 
-A modern, open-source frontend for [The Agent](https://github.com/appifyhub/the-agent) – your open intelligent virtual assistant. Built for speed, accessibility, and a beautiful user experience.
+A modern, open-source frontend for [The Agent](https://github.com/appifyhub/agent-backend) – your open intelligent virtual assistant. Built for speed, accessibility, and a beautiful user experience.
 
 ## About the project
 
@@ -20,7 +20,7 @@ See the rest of this document for a developer's overview and information on how 
 
 ### Access
 
-This app currently supports several Telegram bots. For privacy reasons, we're not listing each bot here individually – but you can run [the service](https://github.com/appifyhub/the-agent) locally on your machine and connect it to your own bot, and use this app to interact with it.
+We're not listing each bot here individually – but you can run [the service](https://github.com/appifyhub/agent-backend) locally on your machine and connect it to your own bot, and use this app to interact with it.
 
 ## ⚠️ Before you continue…
 
@@ -104,4 +104,4 @@ Check out the license [here](./LICENSE).
 
 ---
 
-For backend and API details, see the [backend repository](https://github.com/appifyhub/the-agent).
+For backend and API details, see the [backend repository](https://github.com/appifyhub/agent-backend).
