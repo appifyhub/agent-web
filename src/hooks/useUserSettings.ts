@@ -5,6 +5,7 @@ import {
   setCachedSettings,
   areSettingsCached,
   clearUserSettingsCache,
+  subscribeToCacheInvalidation,
 } from "@/services/user-settings-cache";
 
 interface UseUserSettingsResult {
@@ -64,6 +65,13 @@ export const useUserSettings = (
   // Initial fetch
   useEffect(() => {
     fetchSettings();
+  }, [fetchSettings]);
+
+  // Re-fetch when any instance invalidates the cache
+  useEffect(() => {
+    return subscribeToCacheInvalidation(() => {
+      fetchSettings(true);
+    });
   }, [fetchSettings]);
 
   const refreshSettings = useCallback(async () => {

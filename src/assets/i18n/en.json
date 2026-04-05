@@ -100,7 +100,9 @@
       "show_scope_and_filters": "Show Scope & Filters",
       "hide_scope_and_filters": "Hide Scope & Filters",
       "include_sponsored_label": "Include sponsored users",
-      "exclude_self_label": "Exclude my usage"
+      "exclude_self_label": "Exclude my usage",
+      "include_transfers_label": "Include transfers",
+      "only_transfers_label": "Show only transfers"
     },
     "stats": {
       "total_records": "Total Records",
@@ -144,6 +146,18 @@
       "status_label": "Status",
       "status_completed": "Completed",
       "status_failed": "Failed"
+    },
+    "transfer": {
+      "to": "To",
+      "from": "From",
+      "note": "Note",
+      "card_title": "Transfer Credits",
+      "button": "Transfer Credits",
+      "handle_label": "Username or phone of the recipient",
+      "amount_label": "Amount",
+      "amount_placeholder": "1.00",
+      "note_label": "Note (optional)",
+      "note_placeholder": "Reason for transfer…"
     },
     "load_more": "Load more",
     "credit_balance": "Credits I own: {balance}"
@@ -259,6 +273,7 @@
   "where_is_my_key": "Where is my {providerName} key?",
   "configure_intelligence": "Configure intelligence",
   "configure_ai_providers": "Configure AI providers",
+  "configure_access_keys": "Configure access keys",
   "tools": {
     "not_configured_with_prefix": "– Configure",
     "select_tool": "Select a tool",
@@ -325,6 +340,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Access to read and analyze Twitter content."
+      },
+      "credit_transfer": {
+        "title": "Credit Transfer",
+        "description": "Internal tool for transferring credits between users."
       },
       "deprecated": {
         "title": "Deprecated",
@@ -423,7 +442,6 @@
     "audio_transcription_failed": "Audio transcription failed",
     "announcement_not_received": "AI announcement not received",
     "user_limit_reached": "User limit reached",
-    "insufficient_credits": "Insufficient credits",
     "unsupported_chat_type": "Unsupported chat type",
     "unsupported_provider": "Unsupported provider",
     "missing_chat_context": "Chat context is not available",
@@ -441,6 +459,12 @@
     "profile_connect_failed": "Profile connection failed",
     "unexpected_error": "An unexpected error occurred",
     "policy_acceptance_revocation_forbidden": "Policy acceptance cannot be revoked",
+    "invalid_transfer_amount": "Transfer amount is below the minimum (1.0 credits)",
+    "self_transfer_not_allowed": "You cannot transfer credits to yourself",
+    "insufficient_credits": "Insufficient credits for this operation",
+    "sponsored_user_transfer_not_allowed": "Sponsored users cannot send or receive credit transfers",
+    "transfer_recipient_not_found": "Transfer recipient not found on this platform",
+    "transfer_failed": "Credit transfer failed due to an internal error",
     "waitlist_account_not_active": "Your account is not yet active",
     "waitlist_invited_policies_required": "Please accept the policies to activate your invited account"
   },

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
+import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import WarningBanner from "@/components/WarningBanner";
@@ -13,6 +14,7 @@ import {
   getSettingsFieldName,
   buildChangedPayload,
   areSettingsChanged,
+  hasAnyApiKey,
 } from "@/services/user-settings-service";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import {
@@ -80,18 +82,25 @@ const AccessSettingsPage: React.FC = () => {
           rawToken: accessToken.raw,
         });
         console.info("Fetched external tools!", externalTools);
+        const visibleProviders = externalTools.providers.filter(
+          (p) => p.definition.id !== "internal",
+        );
         setExternalToolProviders(
-          externalTools.providers.map((p) => p.definition),
+          visibleProviders.map((p) => p.definition),
         );
         const statusMap = new Map<string, boolean>();
-        externalTools.providers.forEach((p) => {
+        visibleProviders.forEach((p) => {
           statusMap.set(p.definition.id, p.is_configured);
         });
         setProviderConfigStatus(statusMap);
         hasLoadedOnce.current = true;
       } catch (err) {
         console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }
@@ -201,19 +210,26 @@ const AccessSettingsPage: React.FC = () => {
       });
 
       updateSettingsCache(userSettings!);
+      const updatedVisibleProviders = updatedExternalTools.providers.filter(
+        (p) => p.definition.id !== "internal",
+      );
       setExternalToolProviders(
-        updatedExternalTools.providers.map((p) => p.definition),
+        updatedVisibleProviders.map((p) => p.definition),
       );
       // Update provider configuration status
       const statusMap = new Map<string, boolean>();
-      updatedExternalTools.providers.forEach((p) => {
+      updatedVisibleProviders.forEach((p) => {
         statusMap.set(p.definition.id, p.is_configured);
       });
       setProviderConfigStatus(statusMap);
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        saveError instanceof ApiError
+          ? PageError.fromApiError(saveError)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
@@ -227,24 +243,12 @@ const AccessSettingsPage: React.FC = () => {
 
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
 
-  // Check if any API keys are configured in local state
-  const hasAnyApiKey = !!(
-    userSettings?.open_ai_key ||
-    userSettings?.anthropic_key ||
-    userSettings?.google_ai_key ||
-    userSettings?.perplexity_key ||
-    userSettings?.replicate_key ||
-    userSettings?.rapid_api_key ||
-    userSettings?.coinmarketcap_key ||
-    userSettings?.x_key ||
-    userSettings?.x_ai_key
-  );
-
-  // Check if user has credits
   const hasCredits = (userSettings?.credit_balance ?? 0) > 0;
-
-  // Show warning only if user has credits AND API keys AND hasn't dismissed it
-  const showCreditsWarning = hasCredits && hasAnyApiKey && !isWarningDismissed;
+  const showCreditsWarning =
+    hasCredits &&
+    !!userSettings &&
+    hasAnyApiKey(userSettings) &&
+    !isWarningDismissed;
 
   const handleRemoveAllApiKeys = () => {
     if (!userSettings) return;

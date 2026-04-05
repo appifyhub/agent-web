@@ -108,6 +108,18 @@
       "status_completed": "Terminé",
       "status_failed": "Échoué"
     },
+    "transfer": {
+      "to": "À",
+      "from": "De",
+      "note": "Note",
+      "card_title": "Transférer des crédits",
+      "button": "Transférer des crédits",
+      "handle_label": "Nom d'utilisateur ou téléphone du destinataire",
+      "amount_label": "Montant",
+      "amount_placeholder": "1,00",
+      "note_label": "Note (facultatif)",
+      "note_placeholder": "Motif du transfert…"
+    },
     "load_more": "Charger plus",
     "credit_balance": "Crédits que je possède : {balance}",
     "filters": {
@@ -135,7 +147,9 @@
       "show_scope_and_filters": "Afficher la portée et les filtres",
       "hide_scope_and_filters": "Masquer la portée et les filtres",
       "include_sponsored_label": "Inclure les utilisateurs sponsorisés",
-      "exclude_self_label": "Exclure mon utilisation"
+      "exclude_self_label": "Exclure mon utilisation",
+      "include_transfers_label": "Inclure les transferts",
+      "only_transfers_label": "Afficher uniquement les transferts"
     },
     "stats": {
       "total_records": "Total d'enregistrements",
@@ -259,6 +273,7 @@
   "where_is_my_key": "Où est ma clé {providerName} ?",
   "configure_intelligence": "Configurer l'intelligence",
   "configure_ai_providers": "Configurer les fournisseurs d'IA",
+  "configure_access_keys": "Configurer les clés d'accès",
   "tools": {
     "not_configured_with_prefix": "– Configurer",
     "select_tool": "Sélectionner un outil",
@@ -325,6 +340,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Accès pour lire et analyser le contenu Twitter."
+      },
+      "credit_transfer": {
+        "title": "Transfert de crédits",
+        "description": "Outil interne pour transférer des crédits entre utilisateurs."
       },
       "deprecated": {
         "title": "Obsolète",
@@ -465,7 +484,6 @@
     "audio_transcription_failed": "Échec de la transcription audio",
     "announcement_not_received": "Annonce de l'IA non reçue",
     "user_limit_reached": "Limite d'utilisateurs atteinte",
-    "insufficient_credits": "Crédits insuffisants",
     "unsupported_chat_type": "Type de discussion non pris en charge",
     "unsupported_provider": "Fournisseur non pris en charge",
     "missing_chat_context": "Le contexte de la discussion n'est pas disponible",
@@ -483,6 +501,12 @@
     "profile_connect_failed": "Échec de la connexion du profil",
     "unexpected_error": "Une erreur inattendue s'est produite",
     "policy_acceptance_revocation_forbidden": "L'acceptation des politiques ne peut pas être révoquée",
+    "invalid_transfer_amount": "Le montant du transfert est inférieur au minimum (1,0 crédit)",
+    "self_transfer_not_allowed": "Vous ne pouvez pas transférer des crédits à vous-même",
+    "insufficient_credits": "Crédits insuffisants pour cette opération",
+    "sponsored_user_transfer_not_allowed": "Les utilisateurs sponsorisés ne peuvent pas envoyer ou recevoir des transferts de crédits",
+    "transfer_recipient_not_found": "Destinataire du transfert introuvable sur cette plateforme",
+    "transfer_failed": "Le transfert de crédits a échoué en raison d'une erreur interne",
     "waitlist_account_not_active": "Votre compte n'est pas encore actif",
     "waitlist_invited_policies_required": "Veuillez accepter les politiques pour activer votre compte invité"
   },

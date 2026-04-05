@@ -58,6 +58,10 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1029: return "error_codes.malformed_user_id";
     case 1030: return "error_codes.malformed_chat_id";
     case 1031: return "error_codes.policy_acceptance_revocation_forbidden";
+    case 1032: return "error_codes.invalid_transfer_amount";
+    case 1033: return "error_codes.self_transfer_not_allowed";
+    case 1034: return "error_codes.insufficient_credits";
+    case 1035: return "error_codes.sponsored_user_transfer_not_allowed";
     case 2001: return "error_codes.user_not_found";
     case 2002: return "error_codes.chat_not_found";
     case 2003: return "error_codes.attachment_not_found";
@@ -70,6 +74,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 2010: return "error_codes.token_not_found";
     case 2011: return "error_codes.unknown_command";
     case 2012: return "error_codes.no_authorized_chats";
+    case 2013: return "error_codes.transfer_recipient_not_found";
     case 3001: return "error_codes.not_chat_admin";
     case 3002: return "error_codes.not_target_user";
     case 3003: return "error_codes.not_developer";
@@ -93,7 +98,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5011: return "error_codes.audio_transcription_failed";
     case 5012: return "error_codes.announcement_not_received";
     case 6001: return "error_codes.user_limit_reached";
-    case 6002: return "error_codes.insufficient_credits";
+    case 6002: return "error_codes.insufficient_credits"; // legacy, moved to 1034
     case 7001: return "error_codes.unsupported_chat_type";
     case 7002: return "error_codes.unsupported_provider";
     case 7003: return "error_codes.missing_chat_context";
@@ -109,6 +114,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 8011: return "error_codes.sponsorship_operation_failed";
     case 8012: return "error_codes.unsponsor_self_failed";
     case 8013: return "error_codes.profile_connect_failed";
+    case 8014: return "error_codes.transfer_failed";
     case 8999: return "error_codes.unexpected_error";
     default: return null;
   }

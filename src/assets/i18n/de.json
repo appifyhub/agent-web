@@ -100,7 +100,9 @@
       "show_scope_and_filters": "Bereich und Filter anzeigen",
       "hide_scope_and_filters": "Umfang und Filter ausblenden",
       "include_sponsored_label": "Gesponserte Benutzer einbeziehen",
-      "exclude_self_label": "Meine Nutzung ausschließen"
+      "exclude_self_label": "Meine Nutzung ausschließen",
+      "include_transfers_label": "Überweisungen einbeziehen",
+      "only_transfers_label": "Nur Überweisungen anzeigen"
     },
     "stats": {
       "total_records": "Gesamt Einträge",
@@ -144,6 +146,18 @@
       "status_label": "Status",
       "status_completed": "Abgeschlossen",
       "status_failed": "Fehlgeschlagen"
+    },
+    "transfer": {
+      "to": "An",
+      "from": "Von",
+      "note": "Notiz",
+      "card_title": "Guthaben überweisen",
+      "button": "Guthaben überweisen",
+      "handle_label": "Benutzername oder Telefonnummer des Empfängers",
+      "amount_label": "Betrag",
+      "amount_placeholder": "1,00",
+      "note_label": "Notiz (optional)",
+      "note_placeholder": "Grund der Überweisung…"
     },
     "load_more": "Mehr laden",
     "credit_balance": "Guthaben, die ich besitze: {balance}"
@@ -259,6 +273,7 @@
   "where_is_my_key": "Wo ist mein {providerName}-Schlüssel?",
   "configure_intelligence": "Intelligenz konfigurieren",
   "configure_ai_providers": "KI-Anbieter konfigurieren",
+  "configure_access_keys": "Zugriffsschlüssel konfigurieren",
   "tools": {
     "not_configured_with_prefix": "– Konfigurieren",
     "select_tool": "Tool auswählen",
@@ -325,6 +340,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Zugang zum Lesen und Analysieren von Twitter-Inhalten."
+      },
+      "credit_transfer": {
+        "title": "Guthabenüberweisung",
+        "description": "Internes Tool zur Überweisung von Guthaben zwischen Benutzern."
       },
       "deprecated": {
         "title": "Veraltet",
@@ -465,7 +484,6 @@
     "audio_transcription_failed": "Audio-Transkription fehlgeschlagen",
     "announcement_not_received": "KI-Ankündigung nicht erhalten",
     "user_limit_reached": "Benutzerlimit erreicht",
-    "insufficient_credits": "Unzureichendes Guthaben",
     "unsupported_chat_type": "Nicht unterstützter Chat-Typ",
     "unsupported_provider": "Nicht unterstützter Anbieter",
     "missing_chat_context": "Chat-Kontext ist nicht verfügbar",
@@ -483,6 +501,12 @@
     "profile_connect_failed": "Profilverbindung fehlgeschlagen",
     "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten",
     "policy_acceptance_revocation_forbidden": "Die Annahme der Richtlinien kann nicht widerrufen werden",
+    "invalid_transfer_amount": "Überweisungsbetrag liegt unter dem Minimum (1,0 Guthaben)",
+    "self_transfer_not_allowed": "Sie können kein Guthaben an sich selbst überweisen",
+    "insufficient_credits": "Nicht genügend Guthaben für diese Aktion",
+    "sponsored_user_transfer_not_allowed": "Gesponserte Benutzer können keine Guthabenüberweisungen senden oder empfangen",
+    "transfer_recipient_not_found": "Überweisungsempfänger auf dieser Plattform nicht gefunden",
+    "transfer_failed": "Guthabenüberweisung aufgrund eines internen Fehlers fehlgeschlagen",
     "waitlist_account_not_active": "Ihr Konto ist noch nicht aktiv",
     "waitlist_invited_policies_required": "Bitte akzeptieren Sie die Richtlinien, um Ihr eingeladenes Konto zu aktivieren"
   },

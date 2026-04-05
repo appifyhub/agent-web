@@ -108,6 +108,18 @@
       "status_completed": "Выполнено",
       "status_failed": "Ошибка"
     },
+    "transfer": {
+      "to": "Кому",
+      "from": "От",
+      "note": "Примечание",
+      "card_title": "Перевести кредиты",
+      "button": "Перевести кредиты",
+      "handle_label": "Имя пользователя или телефон получателя",
+      "amount_label": "Сумма",
+      "amount_placeholder": "1,00",
+      "note_label": "Примечание (необязательно)",
+      "note_placeholder": "Причина перевода…"
+    },
     "load_more": "Загрузить ещё",
     "credit_balance": "Кредиты, которыми я владею: {balance}",
     "filters": {
@@ -135,7 +147,9 @@
       "show_scope_and_filters": "Показать область и фильтры",
       "hide_scope_and_filters": "Скрыть область и фильтры",
       "include_sponsored_label": "Включить спонсируемых пользователей",
-      "exclude_self_label": "Исключить моё использование"
+      "exclude_self_label": "Исключить моё использование",
+      "include_transfers_label": "Включить переводы",
+      "only_transfers_label": "Показать только переводы"
     },
     "stats": {
       "total_records": "Всего записей",
@@ -259,6 +273,7 @@
   "where_is_my_key": "Где мой ключ {providerName}?",
   "configure_intelligence": "Настроить интеллект",
   "configure_ai_providers": "Настроить AI-провайдеры",
+  "configure_access_keys": "Настроить ключи доступа",
   "intelligence_presets": {
     "label": "Режим интеллекта",
     "lowest_price": "Наименьшая стоимость",
@@ -346,7 +361,6 @@
     "audio_transcription_failed": "Не удалось расшифровать аудио",
     "announcement_not_received": "Объявление ИИ не получено",
     "user_limit_reached": "Достигнут лимит пользователей",
-    "insufficient_credits": "Недостаточно кредитов",
     "unsupported_chat_type": "Неподдерживаемый тип чата",
     "unsupported_provider": "Неподдерживаемый провайдер",
     "missing_chat_context": "Контекст чата недоступен",
@@ -364,6 +378,12 @@
     "profile_connect_failed": "Не удалось подключить профиль",
     "unexpected_error": "Произошла неожиданная ошибка",
     "policy_acceptance_revocation_forbidden": "Принятие политик не может быть отозвано",
+    "invalid_transfer_amount": "Сумма перевода ниже минимума (1,0 кредит)",
+    "self_transfer_not_allowed": "Нельзя перевести кредиты самому себе",
+    "insufficient_credits": "Недостаточно кредитов для этой операции",
+    "sponsored_user_transfer_not_allowed": "Спонсируемые пользователи не могут отправлять или получать переводы кредитов",
+    "transfer_recipient_not_found": "Получатель перевода не найден на этой платформе",
+    "transfer_failed": "Перевод кредитов не удался из-за внутренней ошибки",
     "waitlist_account_not_active": "Ваш аккаунт ещё не активен",
     "waitlist_invited_policies_required": "Примите политики для активации приглашённого аккаунта"
   },
@@ -433,6 +453,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Доступ для чтения и анализа контента Twitter."
+      },
+      "credit_transfer": {
+        "title": "Перевод кредитов",
+        "description": "Внутренний инструмент для перевода кредитов между пользователями."
       },
       "deprecated": {
         "title": "Устаревший",

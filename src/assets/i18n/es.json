@@ -108,6 +108,18 @@
       "status_completed": "Completado",
       "status_failed": "Fallido"
     },
+    "transfer": {
+      "to": "A",
+      "from": "De",
+      "note": "Nota",
+      "card_title": "Transferir créditos",
+      "button": "Transferir créditos",
+      "handle_label": "Nombre de usuario o teléfono del destinatario",
+      "amount_label": "Cantidad",
+      "amount_placeholder": "1,00",
+      "note_label": "Nota (opcional)",
+      "note_placeholder": "Motivo de la transferencia…"
+    },
     "load_more": "Cargar más",
     "credit_balance": "Créditos que poseo: {balance}",
     "filters": {
@@ -135,7 +147,9 @@
       "show_scope_and_filters": "Mostrar alcance y filtros",
       "hide_scope_and_filters": "Ocultar alcance y filtros",
       "include_sponsored_label": "Incluir usuarios patrocinados",
-      "exclude_self_label": "Excluir mi uso"
+      "exclude_self_label": "Excluir mi uso",
+      "include_transfers_label": "Incluir transferencias",
+      "only_transfers_label": "Mostrar solo transferencias"
     },
     "stats": {
       "total_records": "Total de registros",
@@ -259,6 +273,7 @@
   "where_is_my_key": "¿Dónde está mi clave de {providerName}?",
   "configure_intelligence": "Configurar inteligencia",
   "configure_ai_providers": "Configurar proveedores de IA",
+  "configure_access_keys": "Configurar las claves de acceso",
   "intelligence_presets": {
     "label": "Modo de Inteligencia",
     "lowest_price": "Costo más bajo",
@@ -346,7 +361,6 @@
     "audio_transcription_failed": "Error en la transcripción de audio",
     "announcement_not_received": "Anuncio de IA no recibido",
     "user_limit_reached": "Límite de usuarios alcanzado",
-    "insufficient_credits": "Créditos insuficientes",
     "unsupported_chat_type": "Tipo de chat no compatible",
     "unsupported_provider": "Proveedor no compatible",
     "missing_chat_context": "El contexto del chat no está disponible",
@@ -364,6 +378,12 @@
     "profile_connect_failed": "Error al conectar perfil",
     "unexpected_error": "Ocurrió un error inesperado",
     "policy_acceptance_revocation_forbidden": "La aceptación de políticas no puede revocarse",
+    "invalid_transfer_amount": "El monto de transferencia está por debajo del mínimo (1,0 créditos)",
+    "self_transfer_not_allowed": "No puedes transferir créditos a ti mismo",
+    "insufficient_credits": "Créditos insuficientes para esta operación",
+    "sponsored_user_transfer_not_allowed": "Los usuarios patrocinados no pueden enviar ni recibir transferencias de créditos",
+    "transfer_recipient_not_found": "Destinatario de la transferencia no encontrado en esta plataforma",
+    "transfer_failed": "La transferencia de créditos falló debido a un error interno",
     "waitlist_account_not_active": "Tu cuenta aún no está activa",
     "waitlist_invited_policies_required": "Acepta las políticas para activar tu cuenta invitada"
   },
@@ -479,6 +499,10 @@
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Acceso para leer y analizar contenido de Twitter."
+      },
+      "credit_transfer": {
+        "title": "Transferencia de créditos",
+        "description": "Herramienta interna para transferir créditos entre usuarios."
       },
       "deprecated": {
         "title": "Obsoleto",

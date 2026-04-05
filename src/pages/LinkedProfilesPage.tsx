@@ -86,7 +86,11 @@ const LinkedProfilesPage: React.FC = () => {
         setConnectKey(response.connect_key);
       } catch (err) {
         console.error("Error fetching connect key!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }

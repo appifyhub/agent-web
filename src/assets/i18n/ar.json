@@ -100,7 +100,9 @@
       "show_scope_and_filters": "عرض النطاق والمرشحات",
       "hide_scope_and_filters": "إخفاء النطاق والمرشحات",
       "include_sponsored_label": "تضمين المستخدمين المرعيين",
-      "exclude_self_label": "استبعاد استخدامي"
+      "exclude_self_label": "استبعاد استخدامي",
+      "include_transfers_label": "تضمين التحويلات",
+      "only_transfers_label": "عرض التحويلات فقط"
     },
     "stats": {
       "total_records": "إجمالي السجلات",
@@ -144,6 +146,18 @@
       "status_label": "الحالة",
       "status_completed": "مكتمل",
       "status_failed": "فشل"
+    },
+    "transfer": {
+      "to": "إلى",
+      "from": "من",
+      "note": "ملاحظة",
+      "card_title": "تحويل الرصيد",
+      "button": "تحويل الرصيد",
+      "handle_label": "اسم المستخدم أو هاتف المستلم",
+      "amount_label": "المبلغ",
+      "amount_placeholder": "1.00",
+      "note_label": "ملاحظة (اختياري)",
+      "note_placeholder": "سبب التحويل…"
     },
     "load_more": "تحميل المزيد",
     "credit_balance": "الأرصدة التي أملكها: {balance}"
@@ -259,6 +273,7 @@
   "where_is_my_key": "أين يوجد مفتاح {providerName} الخاص بي؟",
   "configure_intelligence": "تكوين الذكاء",
   "configure_ai_providers": "تكوين مزودي الذكاء الاصطناعي",
+  "configure_access_keys": "تهيئة مفاتيح الوصول",
   "intelligence_presets": {
     "label": "وضع الذكاء",
     "lowest_price": "أقل تكلفة",
@@ -346,7 +361,6 @@
     "audio_transcription_failed": "فشل في تحويل الصوت إلى نص",
     "announcement_not_received": "لم يتم استلام إعلان الذكاء الاصطناعي",
     "user_limit_reached": "تم الوصول إلى الحد الأقصى للمستخدمين",
-    "insufficient_credits": "أرصدة غير كافية",
     "unsupported_chat_type": "نوع دردشة غير مدعوم",
     "unsupported_provider": "مزود غير مدعوم",
     "missing_chat_context": "سياق الدردشة غير متاح",
@@ -364,6 +378,12 @@
     "profile_connect_failed": "فشل في ربط الملف الشخصي",
     "unexpected_error": "حدث خطأ غير متوقع",
     "policy_acceptance_revocation_forbidden": "لا يمكن إلغاء قبول السياسات",
+    "invalid_transfer_amount": "مبلغ التحويل أقل من الحد الأدنى (1.0 رصيد)",
+    "self_transfer_not_allowed": "لا يمكنك تحويل الأرصدة لنفسك",
+    "insufficient_credits": "أرصدة غير كافية لهذه العملية",
+    "sponsored_user_transfer_not_allowed": "لا يمكن للمستخدمين المدعومين إرسال أو استقبال تحويلات الأرصدة",
+    "transfer_recipient_not_found": "لم يتم العثور على مستلم التحويل على هذه المنصة",
+    "transfer_failed": "فشل تحويل الأرصدة بسبب خطأ داخلي",
     "waitlist_account_not_active": "حسابك غير نشط بعد",
     "waitlist_invited_policies_required": "يرجى قبول السياسات لتفعيل حسابك المدعو"
   },
@@ -433,6 +453,10 @@
       "api_twitter": {
         "title": "X / تويتر",
         "description": "الوصول لقراءة وتحليل محتوى تويتر."
+      },
+      "credit_transfer": {
+        "title": "تحويل الأرصدة",
+        "description": "أداة داخلية لتحويل الأرصدة بين المستخدمين."
       },
       "deprecated": {
         "title": "مُهمل",
