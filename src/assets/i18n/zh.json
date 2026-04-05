@@ -273,6 +273,7 @@
   "where_is_my_key": "我的 {providerName} 密钥在哪里？",
   "configure_intelligence": "配置智能",
   "configure_ai_providers": "配置 AI 提供商",
+  "configure_access_keys": "配置访问密钥",
   "intelligence_presets": {
     "label": "智能模式",
     "lowest_price": "最低成本",

@@ -273,6 +273,7 @@
   "where_is_my_key": "Dove si trova la mia chiave {providerName}?",
   "configure_intelligence": "Configura intelligenza",
   "configure_ai_providers": "Configura provider AI",
+  "configure_access_keys": "Configura le chiavi di accesso",
   "intelligence_presets": {
     "label": "Modalità di Intelligenza",
     "lowest_price": "Costo più basso",

@@ -273,6 +273,7 @@
   "where_is_my_key": "Gde je moj {providerName} ključ?",
   "configure_intelligence": "Podesi inteligenciju",
   "configure_ai_providers": "Podesi AI provajdere",
+  "configure_access_keys": "Podesi pristupne ključeve",
   "intelligence_presets": {
     "label": "Režim inteligencije",
     "lowest_price": "Najniža cena",

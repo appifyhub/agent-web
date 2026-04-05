@@ -273,6 +273,7 @@
   "where_is_my_key": "मेरा {providerName} कुंजी कहाँ है?",
   "configure_intelligence": "बुद्धिमत्ता कॉन्फ़िगर करें",
   "configure_ai_providers": "AI प्रदाता कॉन्फ़िगर करें",
+  "configure_access_keys": "एक्सेस कुंजियाँ कॉन्फ़िगर करें",
   "intelligence_presets": {
     "label": "इंटेलिजेंस मोड",
     "lowest_price": "सबसे कम लागत",

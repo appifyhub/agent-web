@@ -273,6 +273,7 @@
   "where_is_my_key": "Où est ma clé {providerName} ?",
   "configure_intelligence": "Configurer l'intelligence",
   "configure_ai_providers": "Configurer les fournisseurs d'IA",
+  "configure_access_keys": "Configurer les clés d'accès",
   "tools": {
     "not_configured_with_prefix": "– Configurer",
     "select_tool": "Sélectionner un outil",
