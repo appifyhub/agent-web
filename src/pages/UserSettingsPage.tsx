@@ -13,11 +13,8 @@ import {
   UserSettings,
   buildChangedPayload,
   areSettingsChanged,
+  hasAnyApiKey,
 } from "@/services/user-settings-service";
-import {
-  fetchExternalTools,
-  ExternalToolProviderResponse,
-} from "@/services/external-tools-service";
 import { useNavigation } from "@/hooks/useNavigation";
 import SettingTextarea from "@/components/SettingTextarea";
 import SettingInput from "@/components/SettingInput";
@@ -31,16 +28,12 @@ const UserSettingsPage: React.FC = () => {
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
 
-  const { navigateToAccess, navigateToIntelligence } = useNavigation();
+  const { navigateToAccess, navigateToIntelligence, navigateToPurchases } = useNavigation();
 
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null);
   const [remoteSettings, setRemoteSettings] = useState<UserSettings | null>(
     null
   );
-  const [externalToolProviders, setExternalToolProviders] = useState<
-    ExternalToolProviderResponse[]
-  >([]);
-
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
 
   // Fetch user settings and external tools when session is ready
@@ -52,23 +45,14 @@ const UserSettingsPage: React.FC = () => {
       setError(null);
       try {
         const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-        const [settings, externalTools] = await Promise.all([
-          fetchUserSettings({
-            apiBaseUrl,
-            user_id,
-            rawToken: accessToken.raw,
-          }),
-          fetchExternalTools({
-            apiBaseUrl,
-            user_id,
-            rawToken: accessToken.raw,
-          }),
-        ]);
+        const settings = await fetchUserSettings({
+          apiBaseUrl,
+          user_id,
+          rawToken: accessToken.raw,
+        });
         console.info("Fetched settings!", settings);
-        console.info("Fetched external tools!", externalTools);
         setUserSettings(settings);
         setRemoteSettings(settings);
-        setExternalToolProviders(externalTools.providers);
       } catch (err) {
         console.error("Error fetching data!", err);
         setError(
@@ -220,19 +204,20 @@ const UserSettingsPage: React.FC = () => {
           className="w-full sm:w-auto"
         />
 
-        {/* Provider configuration link */}
+        {/* Navigation links based on user setup status */}
         {(() => {
-          if (externalToolProviders.length === 0) return null;
+          if (!userSettings) return null;
 
-          const firstUnconfiguredProvider = externalToolProviders.find(
-            (p) => !p.is_configured
-          );
-          const allConfigured = !firstUnconfiguredProvider;
+          const hasApiKeys = hasAnyApiKey(userSettings);
+          const hasCredits = (userSettings.credit_balance ?? 0) > 0;
 
-          if (allConfigured) {
-            // All providers configured - show Customize Intelligence link
+          const linkClass =
+            "underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer";
+          const rowClass = "flex items-center gap-2 text-sm text-muted-foreground";
+
+          if (hasApiKeys || hasCredits) {
             return (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className={rowClass}>
                 <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
                 <button
                   onClick={() => {
@@ -240,35 +225,44 @@ const UserSettingsPage: React.FC = () => {
                       navigateToIntelligence(user_id, lang_iso_code);
                     }
                   }}
-                  className="underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer"
+                  className={linkClass}
                 >
                   {t("configure_intelligence")}
                 </button>
               </div>
             );
-          } else {
-            // Has unconfigured providers - show Configure AI providers link
-            return (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          }
+
+          return (
+            <div className="flex flex-col gap-2">
+              <div className={rowClass}>
                 <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
                 <button
                   onClick={() => {
-                    if (user_id && lang_iso_code && firstUnconfiguredProvider) {
-                      // Store provider ID in sessionStorage so Access page can scroll to it
-                      sessionStorage.setItem(
-                        "scrollToProvider",
-                        firstUnconfiguredProvider.definition.id
-                      );
+                    if (user_id && lang_iso_code) {
+                      navigateToPurchases(user_id, lang_iso_code);
+                    }
+                  }}
+                  className={linkClass}
+                >
+                  {t("purchases.buy_credits")}
+                </button>
+              </div>
+              <div className={rowClass}>
+                <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
+                <button
+                  onClick={() => {
+                    if (user_id && lang_iso_code) {
                       navigateToAccess(user_id, lang_iso_code);
                     }
                   }}
-                  className="underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer"
+                  className={linkClass}
                 >
-                  {t("configure_ai_providers")}
+                  {t("configure_access_keys")}
                 </button>
               </div>
-            );
-          }
+            </div>
+          );
         })()}
       </div>
     </BaseSettingsPage>

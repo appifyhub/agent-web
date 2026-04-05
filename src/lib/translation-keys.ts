@@ -242,6 +242,7 @@ export type TranslationKey =
   | "where_is_my_key"
   | "configure_intelligence"
   | "configure_ai_providers"
+  | "configure_access_keys"
   | "tools.not_configured_with_prefix"
   | "tools.select_tool"
   | "tools.no_tools_available"

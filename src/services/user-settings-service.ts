@@ -166,6 +166,10 @@ export function buildChangedPayload(
   return payload;
 }
 
+export function hasAnyApiKey(userSettings: UserSettings): boolean {
+  return MASKED_FIELDS.some((field) => !!userSettings[field]);
+}
+
 export function areSettingsChanged(
   userSettings: UserSettings,
   remoteSettings: UserSettings,
