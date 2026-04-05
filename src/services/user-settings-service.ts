@@ -157,7 +157,7 @@ export function buildChangedPayload(
     }
   });
   STRING_FIELDS.forEach((field) => {
-    if (userSettings[field] !== remoteSettings[field]) {
+    if ((userSettings[field] || "") !== (remoteSettings[field] || "")) {
       payload[field] = userSettings[field] ?? "";
     }
   });
@@ -183,7 +183,7 @@ export function areSettingsChanged(
   if (maskedChanged) return true;
 
   const stringChanged = STRING_FIELDS.some(
-    (field) => userSettings[field] !== remoteSettings[field],
+    (field) => (userSettings[field] || "") !== (remoteSettings[field] || ""),
   );
   if (stringChanged) return true;
 
