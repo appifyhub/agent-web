@@ -1,7 +1,7 @@
-![License](https://img.shields.io/github/license/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=License&color=FA3080)
-![Code](https://img.shields.io/github/repo-size/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=Sources&color=FAFA20)
-![Issues](https://img.shields.io/github/issues-closed/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=Issues&color=blue)
-![PRs](https://img.shields.io/github/issues-pr-closed/appifyhub/the-agent-web-app?logo=github&logoColor=white&label=PRs&color=blue)
+![License](https://img.shields.io/github/license/appifyhub/agent-web?logo=github&logoColor=white&label=License&color=FA3080)
+![Code](https://img.shields.io/github/repo-size/appifyhub/agent-web?logo=github&logoColor=white&label=Sources&color=FAFA20)
+![Issues](https://img.shields.io/github/issues-closed/appifyhub/agent-web?logo=github&logoColor=white&label=Issues&color=blue)
+![PRs](https://img.shields.io/github/issues-pr-closed/appifyhub/agent-web?logo=github&logoColor=white&label=PRs&color=blue)
 
 # The Agent's Web App
 
