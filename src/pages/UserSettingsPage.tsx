@@ -85,15 +85,15 @@ const UserSettingsPage: React.FC = () => {
       const trimmedSettings: UserSettings = {
         ...userSettings,
         full_name:
-          userSettings.full_name === undefined
+          userSettings.full_name === null || userSettings.full_name === undefined
             ? undefined
             : userSettings.full_name.trim(),
         about_me:
-          userSettings.about_me === undefined
+          userSettings.about_me === null || userSettings.about_me === undefined
             ? undefined
             : userSettings.about_me.trim(),
         custom_prompt:
-          userSettings.custom_prompt === undefined
+          userSettings.custom_prompt === null || userSettings.custom_prompt === undefined
             ? undefined
             : userSettings.custom_prompt.trim(),
       };
