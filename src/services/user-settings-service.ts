@@ -6,6 +6,7 @@ export interface UserSettings {
   id: string;
   full_name?: string;
   about_me?: string;
+  custom_prompt?: string;
   telegram_username?: string;
   telegram_chat_id?: string;
   telegram_user_id?: number;
@@ -67,6 +68,7 @@ export function getSettingsFieldName(providerId: string): keyof UserSettings {
 export interface UserSettingsPayload {
   full_name?: string;
   about_me?: string;
+  custom_prompt?: string;
   open_ai_key?: string;
   anthropic_key?: string;
   google_ai_key?: string;
@@ -106,6 +108,7 @@ const MASKED_FIELDS = [
 const STRING_FIELDS = [
   "full_name",
   "about_me",
+  "custom_prompt",
   "tool_choice_chat",
   "tool_choice_reasoning",
   "tool_choice_copywriting",

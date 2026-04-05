@@ -16,6 +16,7 @@ export interface ChatSettings {
   release_notifications: ReleaseNotificationsSetting;
   media_mode: MediaModeSetting;
   use_about_me: boolean;
+  use_custom_prompt: boolean;
 }
 
 export async function fetchChatSettings({
@@ -63,6 +64,7 @@ export async function saveChatSettings({
     release_notifications: chatSettings.release_notifications,
     media_mode: chatSettings.media_mode,
     use_about_me: chatSettings.use_about_me,
+    use_custom_prompt: chatSettings.use_custom_prompt,
   };
   const response = await request(`${apiBaseUrl}/settings/chat/${chat_id}`, {
     method: "PATCH",

@@ -413,8 +413,8 @@ const UsagePage: React.FC = () => {
             onChange={setTransferNote}
             disabled={!!error?.isBlocker}
             placeholder={t("usage.transfer.note_placeholder")}
-            minRows={1}
-            maxRows={4}
+            minRows={2}
+            maxRows={6}
             className="w-full sm:w-auto"
           />
         </div>

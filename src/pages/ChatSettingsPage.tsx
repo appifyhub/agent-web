@@ -94,7 +94,8 @@ const ChatSettingsPage: React.FC = () => {
       chatSettings.reply_chance_percent !== remoteSettings.reply_chance_percent ||
       chatSettings.release_notifications !== remoteSettings.release_notifications ||
       chatSettings.media_mode !== remoteSettings.media_mode ||
-      chatSettings.use_about_me !== remoteSettings.use_about_me
+      chatSettings.use_about_me !== remoteSettings.use_about_me ||
+      chatSettings.use_custom_prompt !== remoteSettings.use_custom_prompt
     )
     // @formatter:on
   );
@@ -384,6 +385,41 @@ const ChatSettingsPage: React.FC = () => {
             }
           }}
           profileLinkText={t("use_about_me_which_information")}
+        />
+
+        {/* Use Custom Prompt toggle */}
+        <SettingToggle
+          id="use-custom-prompt"
+          label={
+            chatSettings?.is_private
+              ? t("use_custom_prompt_label_singular", { botName })
+              : t("use_custom_prompt_label", { botName })
+          }
+          helperText={
+            chatSettings?.is_private
+              ? t("use_custom_prompt_helper_singular", { botName })
+              : t("use_custom_prompt_helper", { botName })
+          }
+          checked={chatSettings?.use_custom_prompt || false}
+          onChange={(checked) =>
+            setChatSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    use_custom_prompt: checked,
+                  }
+                : prev
+            )
+          }
+          disabled={!!error?.isBlocker}
+          className="w-full sm:w-md"
+          onProfileLinkClick={() => {
+            const resolvedUserId = user_id || accessToken?.decoded.sub;
+            if (resolvedUserId && lang_iso_code) {
+              navigateToProfile(resolvedUserId, lang_iso_code);
+            }
+          }}
+          profileLinkText={t("use_custom_prompt_which_instructions")}
         />
       </div>
     </BaseSettingsPage>
