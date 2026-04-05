@@ -111,7 +111,14 @@
     "transfer": {
       "to": "को",
       "from": "से",
-      "note": "नोट"
+      "note": "नोट",
+      "card_title": "क्रेडिट ट्रांसफर करें",
+      "button": "क्रेडिट ट्रांसफर करें",
+      "handle_label": "प्राप्तकर्ता का उपयोगकर्ता नाम या फ़ोन",
+      "amount_label": "राशि",
+      "amount_placeholder": "1.00",
+      "note_label": "नोट (वैकल्पिक)",
+      "note_placeholder": "ट्रांसफर का कारण…"
     },
     "load_more": "और लोड करें",
     "credit_balance": "मेरे पास क्रेडिट: {balance}",

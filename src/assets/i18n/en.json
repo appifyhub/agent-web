@@ -150,7 +150,14 @@
     "transfer": {
       "to": "To",
       "from": "From",
-      "note": "Note"
+      "note": "Note",
+      "card_title": "Transfer Credits",
+      "button": "Transfer Credits",
+      "handle_label": "Username or phone of the recipient",
+      "amount_label": "Amount",
+      "amount_placeholder": "1.00",
+      "note_label": "Note (optional)",
+      "note_placeholder": "Reason for transfer…"
     },
     "load_more": "Load more",
     "credit_balance": "Credits I own: {balance}"

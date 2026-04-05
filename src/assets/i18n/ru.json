@@ -111,7 +111,14 @@
     "transfer": {
       "to": "Кому",
       "from": "От",
-      "note": "Примечание"
+      "note": "Примечание",
+      "card_title": "Перевести кредиты",
+      "button": "Перевести кредиты",
+      "handle_label": "Имя пользователя или телефон получателя",
+      "amount_label": "Сумма",
+      "amount_placeholder": "1,00",
+      "note_label": "Примечание (необязательно)",
+      "note_placeholder": "Причина перевода…"
     },
     "load_more": "Загрузить ещё",
     "credit_balance": "Кредиты, которыми я владею: {balance}",

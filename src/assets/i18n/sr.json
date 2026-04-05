@@ -150,7 +150,14 @@
     "transfer": {
       "to": "Za",
       "from": "Od",
-      "note": "Napomena"
+      "note": "Napomena",
+      "card_title": "Prenos kredita",
+      "button": "Prenos kredita",
+      "handle_label": "Korisničko ime ili telefon primaoca",
+      "amount_label": "Iznos",
+      "amount_placeholder": "1,00",
+      "note_label": "Napomena (opciono)",
+      "note_placeholder": "Razlog prenosa…"
     },
     "load_more": "Učitaj još",
     "credit_balance": "Krediti koje posedujem: {balance}"

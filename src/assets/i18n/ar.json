@@ -150,7 +150,14 @@
     "transfer": {
       "to": "إلى",
       "from": "من",
-      "note": "ملاحظة"
+      "note": "ملاحظة",
+      "card_title": "تحويل الرصيد",
+      "button": "تحويل الرصيد",
+      "handle_label": "اسم المستخدم أو هاتف المستلم",
+      "amount_label": "المبلغ",
+      "amount_placeholder": "1.00",
+      "note_label": "ملاحظة (اختياري)",
+      "note_placeholder": "سبب التحويل…"
     },
     "load_more": "تحميل المزيد",
     "credit_balance": "الأرصدة التي أملكها: {balance}"

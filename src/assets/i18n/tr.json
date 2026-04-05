@@ -111,7 +111,14 @@
     "transfer": {
       "to": "Kime",
       "from": "Kimden",
-      "note": "Not"
+      "note": "Not",
+      "card_title": "Kredi Transfer Et",
+      "button": "Kredi Transfer Et",
+      "handle_label": "Alıcının kullanıcı adı veya telefonu",
+      "amount_label": "Tutar",
+      "amount_placeholder": "1,00",
+      "note_label": "Not (isteğe bağlı)",
+      "note_placeholder": "Transfer nedeni…"
     },
     "load_more": "Daha fazla yükle",
     "credit_balance": "Sahip olduğum krediler: {balance}",

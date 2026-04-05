@@ -111,7 +111,14 @@
     "transfer": {
       "to": "À",
       "from": "De",
-      "note": "Note"
+      "note": "Note",
+      "card_title": "Transférer des crédits",
+      "button": "Transférer des crédits",
+      "handle_label": "Nom d'utilisateur ou téléphone du destinataire",
+      "amount_label": "Montant",
+      "amount_placeholder": "1,00",
+      "note_label": "Note (facultatif)",
+      "note_placeholder": "Motif du transfert…"
     },
     "load_more": "Charger plus",
     "credit_balance": "Crédits que je possède : {balance}",

@@ -111,7 +111,14 @@
     "transfer": {
       "to": "发送至",
       "from": "来自",
-      "note": "备注"
+      "note": "备注",
+      "card_title": "转账积分",
+      "button": "转账积分",
+      "handle_label": "收款人的用户名或电话",
+      "amount_label": "金额",
+      "amount_placeholder": "1.00",
+      "note_label": "备注（可选）",
+      "note_placeholder": "转账原因…"
     },
     "load_more": "加载更多",
     "credit_balance": "我拥有的积分：{balance}",

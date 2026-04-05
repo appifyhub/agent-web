@@ -150,7 +150,14 @@
     "transfer": {
       "to": "An",
       "from": "Von",
-      "note": "Notiz"
+      "note": "Notiz",
+      "card_title": "Guthaben überweisen",
+      "button": "Guthaben überweisen",
+      "handle_label": "Benutzername oder Telefonnummer des Empfängers",
+      "amount_label": "Betrag",
+      "amount_placeholder": "1,00",
+      "note_label": "Notiz (optional)",
+      "note_placeholder": "Grund der Überweisung…"
     },
     "load_more": "Mehr laden",
     "credit_balance": "Guthaben, die ich besitze: {balance}"
