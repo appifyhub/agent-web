@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
+import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import AdvancedToolsPanel from "@/components/AdvancedToolsPanel";
@@ -127,7 +128,11 @@ const IntelligenceSettingsPage: React.FC = () => {
       });
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        saveError instanceof ApiError
+          ? PageError.fromApiError(saveError)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
@@ -270,22 +275,26 @@ const IntelligenceSettingsPage: React.FC = () => {
                 t("intelligence_presets.custom_description")}
             </p>
           </div>
-          <div className="h-4" />
-          <h3 className="leading-none font-semibold text-center mx-auto mt-14 text-bas text-blue-300">
-            {t("detailed_tool_choices")}
-          </h3>
-          <AdvancedToolsPanel
-            tools={externalToolsData.tools}
-            providers={externalToolsData.providers}
-            userSettings={userSettings}
-            remoteSettings={remoteSettings}
-            onToolChoiceChange={handleToolChoiceChange}
-            disabled={!!error?.isBlocker}
-            onProviderNavigate={handleProviderNavigate}
-            hasCredits={hasCredits}
-            openSection={openAccordionSection}
-            onOpenSectionChange={setOpenAccordionSection}
-          />
+          {selectedPreset === "custom" && (
+            <>
+              <div className="h-4" />
+              <h3 className="leading-none font-semibold text-center mx-auto mt-14 text-bas text-blue-300">
+                {t("detailed_tool_choices")}
+              </h3>
+              <AdvancedToolsPanel
+                tools={externalToolsData.tools}
+                providers={externalToolsData.providers}
+                userSettings={userSettings}
+                remoteSettings={remoteSettings}
+                onToolChoiceChange={handleToolChoiceChange}
+                disabled={!!error?.isBlocker}
+                onProviderNavigate={handleProviderNavigate}
+                hasCredits={hasCredits}
+                openSection={openAccordionSection}
+                onOpenSectionChange={setOpenAccordionSection}
+              />
+            </>
+          )}
         </>
       ) : !isLoadingState ? (
         <div className="flex flex-col items-center space-y-10 text-center mt-12">

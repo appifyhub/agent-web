@@ -1,5 +1,6 @@
 import { request } from "@/services/networking";
 import { ExternalTool, ToolType } from "@/services/external-tools-service";
+import { Platform } from "@/lib/platform";
 import { parseApiError } from "@/lib/api-error";
 
 export interface ParticipantInfo {
@@ -192,6 +193,46 @@ export async function fetchUsageStats({
     {
       method: "GET",
       headers: headers,
+    }
+  );
+  if (!response.ok) {
+    throw await parseApiError(response);
+  }
+  return response.json();
+}
+
+export interface CreditTransferPayload {
+  platform: Platform;
+  platform_handle: string;
+  amount: number;
+  note?: string;
+}
+
+export interface StatusResponse {
+  status: "OK";
+}
+
+export async function createTransfer({
+  apiBaseUrl,
+  user_id,
+  rawToken,
+  payload,
+}: {
+  apiBaseUrl: string;
+  user_id: string;
+  rawToken: string;
+  payload: CreditTransferPayload;
+}): Promise<StatusResponse> {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${rawToken}`,
+  };
+  const response = await request(
+    `${apiBaseUrl}/user/${user_id}/transfers`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
     }
   );
   if (!response.ok) {

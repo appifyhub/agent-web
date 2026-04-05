@@ -8,6 +8,18 @@ interface CacheEntry {
 // In-memory cache: persists during the session, clears on page reload/hard refresh
 const userSettingsCache = new Map<string, CacheEntry>();
 
+type CacheListener = () => void;
+const cacheListeners = new Set<CacheListener>();
+
+export function subscribeToCacheInvalidation(listener: CacheListener): () => void {
+  cacheListeners.add(listener);
+  return () => cacheListeners.delete(listener);
+}
+
+function notifyListeners(): void {
+  cacheListeners.forEach((listener) => listener());
+}
+
 // TTL (time-to-live) in milliseconds. Set to 0 to disable automatic expiry.
 // 5 minutes seems reasonable to keep credit balance relatively fresh while avoiding excessive calls
 const CACHE_TTL_MS = 5 * 60 * 1000;
@@ -45,6 +57,7 @@ export function setCachedSettings(userId: string, settings: UserSettings): void 
  */
 export function clearUserSettingsCache(userId: string): void {
   userSettingsCache.delete(userId);
+  notifyListeners();
 }
 
 /**

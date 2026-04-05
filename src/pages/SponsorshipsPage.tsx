@@ -16,6 +16,7 @@ import {
   Clock,
 } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
+import { ApiError } from "@/lib/api-error";
 import { PageError, cn, cleanUsername } from "@/lib/utils";
 import { toast } from "sonner";
 import { t } from "@/lib/translations";
@@ -29,11 +30,9 @@ import {
 import { Platform } from "@/lib/platform";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useUserSettings } from "@/hooks/useUserSettings";
-import PlatformDropdown from "@/components/PlatformDropdown";
+import PlatformHandleInput from "@/components/PlatformHandleInput";
 import PlatformIcon from "@/components/PlatformIcon";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { fetchExternalTools } from "@/services/external-tools-service";
 
 const SponsorshipsPage: React.FC = () => {
@@ -116,7 +115,11 @@ const SponsorshipsPage: React.FC = () => {
         setHasApiKeysConfigured(hasConfiguredProviders);
       } catch (err) {
         console.error("Error fetching data!", err);
-        setError(PageError.blocker("errors.fetch_failed"));
+        setError(
+          err instanceof ApiError
+            ? PageError.fromApiError(err, true)
+            : PageError.blocker("errors.fetch_failed"),
+        );
       } finally {
         setIsLoadingState(false);
       }
@@ -160,7 +163,11 @@ const SponsorshipsPage: React.FC = () => {
       toast(t("saved"));
     } catch (err) {
       console.error("Error saving sponsorship!", err);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        err instanceof ApiError
+          ? PageError.fromApiError(err)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
@@ -191,7 +198,11 @@ const SponsorshipsPage: React.FC = () => {
       toast(t("saved"));
     } catch (err) {
       console.error("Error saving sponsorship!", err);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        err instanceof ApiError
+          ? PageError.fromApiError(err)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
@@ -213,7 +224,11 @@ const SponsorshipsPage: React.FC = () => {
       await refreshSettings();
     } catch (err) {
       console.error("Error saving sponsorship!", err);
-      setError(PageError.simple("errors.save_failed"));
+      setError(
+        err instanceof ApiError
+          ? PageError.fromApiError(err)
+          : PageError.simple("errors.save_failed"),
+      );
     } finally {
       setIsLoadingState(false);
     }
@@ -314,20 +329,6 @@ const SponsorshipsPage: React.FC = () => {
   const shouldShowCancelButton =
     isEditing && !userSettings?.is_sponsored;
 
-  // Get platform-specific placeholder
-  const getPlatformPlaceholder = (): string => {
-    if (error?.isBlocker) return "—";
-
-    switch (selectedPlatform) {
-      case Platform.TELEGRAM:
-        return t("sponsorship.platform_handle_placeholder_telegram");
-      case Platform.WHATSAPP:
-        return t("sponsorship.platform_handle_placeholder_whatsapp");
-      default:
-        return t("sponsorship.platform_handle_placeholder");
-    }
-  };
-
   const getSponsorshipStatusLabel = (sponsorship: SponsorshipResponse): string => {
     return sponsorship.accepted_at
       ? t("sponsorship.details.accepted")
@@ -366,33 +367,22 @@ const SponsorshipsPage: React.FC = () => {
           </div>
         </>
       ) : isEditing ? (
-        <>
-          {/* New sponsorship input with platform dropdown */}
-          <div className="space-y-4">
-            <Label className="ps-2 text-[1.05rem] font-light">
-              {t("sponsorship.platform_handle_label")}
-            </Label>
-            <div className="flex space-x-3">
-              <PlatformDropdown
-                selectedPlatform={selectedPlatform}
-                onPlatformChange={setSelectedPlatform}
-              />
-              <Input
-                id="platform-handle"
-                className="py-6 px-6 w-full max-w-2xl text-[1.05rem] glass rounded-2xl"
-                placeholder={getPlatformPlaceholder()}
-                disabled={!!error?.isBlocker}
-                value={platformHandle}
-                onChange={(e) => setPlatformHandle(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !error?.isBlocker) {
-                    handleSaveSponsorship();
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </>
+        <div className="flex flex-col items-center gap-6">
+          <PlatformHandleInput
+            label={t("sponsorship.platform_handle_label")}
+            selectedPlatform={selectedPlatform}
+            onPlatformChange={setSelectedPlatform}
+            platformHandle={platformHandle}
+            onPlatformHandleChange={setPlatformHandle}
+            disabled={!!error?.isBlocker}
+            className="w-full sm:w-auto"
+            onKeyboardConfirm={() => {
+              if (!error?.isBlocker) {
+                handleSaveSponsorship();
+              }
+            }}
+          />
+        </div>
       ) : (
         <>
           {/* Sponsorships List */}
