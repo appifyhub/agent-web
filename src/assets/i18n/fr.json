@@ -75,6 +75,45 @@
     "page_title": "Utilisation",
     "card_title": "Historique d'utilisation",
     "no_records_found": "Aucun enregistrement d'utilisation trouvé",
+    "filters": {
+      "scope_section": "PORTÉE",
+      "filters_section": "FILTRES",
+      "time_range_label": "Temps",
+      "time_range_all": "Toute période",
+      "time_range_10min": "10 dernières minutes",
+      "time_range_30min": "30 dernières minutes",
+      "time_range_1h": "Dernière heure",
+      "time_range_3h": "3 dernières heures",
+      "time_range_6h": "6 dernières heures",
+      "time_range_12h": "12 dernières heures",
+      "time_range_today": "Aujourd'hui",
+      "time_range_yesterday": "Hier",
+      "time_range_week": "Semaine dernière",
+      "time_range_2weeks": "2 dernières semaines",
+      "time_range_month": "Mois dernier",
+      "tool_label": "Outil",
+      "tool_all": "Tous les outils IA",
+      "purpose_label": "Objectif",
+      "purpose_all": "Tous les objectifs",
+      "provider_label": "Fournisseur",
+      "provider_all": "Tous les fournisseurs",
+      "show_scope_and_filters": "Afficher la portée et les filtres",
+      "hide_scope_and_filters": "Masquer la portée et les filtres",
+      "include_sponsored_label": "Inclure les utilisateurs sponsorisés",
+      "exclude_self_label": "Exclure mon utilisation",
+      "include_transfers_label": "Inclure les transferts",
+      "only_transfers_label": "Afficher uniquement les transferts"
+    },
+    "stats": {
+      "total_records": "Total d'enregistrements",
+      "total_cost": "Coût total",
+      "total_runtime": "Temps total",
+      "show_breakdowns": "Afficher les détails",
+      "hide_breakdowns": "Masquer les détails",
+      "by_tool": "Par outil",
+      "by_purpose": "Par objectif",
+      "by_provider": "Par fournisseur"
+    },
     "cost_breakdown": {
       "title": "Ventilation des coûts",
       "model_cost": "Coût du modèle",
@@ -121,46 +160,7 @@
       "note_placeholder": "Motif du transfert…"
     },
     "load_more": "Charger plus",
-    "credit_balance": "Crédits que je possède : {balance}",
-    "filters": {
-      "scope_section": "PORTÉE",
-      "filters_section": "FILTRES",
-      "time_range_label": "Temps",
-      "time_range_all": "Toute période",
-      "time_range_10min": "10 dernières minutes",
-      "time_range_30min": "30 dernières minutes",
-      "time_range_1h": "Dernière heure",
-      "time_range_3h": "3 dernières heures",
-      "time_range_6h": "6 dernières heures",
-      "time_range_12h": "12 dernières heures",
-      "time_range_today": "Aujourd'hui",
-      "time_range_yesterday": "Hier",
-      "time_range_week": "Semaine dernière",
-      "time_range_2weeks": "2 dernières semaines",
-      "time_range_month": "Mois dernier",
-      "tool_label": "Outil",
-      "tool_all": "Tous les outils IA",
-      "purpose_label": "Objectif",
-      "purpose_all": "Tous les objectifs",
-      "provider_label": "Fournisseur",
-      "provider_all": "Tous les fournisseurs",
-      "show_scope_and_filters": "Afficher la portée et les filtres",
-      "hide_scope_and_filters": "Masquer la portée et les filtres",
-      "include_sponsored_label": "Inclure les utilisateurs sponsorisés",
-      "exclude_self_label": "Exclure mon utilisation",
-      "include_transfers_label": "Inclure les transferts",
-      "only_transfers_label": "Afficher uniquement les transferts"
-    },
-    "stats": {
-      "total_records": "Total d'enregistrements",
-      "total_cost": "Coût total",
-      "total_runtime": "Temps total",
-      "show_breakdowns": "Afficher les détails",
-      "hide_breakdowns": "Masquer les détails",
-      "by_tool": "Par outil",
-      "by_purpose": "Par objectif",
-      "by_provider": "Par fournisseur"
-    }
+    "credit_balance": "Crédits que je possède : {balance}"
   },
   "purchases": {
     "page_title": "Achats",
@@ -358,51 +358,9 @@
       }
     }
   },
-  "features": {
-    "header": "Fonctionnalités",
-    "title": "Que peut faire {botName} ?",
-    "items": {
-      "language_intelligence": {
-        "title": "Intelligence linguistique",
-        "description": "L’assistant comprend et répond dans la langue de votre choix avec la prise en charge de plus de 50 langues, rendant les conversations naturelles et accessibles aux utilisateurs du monde entier. Posez n’importe quelle question et obtenez des réponses intelligentes rapidement."
-      },
-      "independent": {
-        "title": "Indépendant",
-        "description": "Passez d’applications de chat à des plateformes d’IA sans perdre votre historique de chat ou vos paramètres. L’assistant garantit une expérience cohérente et fluide où que vous interagissiez."
-      },
-      "privacy": {
-        "title": "Ouvert, mais privé",
-        "description": "Le code est entièrement open source pour la transparence, mais vos données et vos conversations restent privées et accessibles uniquement par vous. Auto-hébergez pour un contrôle encore plus grand de vos informations."
-      },
-      "web_search": {
-        "title": "Recherche Web",
-        "description": "Obtenez des informations à jour sur le Web, y compris des actualités, des analyses, des taux de change, des prix de crypto-monnaies, des actifs et plus encore, directement dans le chat."
-      },
-      "media": {
-        "title": "Pièces jointes et médias",
-        "description": "Envoyez des images, des messages vocaux et des documents à l’assistant – il peut les traiter et les utiliser pour créer des réponses utiles ou exécuter des tâches. Discutez avec vos photos ou documents, pas seulement du texte."
-      },
-      "imaging": {
-        "title": "Imagerie IA",
-        "description": "Créez de nouvelles images, modifiez des images existantes à l’aide d’instructions textuelles ou restaurez de vieilles images endommagées à l’aide de modèles IA avancés. L’assistant donne vie à vos idées avec des outils puissants et faciles à utiliser."
-      },
-      "monitoring": {
-        "title": "Surveillance",
-        "description": "Restez informé grâce à la surveillance en temps réel des actualités, marchés et sujets qui vous intéressent. L’assistant vous tient proactivement informé afin que rien ne vous échappe."
-      },
-      "profile": {
-        "title": "Profil utilisateur",
-        "description": "Un profil utilisateur unifié vous permet de gérer votre identité, votre facturation, vos crédits, vos préférences d’outils et les paramètres du fournisseur d’IA sur toutes les plateformes de chat. Ajustez tout – demandez simplement à l’assistant d’ouvrir vos paramètres ou tapez `/settings` dans le chat."
-      },
-      "chat_settings": {
-        "title": "Paramètres de chat",
-        "description": "Personnalisez le comportement de l’assistant dans chaque chat, y compris la langue, le style de réponse et les préférences de notification. Accédez à ces options à tout moment en demandant à l’assistant d’ouvrir les paramètres ou en tapant `/settings` dans le chat."
-      },
-      "sponsorships": {
-        "title": "Parrainages",
-        "description": "Partagez l’accès à l’assistant avec d’autres tout en gardant votre utilisation et la leur privées. Les parrainages vous permettent d’étendre les avantages de l’assistant à des amis ou à la famille, et vous pouvez toujours les gérer via l’assistant ou en tapant `/settings` dans le chat."
-      }
-    }
+  "intelligence_warnings": {
+    "no_access_message": "Vous avez besoin de vos propres clés API privées ou de crédits achetés pour utiliser les outils d'IA.",
+    "no_settings": "Aucun paramètre d'IA à configurer."
   },
   "intelligence_presets": {
     "lowest_price": "Coût le plus bas",
@@ -518,28 +476,51 @@
     "waitlist_invited_policies_required": "Veuillez accepter les politiques pour activer votre compte invité",
     "too_many_input_images": "Trop d'images d'entrée fournies"
   },
-  "onboarding": {
-    "page_title": "Commencer",
-    "interface_language_label": "{botName} utilisera principalement cette langue",
-    "policy_prefix": "Ces politiques doivent être acceptées avant de commencer. Les avez-vous lues et acceptez-vous les deux ?",
-    "policy_label": "J'accepte",
-    "access_api_keys_title": "Utiliser mes propres clés API",
-    "access_api_keys_description": "Connectez vos propres clés API de fournisseur d'IA. Vous payez les fournisseurs directement, avec un contrôle total sur vos outils d'IA.",
-    "access_credits_title": "Acheter des crédits",
-    "access_credits_description": "Utilisez des crédits prépayés pour vos interactions IA. Aucune clé API requise.",
-    "finish": "C'est parti !",
-    "start": "Commencer",
-    "waitlist_title": "Vous êtes sur la liste d'attente",
-    "waitlist_message": "Nous vous notifierons dès que l'activation de votre compte sera à nouveau possible.",
-    "success": "{botName} est maintenant prêt ! Retourne dans ton chat et pose n'importe quelle question."
-  },
-  "check_out_project": "Découvrir le projet",
-  "footer": {
-    "logo_alt": "Logo",
-    "terms": "Conditions d'utilisation",
-    "privacy": "Politique de confidentialité",
-    "powered_by": "Propulsé par",
-    "rights_reserved": "Tous droits réservés"
+  "features": {
+    "header": "Fonctionnalités",
+    "title": "Que peut faire {botName} ?",
+    "items": {
+      "language_intelligence": {
+        "title": "Intelligence linguistique",
+        "description": "L’assistant comprend et répond dans la langue de votre choix avec la prise en charge de plus de 50 langues, rendant les conversations naturelles et accessibles aux utilisateurs du monde entier. Posez n’importe quelle question et obtenez des réponses intelligentes rapidement."
+      },
+      "independent": {
+        "title": "Indépendant",
+        "description": "Passez d’applications de chat à des plateformes d’IA sans perdre votre historique de chat ou vos paramètres. L’assistant garantit une expérience cohérente et fluide où que vous interagissiez."
+      },
+      "privacy": {
+        "title": "Ouvert, mais privé",
+        "description": "Le code est entièrement open source pour la transparence, mais vos données et vos conversations restent privées et accessibles uniquement par vous. Auto-hébergez pour un contrôle encore plus grand de vos informations."
+      },
+      "web_search": {
+        "title": "Recherche Web",
+        "description": "Obtenez des informations à jour sur le Web, y compris des actualités, des analyses, des taux de change, des prix de crypto-monnaies, des actifs et plus encore, directement dans le chat."
+      },
+      "media": {
+        "title": "Pièces jointes et médias",
+        "description": "Envoyez des images, des messages vocaux et des documents à l’assistant – il peut les traiter et les utiliser pour créer des réponses utiles ou exécuter des tâches. Discutez avec vos photos ou documents, pas seulement du texte."
+      },
+      "imaging": {
+        "title": "Imagerie IA",
+        "description": "Créez de nouvelles images, modifiez des images existantes à l’aide d’instructions textuelles ou restaurez de vieilles images endommagées à l’aide de modèles IA avancés. L’assistant donne vie à vos idées avec des outils puissants et faciles à utiliser."
+      },
+      "monitoring": {
+        "title": "Surveillance",
+        "description": "Restez informé grâce à la surveillance en temps réel des actualités, marchés et sujets qui vous intéressent. L’assistant vous tient proactivement informé afin que rien ne vous échappe."
+      },
+      "profile": {
+        "title": "Profil utilisateur",
+        "description": "Un profil utilisateur unifié vous permet de gérer votre identité, votre facturation, vos crédits, vos préférences d’outils et les paramètres du fournisseur d’IA sur toutes les plateformes de chat. Ajustez tout – demandez simplement à l’assistant d’ouvrir vos paramètres ou tapez `/settings` dans le chat."
+      },
+      "chat_settings": {
+        "title": "Paramètres de chat",
+        "description": "Personnalisez le comportement de l’assistant dans chaque chat, y compris la langue, le style de réponse et les préférences de notification. Accédez à ces options à tout moment en demandant à l’assistant d’ouvrir les paramètres ou en tapant `/settings` dans le chat."
+      },
+      "sponsorships": {
+        "title": "Parrainages",
+        "description": "Partagez l’accès à l’assistant avec d’autres tout en gardant votre utilisation et la leur privées. Les parrainages vous permettent d’étendre les avantages de l’assistant à des amis ou à la famille, et vous pouvez toujours les gérer via l’assistant ou en tapant `/settings` dans le chat."
+      }
+    }
   },
   "products": {
     "shop": {
@@ -582,8 +563,27 @@
     "second_of_runtime": "Par seconde d'exécution",
     "max_input_images": "Jusqu'à {maxImages} images de référence"
   },
-  "intelligence_warnings": {
-    "no_access_message": "Vous avez besoin de vos propres clés API privées ou de crédits achetés pour utiliser les outils d'IA.",
-    "no_settings": "Aucun paramètre d'IA à configurer."
+  "onboarding": {
+    "page_title": "Commencer",
+    "interface_language_label": "{botName} utilisera principalement cette langue",
+    "policy_prefix": "Ces politiques doivent être acceptées avant de commencer. Les avez-vous lues et acceptez-vous les deux ?",
+    "policy_label": "J'accepte",
+    "access_api_keys_title": "Utiliser mes propres clés API",
+    "access_api_keys_description": "Connectez vos propres clés API de fournisseur d'IA. Vous payez les fournisseurs directement, avec un contrôle total sur vos outils d'IA.",
+    "access_credits_title": "Acheter des crédits",
+    "access_credits_description": "Utilisez des crédits prépayés pour vos interactions IA. Aucune clé API requise.",
+    "finish": "C'est parti !",
+    "start": "Commencer",
+    "waitlist_title": "Vous êtes sur la liste d'attente",
+    "waitlist_message": "Nous vous notifierons dès que l'activation de votre compte sera à nouveau possible.",
+    "success": "{botName} est maintenant prêt ! Retourne dans ton chat et pose n'importe quelle question."
+  },
+  "check_out_project": "Découvrir le projet",
+  "footer": {
+    "logo_alt": "Logo",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "powered_by": "Propulsé par",
+    "rights_reserved": "Tous droits réservés"
   }
 }

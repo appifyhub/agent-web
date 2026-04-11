@@ -75,6 +75,45 @@
     "page_title": "Utilizzo",
     "card_title": "Cronologia di utilizzo",
     "no_records_found": "Nessun record di utilizzo trovato",
+    "filters": {
+      "scope_section": "AMBITO",
+      "filters_section": "FILTRI",
+      "time_range_label": "Tempo",
+      "time_range_all": "Sempre",
+      "time_range_10min": "Ultimi 10 minuti",
+      "time_range_30min": "Ultimi 30 minuti",
+      "time_range_1h": "Ultima ora",
+      "time_range_3h": "Ultime 3 ore",
+      "time_range_6h": "Ultime 6 ore",
+      "time_range_12h": "Ultime 12 ore",
+      "time_range_today": "Oggi",
+      "time_range_yesterday": "Ieri",
+      "time_range_week": "Ultima settimana",
+      "time_range_2weeks": "Ultime 2 settimane",
+      "time_range_month": "Ultimo mese",
+      "tool_label": "Strumento",
+      "tool_all": "Tutti gli strumenti IA",
+      "purpose_label": "Scopo",
+      "purpose_all": "Tutti gli scopi",
+      "provider_label": "Fornitore",
+      "provider_all": "Tutti i fornitori",
+      "show_scope_and_filters": "Mostra ambito e filtri",
+      "hide_scope_and_filters": "Nascondi ambito e filtri",
+      "include_sponsored_label": "Includi utenti sponsorizzati",
+      "exclude_self_label": "Escludi il mio utilizzo",
+      "include_transfers_label": "Includi trasferimenti",
+      "only_transfers_label": "Mostra solo trasferimenti"
+    },
+    "stats": {
+      "total_records": "Totale record",
+      "total_cost": "Costo totale",
+      "total_runtime": "Tempo totale",
+      "show_breakdowns": "Visualizza dettagli",
+      "hide_breakdowns": "Nascondi ripartizioni",
+      "by_tool": "Per strumento",
+      "by_purpose": "Per scopo",
+      "by_provider": "Per fornitore"
+    },
     "cost_breakdown": {
       "title": "Dettaglio costi",
       "model_cost": "Costo modello",
@@ -121,46 +160,7 @@
       "note_placeholder": "Motivo del trasferimento…"
     },
     "load_more": "Carica altro",
-    "credit_balance": "Crediti che possiedo: {balance}",
-    "filters": {
-      "scope_section": "AMBITO",
-      "filters_section": "FILTRI",
-      "time_range_label": "Tempo",
-      "time_range_all": "Sempre",
-      "time_range_10min": "Ultimi 10 minuti",
-      "time_range_30min": "Ultimi 30 minuti",
-      "time_range_1h": "Ultima ora",
-      "time_range_3h": "Ultime 3 ore",
-      "time_range_6h": "Ultime 6 ore",
-      "time_range_12h": "Ultime 12 ore",
-      "time_range_today": "Oggi",
-      "time_range_yesterday": "Ieri",
-      "time_range_week": "Ultima settimana",
-      "time_range_2weeks": "Ultime 2 settimane",
-      "time_range_month": "Ultimo mese",
-      "tool_label": "Strumento",
-      "tool_all": "Tutti gli strumenti IA",
-      "purpose_label": "Scopo",
-      "purpose_all": "Tutti gli scopi",
-      "provider_label": "Fornitore",
-      "provider_all": "Tutti i fornitori",
-      "show_scope_and_filters": "Mostra ambito e filtri",
-      "hide_scope_and_filters": "Nascondi ambito e filtri",
-      "include_sponsored_label": "Includi utenti sponsorizzati",
-      "exclude_self_label": "Escludi il mio utilizzo",
-      "include_transfers_label": "Includi trasferimenti",
-      "only_transfers_label": "Mostra solo trasferimenti"
-    },
-    "stats": {
-      "total_records": "Totale record",
-      "total_cost": "Costo totale",
-      "total_runtime": "Tempo totale",
-      "show_breakdowns": "Visualizza dettagli",
-      "hide_breakdowns": "Nascondi ripartizioni",
-      "by_tool": "Per strumento",
-      "by_purpose": "Per scopo",
-      "by_provider": "Per fornitore"
-    }
+    "credit_balance": "Crediti che possiedo: {balance}"
   },
   "purchases": {
     "page_title": "Acquisti",
@@ -281,6 +281,87 @@
   "configure_intelligence": "Configura intelligenza",
   "configure_ai_providers": "Configura provider AI",
   "configure_access_keys": "Configura le chiavi di accesso",
+  "tools": {
+    "not_configured_with_prefix": "Configura le chiavi",
+    "select_tool": "Seleziona uno strumento",
+    "no_tools_available": "Nessuno strumento disponibile per questo tipo",
+    "groups": {
+      "text_intelligence": {
+        "title": "Intelligenza Linguistica"
+      },
+      "content_analysis": {
+        "title": "Analisi del Contenuto"
+      },
+      "image_tools": {
+        "title": "Strumenti Immagine"
+      },
+      "integrations": {
+        "title": "Integrazioni"
+      }
+    },
+    "types": {
+      "chat": {
+        "title": "Chat",
+        "description": "Utilizzato per le funzionalità di chat di base e l'integrazione con vari strumenti esterni. Questo è il modello con cui parli."
+      },
+      "reasoning": {
+        "title": "Ragionamento",
+        "description": "Questo è un modello che di solito funziona in background e ti notifica quando è terminato, utilizzato solo per ragionamento e compiti complessi di risoluzione dei problemi."
+      },
+      "copywriting": {
+        "title": "Copywriting",
+        "description": "Questo è un modello utilizzato per copywriting, creazione di contenuti, correzioni di ortografia e grammatica, così come vari altri compiti che richiedono regolazioni di stile e tono."
+      },
+      "vision": {
+        "title": "Visione",
+        "description": "Questo è un modello utilizzato per compiti di visione, come classificazione di immagini, comprensione di immagini e chat con immagini. Questo è quello che viene utilizzato quando carichi un'immagine nella chat."
+      },
+      "hearing": {
+        "title": "Udito",
+        "description": "Questo è un modello utilizzato per compiti di udito, come riconoscimento vocale, speech-to-text, comprensione del linguaggio naturale e chat con audio. Questo è quello che viene utilizzato quando carichi un file audio nella chat."
+      },
+      "images_gen": {
+        "title": "Generazione di immagini",
+        "description": "Questo è un modello utilizzato solo per la generazione di immagini da prompt testuali."
+      },
+      "images_edit": {
+        "title": "Modifica di immagini",
+        "description": "Questo è un modello utilizzato per la modifica di immagini, come sostituzioni di foto, rimozione di oggetti, aggiunta di effetti speciali e cambio dello stile delle immagini."
+      },
+      "search": {
+        "title": "Ricerca",
+        "description": "Questo è un modello utilizzato per la ricerca web, come cercare sul web informazioni, notizie, prodotti, servizi o ricerca di background su un argomento non noto al tuo compagno di chat."
+      },
+      "embedding": {
+        "title": "Embedding",
+        "description": "Questo è un modello utilizzato per l'embedding, come incorporare testo, immagini o audio in uno spazio vettoriale. È utilizzato per la ricerca di similarità attraverso database interni, documenti e altri compiti di ricerca semantica. Questo è quello che viene utilizzato quando carichi un file PDF nella chat."
+      },
+      "api_fiat_exchange": {
+        "title": "Cambio valuta fiat",
+        "description": "Accesso ai tassi di cambio in tempo reale per le valute tradizionali."
+      },
+      "api_crypto_exchange": {
+        "title": "Cambio criptovalute",
+        "description": "Accesso ai tassi di cambio in tempo reale per le criptovalute."
+      },
+      "api_twitter": {
+        "title": "X / Twitter",
+        "description": "Accesso per leggere e analizzare i contenuti di Twitter."
+      },
+      "credit_transfer": {
+        "title": "Trasferimento crediti",
+        "description": "Strumento interno per trasferire crediti tra utenti."
+      },
+      "deprecated": {
+        "title": "Obsoleto",
+        "description": "Questo strumento o funzionalità è obsoleto e potrebbe essere rimosso nelle versioni future."
+      }
+    }
+  },
+  "intelligence_warnings": {
+    "no_access_message": "Hai bisogno delle tue chiavi API private o crediti acquistati per utilizzare gli strumenti AI.",
+    "no_settings": "Nessuna impostazione AI da configurare."
+  },
   "intelligence_presets": {
     "lowest_price": "Costo più basso",
     "lowest_price_description": "Lo strumento più economico disponibile in ogni categoria.",
@@ -441,106 +522,6 @@
       }
     }
   },
-  "tools": {
-    "not_configured_with_prefix": "Configura le chiavi",
-    "select_tool": "Seleziona uno strumento",
-    "no_tools_available": "Nessuno strumento disponibile per questo tipo",
-    "groups": {
-      "text_intelligence": {
-        "title": "Intelligenza Linguistica"
-      },
-      "content_analysis": {
-        "title": "Analisi del Contenuto"
-      },
-      "image_tools": {
-        "title": "Strumenti Immagine"
-      },
-      "integrations": {
-        "title": "Integrazioni"
-      }
-    },
-    "types": {
-      "chat": {
-        "title": "Chat",
-        "description": "Utilizzato per le funzionalità di chat di base e l'integrazione con vari strumenti esterni. Questo è il modello con cui parli."
-      },
-      "reasoning": {
-        "title": "Ragionamento",
-        "description": "Questo è un modello che di solito funziona in background e ti notifica quando è terminato, utilizzato solo per ragionamento e compiti complessi di risoluzione dei problemi."
-      },
-      "copywriting": {
-        "title": "Copywriting",
-        "description": "Questo è un modello utilizzato per copywriting, creazione di contenuti, correzioni di ortografia e grammatica, così come vari altri compiti che richiedono regolazioni di stile e tono."
-      },
-      "vision": {
-        "title": "Visione",
-        "description": "Questo è un modello utilizzato per compiti di visione, come classificazione di immagini, comprensione di immagini e chat con immagini. Questo è quello che viene utilizzato quando carichi un'immagine nella chat."
-      },
-      "hearing": {
-        "title": "Udito",
-        "description": "Questo è un modello utilizzato per compiti di udito, come riconoscimento vocale, speech-to-text, comprensione del linguaggio naturale e chat con audio. Questo è quello che viene utilizzato quando carichi un file audio nella chat."
-      },
-      "images_gen": {
-        "title": "Generazione di immagini",
-        "description": "Questo è un modello utilizzato solo per la generazione di immagini da prompt testuali."
-      },
-      "images_edit": {
-        "title": "Modifica di immagini",
-        "description": "Questo è un modello utilizzato per la modifica di immagini, come sostituzioni di foto, rimozione di oggetti, aggiunta di effetti speciali e cambio dello stile delle immagini."
-      },
-      "search": {
-        "title": "Ricerca",
-        "description": "Questo è un modello utilizzato per la ricerca web, come cercare sul web informazioni, notizie, prodotti, servizi o ricerca di background su un argomento non noto al tuo compagno di chat."
-      },
-      "embedding": {
-        "title": "Embedding",
-        "description": "Questo è un modello utilizzato per l'embedding, come incorporare testo, immagini o audio in uno spazio vettoriale. È utilizzato per la ricerca di similarità attraverso database interni, documenti e altri compiti di ricerca semantica. Questo è quello che viene utilizzato quando carichi un file PDF nella chat."
-      },
-      "api_fiat_exchange": {
-        "title": "Cambio valuta fiat",
-        "description": "Accesso ai tassi di cambio in tempo reale per le valute tradizionali."
-      },
-      "api_crypto_exchange": {
-        "title": "Cambio criptovalute",
-        "description": "Accesso ai tassi di cambio in tempo reale per le criptovalute."
-      },
-      "api_twitter": {
-        "title": "X / Twitter",
-        "description": "Accesso per leggere e analizzare i contenuti di Twitter."
-      },
-      "credit_transfer": {
-        "title": "Trasferimento crediti",
-        "description": "Strumento interno per trasferire crediti tra utenti."
-      },
-      "deprecated": {
-        "title": "Obsoleto",
-        "description": "Questo strumento o funzionalità è obsoleto e potrebbe essere rimosso nelle versioni future."
-      }
-    }
-  },
-  "onboarding": {
-    "page_title": "Inizia",
-    "interface_language_label": "{botName} utilizzerà principalmente questa lingua",
-    "policy_prefix": "Queste politiche devono essere accettate prima di iniziare. Le hai lette e sei d'accordo con entrambe?",
-    "policy_label": "Accetto",
-    "access_api_keys_title": "Usa le mie chiavi API",
-    "access_api_keys_description": "Connetti le tue chiavi API del fornitore AI. Paghi direttamente i fornitori, con pieno controllo sui tuoi strumenti AI.",
-    "access_credits_title": "Acquista crediti",
-    "access_credits_description": "Usa crediti prepagati per le interazioni AI. Non sono necessarie chiavi API.",
-    "finish": "Andiamo!",
-    "start": "Inizia",
-    "waitlist_title": "Sei in lista d'attesa",
-    "waitlist_message": "Ti avviseremo quando sarà di nuovo possibile attivare il tuo account.",
-    "success": "{botName} è ora pronto! Torna nella tua chat e chiedi qualsiasi cosa."
-  },
-  "check_out_project": "Scopri il progetto",
-  "footer": {
-    "logo_alt": "Logo",
-    "terms": "Termini di Servizio",
-    "privacy": "Informativa sulla Privacy",
-    "powered_by": "Alimentato da",
-    "rights_reserved": "Tutti i diritti riservati"
-  },
   "products": {
     "shop": {
       "title": "Scegli un prodotto",
@@ -582,8 +563,27 @@
     "second_of_runtime": "Per secondo di esecuzione",
     "max_input_images": "Fino a {maxImages} immagini di riferimento"
   },
-  "intelligence_warnings": {
-    "no_access_message": "Hai bisogno delle tue chiavi API private o crediti acquistati per utilizzare gli strumenti AI.",
-    "no_settings": "Nessuna impostazione AI da configurare."
+  "onboarding": {
+    "page_title": "Inizia",
+    "interface_language_label": "{botName} utilizzerà principalmente questa lingua",
+    "policy_prefix": "Queste politiche devono essere accettate prima di iniziare. Le hai lette e sei d'accordo con entrambe?",
+    "policy_label": "Accetto",
+    "access_api_keys_title": "Usa le mie chiavi API",
+    "access_api_keys_description": "Connetti le tue chiavi API del fornitore AI. Paghi direttamente i fornitori, con pieno controllo sui tuoi strumenti AI.",
+    "access_credits_title": "Acquista crediti",
+    "access_credits_description": "Usa crediti prepagati per le interazioni AI. Non sono necessarie chiavi API.",
+    "finish": "Andiamo!",
+    "start": "Inizia",
+    "waitlist_title": "Sei in lista d'attesa",
+    "waitlist_message": "Ti avviseremo quando sarà di nuovo possibile attivare il tuo account.",
+    "success": "{botName} è ora pronto! Torna nella tua chat e chiedi qualsiasi cosa."
+  },
+  "check_out_project": "Scopri il progetto",
+  "footer": {
+    "logo_alt": "Logo",
+    "terms": "Termini di Servizio",
+    "privacy": "Informativa sulla Privacy",
+    "powered_by": "Alimentato da",
+    "rights_reserved": "Tutti i diritti riservati"
   }
 }

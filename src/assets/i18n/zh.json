@@ -75,6 +75,45 @@
     "page_title": "使用情况",
     "card_title": "使用历史",
     "no_records_found": "未找到使用记录",
+    "filters": {
+      "scope_section": "范围",
+      "filters_section": "筛选器",
+      "time_range_label": "时间",
+      "time_range_all": "所有时间",
+      "time_range_10min": "最近10分钟",
+      "time_range_30min": "最近30分钟",
+      "time_range_1h": "最近1小时",
+      "time_range_3h": "最近3小时",
+      "time_range_6h": "最近6小时",
+      "time_range_12h": "最近12小时",
+      "time_range_today": "今天",
+      "time_range_yesterday": "昨天",
+      "time_range_week": "上周",
+      "time_range_2weeks": "最近2周",
+      "time_range_month": "上个月",
+      "tool_label": "工具",
+      "tool_all": "所有 AI 工具",
+      "purpose_label": "用途",
+      "purpose_all": "所有用途",
+      "provider_label": "提供商",
+      "provider_all": "所有提供商",
+      "show_scope_and_filters": "显示范围和筛选器",
+      "hide_scope_and_filters": "隐藏范围和筛选器",
+      "include_sponsored_label": "包括赞助用户",
+      "exclude_self_label": "排除我的使用",
+      "include_transfers_label": "包含转账",
+      "only_transfers_label": "仅显示转账"
+    },
+    "stats": {
+      "total_records": "总记录数",
+      "total_cost": "总成本",
+      "total_runtime": "总时间",
+      "show_breakdowns": "查看详细分类",
+      "hide_breakdowns": "隐藏明细",
+      "by_tool": "按工具",
+      "by_purpose": "按用途",
+      "by_provider": "按提供商"
+    },
     "cost_breakdown": {
       "title": "费用明细",
       "model_cost": "模型费用",
@@ -121,46 +160,7 @@
       "note_placeholder": "转账原因…"
     },
     "load_more": "加载更多",
-    "credit_balance": "我拥有的积分：{balance}",
-    "filters": {
-      "scope_section": "范围",
-      "filters_section": "筛选器",
-      "time_range_label": "时间",
-      "time_range_all": "所有时间",
-      "time_range_10min": "最近10分钟",
-      "time_range_30min": "最近30分钟",
-      "time_range_1h": "最近1小时",
-      "time_range_3h": "最近3小时",
-      "time_range_6h": "最近6小时",
-      "time_range_12h": "最近12小时",
-      "time_range_today": "今天",
-      "time_range_yesterday": "昨天",
-      "time_range_week": "上周",
-      "time_range_2weeks": "最近2周",
-      "time_range_month": "上个月",
-      "tool_label": "工具",
-      "tool_all": "所有 AI 工具",
-      "purpose_label": "用途",
-      "purpose_all": "所有用途",
-      "provider_label": "提供商",
-      "provider_all": "所有提供商",
-      "show_scope_and_filters": "显示范围和筛选器",
-      "hide_scope_and_filters": "隐藏范围和筛选器",
-      "include_sponsored_label": "包括赞助用户",
-      "exclude_self_label": "排除我的使用",
-      "include_transfers_label": "包含转账",
-      "only_transfers_label": "仅显示转账"
-    },
-    "stats": {
-      "total_records": "总记录数",
-      "total_cost": "总成本",
-      "total_runtime": "总时间",
-      "show_breakdowns": "查看详细分类",
-      "hide_breakdowns": "隐藏明细",
-      "by_tool": "按工具",
-      "by_purpose": "按用途",
-      "by_provider": "按提供商"
-    }
+    "credit_balance": "我拥有的积分：{balance}"
   },
   "purchases": {
     "page_title": "购买",
@@ -281,6 +281,87 @@
   "configure_intelligence": "配置智能",
   "configure_ai_providers": "配置 AI 提供商",
   "configure_access_keys": "配置访问密钥",
+  "tools": {
+    "not_configured_with_prefix": "配置密钥",
+    "select_tool": "选择工具",
+    "no_tools_available": "此类型没有可用工具",
+    "groups": {
+      "text_intelligence": {
+        "title": "语言智能"
+      },
+      "content_analysis": {
+        "title": "内容分析"
+      },
+      "image_tools": {
+        "title": "图像工具"
+      },
+      "integrations": {
+        "title": "集成"
+      }
+    },
+    "types": {
+      "chat": {
+        "title": "聊天",
+        "description": "用于基本聊天功能和与各种外部工具的集成。这是您与之对话的模型。"
+      },
+      "reasoning": {
+        "title": "推理",
+        "description": "这是一个通常在后台运行并在完成时通知您的模型，仅用于推理和复杂的问题解决任务。"
+      },
+      "copywriting": {
+        "title": "文案写作",
+        "description": "这是一个用于文案写作、内容创建、拼写和语法更正以及需要风格和语调调整的各种其他任务的模型。"
+      },
+      "vision": {
+        "title": "视觉",
+        "description": "这是一个用于视觉任务的模型，如图像分类、图像理解和与图像聊天。这是您在聊天中上传图像时使用的功能。"
+      },
+      "hearing": {
+        "title": "听觉",
+        "description": "这是一个用于听觉任务的模型，如语音识别、语音转文本、自然语言理解和与音频聊天。这是您在聊天中上传音频文件时使用的功能。"
+      },
+      "images_gen": {
+        "title": "图像生成",
+        "description": "这是一个仅用于从文本提示生成图像的模型。"
+      },
+      "images_edit": {
+        "title": "图像编辑",
+        "description": "这是一个用于图像编辑的模型,如照片替换、对象移除、添加特殊效果和更改图像样式。"
+      },
+      "search": {
+        "title": "搜索",
+        "description": "这是一个用于网络搜索的模型，如在网上搜索信息、新闻、产品、服务或对您的聊天伙伴不了解的主题进行背景研究。"
+      },
+      "embedding": {
+        "title": "嵌入",
+        "description": "这是一个用于嵌入的模型，如将文本、图像或音频嵌入到向量空间中。它用于在内部数据库、文档和其他语义搜索任务中进行相似性搜索。这是您在聊天中上传PDF文件时使用的功能。"
+      },
+      "api_fiat_exchange": {
+        "title": "法币汇率",
+        "description": "访问传统货币的实时汇率。"
+      },
+      "api_crypto_exchange": {
+        "title": "加密货币汇率",
+        "description": "访问加密货币的实时汇率。"
+      },
+      "api_twitter": {
+        "title": "X / Twitter",
+        "description": "访问以读取和分析Twitter内容。"
+      },
+      "credit_transfer": {
+        "title": "积分转账",
+        "description": "用于用户之间转移积分的内部工具。"
+      },
+      "deprecated": {
+        "title": "已弃用",
+        "description": "此工具或功能已弃用，可能会在未来版本中移除。"
+      }
+    }
+  },
+  "intelligence_warnings": {
+    "no_access_message": "您需要自己的私有 API 密钥或购买的积分才能使用 AI 工具。",
+    "no_settings": "没有需要配置的AI设置。"
+  },
   "intelligence_presets": {
     "lowest_price": "最低成本",
     "lowest_price_description": "每个类别中最便宜的可用工具。",
@@ -441,106 +522,6 @@
       }
     }
   },
-  "tools": {
-    "not_configured_with_prefix": "配置密钥",
-    "select_tool": "选择工具",
-    "no_tools_available": "此类型没有可用工具",
-    "groups": {
-      "text_intelligence": {
-        "title": "语言智能"
-      },
-      "content_analysis": {
-        "title": "内容分析"
-      },
-      "image_tools": {
-        "title": "图像工具"
-      },
-      "integrations": {
-        "title": "集成"
-      }
-    },
-    "types": {
-      "chat": {
-        "title": "聊天",
-        "description": "用于基本聊天功能和与各种外部工具的集成。这是您与之对话的模型。"
-      },
-      "reasoning": {
-        "title": "推理",
-        "description": "这是一个通常在后台运行并在完成时通知您的模型，仅用于推理和复杂的问题解决任务。"
-      },
-      "copywriting": {
-        "title": "文案写作",
-        "description": "这是一个用于文案写作、内容创建、拼写和语法更正以及需要风格和语调调整的各种其他任务的模型。"
-      },
-      "vision": {
-        "title": "视觉",
-        "description": "这是一个用于视觉任务的模型，如图像分类、图像理解和与图像聊天。这是您在聊天中上传图像时使用的功能。"
-      },
-      "hearing": {
-        "title": "听觉",
-        "description": "这是一个用于听觉任务的模型，如语音识别、语音转文本、自然语言理解和与音频聊天。这是您在聊天中上传音频文件时使用的功能。"
-      },
-      "images_gen": {
-        "title": "图像生成",
-        "description": "这是一个仅用于从文本提示生成图像的模型。"
-      },
-      "images_edit": {
-        "title": "图像编辑",
-        "description": "这是一个用于图像编辑的模型,如照片替换、对象移除、添加特殊效果和更改图像样式。"
-      },
-      "search": {
-        "title": "搜索",
-        "description": "这是一个用于网络搜索的模型，如在网上搜索信息、新闻、产品、服务或对您的聊天伙伴不了解的主题进行背景研究。"
-      },
-      "embedding": {
-        "title": "嵌入",
-        "description": "这是一个用于嵌入的模型，如将文本、图像或音频嵌入到向量空间中。它用于在内部数据库、文档和其他语义搜索任务中进行相似性搜索。这是您在聊天中上传PDF文件时使用的功能。"
-      },
-      "api_fiat_exchange": {
-        "title": "法币汇率",
-        "description": "访问传统货币的实时汇率。"
-      },
-      "api_crypto_exchange": {
-        "title": "加密货币汇率",
-        "description": "访问加密货币的实时汇率。"
-      },
-      "api_twitter": {
-        "title": "X / Twitter",
-        "description": "访问以读取和分析Twitter内容。"
-      },
-      "credit_transfer": {
-        "title": "积分转账",
-        "description": "用于用户之间转移积分的内部工具。"
-      },
-      "deprecated": {
-        "title": "已弃用",
-        "description": "此工具或功能已弃用，可能会在未来版本中移除。"
-      }
-    }
-  },
-  "onboarding": {
-    "page_title": "开始使用",
-    "interface_language_label": "{botName} 将主要使用此语言",
-    "policy_prefix": "开始之前必须接受这些政策。您是否已阅读并同意这两项内容？",
-    "policy_label": "我接受",
-    "access_api_keys_title": "使用我自己的 API 密钥",
-    "access_api_keys_description": "连接您自己的 AI 服务商 API 密钥，直接向提供商付款，完全掌控您的 AI 工具。",
-    "access_credits_title": "购买积分",
-    "access_credits_description": "使用预付积分驱动 AI 交互，无需 API 密钥。",
-    "finish": "出发吧！",
-    "start": "开始",
-    "waitlist_title": "您已加入等待列表",
-    "waitlist_message": "当再次可以激活您的账户时，我们会通知您。",
-    "success": "{botName} 现在已就绪！返回您的对话，提出任何问题。"
-  },
-  "check_out_project": "查看项目",
-  "footer": {
-    "logo_alt": "标志",
-    "terms": "服务条款",
-    "privacy": "隐私政策",
-    "powered_by": "由以下提供支持",
-    "rights_reserved": "保留所有权利"
-  },
   "products": {
     "shop": {
       "title": "选择产品",
@@ -582,8 +563,27 @@
     "second_of_runtime": "每秒运行时间",
     "max_input_images": "最多 {maxImages} 张参考图片"
   },
-  "intelligence_warnings": {
-    "no_access_message": "您需要自己的私有 API 密钥或购买的积分才能使用 AI 工具。",
-    "no_settings": "没有需要配置的AI设置。"
+  "onboarding": {
+    "page_title": "开始使用",
+    "interface_language_label": "{botName} 将主要使用此语言",
+    "policy_prefix": "开始之前必须接受这些政策。您是否已阅读并同意这两项内容？",
+    "policy_label": "我接受",
+    "access_api_keys_title": "使用我自己的 API 密钥",
+    "access_api_keys_description": "连接您自己的 AI 服务商 API 密钥，直接向提供商付款，完全掌控您的 AI 工具。",
+    "access_credits_title": "购买积分",
+    "access_credits_description": "使用预付积分驱动 AI 交互，无需 API 密钥。",
+    "finish": "出发吧！",
+    "start": "开始",
+    "waitlist_title": "您已加入等待列表",
+    "waitlist_message": "当再次可以激活您的账户时，我们会通知您。",
+    "success": "{botName} 现在已就绪！返回您的对话，提出任何问题。"
+  },
+  "check_out_project": "查看项目",
+  "footer": {
+    "logo_alt": "标志",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "powered_by": "由以下提供支持",
+    "rights_reserved": "保留所有权利"
   }
 }
