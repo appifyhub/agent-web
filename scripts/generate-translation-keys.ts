@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -69,6 +70,21 @@ function findDuplicateKeys(filePath: string): string[] {
   } catch {
     return [];
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function reorderToMatch(source: any, target: any): any {
+  if (typeof source !== "object" || source === null || Array.isArray(source)) {
+    return target;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = {};
+  for (const key of Object.keys(source)) {
+    if (key in target) {
+      result[key] = reorderToMatch(source[key], target[key]);
+    }
+  }
+  return result;
 }
 
 import { INTERFACE_LANGUAGES } from "../src/lib/languages.ts";
@@ -239,6 +255,29 @@ function main() {
     throw new Error(
       "Some translation files have missing or extra keys. See above."
     );
+  }
+
+  console.log("Checking key ordering...\n");
+  const reorderedFiles: string[] = [];
+  for (const lang of INTERFACE_LANGUAGES) {
+    if (lang.isoCode === "en") continue;
+    const langPath = path.join(I18N_DIR, `${lang.isoCode}.json`);
+    if (!fs.existsSync(langPath)) continue;
+    const langJson = JSON.parse(fs.readFileSync(langPath, "utf8"));
+    const reordered = reorderToMatch(en, langJson);
+    const original = JSON.stringify(langJson, null, 2);
+    const fixed = JSON.stringify(reordered, null, 2);
+    if (original !== fixed) {
+      fs.writeFileSync(langPath, `${fixed}\n`);
+      reorderedFiles.push(lang.isoCode);
+    }
+  }
+  if (reorderedFiles.length > 0) {
+    console.log(
+      `✓ Reordered keys in: ${reorderedFiles.map((c) => `${c}.json`).join(", ")}\n`
+    );
+  } else {
+    console.log("✓ All files have correct key ordering\n");
   }
 
   const typeDefLines = [
