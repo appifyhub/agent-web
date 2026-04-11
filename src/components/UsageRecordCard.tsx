@@ -474,7 +474,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                           variant="outline"
                           className="text-xs px-1.5 py-0"
                         >
-                          {size}
+                          {size.toUpperCase()}
                         </Badge>
                       ))}
                     </div>
@@ -493,7 +493,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                           variant="outline"
                           className="text-xs px-1.5 py-0"
                         >
-                          {size}
+                          {size.toUpperCase()}
                         </Badge>
                       ))}
                     </div>

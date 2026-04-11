@@ -6,7 +6,6 @@ import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import AdvancedToolsPanel from "@/components/AdvancedToolsPanel";
-import SettingSelector from "@/components/SettingSelector";
 import WarningBanner from "@/components/WarningBanner";
 import {
   Wallet,
@@ -34,6 +33,7 @@ import {
   computePresetChoices,
   detectCurrentPreset,
 } from "@/lib/tool-presets";
+import CardSelector from "@/components/CardSelector";
 
 const IntelligenceSettingsPage: React.FC = () => {
   const { user_id, lang_iso_code } = useParams<{
@@ -213,68 +213,18 @@ const IntelligenceSettingsPage: React.FC = () => {
     >
       {externalToolsData ? (
         <>
-          <div className="flex flex-col items-center gap-4">
-            <SettingSelector
-              label={t("intelligence_presets.label")}
-              value={selectedPreset ?? undefined}
-              onChange={handlePresetChange}
-              onUndo={
-                selectedPreset !== null && selectedPreset !== remotePreset
-                  ? handleRestoreSettings
-                  : undefined
-              }
-              disabled={!!error?.isBlocker}
-              options={[
-                {
-                  value: "lowest_price",
-                  label: (
-                    <span className="flex items-center gap-3">
-                      <Wallet className="h-4 w-4 shrink-0 text-blue-300" />
-                      {t("intelligence_presets.lowest_price")}
-                    </span>
-                  ),
-                },
-                {
-                  value: "highest_price",
-                  label: (
-                    <span className="flex items-center gap-3">
-                      <Sparkles className="h-4 w-4 shrink-0 text-blue-300" />
-                      {t("intelligence_presets.highest_price")}
-                    </span>
-                  ),
-                },
-                {
-                  value: "agent_choice",
-                  label: (
-                    <span className="flex items-center gap-3">
-                      <Scale className="h-4 w-4 shrink-0 text-blue-300" />
-                      {t("intelligence_presets.agent_choice")}
-                    </span>
-                  ),
-                },
-                {
-                  value: "custom",
-                  label: (
-                    <span className="flex items-center gap-3">
-                      <Settings className="h-4 w-4 shrink-0 text-blue-300" />
-                      {t("intelligence_presets.custom")}
-                    </span>
-                  ),
-                },
-              ]}
-              className="w-full sm:w-md"
-            />
-            <p className="text-sm text-muted-foreground w-full sm:w-md">
-              {selectedPreset === "lowest_price" &&
-                t("intelligence_presets.lowest_price_description")}
-              {selectedPreset === "highest_price" &&
-                t("intelligence_presets.highest_price_description")}
-              {selectedPreset === "agent_choice" &&
-                t("intelligence_presets.agent_choice_description")}
-              {selectedPreset === "custom" &&
-                t("intelligence_presets.custom_description")}
-            </p>
-          </div>
+          <CardSelector
+            value={selectedPreset}
+            remoteValue={remotePreset}
+            onChange={handlePresetChange}
+            disabled={!!error?.isBlocker}
+            options={[
+              { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
+              { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },
+              { value: "agent_choice", icon: Scale, title: t("intelligence_presets.agent_choice"), description: t("intelligence_presets.agent_choice_description") },
+              { value: "custom", icon: Settings, title: t("intelligence_presets.custom"), description: t("intelligence_presets.custom_description") },
+            ]}
+          />
           {selectedPreset === "custom" && (
             <>
               <div className="h-4" />

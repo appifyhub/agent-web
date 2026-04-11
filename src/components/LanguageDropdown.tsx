@@ -14,26 +14,38 @@ interface LanguageDropdownProps {
   selectedLanguage: Language;
   onLangChange?: (lang: string) => void;
   className?: string;
+  trigger?: React.ReactNode;
 }
+
+export const LanguageItemContent: React.FC<{ lang: Language }> = ({ lang }) => (
+  <span className="inline-flex items-center gap-2">
+    {lang.flagEmoji}
+    <span className="font-semibold">{lang.localizedName}</span>
+    <span className="ml-2 text-xs text-muted-foreground">
+      ({lang.defaultName})
+    </span>
+  </span>
+);
 
 const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
   selectedLanguage,
   onLangChange = () => {},
   className,
+  trigger,
 }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        asChild
-        className={cn(
-          "w-auto px-4 rounded-full text-xl cursor-pointer",
-          className
+      <DropdownMenuTrigger asChild>
+        {trigger ?? (
+          <Button
+            variant="outline"
+            size="icon"
+            className={cn("glass w-auto px-4 rounded-full text-xl cursor-pointer", className)}
+          >
+            {selectedLanguage.flagEmoji}
+            <ChevronDownIcon className="h-4 w-4 ml-1" />
+          </Button>
         )}
-      >
-        <Button variant="outline" size="icon" className="glass">
-          {selectedLanguage.flagEmoji}
-          <ChevronDownIcon className="h-4 w-4 ml-1" />
-        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
@@ -49,11 +61,7 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
             )}
             disabled={lang.isoCode === selectedLanguage.isoCode}
           >
-            {lang.flagEmoji}
-            <span className="font-semibold">{lang.localizedName}</span>
-            <span className="ml-2 text-xs text-muted-foreground">
-              ({lang.defaultName})
-            </span>
+            <LanguageItemContent lang={lang} />
             {lang.isoCode === selectedLanguage.isoCode && (
               <CheckIcon className="ml-2 h-4 w-4" />
             )}

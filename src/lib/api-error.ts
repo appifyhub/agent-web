@@ -63,6 +63,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1034: return "error_codes.insufficient_credits";
     case 1035: return "error_codes.sponsored_user_transfer_not_allowed";
     case 1036: return "error_codes.invalid_use_custom_prompt";
+    case 1037: return "error_codes.too_many_input_images";
     case 2001: return "error_codes.user_not_found";
     case 2002: return "error_codes.chat_not_found";
     case 2003: return "error_codes.attachment_not_found";

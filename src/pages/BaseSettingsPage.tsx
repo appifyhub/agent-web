@@ -140,7 +140,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     ]);
 
     // Fetch chats once at this level to avoid duplicate calls
-    const { chats } = useChats(accessToken?.decoded?.sub, accessToken?.raw);
+    const { chats, isLoading: isChatsLoading } = useChats(accessToken?.decoded?.sub, accessToken?.raw);
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const stickySentinelRef = useRef<HTMLDivElement>(null);
@@ -188,6 +188,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
           page={page}
           selectedChat={selectedChat}
           chats={chats}
+          chatsLoading={isChatsLoading}
           userId={accessToken?.decoded?.sub}
           rawAccessToken={accessToken?.raw}
           selectedLanguage={
@@ -199,6 +200,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
           showProfileButton={showProfileButton}
           showSponsorshipsButton={showSponsorshipsButton}
           isLocked={page === "onboarding"}
+          showLanguageDropdown={page !== "onboarding"}
           drawerOpen={drawerOpen}
           onDrawerOpenChange={setDrawerOpen}
         />

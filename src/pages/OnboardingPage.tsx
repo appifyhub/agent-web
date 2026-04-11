@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { PageError, cn } from "@/lib/utils";
@@ -7,6 +7,7 @@ import { usePageSession } from "@/hooks/usePageSession";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import { useExternalTools } from "@/hooks/useExternalTools";
 import { useNavigation } from "@/hooks/useNavigation";
+import { useChats } from "@/hooks/useChats";
 import {
   saveUserSettings,
   UserSettingsPayload,
@@ -16,6 +17,13 @@ import { clearUserSettingsCache } from "@/services/user-settings-cache";
 import { computePresetChoices } from "@/lib/tool-presets";
 import { ApiError } from "@/lib/api-error";
 import { toast } from "sonner";
+import { INTERFACE_LANGUAGES, LLM_LANGUAGES } from "@/lib/languages";
+import { LanguageItemContent } from "@/components/LanguageDropdown";
+import CardSelector from "@/components/CardSelector";
+import {
+  fetchChatSettings,
+  saveChatSettings,
+} from "@/services/chat-settings-service";
 import SettingToggle from "@/components/SettingToggle";
 import SettingInput from "@/components/SettingInput";
 import SettingTextarea from "@/components/SettingTextarea";
@@ -38,7 +46,6 @@ import {
   ScrollText,
   UserRound,
   Split,
-  CircleCheck,
 } from "lucide-react";
 
 type AccessChoice = "api_keys" | "credits";
@@ -53,6 +60,8 @@ const OnboardingPage: React.FC = () => {
     lang_iso_code: string;
   }>();
 
+  const location = useLocation();
+
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
 
@@ -61,10 +70,12 @@ const OnboardingPage: React.FC = () => {
     accessToken?.raw,
   );
 
-  const { navigateToAccess, navigateToPurchases, navigateToSponsorships } =
+  const { navigateToAccess, navigateToPurchases, navigateToSponsorships, navigateWithLanguageChange } =
     useNavigation();
 
   const { externalTools } = useExternalTools(user_id, accessToken?.raw);
+
+  const { chats } = useChats(user_id, accessToken?.raw);
 
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -145,6 +156,33 @@ const OnboardingPage: React.FC = () => {
       } else {
         clearUserSettingsCache(user_id);
       }
+
+      const llmLanguageMatch = LLM_LANGUAGES.find((l) => l.isoCode === lang_iso_code)!;
+      const ownChats = chats.filter((c) => c.is_own);
+      await Promise.allSettled(
+        ownChats.map(async (chat) => {
+          try {
+            const chatSettings = await fetchChatSettings({
+              apiBaseUrl,
+              chat_id: chat.chat_id,
+              rawToken: accessToken.raw,
+            });
+            await saveChatSettings({
+              apiBaseUrl,
+              chat_id: chat.chat_id,
+              rawToken: accessToken.raw,
+              chatSettings: {
+                ...chatSettings,
+                language_name: llmLanguageMatch.defaultName,
+                language_iso_code: llmLanguageMatch.isoCode,
+              },
+            });
+          } catch (err) {
+            console.error("Failed to update chat language for", chat.chat_id, err);
+          }
+        }),
+      );
+
       toast(t("onboarding.success", { botName }));
       if (isSponsored) {
         navigateToSponsorships(user_id, lang_iso_code!);
@@ -166,7 +204,6 @@ const OnboardingPage: React.FC = () => {
   };
 
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
-
   return (
     <BaseSettingsPage
       page="onboarding"
@@ -214,9 +251,21 @@ const OnboardingPage: React.FC = () => {
                     className="h-12 w-12 text-accent-amber shrink-0"
                     strokeWidth={1.2}
                   />
-                  <div className="h-16" />
-                  <p className="text-[1.05rem] font-light text-center [hyphens:auto]">
-                    {t("onboarding.policy_prefix", { botName })}
+                  <div className="h-18" />
+                  <SettingSelector
+                    label={t("onboarding.interface_language_label", { botName })}
+                    value={lang_iso_code}
+                    onChange={(isoCode) => navigateWithLanguageChange(isoCode, location.pathname)}
+                    options={INTERFACE_LANGUAGES.map((lang) => ({
+                      value: lang.isoCode,
+                      label: <LanguageItemContent lang={lang} />,
+                      disabled: lang.isoCode === lang_iso_code,
+                    }))}
+                    className="w-full sm:w-auto"
+                  />
+                  <div className="h-14" />
+                  <p className="text-[1.05rem] font-light text-center [hyphens:auto] w-full sm:w-md">
+                    {t("onboarding.policy_prefix")}
                     <br />
                     <a
                       href={TERMS_URL}
@@ -236,8 +285,8 @@ const OnboardingPage: React.FC = () => {
                       {t("footer.privacy")}
                     </a>
                   </p>
-                  <div className="h-4" />
-                  <div className="flex justify-center mt-10">
+                  <div className="h-8" />
+                  <div className="flex justify-center">
                     <SettingToggle
                       id="policy-accept"
                       label={t("onboarding.policy_label")}
@@ -248,6 +297,7 @@ const OnboardingPage: React.FC = () => {
                         if (checked) setTimeout(handleNext, 200);
                       }}
                       disabled={isPolicyAccepted}
+                      switchClassName="scale-150 me-2"
                     />
                   </div>
                 </div>
@@ -318,52 +368,17 @@ const OnboardingPage: React.FC = () => {
                     className="h-12 w-12 text-accent-amber mx-auto shrink-0"
                     strokeWidth={1.2}
                   />
-                  <div className="h-8" />
-                  <SettingSelector
-                    label={t("intelligence_presets.label")}
-                    value={selectedPreset ?? undefined}
+                  <div className="h-4" />
+                  <CardSelector
+                    value={selectedPreset}
                     onChange={(v) => setSelectedPreset(v as IntelligencePreset)}
                     disabled={!!error?.isBlocker || !isPolicyAccepted}
                     options={[
-                      {
-                        value: "lowest_price",
-                        label: (
-                          <span className="flex items-center gap-3">
-                            <Wallet className="h-4 w-4 shrink-0 text-blue-300" />
-                            {t("intelligence_presets.lowest_price")}
-                          </span>
-                        ),
-                      },
-                      {
-                        value: "highest_price",
-                        label: (
-                          <span className="flex items-center gap-3">
-                            <Sparkles className="h-4 w-4 shrink-0 text-blue-300" />
-                            {t("intelligence_presets.highest_price")}
-                          </span>
-                        ),
-                      },
-                      {
-                        value: "agent_choice",
-                        label: (
-                          <span className="flex items-center gap-3">
-                            <Scale className="h-4 w-4 shrink-0 text-blue-300" />
-                            {t("intelligence_presets.agent_choice")}
-                          </span>
-                        ),
-                      },
+                      { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
+                      { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },
+                      { value: "agent_choice", icon: Scale, title: t("intelligence_presets.agent_choice"), description: t("intelligence_presets.agent_choice_description") },
                     ]}
                   />
-                  {selectedPreset && (
-                    <p className="text-sm text-muted-foreground">
-                      {selectedPreset === "lowest_price" &&
-                        t("intelligence_presets.lowest_price_description")}
-                      {selectedPreset === "highest_price" &&
-                        t("intelligence_presets.highest_price_description")}
-                      {selectedPreset === "agent_choice" &&
-                        t("intelligence_presets.agent_choice_description")}
-                    </p>
-                  )}
                 </div>
               </CarouselItem>
 
@@ -393,96 +408,15 @@ const OnboardingPage: React.FC = () => {
                       strokeWidth={1.2}
                     />
                     <div className="h-4" />
-                    <div className="flex flex-col gap-4 sm:w-md w-full">
-                      <button
-                        className={cn(
-                          "rounded-2xl text-left cursor-pointer transition-all",
-                          accessChoice === "credits" ? "glass" : "glass-muted",
-                          (!!error?.isBlocker || !isPolicyAccepted) &&
-                            "opacity-50 cursor-not-allowed",
-                        )}
-                        style={{ padding: "1.5rem" }}
-                        onClick={() => setAccessChoice("credits")}
-                        disabled={
-                          !!error?.isBlocker ||
-                          !isPolicyAccepted ||
-                          accessChoice === "credits"
-                        }
-                      >
-                        <div className="flex items-center gap-6">
-                          {accessChoice === "credits" ? (
-                            <CircleCheck className="h-6 w-6 shrink-0 text-green-200" />
-                          ) : (
-                            <BadgeCent className="h-6 w-6 shrink-0 text-accent-amber" />
-                          )}
-                          <div>
-                            <p
-                              className={cn(
-                                "font-semibold",
-                                accessChoice === "credits" &&
-                                  "text-green-200 underline underline-offset-3",
-                              )}
-                            >
-                              {t("onboarding.access_credits_title")}
-                            </p>
-                            <p
-                              className={cn(
-                                "text-sm font-light mt-1",
-                                accessChoice === "credits"
-                                  ? "text-green-200/70"
-                                  : "text-muted-foreground",
-                              )}
-                            >
-                              {t("onboarding.access_credits_description")}
-                            </p>
-                          </div>
-                        </div>
-                      </button>
-                      <button
-                        className={cn(
-                          "rounded-2xl text-left cursor-pointer transition-all",
-                          accessChoice === "api_keys" ? "glass" : "glass-muted",
-                          (!!error?.isBlocker || !isPolicyAccepted) &&
-                            "opacity-50 cursor-not-allowed",
-                        )}
-                        style={{ padding: "1.5rem" }}
-                        onClick={() => setAccessChoice("api_keys")}
-                        disabled={
-                          !!error?.isBlocker ||
-                          !isPolicyAccepted ||
-                          accessChoice === "api_keys"
-                        }
-                      >
-                        <div className="flex items-center gap-6">
-                          {accessChoice === "api_keys" ? (
-                            <CircleCheck className="h-6 w-6 shrink-0 text-green-200" />
-                          ) : (
-                            <Key className="h-6 w-6 shrink-0 text-accent-amber" />
-                          )}
-                          <div>
-                            <p
-                              className={cn(
-                                "font-semibold",
-                                accessChoice === "api_keys" &&
-                                  "text-green-200 underline underline-offset-3",
-                              )}
-                            >
-                              {t("onboarding.access_api_keys_title")}
-                            </p>
-                            <p
-                              className={cn(
-                                "text-sm font-light mt-1",
-                                accessChoice === "api_keys"
-                                  ? "text-green-200/70"
-                                  : "text-muted-foreground",
-                              )}
-                            >
-                              {t("onboarding.access_api_keys_description")}
-                            </p>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
+                    <CardSelector
+                      value={accessChoice}
+                      onChange={(v) => setAccessChoice(v as AccessChoice)}
+                      disabled={!!error?.isBlocker || !isPolicyAccepted}
+                      options={[
+                        { value: "credits", icon: BadgeCent, title: t("onboarding.access_credits_title"), description: t("onboarding.access_credits_description") },
+                        { value: "api_keys", icon: Key, title: t("onboarding.access_api_keys_title"), description: t("onboarding.access_api_keys_description") },
+                      ]}
+                    />
                   </div>
                 )}
               </CarouselItem>

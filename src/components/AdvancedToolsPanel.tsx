@@ -130,6 +130,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
     estimate: CostEstimate;
     providerId?: string;
     providerName?: string;
+    maxInputImages?: number;
   } | null>(null);
 
   // Use controlled props if provided, otherwise use internal state
@@ -269,6 +270,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
               providerId: providerId, // for logo lookup
               costEstimate: tool.definition.cost_estimate,
               toolName: tool.definition.name,
+              maxInputImages: tool.definition.max_input_images,
             });
           }
         });
@@ -343,7 +345,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-0 sm:px-12">
       <Accordion
         type="single"
         collapsible
@@ -390,7 +392,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-3">
+                <div className="space-y-3 px-2">
                   <div className="h-2" />
                   {categoryGroup.toolTypes.map((toolTypeGroup) => {
                     const ToolIcon = toolTypeGroup.icon;
@@ -431,6 +433,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
                                     providerName: providers.find(
                                       (p) => p.definition.id === singleOption.providerId
                                     )?.definition.name,
+                                    maxInputImages: singleOption.maxInputImages,
                                   })
                                 }
                               >
@@ -489,6 +492,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
           costEstimate={costEstimateTarget.estimate}
           providerId={costEstimateTarget.providerId}
           providerName={costEstimateTarget.providerName}
+          maxInputImages={costEstimateTarget.maxInputImages}
           open={!!costEstimateTarget}
           onOpenChange={(open) => {
             if (!open) setCostEstimateTarget(null);

@@ -25,6 +25,7 @@ interface CostEstimateDialogProps {
   costEstimate: CostEstimate;
   providerId?: string;
   providerName?: string;
+  maxInputImages?: number;
   children?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -33,7 +34,8 @@ interface CostEstimateDialogProps {
 const CostEstimateContent: React.FC<{
   toolName: string;
   costEstimate: CostEstimate;
-}> = ({ toolName, costEstimate }) => {
+  maxInputImages?: number;
+}> = ({ toolName, costEstimate, maxInputImages }) => {
   const formatCost = (value: number): string => {
     return value.toFixed(value % 1 === 0 ? 0 : 2);
   };
@@ -162,6 +164,11 @@ const CostEstimateContent: React.FC<{
           <h4 className="text-sm font-medium text-blue-300/80 uppercase">
             {t("cost_estimate.input_image_costs")}
           </h4>
+          {maxInputImages != null && maxInputImages > 0 && (
+            <p className="text-xs text-muted-foreground/70">
+              — {t("cost_estimate.max_input_images", { maxImages: maxInputImages })}
+            </p>
+          )}
           <div className="space-y-1">
             {inputImageCosts.map((item) => (
               <div
@@ -181,6 +188,11 @@ const CostEstimateContent: React.FC<{
           <h4 className="text-sm font-medium text-blue-300/80 uppercase">
             {t("cost_estimate.output_image_costs")}
           </h4>
+          {inputImageCosts.length === 0 && maxInputImages != null && maxInputImages > 0 && (
+            <p className="text-xs text-muted-foreground/70">
+              {t("cost_estimate.max_input_images", { maxImages: maxInputImages })}
+            </p>
+          )}
           <div className="space-y-1">
             {outputImageCosts.map((item) => (
               <div
@@ -222,6 +234,7 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
   costEstimate,
   providerId,
   providerName,
+  maxInputImages,
   children,
   open,
   onOpenChange,
@@ -297,7 +310,7 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
                 </div>
               )}
             </DialogHeader>
-            <CostEstimateContent toolName={toolName} costEstimate={costEstimate} />
+            <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
           </DialogContent>
         </Dialog>
       </>
@@ -325,7 +338,7 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
               </div>
             )}
           </DrawerHeader>
-          <CostEstimateContent toolName={toolName} costEstimate={costEstimate} />
+          <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
         </DrawerContent>
       </Drawer>
     </>

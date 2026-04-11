@@ -31,11 +31,11 @@ export interface SectionedSelectorSection {
 export interface SectionedSelectorOption {
   value: string;
   label: React.ReactNode;
-  disabled?: boolean;
   isConfigured?: boolean;
   providerId?: string; // for provider logos
   costEstimate?: CostEstimate;
   toolName?: string;
+  maxInputImages?: number;
 }
 
 interface SectionedSelectorProps {
@@ -79,6 +79,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
     estimate: CostEstimate;
     providerId?: string;
     providerName?: string;
+    maxInputImages?: number;
   } | null>(null);
 
   // Find if the current value exists in any section
@@ -148,6 +149,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                     estimate: validOption.costEstimate!,
                     providerId: validOption.providerId,
                     providerName: validOptionSection?.sectionTitle,
+                    maxInputImages: validOption.maxInputImages,
                   });
                 }}
               >
@@ -209,12 +211,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                 <SelectItem
                   key={opt.value}
                   value={opt.value}
-                  disabled={
-                    opt.disabled ||
-                    !section.isConfigured ||
-                    (!opt.isConfigured && !opt.costEstimate) ||
-                    (opt.value === value && false)
-                  }
+                  disabled={!section.isConfigured && !hasCredits}
                   className={cn(
                     "py-4 px-8 pr-12! cursor-pointer text-foreground", // Remove nested span width overrides as structure changed
                     opt.value === value ? "bg-accent/70" : "",
@@ -240,6 +237,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                               estimate: opt.costEstimate!,
                               providerId: opt.providerId,
                               providerName: section.sectionTitle,
+                              maxInputImages: opt.maxInputImages,
                             });
                           }}
                         >
@@ -279,6 +277,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
           costEstimate={costEstimateTarget.estimate}
           providerId={costEstimateTarget.providerId}
           providerName={costEstimateTarget.providerName}
+          maxInputImages={costEstimateTarget.maxInputImages}
           open={!!costEstimateTarget}
           onOpenChange={(open) => {
             if (!open) setCostEstimateTarget(null);
