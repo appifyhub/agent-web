@@ -75,6 +75,45 @@
     "page_title": "Uso",
     "card_title": "Historial de uso",
     "no_records_found": "No se encontraron registros de uso",
+    "filters": {
+      "scope_section": "ALCANCE",
+      "filters_section": "FILTROS",
+      "time_range_label": "Tiempo",
+      "time_range_all": "Todo el tiempo",
+      "time_range_10min": "Últimos 10 minutos",
+      "time_range_30min": "Últimos 30 minutos",
+      "time_range_1h": "Última hora",
+      "time_range_3h": "Últimas 3 horas",
+      "time_range_6h": "Últimas 6 horas",
+      "time_range_12h": "Últimas 12 horas",
+      "time_range_today": "Hoy",
+      "time_range_yesterday": "Ayer",
+      "time_range_week": "Última semana",
+      "time_range_2weeks": "Últimas 2 semanas",
+      "time_range_month": "Último mes",
+      "tool_label": "Herramienta",
+      "tool_all": "Todas las herramientas de IA",
+      "purpose_label": "Propósito",
+      "purpose_all": "Todos los propósitos",
+      "provider_label": "Proveedor",
+      "provider_all": "Todos los proveedores",
+      "show_scope_and_filters": "Mostrar alcance y filtros",
+      "hide_scope_and_filters": "Ocultar alcance y filtros",
+      "include_sponsored_label": "Incluir usuarios patrocinados",
+      "exclude_self_label": "Excluir mi uso",
+      "include_transfers_label": "Incluir transferencias",
+      "only_transfers_label": "Mostrar solo transferencias"
+    },
+    "stats": {
+      "total_records": "Total de registros",
+      "total_cost": "Costo total",
+      "total_runtime": "Tiempo total",
+      "show_breakdowns": "Mostrar desglose",
+      "hide_breakdowns": "Ocultar desglose",
+      "by_tool": "Por herramienta",
+      "by_purpose": "Por propósito",
+      "by_provider": "Por proveedor"
+    },
     "cost_breakdown": {
       "title": "Desglose de costos",
       "model_cost": "Costo del modelo",
@@ -121,46 +160,7 @@
       "note_placeholder": "Motivo de la transferencia…"
     },
     "load_more": "Cargar más",
-    "credit_balance": "Créditos que poseo: {balance}",
-    "filters": {
-      "scope_section": "ALCANCE",
-      "filters_section": "FILTROS",
-      "time_range_label": "Tiempo",
-      "time_range_all": "Todo el tiempo",
-      "time_range_10min": "Últimos 10 minutos",
-      "time_range_30min": "Últimos 30 minutos",
-      "time_range_1h": "Última hora",
-      "time_range_3h": "Últimas 3 horas",
-      "time_range_6h": "Últimas 6 horas",
-      "time_range_12h": "Últimas 12 horas",
-      "time_range_today": "Hoy",
-      "time_range_yesterday": "Ayer",
-      "time_range_week": "Última semana",
-      "time_range_2weeks": "Últimas 2 semanas",
-      "time_range_month": "Último mes",
-      "tool_label": "Herramienta",
-      "tool_all": "Todas las herramientas de IA",
-      "purpose_label": "Propósito",
-      "purpose_all": "Todos los propósitos",
-      "provider_label": "Proveedor",
-      "provider_all": "Todos los proveedores",
-      "show_scope_and_filters": "Mostrar alcance y filtros",
-      "hide_scope_and_filters": "Ocultar alcance y filtros",
-      "include_sponsored_label": "Incluir usuarios patrocinados",
-      "exclude_self_label": "Excluir mi uso",
-      "include_transfers_label": "Incluir transferencias",
-      "only_transfers_label": "Mostrar solo transferencias"
-    },
-    "stats": {
-      "total_records": "Total de registros",
-      "total_cost": "Costo total",
-      "total_runtime": "Tiempo total",
-      "show_breakdowns": "Mostrar desglose",
-      "hide_breakdowns": "Ocultar desglose",
-      "by_tool": "Por herramienta",
-      "by_purpose": "Por propósito",
-      "by_provider": "Por proveedor"
-    }
+    "credit_balance": "Créditos que poseo: {balance}"
   },
   "purchases": {
     "page_title": "Compras",
@@ -281,8 +281,88 @@
   "configure_intelligence": "Configurar inteligencia",
   "configure_ai_providers": "Configurar proveedores de IA",
   "configure_access_keys": "Configurar las claves de acceso",
+  "tools": {
+    "not_configured_with_prefix": "Configurar claves",
+    "select_tool": "Seleccionar una herramienta",
+    "no_tools_available": "No hay herramientas disponibles para este tipo",
+    "groups": {
+      "text_intelligence": {
+        "title": "Inteligencia de Lenguaje"
+      },
+      "content_analysis": {
+        "title": "Análisis de Contenido"
+      },
+      "image_tools": {
+        "title": "Herramientas de Imagen"
+      },
+      "integrations": {
+        "title": "Integraciones"
+      }
+    },
+    "types": {
+      "chat": {
+        "title": "Chat",
+        "description": "Se usa para funcionalidad básica de chat e integración con varias herramientas externas. Este es el modelo con el que hablas."
+      },
+      "reasoning": {
+        "title": "Razonamiento",
+        "description": "Este es un modelo que generalmente se ejecuta en segundo plano y te notifica cuando termina, solo se usa para razonamiento y tareas complejas de resolución de problemas."
+      },
+      "copywriting": {
+        "title": "Redacción publicitaria",
+        "description": "Este es un modelo que se usa para redacción publicitaria, creación de contenido, correcciones de ortografía y gramática, así como varias otras tareas que requieren ajustes de estilo y tono."
+      },
+      "vision": {
+        "title": "Visión",
+        "description": "Este es un modelo que se usa para tareas de visión, como clasificación de imágenes, comprensión de imágenes y chatear con imágenes. Esto es lo que se usa cuando subes una imagen al chat."
+      },
+      "hearing": {
+        "title": "Audición",
+        "description": "Este es un modelo que se usa para tareas de audición, como reconocimiento de voz, conversión de voz a texto, comprensión de lenguaje natural y chatear con audio. Esto es lo que se usa cuando subes un archivo de audio al chat."
+      },
+      "images_gen": {
+        "title": "Generación de imágenes",
+        "description": "Este es un modelo que se usa solo para generación de imágenes a partir de indicaciones de texto."
+      },
+      "images_edit": {
+        "title": "Edición de imágenes",
+        "description": "Este es un modelo que se usa para edición de imágenes, como reemplazos de fotos, eliminación de objetos, agregar efectos especiales y cambiar el estilo de las imágenes."
+      },
+      "search": {
+        "title": "Búsqueda",
+        "description": "Este es un modelo que se usa para búsqueda web, como buscar en la web información, noticias, productos, servicios o investigación de fondo sobre un tema no conocido por tu compañero de chat."
+      },
+      "embedding": {
+        "title": "Incrustación",
+        "description": "Este es un modelo que se usa para incrustación, como incrustar texto, imágenes o audio en un espacio vectorial. Se usa para búsqueda de similitud en bases de datos internas, documentos y otras tareas de búsqueda semántica. Esto es lo que se usa cuando subes un archivo PDF al chat."
+      },
+      "api_fiat_exchange": {
+        "title": "Cambio de moneda fiduciaria",
+        "description": "Acceso a tipos de cambio en tiempo real para monedas tradicionales."
+      },
+      "api_crypto_exchange": {
+        "title": "Cambio de criptomoneda",
+        "description": "Acceso a tipos de cambio en tiempo real para criptomonedas."
+      },
+      "api_twitter": {
+        "title": "X / Twitter",
+        "description": "Acceso para leer y analizar contenido de Twitter."
+      },
+      "credit_transfer": {
+        "title": "Transferencia de créditos",
+        "description": "Herramienta interna para transferir créditos entre usuarios."
+      },
+      "deprecated": {
+        "title": "Obsoleto",
+        "description": "Esta herramienta o función está obsoleta y puede ser eliminada en versiones futuras."
+      }
+    }
+  },
+  "intelligence_warnings": {
+    "no_access_message": "Necesitas tus propias claves API privadas o créditos comprados para usar herramientas de IA.",
+    "no_settings": "No hay configuraciones de IA para configurar."
+  },
   "intelligence_presets": {
-    "label": "Modo de Inteligencia",
     "lowest_price": "Costo más bajo",
     "lowest_price_description": "La herramienta más económica disponible en cada categoría.",
     "highest_price": "Más alta calidad",
@@ -393,7 +473,8 @@
     "transfer_recipient_not_found": "Destinatario de la transferencia no encontrado en esta plataforma",
     "transfer_failed": "La transferencia de créditos falló debido a un error interno",
     "waitlist_account_not_active": "Tu cuenta aún no está activa",
-    "waitlist_invited_policies_required": "Acepta las políticas para activar tu cuenta invitada"
+    "waitlist_invited_policies_required": "Acepta las políticas para activar tu cuenta invitada",
+    "too_many_input_images": "Se proporcionaron demasiadas imágenes de entrada"
   },
   "features": {
     "header": "Funciones",
@@ -441,98 +522,6 @@
       }
     }
   },
-  "tools": {
-    "not_configured_with_prefix": "– Configurar",
-    "select_tool": "Seleccionar una herramienta",
-    "no_tools_available": "No hay herramientas disponibles para este tipo",
-    "groups": {
-      "text_intelligence": {
-        "title": "Inteligencia de Lenguaje"
-      },
-      "content_analysis": {
-        "title": "Análisis de Contenido"
-      },
-      "image_tools": {
-        "title": "Herramientas de Imagen"
-      },
-      "integrations": {
-        "title": "Integraciones"
-      }
-    },
-    "types": {
-      "chat": {
-        "title": "Chat",
-        "description": "Se usa para funcionalidad básica de chat e integración con varias herramientas externas. Este es el modelo con el que hablas."
-      },
-      "reasoning": {
-        "title": "Razonamiento",
-        "description": "Este es un modelo que generalmente se ejecuta en segundo plano y te notifica cuando termina, solo se usa para razonamiento y tareas complejas de resolución de problemas."
-      },
-      "copywriting": {
-        "title": "Redacción publicitaria",
-        "description": "Este es un modelo que se usa para redacción publicitaria, creación de contenido, correcciones de ortografía y gramática, así como varias otras tareas que requieren ajustes de estilo y tono."
-      },
-      "vision": {
-        "title": "Visión",
-        "description": "Este es un modelo que se usa para tareas de visión, como clasificación de imágenes, comprensión de imágenes y chatear con imágenes. Esto es lo que se usa cuando subes una imagen al chat."
-      },
-      "hearing": {
-        "title": "Audición",
-        "description": "Este es un modelo que se usa para tareas de audición, como reconocimiento de voz, conversión de voz a texto, comprensión de lenguaje natural y chatear con audio. Esto es lo que se usa cuando subes un archivo de audio al chat."
-      },
-      "images_gen": {
-        "title": "Generación de imágenes",
-        "description": "Este es un modelo que se usa solo para generación de imágenes a partir de indicaciones de texto."
-      },
-      "images_edit": {
-        "title": "Edición de imágenes",
-        "description": "Este es un modelo que se usa para edición de imágenes, como reemplazos de fotos, eliminación de objetos, agregar efectos especiales y cambiar el estilo de las imágenes."
-      },
-      "search": {
-        "title": "Búsqueda",
-        "description": "Este es un modelo que se usa para búsqueda web, como buscar en la web información, noticias, productos, servicios o investigación de fondo sobre un tema no conocido por tu compañero de chat."
-      },
-      "embedding": {
-        "title": "Incrustación",
-        "description": "Este es un modelo que se usa para incrustación, como incrustar texto, imágenes o audio en un espacio vectorial. Se usa para búsqueda de similitud en bases de datos internas, documentos y otras tareas de búsqueda semántica. Esto es lo que se usa cuando subes un archivo PDF al chat."
-      },
-      "api_fiat_exchange": {
-        "title": "Cambio de moneda fiduciaria",
-        "description": "Acceso a tipos de cambio en tiempo real para monedas tradicionales."
-      },
-      "api_crypto_exchange": {
-        "title": "Cambio de criptomoneda",
-        "description": "Acceso a tipos de cambio en tiempo real para criptomonedas."
-      },
-      "api_twitter": {
-        "title": "X / Twitter",
-        "description": "Acceso para leer y analizar contenido de Twitter."
-      },
-      "credit_transfer": {
-        "title": "Transferencia de créditos",
-        "description": "Herramienta interna para transferir créditos entre usuarios."
-      },
-      "deprecated": {
-        "title": "Obsoleto",
-        "description": "Esta herramienta o función está obsoleta y puede ser eliminada en versiones futuras."
-      }
-    }
-  },
-  "onboarding": {
-    "page_title": "Comenzar",
-    "policy_prefix": "Debes aceptar estas políticas para comenzar a usar {botName}:",
-    "policy_label": "Acepto",
-    "access_api_keys_title": "Usar mis propias claves API",
-    "access_api_keys_description": "Conecta tus propias claves API de proveedor de IA. Pagas directamente a los proveedores, con control total sobre tus herramientas de IA.",
-    "access_credits_title": "Comprar créditos",
-    "access_credits_description": "Usa créditos de prepago para tus interacciones de IA. No se necesitan claves API.",
-    "finish": "¡Vamos!",
-    "start": "Empezar",
-    "waitlist_title": "Estás en la lista de espera",
-    "waitlist_message": "Te notificaremos cuando sea posible activar tu cuenta de nuevo.",
-    "success": "¡{botName} ya está listo! Vuelve a tu chat y pregunta lo que quieras."
-  },
-  "check_out_project": "Ver el proyecto",
   "products": {
     "shop": {
       "title": "Elige un producto",
@@ -571,17 +560,30 @@
     "output_image_4k": "4 Megapíxeles",
     "other_costs": "Otros costos",
     "api_call": "Por uso único",
-    "second_of_runtime": "Por segundo de ejecución"
+    "second_of_runtime": "Por segundo de ejecución",
+    "max_input_images": "Hasta {maxImages} imágenes de referencia"
   },
+  "onboarding": {
+    "page_title": "Comenzar",
+    "interface_language_label": "{botName} usará principalmente este idioma",
+    "policy_prefix": "Estas políticas deben aceptarse antes de comenzar. ¿Las has leído y estás de acuerdo con ambas?",
+    "policy_label": "Acepto",
+    "access_api_keys_title": "Usar mis propias claves API",
+    "access_api_keys_description": "Conecta tus propias claves API de proveedor de IA. Pagas directamente a los proveedores, con control total sobre tus herramientas de IA.",
+    "access_credits_title": "Comprar créditos",
+    "access_credits_description": "Usa créditos de prepago para tus interacciones de IA. No se necesitan claves API.",
+    "finish": "¡Vamos!",
+    "start": "Empezar",
+    "waitlist_title": "Estás en la lista de espera",
+    "waitlist_message": "Te notificaremos cuando sea posible activar tu cuenta de nuevo.",
+    "success": "¡{botName} ya está listo! Vuelve a tu chat y pregunta lo que quieras."
+  },
+  "check_out_project": "Ver el proyecto",
   "footer": {
     "logo_alt": "Logo",
     "terms": "Términos de Servicio",
     "privacy": "Política de Privacidad",
     "powered_by": "Impulsado por",
     "rights_reserved": "Todos los derechos reservados"
-  },
-  "intelligence_warnings": {
-    "no_access_message": "Necesitas tus propias claves API privadas o créditos comprados para usar herramientas de IA.",
-    "no_settings": "No hay configuraciones de IA para configurar."
   }
 }

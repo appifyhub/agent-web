@@ -282,7 +282,7 @@
   "configure_ai_providers": "Configure AI providers",
   "configure_access_keys": "Configure access keys",
   "tools": {
-    "not_configured_with_prefix": "– Configure",
+    "not_configured_with_prefix": "Configure keys",
     "select_tool": "Select a tool",
     "no_tools_available": "No tools available for this type",
     "groups": {
@@ -363,7 +363,6 @@
     "no_settings": "No AI settings to configure."
   },
   "intelligence_presets": {
-    "label": "Intelligence Mode",
     "lowest_price": "Lowest cost",
     "lowest_price_description": "The cheapest available tool in each category.",
     "highest_price": "Highest quality",
@@ -474,7 +473,8 @@
     "transfer_recipient_not_found": "Transfer recipient not found on this platform",
     "transfer_failed": "Credit transfer failed due to an internal error",
     "waitlist_account_not_active": "Your account is not yet active",
-    "waitlist_invited_policies_required": "Please accept the policies to activate your invited account"
+    "waitlist_invited_policies_required": "Please accept the policies to activate your invited account",
+    "too_many_input_images": "Too many input images provided"
   },
   "features": {
     "header": "Features",
@@ -560,11 +560,13 @@
     "output_image_4k": "4 Megapixels",
     "other_costs": "Other Costs",
     "api_call": "Per single use",
-    "second_of_runtime": "Per second of runtime"
+    "second_of_runtime": "Per second of runtime",
+    "max_input_images": "Up to {maxImages} reference images"
   },
   "onboarding": {
     "page_title": "Get Started",
-    "policy_prefix": "You must accept these policies to start using {botName}:",
+    "interface_language_label": "{botName} will use primarily this language",
+    "policy_prefix": "These policies must be accepted before you start. Have you read and agree to both?",
     "policy_label": "I accept",
     "access_api_keys_title": "Use my own API keys",
     "access_api_keys_description": "Connect your own AI provider API keys. You pay providers directly, with full control over your AI tools.",

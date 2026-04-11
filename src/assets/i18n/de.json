@@ -282,7 +282,7 @@
   "configure_ai_providers": "KI-Anbieter konfigurieren",
   "configure_access_keys": "Zugriffsschlüssel konfigurieren",
   "tools": {
-    "not_configured_with_prefix": "– Konfigurieren",
+    "not_configured_with_prefix": "Schlüssel konfigurieren",
     "select_tool": "Tool auswählen",
     "no_tools_available": "Keine Tools für diesen Typ verfügbar",
     "groups": {
@@ -358,54 +358,11 @@
       }
     }
   },
-  "features": {
-    "header": "Funktionen",
-    "title": "Was kann {botName} tun?",
-    "items": {
-      "language_intelligence": {
-        "title": "Sprachintelligenz",
-        "description": "Der Assistent versteht und antwortet in Ihrer bevorzugten Sprache mit Unterstützung für über 50 Sprachen, wodurch Konversationen natürlich und für Benutzer weltweit zugänglich werden. Fragen Sie alles und erhalten Sie schnelle, intelligente Antworten."
-      },
-      "independent": {
-        "title": "Unabhängig",
-        "description": "Wechseln Sie zwischen Chat-Apps und KI-Plattformen, ohne Ihren Chat-Verlauf oder Ihre Einstellungen zu verlieren. Der Assistent sorgt für eine konsistente und nahtlose Erfahrung, wo immer Sie interagieren."
-      },
-      "privacy": {
-        "title": "Offen, aber privat",
-        "description": "Der Code ist vollständig Open Source für Transparenz, aber Ihre Daten und Unterhaltungen bleiben privat und nur für Sie zugänglich. Hosten Sie selbst, um noch mehr Kontrolle über Ihre Informationen zu haben."
-      },
-      "web_search": {
-        "title": "Web-Suche",
-        "description": "Erhalten Sie aktuelle Informationen aus dem Web, einschließlich Nachrichten, Analysen, Wechselkursen, Kryptowährungspreisen, Vermögenswerten und mehr – direkt im Chat."
-      },
-      "media": {
-        "title": "Anhänge & Medien",
-        "description": "Senden Sie Bilder, Sprachnachrichten und Dokumente an den Assistenten – er kann diese verarbeiten und für hilfreiche Antworten oder Aufgaben verwenden. Chatten Sie mit Ihren Fotos oder Dokumenten, nicht nur mit Text."
-      },
-      "imaging": {
-        "title": "KI-Bilderstellung",
-        "description": "Erstellen Sie neue Bilder, bearbeiten Sie vorhandene Bilder mit Textanweisungen oder stellen Sie alte und beschädigte Bilder mit Hilfe fortschrittlicher KI-Modelle wieder her. Der Assistent setzt Ihre Ideen mit leistungsstarken und einfach zu bedienenden Tools um."
-      },
-      "monitoring": {
-        "title": "Überwachung",
-        "description": "Bleiben Sie informiert mit Echtzeit-Überwachung von Nachrichten, Märkten und Themen, die Sie interessieren. Der Assistent hält Sie proaktiv auf dem Laufenden, damit Sie nichts verpassen."
-      },
-      "profile": {
-        "title": "Benutzerprofil",
-        "description": "Ein einheitliches Benutzerprofil ermöglicht es Ihnen, Ihre Identität, Abrechnung, Guthaben, Tool-Einstellungen und KI-Anbieter-Einstellungen über alle Chat-Plattformen hinweg zu verwalten. Passen Sie alles an – bitten Sie den Assistenten einfach, Ihre Einstellungen zu öffnen, oder geben Sie `/settings` im Chat ein."
-      },
-      "chat_settings": {
-        "title": "Chat-Einstellungen",
-        "description": "Passen Sie das Verhalten des Assistenten in jedem Chat an, einschließlich Sprache, Antwortstil und Benachrichtigungseinstellungen. Greifen Sie jederzeit auf diese Optionen zu, indem Sie den Assistenten bitten, die Einstellungen zu öffnen, oder `/settings` im Chat eingeben."
-      },
-      "sponsorships": {
-        "title": "Sponsoring",
-        "description": "Teilen Sie Ihren Zugriff auf den Assistenten mit anderen und behalten Sie dabei die Privatsphäre Ihrer und ihrer Nutzung bei. Sponsoring ermöglicht es Ihnen, die Vorteile des Assistenten mit Freunden oder Familie zu teilen, und Sie können es jederzeit über den Assistenten oder durch Eingabe von `/settings` im Chat verwalten."
-      }
-    }
+  "intelligence_warnings": {
+    "no_access_message": "Sie benötigen entweder Ihre eigenen privaten API-Schlüssel oder gekaufte Credits, um KI-Tools zu verwenden.",
+    "no_settings": "Keine KI-Einstellungen zu konfigurieren."
   },
   "intelligence_presets": {
-    "label": "Intelligenzmodus",
     "lowest_price": "Niedrigste kosten",
     "lowest_price_description": "Das günstigste verfügbare Tool in jeder Kategorie.",
     "highest_price": "Höchste qualität",
@@ -516,29 +473,54 @@
     "transfer_recipient_not_found": "Überweisungsempfänger auf dieser Plattform nicht gefunden",
     "transfer_failed": "Guthabenüberweisung aufgrund eines internen Fehlers fehlgeschlagen",
     "waitlist_account_not_active": "Ihr Konto ist noch nicht aktiv",
-    "waitlist_invited_policies_required": "Bitte akzeptieren Sie die Richtlinien, um Ihr eingeladenes Konto zu aktivieren"
+    "waitlist_invited_policies_required": "Bitte akzeptieren Sie die Richtlinien, um Ihr eingeladenes Konto zu aktivieren",
+    "too_many_input_images": "Zu viele Eingabebilder angegeben"
   },
-  "onboarding": {
-    "page_title": "Loslegen",
-    "policy_prefix": "Sie müssen diese Richtlinien akzeptieren, um {botName} zu nutzen:",
-    "policy_label": "Ich akzeptiere",
-    "access_api_keys_title": "Eigene API-Schlüssel verwenden",
-    "access_api_keys_description": "Verbinden Sie Ihre eigenen API-Schlüssel des KI-Anbieters. Sie zahlen direkt an die Anbieter und haben volle Kontrolle über Ihre KI-Tools.",
-    "access_credits_title": "Credits kaufen",
-    "access_credits_description": "Nutzen Sie Prepaid-Credits für Ihre KI-Interaktionen. Keine API-Schlüssel erforderlich.",
-    "finish": "Los geht's!",
-    "start": "Starten",
-    "waitlist_title": "Sie stehen auf der Warteliste",
-    "waitlist_message": "Wir benachrichtigen Sie, sobald eine Kontoaktivierung wieder möglich ist.",
-    "success": "{botName} ist jetzt bereit! Gehe zurück in deinen Chat und stelle eine Frage."
-  },
-  "check_out_project": "Projekt ansehen",
-  "footer": {
-    "logo_alt": "Logo",
-    "terms": "Nutzungsbedingungen",
-    "privacy": "Datenschutzrichtlinie",
-    "powered_by": "Unterstützt von",
-    "rights_reserved": "Alle Rechte vorbehalten"
+  "features": {
+    "header": "Funktionen",
+    "title": "Was kann {botName} tun?",
+    "items": {
+      "language_intelligence": {
+        "title": "Sprachintelligenz",
+        "description": "Der Assistent versteht und antwortet in Ihrer bevorzugten Sprache mit Unterstützung für über 50 Sprachen, wodurch Konversationen natürlich und für Benutzer weltweit zugänglich werden. Fragen Sie alles und erhalten Sie schnelle, intelligente Antworten."
+      },
+      "independent": {
+        "title": "Unabhängig",
+        "description": "Wechseln Sie zwischen Chat-Apps und KI-Plattformen, ohne Ihren Chat-Verlauf oder Ihre Einstellungen zu verlieren. Der Assistent sorgt für eine konsistente und nahtlose Erfahrung, wo immer Sie interagieren."
+      },
+      "privacy": {
+        "title": "Offen, aber privat",
+        "description": "Der Code ist vollständig Open Source für Transparenz, aber Ihre Daten und Unterhaltungen bleiben privat und nur für Sie zugänglich. Hosten Sie selbst, um noch mehr Kontrolle über Ihre Informationen zu haben."
+      },
+      "web_search": {
+        "title": "Web-Suche",
+        "description": "Erhalten Sie aktuelle Informationen aus dem Web, einschließlich Nachrichten, Analysen, Wechselkursen, Kryptowährungspreisen, Vermögenswerten und mehr – direkt im Chat."
+      },
+      "media": {
+        "title": "Anhänge & Medien",
+        "description": "Senden Sie Bilder, Sprachnachrichten und Dokumente an den Assistenten – er kann diese verarbeiten und für hilfreiche Antworten oder Aufgaben verwenden. Chatten Sie mit Ihren Fotos oder Dokumenten, nicht nur mit Text."
+      },
+      "imaging": {
+        "title": "KI-Bilderstellung",
+        "description": "Erstellen Sie neue Bilder, bearbeiten Sie vorhandene Bilder mit Textanweisungen oder stellen Sie alte und beschädigte Bilder mit Hilfe fortschrittlicher KI-Modelle wieder her. Der Assistent setzt Ihre Ideen mit leistungsstarken und einfach zu bedienenden Tools um."
+      },
+      "monitoring": {
+        "title": "Überwachung",
+        "description": "Bleiben Sie informiert mit Echtzeit-Überwachung von Nachrichten, Märkten und Themen, die Sie interessieren. Der Assistent hält Sie proaktiv auf dem Laufenden, damit Sie nichts verpassen."
+      },
+      "profile": {
+        "title": "Benutzerprofil",
+        "description": "Ein einheitliches Benutzerprofil ermöglicht es Ihnen, Ihre Identität, Abrechnung, Guthaben, Tool-Einstellungen und KI-Anbieter-Einstellungen über alle Chat-Plattformen hinweg zu verwalten. Passen Sie alles an – bitten Sie den Assistenten einfach, Ihre Einstellungen zu öffnen, oder geben Sie `/settings` im Chat ein."
+      },
+      "chat_settings": {
+        "title": "Chat-Einstellungen",
+        "description": "Passen Sie das Verhalten des Assistenten in jedem Chat an, einschließlich Sprache, Antwortstil und Benachrichtigungseinstellungen. Greifen Sie jederzeit auf diese Optionen zu, indem Sie den Assistenten bitten, die Einstellungen zu öffnen, oder `/settings` im Chat eingeben."
+      },
+      "sponsorships": {
+        "title": "Sponsoring",
+        "description": "Teilen Sie Ihren Zugriff auf den Assistenten mit anderen und behalten Sie dabei die Privatsphäre Ihrer und ihrer Nutzung bei. Sponsoring ermöglicht es Ihnen, die Vorteile des Assistenten mit Freunden oder Familie zu teilen, und Sie können es jederzeit über den Assistenten oder durch Eingabe von `/settings` im Chat verwalten."
+      }
+    }
   },
   "products": {
     "shop": {
@@ -578,10 +560,30 @@
     "output_image_4k": "4 Megapixel",
     "other_costs": "Andere Kosten",
     "api_call": "Pro einzelne Verwendung",
-    "second_of_runtime": "Pro Sekunde Laufzeit"
+    "second_of_runtime": "Pro Sekunde Laufzeit",
+    "max_input_images": "Bis zu {maxImages} Referenzbilder"
   },
-  "intelligence_warnings": {
-    "no_access_message": "Sie benötigen entweder Ihre eigenen privaten API-Schlüssel oder gekaufte Credits, um KI-Tools zu verwenden.",
-    "no_settings": "Keine KI-Einstellungen zu konfigurieren."
+  "onboarding": {
+    "page_title": "Loslegen",
+    "interface_language_label": "{botName} wird hauptsächlich diese Sprache verwenden",
+    "policy_prefix": "Diese Richtlinien müssen vor dem Start akzeptiert werden. Haben Sie beide gelesen und stimmen zu?",
+    "policy_label": "Ich akzeptiere",
+    "access_api_keys_title": "Eigene API-Schlüssel verwenden",
+    "access_api_keys_description": "Verbinden Sie Ihre eigenen API-Schlüssel des KI-Anbieters. Sie zahlen direkt an die Anbieter und haben volle Kontrolle über Ihre KI-Tools.",
+    "access_credits_title": "Credits kaufen",
+    "access_credits_description": "Nutzen Sie Prepaid-Credits für Ihre KI-Interaktionen. Keine API-Schlüssel erforderlich.",
+    "finish": "Los geht's!",
+    "start": "Starten",
+    "waitlist_title": "Sie stehen auf der Warteliste",
+    "waitlist_message": "Wir benachrichtigen Sie, sobald eine Kontoaktivierung wieder möglich ist.",
+    "success": "{botName} ist jetzt bereit! Gehe zurück in deinen Chat und stelle eine Frage."
+  },
+  "check_out_project": "Projekt ansehen",
+  "footer": {
+    "logo_alt": "Logo",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "powered_by": "Unterstützt von",
+    "rights_reserved": "Alle Rechte vorbehalten"
   }
 }

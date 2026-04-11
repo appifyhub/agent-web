@@ -75,6 +75,45 @@
     "page_title": "Kullanım",
     "card_title": "Kullanım Geçmişi",
     "no_records_found": "Kullanım kaydı bulunamadı",
+    "filters": {
+      "scope_section": "KAPSAM",
+      "filters_section": "FİLTRELER",
+      "time_range_label": "Zaman",
+      "time_range_all": "Tüm zamanlar",
+      "time_range_10min": "Son 10 dakika",
+      "time_range_30min": "Son 30 dakika",
+      "time_range_1h": "Son saat",
+      "time_range_3h": "Son 3 saat",
+      "time_range_6h": "Son 6 saat",
+      "time_range_12h": "Son 12 saat",
+      "time_range_today": "Bugün",
+      "time_range_yesterday": "Dün",
+      "time_range_week": "Geçen hafta",
+      "time_range_2weeks": "Son 2 hafta",
+      "time_range_month": "Geçen ay",
+      "tool_label": "Araç",
+      "tool_all": "Tüm AI araçları",
+      "purpose_label": "Amaç",
+      "purpose_all": "Tüm amaçlar",
+      "provider_label": "Sağlayıcı",
+      "provider_all": "Tüm sağlayıcılar",
+      "show_scope_and_filters": "Kapsam ve filtreleri göster",
+      "hide_scope_and_filters": "Kapsam ve filtreleri gizle",
+      "include_sponsored_label": "Sponsorlu kullanıcıları dahil et",
+      "exclude_self_label": "Kullanımımı hariç tut",
+      "include_transfers_label": "Transferleri dahil et",
+      "only_transfers_label": "Sadece transferleri göster"
+    },
+    "stats": {
+      "total_records": "Toplam Kayıt",
+      "total_cost": "Toplam Maliyet",
+      "total_runtime": "Toplam süre",
+      "show_breakdowns": "Detayları Görüntüle",
+      "hide_breakdowns": "Dökümü gizle",
+      "by_tool": "Araca Göre",
+      "by_purpose": "Amaca Göre",
+      "by_provider": "Sağlayıcıya Göre"
+    },
     "cost_breakdown": {
       "title": "Maliyet Dökümü",
       "model_cost": "Model Maliyeti",
@@ -121,46 +160,7 @@
       "note_placeholder": "Transfer nedeni…"
     },
     "load_more": "Daha fazla yükle",
-    "credit_balance": "Sahip olduğum krediler: {balance}",
-    "filters": {
-      "scope_section": "KAPSAM",
-      "filters_section": "FİLTRELER",
-      "time_range_label": "Zaman",
-      "time_range_all": "Tüm zamanlar",
-      "time_range_10min": "Son 10 dakika",
-      "time_range_30min": "Son 30 dakika",
-      "time_range_1h": "Son saat",
-      "time_range_3h": "Son 3 saat",
-      "time_range_6h": "Son 6 saat",
-      "time_range_12h": "Son 12 saat",
-      "time_range_today": "Bugün",
-      "time_range_yesterday": "Dün",
-      "time_range_week": "Geçen hafta",
-      "time_range_2weeks": "Son 2 hafta",
-      "time_range_month": "Geçen ay",
-      "tool_label": "Araç",
-      "tool_all": "Tüm AI araçları",
-      "purpose_label": "Amaç",
-      "purpose_all": "Tüm amaçlar",
-      "provider_label": "Sağlayıcı",
-      "provider_all": "Tüm sağlayıcılar",
-      "show_scope_and_filters": "Kapsam ve filtreleri göster",
-      "hide_scope_and_filters": "Kapsam ve filtreleri gizle",
-      "include_sponsored_label": "Sponsorlu kullanıcıları dahil et",
-      "exclude_self_label": "Kullanımımı hariç tut",
-      "include_transfers_label": "Transferleri dahil et",
-      "only_transfers_label": "Sadece transferleri göster"
-    },
-    "stats": {
-      "total_records": "Toplam Kayıt",
-      "total_cost": "Toplam Maliyet",
-      "total_runtime": "Toplam süre",
-      "show_breakdowns": "Detayları Görüntüle",
-      "hide_breakdowns": "Dökümü gizle",
-      "by_tool": "Araca Göre",
-      "by_purpose": "Amaca Göre",
-      "by_provider": "Sağlayıcıya Göre"
-    }
+    "credit_balance": "Sahip olduğum krediler: {balance}"
   },
   "purchases": {
     "page_title": "Satın Almalar",
@@ -281,8 +281,88 @@
   "configure_intelligence": "Zeka yapılandır",
   "configure_ai_providers": "AI sağlayıcılarını yapılandır",
   "configure_access_keys": "Erişim anahtarlarını yapılandır",
+  "tools": {
+    "not_configured_with_prefix": "Anahtarları yapılandır",
+    "select_tool": "Bir araç seçin",
+    "no_tools_available": "Bu tür için mevcut araç yok",
+    "groups": {
+      "text_intelligence": {
+        "title": "Dil Zekası"
+      },
+      "content_analysis": {
+        "title": "İçerik Analizi"
+      },
+      "image_tools": {
+        "title": "Görüntü Araçları"
+      },
+      "integrations": {
+        "title": "Entegrasyonlar"
+      }
+    },
+    "types": {
+      "chat": {
+        "title": "Sohbet",
+        "description": "Temel sohbet işlevselliği ve çeşitli dış araçlarla entegrasyon için kullanılır. Bu konuştuğunuz modeldir."
+      },
+      "reasoning": {
+        "title": "Akıl Yürütme",
+        "description": "Bu genellikle arka planda çalışan ve bittiğinde size bildirim gönderen bir modeldir, sadece akıl yürütme ve karmaşık problem çözme görevleri için kullanılır."
+      },
+      "copywriting": {
+        "title": "Metin Yazarlığı",
+        "description": "Bu metin yazarlığı, içerik oluşturma, yazım ve dilbilgisi düzeltmeleri ile stil ve ton ayarlamaları gerektiren çeşitli diğer görevler için kullanılan bir modeldir."
+      },
+      "vision": {
+        "title": "Görme",
+        "description": "Bu görsel görevler için kullanılan bir modeldir, görüntü sınıflandırması, görüntü anlama ve görüntülerle sohbet etme gibi. Bu sohbete bir görüntü yüklediğinizde kullanılan şeydir."
+      },
+      "hearing": {
+        "title": "İşitme",
+        "description": "Bu işitme görevleri için kullanılan bir modeldir, konuşma tanıma, konuşmadan metne, doğal dil anlama ve sesle sohbet etme gibi. Bu sohbete bir ses dosyası yüklediğinizde kullanılan şeydir."
+      },
+      "images_gen": {
+        "title": "Görüntü Üretimi",
+        "description": "Bu sadece metin istemlerinden görüntü üretimi için kullanılan bir modeldir."
+      },
+      "images_edit": {
+        "title": "Görüntü Düzenleme",
+        "description": "Bu görüntü düzenleme için kullanılan bir modeldir, fotoğraf değiştirme, nesne kaldırma, özel efekt ekleme ve görüntülerin stilini değiştirme gibi."
+      },
+      "search": {
+        "title": "Arama",
+        "description": "Bu web araması için kullanılan bir modeldir, bilgi, haber, ürün, hizmet aramak veya sohbet arkadaşınızın bilmediği bir konu hakkında arka plan araştırması yapmak gibi."
+      },
+      "embedding": {
+        "title": "Gömme",
+        "description": "Bu gömme için kullanılan bir modeldir, metin, görüntü veya ses dosyalarını vektör uzayına gömmek gibi. Dahili veritabanları, belgeler ve diğer semantik arama görevlerinde benzerlik araması için kullanılır. Bu sohbete bir PDF dosyası yüklediğinizde kullanılan şeydir."
+      },
+      "api_fiat_exchange": {
+        "title": "Fiat Döviz Kuru",
+        "description": "Geleneksel para birimleri için gerçek zamanlı döviz kurlarına erişim."
+      },
+      "api_crypto_exchange": {
+        "title": "Kripto Döviz Kuru",
+        "description": "Kripto para birimleri için gerçek zamanlı döviz kurlarına erişim."
+      },
+      "api_twitter": {
+        "title": "X / Twitter",
+        "description": "Twitter içeriğini okumak ve analiz etmek için erişim."
+      },
+      "credit_transfer": {
+        "title": "Kredi Transferi",
+        "description": "Kullanıcılar arasında kredi transferi için dahili araç."
+      },
+      "deprecated": {
+        "title": "Kullanımdan Kaldırıldı",
+        "description": "Bu araç veya özellik kullanımdan kaldırıldı ve gelecek sürümlerde kaldırılabilir."
+      }
+    }
+  },
+  "intelligence_warnings": {
+    "no_access_message": "AI araçlarını kullanmak için kendi özel API anahtarlarınıza veya satın alınmış kredilere ihtiyacınız var.",
+    "no_settings": "Yapılandırılacak AI ayarı yok."
+  },
   "intelligence_presets": {
-    "label": "Zeka Modu",
     "lowest_price": "En düşük maliyet",
     "lowest_price_description": "Her kategorideki en ucuz mevcut araç.",
     "highest_price": "En yüksek kalite",
@@ -393,84 +473,8 @@
     "transfer_recipient_not_found": "Transfer alıcısı bu platformda bulunamadı",
     "transfer_failed": "Kredi transferi dahili bir hata nedeniyle başarısız oldu",
     "waitlist_account_not_active": "Hesabınız henüz aktif değil",
-    "waitlist_invited_policies_required": "Davet hesabınızı etkinleştirmek için politikaları kabul edin"
-  },
-  "tools": {
-    "not_configured_with_prefix": "– Yapılandır",
-    "select_tool": "Bir araç seçin",
-    "no_tools_available": "Bu tür için mevcut araç yok",
-    "groups": {
-      "text_intelligence": {
-        "title": "Dil Zekası"
-      },
-      "content_analysis": {
-        "title": "İçerik Analizi"
-      },
-      "image_tools": {
-        "title": "Görüntü Araçları"
-      },
-      "integrations": {
-        "title": "Entegrasyonlar"
-      }
-    },
-    "types": {
-      "chat": {
-        "title": "Sohbet",
-        "description": "Temel sohbet işlevselliği ve çeşitli dış araçlarla entegrasyon için kullanılır. Bu konuştuğunuz modeldir."
-      },
-      "reasoning": {
-        "title": "Akıl Yürütme",
-        "description": "Bu genellikle arka planda çalışan ve bittiğinde size bildirim gönderen bir modeldir, sadece akıl yürütme ve karmaşık problem çözme görevleri için kullanılır."
-      },
-      "copywriting": {
-        "title": "Metin Yazarlığı",
-        "description": "Bu metin yazarlığı, içerik oluşturma, yazım ve dilbilgisi düzeltmeleri ile stil ve ton ayarlamaları gerektiren çeşitli diğer görevler için kullanılan bir modeldir."
-      },
-      "vision": {
-        "title": "Görme",
-        "description": "Bu görsel görevler için kullanılan bir modeldir, görüntü sınıflandırması, görüntü anlama ve görüntülerle sohbet etme gibi. Bu sohbete bir görüntü yüklediğinizde kullanılan şeydir."
-      },
-      "hearing": {
-        "title": "İşitme",
-        "description": "Bu işitme görevleri için kullanılan bir modeldir, konuşma tanıma, konuşmadan metne, doğal dil anlama ve sesle sohbet etme gibi. Bu sohbete bir ses dosyası yüklediğinizde kullanılan şeydir."
-      },
-      "images_gen": {
-        "title": "Görüntü Üretimi",
-        "description": "Bu sadece metin istemlerinden görüntü üretimi için kullanılan bir modeldir."
-      },
-      "images_edit": {
-        "title": "Görüntü Düzenleme",
-        "description": "Bu görüntü düzenleme için kullanılan bir modeldir, fotoğraf değiştirme, nesne kaldırma, özel efekt ekleme ve görüntülerin stilini değiştirme gibi."
-      },
-      "search": {
-        "title": "Arama",
-        "description": "Bu web araması için kullanılan bir modeldir, bilgi, haber, ürün, hizmet aramak veya sohbet arkadaşınızın bilmediği bir konu hakkında arka plan araştırması yapmak gibi."
-      },
-      "embedding": {
-        "title": "Gömme",
-        "description": "Bu gömme için kullanılan bir modeldir, metin, görüntü veya ses dosyalarını vektör uzayına gömmek gibi. Dahili veritabanları, belgeler ve diğer semantik arama görevlerinde benzerlik araması için kullanılır. Bu sohbete bir PDF dosyası yüklediğinizde kullanılan şeydir."
-      },
-      "api_fiat_exchange": {
-        "title": "Fiat Döviz Kuru",
-        "description": "Geleneksel para birimleri için gerçek zamanlı döviz kurlarına erişim."
-      },
-      "api_crypto_exchange": {
-        "title": "Kripto Döviz Kuru",
-        "description": "Kripto para birimleri için gerçek zamanlı döviz kurlarına erişim."
-      },
-      "api_twitter": {
-        "title": "X / Twitter",
-        "description": "Twitter içeriğini okumak ve analiz etmek için erişim."
-      },
-      "credit_transfer": {
-        "title": "Kredi Transferi",
-        "description": "Kullanıcılar arasında kredi transferi için dahili araç."
-      },
-      "deprecated": {
-        "title": "Kullanımdan Kaldırıldı",
-        "description": "Bu araç veya özellik kullanımdan kaldırıldı ve gelecek sürümlerde kaldırılabilir."
-      }
-    }
+    "waitlist_invited_policies_required": "Davet hesabınızı etkinleştirmek için politikaları kabul edin",
+    "too_many_input_images": "Çok fazla giriş görüntüsü sağlandı"
   },
   "features": {
     "header": "Özellikler",
@@ -518,28 +522,6 @@
       }
     }
   },
-  "onboarding": {
-    "page_title": "Başlayın",
-    "policy_prefix": "{botName} kullanmaya başlamak için bu politikaları kabul etmelisiniz:",
-    "policy_label": "Kabul ediyorum",
-    "access_api_keys_title": "Kendi API anahtarlarımı kullan",
-    "access_api_keys_description": "Kendi AI sağlayıcı API anahtarlarınızı bağlayın. Sağlayıcılara doğrudan ödeme yaparsınız ve AI araçlarınız üzerinde tam kontrole sahip olursunuz.",
-    "access_credits_title": "Kredi satın al",
-    "access_credits_description": "AI etkileşimleri için ön ödemeli kredi kullanın. API anahtarı gerekmez.",
-    "finish": "Hadi başlayalım!",
-    "start": "Başla",
-    "waitlist_title": "Bekleme listindesiniz",
-    "waitlist_message": "Hesabınızı tekrar aktive etmek mümkün olduğunda sizi bilgilendireceğiz.",
-    "success": "{botName} artık hazır! Sohbetine geri dön ve istediğini sor."
-  },
-  "check_out_project": "Projeyi incele",
-  "footer": {
-    "logo_alt": "Logo",
-    "terms": "Hizmet Şartları",
-    "privacy": "Gizlilik Politikası",
-    "powered_by": "Destekleyen",
-    "rights_reserved": "Tüm hakları saklıdır"
-  },
   "products": {
     "shop": {
       "title": "Bir ürün seçin",
@@ -578,10 +560,30 @@
     "output_image_4k": "4 Megapiksel",
     "other_costs": "Diğer Maliyetler",
     "api_call": "Tek kullanım başına",
-    "second_of_runtime": "Çalışma süresi saniyesi başına"
+    "second_of_runtime": "Çalışma süresi saniyesi başına",
+    "max_input_images": "{maxImages} adede kadar referans görsel"
   },
-  "intelligence_warnings": {
-    "no_access_message": "AI araçlarını kullanmak için kendi özel API anahtarlarınıza veya satın alınmış kredilere ihtiyacınız var.",
-    "no_settings": "Yapılandırılacak AI ayarı yok."
+  "onboarding": {
+    "page_title": "Başlayın",
+    "interface_language_label": "{botName} öncelikli olarak bu dili kullanacak",
+    "policy_prefix": "Başlamadan önce bu politikaların kabul edilmesi gerekir. Her ikisini de okudunuz ve kabul ediyor musunuz?",
+    "policy_label": "Kabul ediyorum",
+    "access_api_keys_title": "Kendi API anahtarlarımı kullan",
+    "access_api_keys_description": "Kendi AI sağlayıcı API anahtarlarınızı bağlayın. Sağlayıcılara doğrudan ödeme yaparsınız ve AI araçlarınız üzerinde tam kontrole sahip olursunuz.",
+    "access_credits_title": "Kredi satın al",
+    "access_credits_description": "AI etkileşimleri için ön ödemeli kredi kullanın. API anahtarı gerekmez.",
+    "finish": "Hadi başlayalım!",
+    "start": "Başla",
+    "waitlist_title": "Bekleme listindesiniz",
+    "waitlist_message": "Hesabınızı tekrar aktive etmek mümkün olduğunda sizi bilgilendireceğiz.",
+    "success": "{botName} artık hazır! Sohbetine geri dön ve istediğini sor."
+  },
+  "check_out_project": "Projeyi incele",
+  "footer": {
+    "logo_alt": "Logo",
+    "terms": "Hizmet Şartları",
+    "privacy": "Gizlilik Politikası",
+    "powered_by": "Destekleyen",
+    "rights_reserved": "Tüm hakları saklıdır"
   }
 }

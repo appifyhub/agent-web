@@ -4,7 +4,7 @@ import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { usePageSession } from "@/hooks/usePageSession";
 import { ApiError } from "@/lib/api-error";
-import { PageError } from "@/lib/utils";
+import { PageError, cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { ChevronsRight } from "lucide-react";
 import {
@@ -257,7 +257,7 @@ const UserSettingsPage: React.FC = () => {
 
           if (hasApiKeys || hasCredits) {
             return (
-              <div className={rowClass}>
+              <div className={cn(rowClass, "w-full sm:w-md")}>
                 <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
                 <button
                   onClick={() => {
@@ -274,7 +274,7 @@ const UserSettingsPage: React.FC = () => {
           }
 
           return (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full sm:w-md">
               <div className={rowClass}>
                 <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
                 <button

@@ -55,6 +55,7 @@ interface HeaderProps {
   page: Page;
   selectedChat?: ChatInfo;
   chats?: ChatInfo[];
+  chatsLoading?: boolean;
   userId?: string;
   rawAccessToken?: string;
   selectedLanguage: Language;
@@ -63,6 +64,7 @@ interface HeaderProps {
   showSponsorshipsButton?: boolean;
   showChatsDropdown?: boolean;
   showHelpButton?: boolean;
+  showLanguageDropdown?: boolean;
   isLocked?: boolean;
   onGoToOnboarding?: () => void;
   drawerOpen?: boolean;
@@ -73,6 +75,7 @@ const Header: React.FC<HeaderProps> = ({
   page,
   selectedChat = undefined,
   chats: externalChats = [],
+  chatsLoading = false,
   userId: propUserId,
   rawAccessToken,
   selectedLanguage,
@@ -81,6 +84,7 @@ const Header: React.FC<HeaderProps> = ({
   showSponsorshipsButton = true,
   showChatsDropdown = true,
   showHelpButton = true,
+  showLanguageDropdown = true,
   isLocked = false,
   onGoToOnboarding,
   drawerOpen: externalDrawerOpen,
@@ -114,8 +118,9 @@ const Header: React.FC<HeaderProps> = ({
     navigateWithLanguageChange,
   } = useNavigation();
 
-  // Use chats passed from parent component
+  // Use chats passed from parent component — hide dropdown when done loading and empty
   const chats = externalChats;
+  const chatsAvailable = chatsLoading || chats.length > 0;
 
   // Prefer URL param, fall back to prop (for navigation from non-user-specific pages)
   const effectiveUserId =
@@ -135,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({
   const effectiveShowSponsorshipsButton = isLocked
     ? false
     : showSponsorshipsButton;
-  const effectiveShowChatsDropdown = isLocked ? false : showChatsDropdown;
+  const effectiveShowChatsDropdown = isLocked ? false : (showChatsDropdown && chatsAvailable);
   const effectiveShowHelpButton = isLocked
     ? page !== "features"
     : showHelpButton;
@@ -339,11 +344,13 @@ const Header: React.FC<HeaderProps> = ({
             <LifeBuoy className="h-5 w-5" />
           </Button>
         )}
-        <LanguageDropdown
-          selectedLanguage={selectedLanguage}
-          onLangChange={handleLangChange}
-          className="scale-120 md:scale-100"
-        />
+        {showLanguageDropdown && (
+          <LanguageDropdown
+            selectedLanguage={selectedLanguage}
+            onLangChange={handleLangChange}
+            className="scale-120 md:scale-100"
+          />
+        )}
         {hasAnyNavItems && (
           <Button
             variant="outline"
@@ -470,12 +477,14 @@ const Header: React.FC<HeaderProps> = ({
                   </Button>
                 </NavigationMenuItem>
               )}
-              <NavigationMenuItem>
-                <LanguageDropdown
-                  selectedLanguage={selectedLanguage}
-                  onLangChange={handleLangChange}
-                />
-              </NavigationMenuItem>
+              {showLanguageDropdown && (
+                <NavigationMenuItem>
+                  <LanguageDropdown
+                    selectedLanguage={selectedLanguage}
+                    onLangChange={handleLangChange}
+                  />
+                </NavigationMenuItem>
+              )}
               {hasAnyNavItems && (
                 <NavigationMenuItem>
                   <Sheet open={menuOpen} onOpenChange={setMenuOpen}>

@@ -15,7 +15,7 @@
   "access_use_credits_warning_prefix": "Da biste koristili kredite, uklonite sve API ključeve",
   "access_remove_all_keys": "Ukloni Sve",
   "access_keys_cleared_message": "API ključevi su obrisani. Pritisnite Sačuvaj za potvrdu.",
-  "profile_card_title": "Prilagodi {botName}a",
+  "profile_card_title": "Prilagodi {botName}a za sve četove",
   "profile_full_name_label": "{botName} me zna kao:",
   "profile_full_name_placeholder": "Ime za prikaz",
   "preferred_language_label": "{botName} odgovara koristeći:",
@@ -281,8 +281,88 @@
   "configure_intelligence": "Podesi inteligenciju",
   "configure_ai_providers": "Podesi AI provajdere",
   "configure_access_keys": "Podesi pristupne ključeve",
+  "tools": {
+    "not_configured_with_prefix": "Podesi ključeve",
+    "select_tool": "Izaberi alat",
+    "no_tools_available": "Nema dostupnih alata za ovaj tip",
+    "groups": {
+      "text_intelligence": {
+        "title": "Jezička inteligencija"
+      },
+      "content_analysis": {
+        "title": "Analiza sadržaja"
+      },
+      "image_tools": {
+        "title": "Alati za slike"
+      },
+      "integrations": {
+        "title": "Integracije"
+      }
+    },
+    "types": {
+      "chat": {
+        "title": "Čet",
+        "description": "Koristi se za osnovnu funkcionalnost četa i integraciju sa različitim spoljašnjim alatima. Ovo je model sa kojim razgovarate."
+      },
+      "reasoning": {
+        "title": "Razmišljanje",
+        "description": "Ovo je model koji se obično pokreće u pozadini i obaveštava vas kada završi, koristi se samo za razmišljanje i složeno rešavanja problema."
+      },
+      "copywriting": {
+        "title": "Stil i Pisanje",
+        "description": "Ovo je model koji se koristi za pisanje tekstova, kreiranje sadržaja, ispravke pravopisa i gramatike, kao i razne druge zadatke koji zahtevaju prilagođavanje stila i tona."
+      },
+      "vision": {
+        "title": "Vid",
+        "description": "Ovo je model koji se koristi za zadatke vida, kao što su klasifikacija slika, razumevanje slika i razgovor sa slikama. Ovo se koristi kada pošaljete sliku u čet."
+      },
+      "hearing": {
+        "title": "Sluh",
+        "description": "Ovo je model koji se koristi za zadatke sluha, kao što su prepoznavanje govora, govor-u-tekst, razumevanje prirodnog jezika i razgovor sa zvukom. Ovo se koristi kada pošaljete zvučni fajl u čet."
+      },
+      "images_gen": {
+        "title": "Generisanje slika",
+        "description": "Ovo je model koji se koristi samo za generisanje slika iz tekstualnih upita."
+      },
+      "images_edit": {
+        "title": "Uređivanje slika",
+        "description": "Ovo je model koji se koristi za uređivanje slika, kao što su zamene delova fotografija, uklanjanje objekata, dodavanje specijalnih efekata i menjanje stila slika."
+      },
+      "search": {
+        "title": "Pretraga",
+        "description": "Ovo je model koji se koristi za web pretragu, kao što je pretraga na webu za informacije, vesti, proizvode, usluge, ili istraživanje pozadine o temi koju vaš sagovornik ne poznaje."
+      },
+      "embedding": {
+        "title": "Ugradnja",
+        "description": "Ovo je model koji se koristi za ugradnju, kao što je ugrađivanje teksta, slika ili zvuka u vektorski prostor. Koristi se za pretragu sličnosti kroz interne baze podataka, dokumente i druge zadatke semantičke pretrage. Ovo se koristi kada pošaljete PDF fajl u čet."
+      },
+      "api_fiat_exchange": {
+        "title": "Fiat menjačnica",
+        "description": "Pristup kursevima fiat valuta u realnom vremenu."
+      },
+      "api_crypto_exchange": {
+        "title": "Kripto menjačnica",
+        "description": "Pristup kursevima kripto valuta u realnom vremenu."
+      },
+      "api_twitter": {
+        "title": "X / Twitter",
+        "description": "Pristup za čitanje i analizu Twitter sadržaja."
+      },
+      "credit_transfer": {
+        "title": "Transfer kredita",
+        "description": "Interni alat za transfer kredita između korisnika."
+      },
+      "deprecated": {
+        "title": "Zastarelo",
+        "description": "Ovaj alat ili funkcija je zastarela i može biti uklonjena u budućim verzijama."
+      }
+    }
+  },
+  "intelligence_warnings": {
+    "no_access_message": "Potrebni su vam ili vaši privatni API ključevi ili kupljeni krediti da biste koristili AI alate.",
+    "no_settings": "Nema AI podešavanja za konfigurisanje."
+  },
   "intelligence_presets": {
-    "label": "Režim inteligencije",
     "lowest_price": "Najniža cena",
     "lowest_price_description": "Najjeftiniji dostupni alat u svakoj kategoriji.",
     "highest_price": "Najviši kvalitet",
@@ -393,7 +473,8 @@
     "transfer_recipient_not_found": "Primalac transfera nije pronađen na ovoj platformi",
     "transfer_failed": "Transfer kredita nije uspeo zbog interne greške",
     "waitlist_account_not_active": "Vaš nalog još nije aktivan",
-    "waitlist_invited_policies_required": "Prihvatite politike da biste aktivirali pozvani nalog"
+    "waitlist_invited_policies_required": "Prihvatite politike da biste aktivirali pozvani nalog",
+    "too_many_input_images": "Previše ulaznih slika je dostavljeno"
   },
   "features": {
     "header": "Mogućnosti",
@@ -441,105 +522,6 @@
       }
     }
   },
-  "tools": {
-    "not_configured_with_prefix": "– Podesi",
-    "select_tool": "Izaberi alat",
-    "no_tools_available": "Nema dostupnih alata za ovaj tip",
-    "groups": {
-      "text_intelligence": {
-        "title": "Jezička inteligencija"
-      },
-      "content_analysis": {
-        "title": "Analiza sadržaja"
-      },
-      "image_tools": {
-        "title": "Alati za slike"
-      },
-      "integrations": {
-        "title": "Integracije"
-      }
-    },
-    "types": {
-      "chat": {
-        "title": "Čet",
-        "description": "Koristi se za osnovnu funkcionalnost četa i integraciju sa različitim spoljašnjim alatima. Ovo je model sa kojim razgovarate."
-      },
-      "reasoning": {
-        "title": "Razmišljanje",
-        "description": "Ovo je model koji se obično pokreće u pozadini i obaveštava vas kada završi, koristi se samo za razmišljanje i složeno rešavanja problema."
-      },
-      "copywriting": {
-        "title": "Stil i Pisanje",
-        "description": "Ovo je model koji se koristi za pisanje tekstova, kreiranje sadržaja, ispravke pravopisa i gramatike, kao i razne druge zadatke koji zahtevaju prilagođavanje stila i tona."
-      },
-      "vision": {
-        "title": "Vid",
-        "description": "Ovo je model koji se koristi za zadatke vida, kao što su klasifikacija slika, razumevanje slika i razgovor sa slikama. Ovo se koristi kada pošaljete sliku u čet."
-      },
-      "hearing": {
-        "title": "Sluh",
-        "description": "Ovo je model koji se koristi za zadatke sluha, kao što su prepoznavanje govora, govor-u-tekst, razumevanje prirodnog jezika i razgovor sa zvukom. Ovo se koristi kada pošaljete zvučni fajl u čet."
-      },
-      "images_gen": {
-        "title": "Generisanje slika",
-        "description": "Ovo je model koji se koristi samo za generisanje slika iz tekstualnih upita."
-      },
-      "images_edit": {
-        "title": "Uređivanje slika",
-        "description": "Ovo je model koji se koristi za uređivanje slika, kao što su zamene delova fotografija, uklanjanje objekata, dodavanje specijalnih efekata i menjanje stila slika."
-      },
-      "search": {
-        "title": "Pretraga",
-        "description": "Ovo je model koji se koristi za web pretragu, kao što je pretraga na webu za informacije, vesti, proizvode, usluge, ili istraživanje pozadine o temi koju vaš sagovornik ne poznaje."
-      },
-      "embedding": {
-        "title": "Ugradnja",
-        "description": "Ovo je model koji se koristi za ugradnju, kao što je ugrađivanje teksta, slika ili zvuka u vektorski prostor. Koristi se za pretragu sličnosti kroz interne baze podataka, dokumente i druge zadatke semantičke pretrage. Ovo se koristi kada pošaljete PDF fajl u čet."
-      },
-      "api_fiat_exchange": {
-        "title": "Fiat menjačnica",
-        "description": "Pristup kursevima fiat valuta u realnom vremenu."
-      },
-      "api_crypto_exchange": {
-        "title": "Kripto menjačnica",
-        "description": "Pristup kursevima kripto valuta u realnom vremenu."
-      },
-      "api_twitter": {
-        "title": "X / Twitter",
-        "description": "Pristup za čitanje i analizu Twitter sadržaja."
-      },
-      "credit_transfer": {
-        "title": "Transfer kredita",
-        "description": "Interni alat za transfer kredita između korisnika."
-      },
-      "deprecated": {
-        "title": "Zastarelo",
-        "description": "Ovaj alat ili funkcija je zastarela i može biti uklonjena u budućim verzijama."
-      }
-    }
-  },
-  "onboarding": {
-    "page_title": "Početak",
-    "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja {botName}a:",
-    "policy_label": "Prihvatam",
-    "access_api_keys_title": "Koristim sopstvene ključeve (napredno)",
-    "access_api_keys_description": "Povezaću sopstvene API ključeve AI provajdera.",
-    "access_credits_title": "Kupujem kredite",
-    "access_credits_description": "Koristiću unapred plaćene kredite za AI interakcije, bez podešavanja ključeva.",
-    "finish": "Počnimo!",
-    "start": "Počni",
-    "waitlist_title": "Na listi čekanja ste",
-    "waitlist_message": "Obavestićemo vas kada opet bude moguće aktivirati nalog.",
-    "success": "{botName} je sada spreman! Vrati se u chat i postavi bilo koje pitanje."
-  },
-  "check_out_project": "Pogledaj projekat",
-  "footer": {
-    "logo_alt": "Logo",
-    "terms": "Uslovi korišćenja",
-    "privacy": "Politika privatnosti",
-    "powered_by": "Pokreće",
-    "rights_reserved": "Sva prava zadržana"
-  },
   "products": {
     "shop": {
       "title": "Izaberi proizvod",
@@ -578,10 +560,30 @@
     "output_image_4k": "4 Megapiksela",
     "other_costs": "Ostali troškovi",
     "api_call": "Po jednoj upotrebi",
-    "second_of_runtime": "Po sekundi izvršavanja"
+    "second_of_runtime": "Po sekundi izvršavanja",
+    "max_input_images": "Do {maxImages} referentnih slika"
   },
-  "intelligence_warnings": {
-    "no_access_message": "Potrebni su vam ili vaši privatni API ključevi ili kupljeni krediti da biste koristili AI alate.",
-    "no_settings": "Nema AI podešavanja za konfigurisanje."
+  "onboarding": {
+    "page_title": "Početak",
+    "interface_language_label": "{botName} će koristiti uglavnom ovaj jezik",
+    "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja. Da li ste pročitali i slažete se sa obe?",
+    "policy_label": "Prihvatam",
+    "access_api_keys_title": "Koristim sopstvene ključeve (napredno)",
+    "access_api_keys_description": "Povezaću sopstvene API ključeve AI provajdera.",
+    "access_credits_title": "Kupujem kredite",
+    "access_credits_description": "Koristiću unapred plaćene kredite za AI interakcije, bez podešavanja ključeva.",
+    "finish": "Počnimo!",
+    "start": "Počni",
+    "waitlist_title": "Na listi čekanja ste",
+    "waitlist_message": "Obavestićemo vas kada opet bude moguće aktivirati nalog.",
+    "success": "{botName} je sada spreman! Vrati se u chat i postavi bilo koje pitanje."
+  },
+  "check_out_project": "Pogledaj projekat",
+  "footer": {
+    "logo_alt": "Logo",
+    "terms": "Uslovi korišćenja",
+    "privacy": "Politika privatnosti",
+    "powered_by": "Pokreće",
+    "rights_reserved": "Sva prava zadržana"
   }
 }

@@ -40,6 +40,7 @@ export interface ExternalTool {
   provider: ExternalToolProvider;
   types: ToolType[];
   cost_estimate: CostEstimate;
+  max_input_images: number;
 }
 
 export interface ExternalToolProvider {
