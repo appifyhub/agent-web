@@ -282,7 +282,7 @@
   "configure_ai_providers": "KI-Anbieter konfigurieren",
   "configure_access_keys": "Zugriffsschlüssel konfigurieren",
   "tools": {
-    "not_configured_with_prefix": "– Konfigurieren",
+    "not_configured_with_prefix": "Schlüssel konfigurieren",
     "select_tool": "Tool auswählen",
     "no_tools_available": "Keine Tools für diesen Typ verfügbar",
     "groups": {
@@ -405,7 +405,6 @@
     }
   },
   "intelligence_presets": {
-    "label": "Intelligenzmodus",
     "lowest_price": "Niedrigste kosten",
     "lowest_price_description": "Das günstigste verfügbare Tool in jeder Kategorie.",
     "highest_price": "Höchste qualität",
@@ -516,11 +515,13 @@
     "transfer_recipient_not_found": "Überweisungsempfänger auf dieser Plattform nicht gefunden",
     "transfer_failed": "Guthabenüberweisung aufgrund eines internen Fehlers fehlgeschlagen",
     "waitlist_account_not_active": "Ihr Konto ist noch nicht aktiv",
-    "waitlist_invited_policies_required": "Bitte akzeptieren Sie die Richtlinien, um Ihr eingeladenes Konto zu aktivieren"
+    "waitlist_invited_policies_required": "Bitte akzeptieren Sie die Richtlinien, um Ihr eingeladenes Konto zu aktivieren",
+    "too_many_input_images": "Zu viele Eingabebilder angegeben"
   },
   "onboarding": {
     "page_title": "Loslegen",
-    "policy_prefix": "Sie müssen diese Richtlinien akzeptieren, um {botName} zu nutzen:",
+    "interface_language_label": "{botName} wird hauptsächlich diese Sprache verwenden",
+    "policy_prefix": "Diese Richtlinien müssen vor dem Start akzeptiert werden. Haben Sie beide gelesen und stimmen zu?",
     "policy_label": "Ich akzeptiere",
     "access_api_keys_title": "Eigene API-Schlüssel verwenden",
     "access_api_keys_description": "Verbinden Sie Ihre eigenen API-Schlüssel des KI-Anbieters. Sie zahlen direkt an die Anbieter und haben volle Kontrolle über Ihre KI-Tools.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 Megapixel",
     "other_costs": "Andere Kosten",
     "api_call": "Pro einzelne Verwendung",
-    "second_of_runtime": "Pro Sekunde Laufzeit"
+    "second_of_runtime": "Pro Sekunde Laufzeit",
+    "max_input_images": "Bis zu {maxImages} Referenzbilder"
   },
   "intelligence_warnings": {
     "no_access_message": "Sie benötigen entweder Ihre eigenen privaten API-Schlüssel oder gekaufte Credits, um KI-Tools zu verwenden.",

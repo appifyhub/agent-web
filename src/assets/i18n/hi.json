@@ -282,7 +282,6 @@
   "configure_ai_providers": "AI प्रदाता कॉन्फ़िगर करें",
   "configure_access_keys": "एक्सेस कुंजियाँ कॉन्फ़िगर करें",
   "intelligence_presets": {
-    "label": "इंटेलिजेंस मोड",
     "lowest_price": "सबसे कम लागत",
     "lowest_price_description": "प्रत्येक श्रेणी में सबसे सस्ता उपलब्ध टूल।",
     "highest_price": "सर्वोच्च गुणवत्ता",
@@ -393,10 +392,11 @@
     "transfer_recipient_not_found": "इस प्लेटफ़ॉर्म पर ट्रांसफर प्राप्तकर्ता नहीं मिला",
     "transfer_failed": "आंतरिक त्रुटि के कारण क्रेडिट ट्रांसफर विफल हुआ",
     "waitlist_account_not_active": "आपका खाता अभी सक्रिय नहीं है",
-    "waitlist_invited_policies_required": "अपने आमंत्रित खाते को सक्रिय करने के लिए नीतियाँ स्वीकार करें"
+    "waitlist_invited_policies_required": "अपने आमंत्रित खाते को सक्रिय करने के लिए नीतियाँ स्वीकार करें",
+    "too_many_input_images": "बहुत अधिक इनपुट छवियाँ प्रदान की गईं"
   },
   "tools": {
-    "not_configured_with_prefix": "– कॉन्फ़िगर करें",
+    "not_configured_with_prefix": "कुंजियाँ कॉन्फ़िगर करें",
     "select_tool": "एक उपकरण चुनें",
     "no_tools_available": "इस प्रकार के लिए कोई उपकरण उपलब्ध नहीं",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "शुरू करें",
-    "policy_prefix": "{botName} का उपयोग शुरू करने के लिए आपको इन नीतियों को स्वीकार करना होगा:",
+    "interface_language_label": "{botName} मुख्य रूप से इस भाषा का उपयोग करेगा",
+    "policy_prefix": "शुरू करने से पहले इन नीतियों को स्वीकार करना आवश्यक है। क्या आपने दोनों को पढ़ा और सहमति दी?",
     "policy_label": "मैं स्वीकार करता/करती हूँ",
     "access_api_keys_title": "मेरी अपनी API कुंजियाँ उपयोग करें",
     "access_api_keys_description": "अपने AI प्रदाता की API कुंजियाँ कनेक्ट करें। आप सीधे प्रदाताओं को भुगतान करते हैं, अपने AI टूल पर पूरा नियंत्रण रखते हुए।",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 मेगापिक्सेल",
     "other_costs": "अन्य लागत",
     "api_call": "प्रति एकल उपयोग",
-    "second_of_runtime": "प्रति सेकंड रनटाइम"
+    "second_of_runtime": "प्रति सेकंड रनटाइम",
+    "max_input_images": "अधिकतम {maxImages} संदर्भ चित्र"
   },
   "intelligence_warnings": {
     "no_access_message": "AI टूल्स का उपयोग करने के लिए आपको अपनी निजी API कुंजी या खरीदे गए क्रेडिट की आवश्यकता है।",

@@ -282,7 +282,6 @@
   "configure_ai_providers": "AI sağlayıcılarını yapılandır",
   "configure_access_keys": "Erişim anahtarlarını yapılandır",
   "intelligence_presets": {
-    "label": "Zeka Modu",
     "lowest_price": "En düşük maliyet",
     "lowest_price_description": "Her kategorideki en ucuz mevcut araç.",
     "highest_price": "En yüksek kalite",
@@ -393,10 +392,11 @@
     "transfer_recipient_not_found": "Transfer alıcısı bu platformda bulunamadı",
     "transfer_failed": "Kredi transferi dahili bir hata nedeniyle başarısız oldu",
     "waitlist_account_not_active": "Hesabınız henüz aktif değil",
-    "waitlist_invited_policies_required": "Davet hesabınızı etkinleştirmek için politikaları kabul edin"
+    "waitlist_invited_policies_required": "Davet hesabınızı etkinleştirmek için politikaları kabul edin",
+    "too_many_input_images": "Çok fazla giriş görüntüsü sağlandı"
   },
   "tools": {
-    "not_configured_with_prefix": "– Yapılandır",
+    "not_configured_with_prefix": "Anahtarları yapılandır",
     "select_tool": "Bir araç seçin",
     "no_tools_available": "Bu tür için mevcut araç yok",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "Başlayın",
-    "policy_prefix": "{botName} kullanmaya başlamak için bu politikaları kabul etmelisiniz:",
+    "interface_language_label": "{botName} öncelikli olarak bu dili kullanacak",
+    "policy_prefix": "Başlamadan önce bu politikaların kabul edilmesi gerekir. Her ikisini de okudunuz ve kabul ediyor musunuz?",
     "policy_label": "Kabul ediyorum",
     "access_api_keys_title": "Kendi API anahtarlarımı kullan",
     "access_api_keys_description": "Kendi AI sağlayıcı API anahtarlarınızı bağlayın. Sağlayıcılara doğrudan ödeme yaparsınız ve AI araçlarınız üzerinde tam kontrole sahip olursunuz.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 Megapiksel",
     "other_costs": "Diğer Maliyetler",
     "api_call": "Tek kullanım başına",
-    "second_of_runtime": "Çalışma süresi saniyesi başına"
+    "second_of_runtime": "Çalışma süresi saniyesi başına",
+    "max_input_images": "{maxImages} adede kadar referans görsel"
   },
   "intelligence_warnings": {
     "no_access_message": "AI araçlarını kullanmak için kendi özel API anahtarlarınıza veya satın alınmış kredilere ihtiyacınız var.",

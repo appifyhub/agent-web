@@ -282,7 +282,6 @@
   "configure_ai_providers": "Configurar proveedores de IA",
   "configure_access_keys": "Configurar las claves de acceso",
   "intelligence_presets": {
-    "label": "Modo de Inteligencia",
     "lowest_price": "Costo más bajo",
     "lowest_price_description": "La herramienta más económica disponible en cada categoría.",
     "highest_price": "Más alta calidad",
@@ -393,7 +392,8 @@
     "transfer_recipient_not_found": "Destinatario de la transferencia no encontrado en esta plataforma",
     "transfer_failed": "La transferencia de créditos falló debido a un error interno",
     "waitlist_account_not_active": "Tu cuenta aún no está activa",
-    "waitlist_invited_policies_required": "Acepta las políticas para activar tu cuenta invitada"
+    "waitlist_invited_policies_required": "Acepta las políticas para activar tu cuenta invitada",
+    "too_many_input_images": "Se proporcionaron demasiadas imágenes de entrada"
   },
   "features": {
     "header": "Funciones",
@@ -442,7 +442,7 @@
     }
   },
   "tools": {
-    "not_configured_with_prefix": "– Configurar",
+    "not_configured_with_prefix": "Configurar claves",
     "select_tool": "Seleccionar una herramienta",
     "no_tools_available": "No hay herramientas disponibles para este tipo",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "Comenzar",
-    "policy_prefix": "Debes aceptar estas políticas para comenzar a usar {botName}:",
+    "interface_language_label": "{botName} usará principalmente este idioma",
+    "policy_prefix": "Estas políticas deben aceptarse antes de comenzar. ¿Las has leído y estás de acuerdo con ambas?",
     "policy_label": "Acepto",
     "access_api_keys_title": "Usar mis propias claves API",
     "access_api_keys_description": "Conecta tus propias claves API de proveedor de IA. Pagas directamente a los proveedores, con control total sobre tus herramientas de IA.",
@@ -571,7 +572,8 @@
     "output_image_4k": "4 Megapíxeles",
     "other_costs": "Otros costos",
     "api_call": "Por uso único",
-    "second_of_runtime": "Por segundo de ejecución"
+    "second_of_runtime": "Por segundo de ejecución",
+    "max_input_images": "Hasta {maxImages} imágenes de referencia"
   },
   "footer": {
     "logo_alt": "Logo",

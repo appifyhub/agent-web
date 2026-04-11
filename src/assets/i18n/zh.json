@@ -282,7 +282,6 @@
   "configure_ai_providers": "配置 AI 提供商",
   "configure_access_keys": "配置访问密钥",
   "intelligence_presets": {
-    "label": "智能模式",
     "lowest_price": "最低成本",
     "lowest_price_description": "每个类别中最便宜的可用工具。",
     "highest_price": "最高质量",
@@ -393,7 +392,8 @@
     "transfer_recipient_not_found": "在此平台上未找到转账接收者",
     "transfer_failed": "由于内部错误，积分转账失败",
     "waitlist_account_not_active": "您的账户尚未激活",
-    "waitlist_invited_policies_required": "请接受政策以激活您的受邀账户"
+    "waitlist_invited_policies_required": "请接受政策以激活您的受邀账户",
+    "too_many_input_images": "提供了过多的输入图片"
   },
   "features": {
     "header": "功能",
@@ -442,7 +442,7 @@
     }
   },
   "tools": {
-    "not_configured_with_prefix": "– 配置",
+    "not_configured_with_prefix": "配置密钥",
     "select_tool": "选择工具",
     "no_tools_available": "此类型没有可用工具",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "开始使用",
-    "policy_prefix": "您必须接受这些政策才能开始使用 {botName}：",
+    "interface_language_label": "{botName} 将主要使用此语言",
+    "policy_prefix": "开始之前必须接受这些政策。您是否已阅读并同意这两项内容？",
     "policy_label": "我接受",
     "access_api_keys_title": "使用我自己的 API 密钥",
     "access_api_keys_description": "连接您自己的 AI 服务商 API 密钥，直接向提供商付款，完全掌控您的 AI 工具。",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 百万像素",
     "other_costs": "其他成本",
     "api_call": "每次使用",
-    "second_of_runtime": "每秒运行时间"
+    "second_of_runtime": "每秒运行时间",
+    "max_input_images": "最多 {maxImages} 张参考图片"
   },
   "intelligence_warnings": {
     "no_access_message": "您需要自己的私有 API 密钥或购买的积分才能使用 AI 工具。",

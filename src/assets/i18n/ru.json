@@ -282,7 +282,6 @@
   "configure_ai_providers": "Настроить AI-провайдеры",
   "configure_access_keys": "Настроить ключи доступа",
   "intelligence_presets": {
-    "label": "Режим интеллекта",
     "lowest_price": "Наименьшая стоимость",
     "lowest_price_description": "Самый дешёвый доступный инструмент в каждой категории.",
     "highest_price": "Наивысшее качество",
@@ -393,10 +392,11 @@
     "transfer_recipient_not_found": "Получатель перевода не найден на этой платформе",
     "transfer_failed": "Перевод кредитов не удался из-за внутренней ошибки",
     "waitlist_account_not_active": "Ваш аккаунт ещё не активен",
-    "waitlist_invited_policies_required": "Примите политики для активации приглашённого аккаунта"
+    "waitlist_invited_policies_required": "Примите политики для активации приглашённого аккаунта",
+    "too_many_input_images": "Предоставлено слишком много входных изображений"
   },
   "tools": {
-    "not_configured_with_prefix": "– Настроить",
+    "not_configured_with_prefix": "Настроить ключи",
     "select_tool": "Выберите инструмент",
     "no_tools_available": "Нет доступных инструментов для этого типа",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "Начать",
-    "policy_prefix": "Необходимо принять эти политики перед началом использования {botName}а:",
+    "interface_language_label": "{botName} будет использовать преимущественно этот язык",
+    "policy_prefix": "Эти политики необходимо принять перед началом. Вы прочитали обе и согласны с ними?",
     "policy_label": "Принимаю",
     "access_api_keys_title": "Использую собственные ключи API (расширенный режим)",
     "access_api_keys_description": "Подключу собственные ключи API провайдера ИИ.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 Мегапикселя",
     "other_costs": "Прочие расходы",
     "api_call": "За одно использование",
-    "second_of_runtime": "За секунду работы"
+    "second_of_runtime": "За секунду работы",
+    "max_input_images": "До {maxImages} справочных изображений"
   },
   "intelligence_warnings": {
     "no_access_message": "Вам нужны либо ваши собственные приватные API-ключи, либо купленные кредиты для использования инструментов ИИ.",

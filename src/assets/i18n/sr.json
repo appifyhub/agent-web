@@ -15,7 +15,7 @@
   "access_use_credits_warning_prefix": "Da biste koristili kredite, uklonite sve API ključeve",
   "access_remove_all_keys": "Ukloni Sve",
   "access_keys_cleared_message": "API ključevi su obrisani. Pritisnite Sačuvaj za potvrdu.",
-  "profile_card_title": "Prilagodi {botName}a",
+  "profile_card_title": "Prilagodi {botName}a za sve četove",
   "profile_full_name_label": "{botName} me zna kao:",
   "profile_full_name_placeholder": "Ime za prikaz",
   "preferred_language_label": "{botName} odgovara koristeći:",
@@ -282,7 +282,6 @@
   "configure_ai_providers": "Podesi AI provajdere",
   "configure_access_keys": "Podesi pristupne ključeve",
   "intelligence_presets": {
-    "label": "Režim inteligencije",
     "lowest_price": "Najniža cena",
     "lowest_price_description": "Najjeftiniji dostupni alat u svakoj kategoriji.",
     "highest_price": "Najviši kvalitet",
@@ -393,7 +392,8 @@
     "transfer_recipient_not_found": "Primalac transfera nije pronađen na ovoj platformi",
     "transfer_failed": "Transfer kredita nije uspeo zbog interne greške",
     "waitlist_account_not_active": "Vaš nalog još nije aktivan",
-    "waitlist_invited_policies_required": "Prihvatite politike da biste aktivirali pozvani nalog"
+    "waitlist_invited_policies_required": "Prihvatite politike da biste aktivirali pozvani nalog",
+    "too_many_input_images": "Previše ulaznih slika je dostavljeno"
   },
   "features": {
     "header": "Mogućnosti",
@@ -442,7 +442,7 @@
     }
   },
   "tools": {
-    "not_configured_with_prefix": "– Podesi",
+    "not_configured_with_prefix": "Podesi ključeve",
     "select_tool": "Izaberi alat",
     "no_tools_available": "Nema dostupnih alata za ovaj tip",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "Početak",
-    "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja {botName}a:",
+    "interface_language_label": "{botName} će koristiti uglavnom ovaj jezik",
+    "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja. Da li ste pročitali i slažete se sa obe?",
     "policy_label": "Prihvatam",
     "access_api_keys_title": "Koristim sopstvene ključeve (napredno)",
     "access_api_keys_description": "Povezaću sopstvene API ključeve AI provajdera.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 Megapiksela",
     "other_costs": "Ostali troškovi",
     "api_call": "Po jednoj upotrebi",
-    "second_of_runtime": "Po sekundi izvršavanja"
+    "second_of_runtime": "Po sekundi izvršavanja",
+    "max_input_images": "Do {maxImages} referentnih slika"
   },
   "intelligence_warnings": {
     "no_access_message": "Potrebni su vam ili vaši privatni API ključevi ili kupljeni krediti da biste koristili AI alate.",

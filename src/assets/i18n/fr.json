@@ -282,7 +282,7 @@
   "configure_ai_providers": "Configurer les fournisseurs d'IA",
   "configure_access_keys": "Configurer les clés d'accès",
   "tools": {
-    "not_configured_with_prefix": "– Configurer",
+    "not_configured_with_prefix": "Configurer les clés",
     "select_tool": "Sélectionner un outil",
     "no_tools_available": "Aucun outil disponible pour ce type",
     "groups": {
@@ -405,7 +405,6 @@
     }
   },
   "intelligence_presets": {
-    "label": "Mode d'Intelligence",
     "lowest_price": "Coût le plus bas",
     "lowest_price_description": "L'outil le moins cher disponible dans chaque catégorie.",
     "highest_price": "Qualité la plus élevée",
@@ -516,11 +515,13 @@
     "transfer_recipient_not_found": "Destinataire du transfert introuvable sur cette plateforme",
     "transfer_failed": "Le transfert de crédits a échoué en raison d'une erreur interne",
     "waitlist_account_not_active": "Votre compte n'est pas encore actif",
-    "waitlist_invited_policies_required": "Veuillez accepter les politiques pour activer votre compte invité"
+    "waitlist_invited_policies_required": "Veuillez accepter les politiques pour activer votre compte invité",
+    "too_many_input_images": "Trop d'images d'entrée fournies"
   },
   "onboarding": {
     "page_title": "Commencer",
-    "policy_prefix": "Vous devez accepter ces politiques pour commencer à utiliser {botName} :",
+    "interface_language_label": "{botName} utilisera principalement cette langue",
+    "policy_prefix": "Ces politiques doivent être acceptées avant de commencer. Les avez-vous lues et acceptez-vous les deux ?",
     "policy_label": "J'accepte",
     "access_api_keys_title": "Utiliser mes propres clés API",
     "access_api_keys_description": "Connectez vos propres clés API de fournisseur d'IA. Vous payez les fournisseurs directement, avec un contrôle total sur vos outils d'IA.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 Mégapixels",
     "other_costs": "Autres coûts",
     "api_call": "Par utilisation unique",
-    "second_of_runtime": "Par seconde d'exécution"
+    "second_of_runtime": "Par seconde d'exécution",
+    "max_input_images": "Jusqu'à {maxImages} images de référence"
   },
   "intelligence_warnings": {
     "no_access_message": "Vous avez besoin de vos propres clés API privées ou de crédits achetés pour utiliser les outils d'IA.",

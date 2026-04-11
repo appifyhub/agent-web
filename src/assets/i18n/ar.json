@@ -282,7 +282,6 @@
   "configure_ai_providers": "تكوين مزودي الذكاء الاصطناعي",
   "configure_access_keys": "تهيئة مفاتيح الوصول",
   "intelligence_presets": {
-    "label": "وضع الذكاء",
     "lowest_price": "أقل تكلفة",
     "lowest_price_description": "الأداة الأرخص المتاحة في كل فئة.",
     "highest_price": "أعلى جودة",
@@ -393,10 +392,11 @@
     "transfer_recipient_not_found": "لم يتم العثور على مستلم التحويل على هذه المنصة",
     "transfer_failed": "فشل تحويل الأرصدة بسبب خطأ داخلي",
     "waitlist_account_not_active": "حسابك غير نشط بعد",
-    "waitlist_invited_policies_required": "يرجى قبول السياسات لتفعيل حسابك المدعو"
+    "waitlist_invited_policies_required": "يرجى قبول السياسات لتفعيل حسابك المدعو",
+    "too_many_input_images": "تم تقديم عدد كبير جدًا من الصور المدخلة"
   },
   "tools": {
-    "not_configured_with_prefix": "كوِّن –",
+    "not_configured_with_prefix": "تهيئة المفاتيح",
     "select_tool": "اختر أداة",
     "no_tools_available": "لا توجد أدوات متاحة لهذا النوع",
     "groups": {
@@ -520,7 +520,8 @@
   },
   "onboarding": {
     "page_title": "ابدأ الآن",
-    "policy_prefix": "يجب عليك قبول هذه السياسات للبدء باستخدام {botName}:",
+    "interface_language_label": "سيستخدم {botName} هذه اللغة بشكل أساسي",
+    "policy_prefix": "يجب قبول هذه السياسات قبل البدء. هل قرأتهما وتوافق عليهما؟",
     "policy_label": "أوافق",
     "access_api_keys_title": "استخدام مفاتيح API الخاصة بي",
     "access_api_keys_description": "قم بتوصيل مفاتيح API الخاصة بمزودي الذكاء الاصطناعي. تدفع للمزودين مباشرة مع تحكم كامل في أدوات الذكاء الاصطناعي.",
@@ -578,7 +579,8 @@
     "output_image_4k": "4 ميجابكسل",
     "other_costs": "تكاليف أخرى",
     "api_call": "لكل استخدام واحد",
-    "second_of_runtime": "لكل ثانية تشغيل"
+    "second_of_runtime": "لكل ثانية تشغيل",
+    "max_input_images": "حتى {maxImages} صور مرجعية"
   },
   "intelligence_warnings": {
     "no_access_message": "تحتاج إما إلى مفاتيح API الخاصة بك أو الاعتمادات المشتراة لاستخدام أدوات الذكاء الاصطناعي.",
