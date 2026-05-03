@@ -20,10 +20,7 @@ import { toast } from "sonner";
 import { INTERFACE_LANGUAGES, LLM_LANGUAGES } from "@/lib/languages";
 import { LanguageItemContent } from "@/components/LanguageDropdown";
 import CardSelector from "@/components/CardSelector";
-import {
-  fetchChatSettings,
-  saveChatSettings,
-} from "@/services/chat-settings-service";
+import { saveChatSettings } from "@/services/chat-settings-service";
 import SettingToggle from "@/components/SettingToggle";
 import SettingInput from "@/components/SettingInput";
 import SettingTextarea from "@/components/SettingTextarea";
@@ -158,27 +155,21 @@ const OnboardingPage: React.FC = () => {
       }
 
       const llmLanguageMatch = LLM_LANGUAGES.find((l) => l.isoCode === lang_iso_code)!;
-      const ownChats = chats.filter((c) => c.is_own);
+      const ownChats = chats.filter((c) => c.chat_config.is_own);
       await Promise.allSettled(
         ownChats.map(async (chat) => {
           try {
-            const chatSettings = await fetchChatSettings({
-              apiBaseUrl,
-              chat_id: chat.chat_id,
-              rawToken: accessToken.raw,
-            });
             await saveChatSettings({
               apiBaseUrl,
-              chat_id: chat.chat_id,
+              chat_id: chat.chat_config.chat_id,
               rawToken: accessToken.raw,
-              chatSettings: {
-                ...chatSettings,
+              chatConfig: {
                 language_name: llmLanguageMatch.defaultName,
                 language_iso_code: llmLanguageMatch.isoCode,
               },
             });
           } catch (err) {
-            console.error("Failed to update chat language for", chat.chat_id, err);
+            console.error("Failed to update chat language for", chat.chat_config.chat_id, err);
           }
         }),
       );

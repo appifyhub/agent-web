@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ChatInfo } from "@/services/user-settings-service";
+import { ChatSettings } from "@/services/chat-settings-service";
 import ChatListItem from "@/components/ChatListItem";
 import { t } from "@/lib/translations";
 
 interface ChatsCollapsibleProps {
-  chats: ChatInfo[];
-  selectedChat?: ChatInfo;
+  chats: ChatSettings[];
+  selectedChat?: ChatSettings;
   onChatChange: (chatId: string) => void;
   defaultOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
@@ -58,9 +58,9 @@ const ChatsCollapsible: React.FC<ChatsCollapsibleProps> = ({
       >
         {chats.map((chat) => (
           <ChatListItem
-            key={chat.chat_id}
+            key={chat.chat_config.chat_id}
             chat={chat}
-            isSelected={chat.chat_id === selectedChat?.chat_id}
+            isSelected={chat.chat_config.chat_id === selectedChat?.chat_config.chat_id}
             onSelect={onChatChange}
           />
         ))}

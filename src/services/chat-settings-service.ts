@@ -4,37 +4,44 @@ import { parseApiError } from "@/lib/api-error";
 export type ReleaseNotificationsSetting = "none" | "major" | "minor" | "all";
 export type MediaModeSetting = "photo" | "file" | "all";
 
-export interface ChatSettings {
+export interface ChatConfig {
   chat_id: string;
   title?: string;
   platform: string;
   is_own: boolean;
   is_private: boolean;
+  is_admin: boolean;
   language_name?: string;
   language_iso_code?: string;
   reply_chance_percent: number;
   release_notifications: ReleaseNotificationsSetting;
   media_mode: MediaModeSetting;
+}
+
+export interface UserChatConfig {
   use_about_me: boolean;
   use_custom_prompt: boolean;
 }
 
-export async function fetchChatSettings({
+export interface ChatSettings {
+  chat_config: ChatConfig;
+  user_chat_config: UserChatConfig;
+}
+
+export async function fetchAllChatSettings({
   apiBaseUrl,
-  chat_id,
   rawToken,
 }: {
   apiBaseUrl: string;
-  chat_id: string;
   rawToken: string;
-}): Promise<ChatSettings> {
+}): Promise<ChatSettings[]> {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${rawToken}`,
   };
-  const response = await request(`${apiBaseUrl}/settings/chat/${chat_id}`, {
+  const response = await request(`${apiBaseUrl}/settings/chats`, {
     method: "GET",
-    headers: headers,
+    headers,
   });
   if (!response.ok) {
     throw await parseApiError(response);
@@ -46,29 +53,25 @@ export async function saveChatSettings({
   apiBaseUrl,
   chat_id,
   rawToken,
-  chatSettings,
+  chatConfig,
+  userChatConfig,
 }: {
   apiBaseUrl: string;
   chat_id: string;
   rawToken: string;
-  chatSettings: ChatSettings;
+  chatConfig?: Partial<ChatConfig>;
+  userChatConfig?: Partial<UserChatConfig>;
 }): Promise<void> {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${rawToken}`,
   };
-  const payload = {
-    language_name: chatSettings.language_name,
-    language_iso_code: chatSettings.language_iso_code,
-    reply_chance_percent: chatSettings.reply_chance_percent,
-    release_notifications: chatSettings.release_notifications,
-    media_mode: chatSettings.media_mode,
-    use_about_me: chatSettings.use_about_me,
-    use_custom_prompt: chatSettings.use_custom_prompt,
-  };
-  const response = await request(`${apiBaseUrl}/settings/chat/${chat_id}`, {
+  const payload: Record<string, unknown> = {};
+  if (chatConfig !== undefined) payload.chat_config = chatConfig;
+  if (userChatConfig !== undefined) payload.user_chat_config = userChatConfig;
+  const response = await request(`${apiBaseUrl}/settings/chats/${chat_id}`, {
     method: "PATCH",
-    headers: headers,
+    headers,
     body: JSON.stringify(payload),
   });
   if (!response.ok) {

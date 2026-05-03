@@ -30,7 +30,7 @@ import {
 import ChatsCollapsible from "@/components/ChatsCollapsible";
 import { cn } from "@/lib/utils";
 import { Language } from "@/lib/languages";
-import { ChatInfo } from "@/services/user-settings-service";
+import { ChatSettings } from "@/services/chat-settings-service";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import LanguageDropdown from "@/components/LanguageDropdown";
 import ChatsDropdown from "@/components/ChatsDropdown";
@@ -53,8 +53,8 @@ type Page =
 
 interface HeaderProps {
   page: Page;
-  selectedChat?: ChatInfo;
-  chats?: ChatInfo[];
+  selectedChat?: ChatSettings;
+  chats?: ChatSettings[];
   chatsLoading?: boolean;
   userId?: string;
   rawAccessToken?: string;
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
 
   // Resolve selected chat from URL or prop
   const resolvedSelectedChat =
-    selectedChat || chats.find((chat) => chat.chat_id === chat_id);
+    selectedChat || chats.find((chat) => chat.chat_config.chat_id === chat_id);
 
   // In lock mode, hide most nav items
   const effectiveShowProfileButton = isLocked ? false : showProfileButton;
