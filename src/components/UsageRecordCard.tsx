@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import { TranslationKey } from "@/lib/translation-keys";
 import { UsageRecord } from "@/services/usage-service";
-import { ChatInfo } from "@/services/user-settings-service";
+import { ChatSettings } from "@/services/chat-settings-service";
 import { Badge } from "@/components/ui/badge";
 import ProviderIcon from "@/components/ProviderIcon";
 
@@ -16,7 +16,7 @@ interface UsageRecordCardProps {
   isLast: boolean;
   isSingleItem: boolean;
   currentUserId: string;
-  chats?: ChatInfo[];
+  chats?: ChatSettings[];
   locale: string;
 }
 
@@ -126,9 +126,9 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
       return t("usage.context_ids.chat_background");
     }
     const normalizedRecordChatId = record.chat_id.replace(/-/g, "");
-    const chat = chats?.find((c) => c.chat_id.replace(/-/g, "") === normalizedRecordChatId);
-    if (chat?.title) {
-      let displayName = chat.title;
+    const chat = chats?.find((c) => c.chat_config.chat_id.replace(/-/g, "") === normalizedRecordChatId);
+    if (chat?.chat_config.title) {
+      let displayName = chat.chat_config.title;
       if (displayName.includes("·")) {
         displayName = displayName.split("·")[0].trim();
       }

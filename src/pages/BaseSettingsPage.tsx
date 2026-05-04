@@ -20,7 +20,7 @@ import { usePageSession } from "@/hooks/usePageSession";
 import { useChats } from "@/hooks/useChats";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import { useNavigation } from "@/hooks/useNavigation";
-import { ChatInfo } from "@/services/user-settings-service";
+import { ChatSettings } from "@/services/chat-settings-service";
 import { PageError, cn } from "@/lib/utils";
 import { useIsSticky } from "@/hooks/useIsSticky";
 
@@ -61,7 +61,7 @@ interface BaseSettingsPageProps {
   cancelIcon?: React.ReactNode;
   cancelTooltipText?: string;
   isContentLoading?: boolean;
-  selectedChat?: ChatInfo;
+  selectedChat?: ChatSettings;
   showProfileButton?: boolean;
   showSponsorshipsButton?: boolean;
   externalError?: PageError | null;

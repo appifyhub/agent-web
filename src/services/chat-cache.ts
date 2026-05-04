@@ -1,7 +1,7 @@
-import { ChatInfo } from "@/services/user-settings-service";
+import { ChatSettings } from "@/services/chat-settings-service";
 
 interface CacheEntry {
-  data: ChatInfo[];
+  data: ChatSettings[];
   timestamp: number;
 }
 
@@ -15,7 +15,7 @@ const CACHE_TTL_MS = 0; // Never expires during session
  * Get cached chat list for a user
  * Returns null if not cached or if cache has expired
  */
-export function getCachedChats(userId: string): ChatInfo[] | null {
+export function getCachedChats(userId: string): ChatSettings[] | null {
   const entry = chatCache.get(userId);
   if (!entry) return null;
 
@@ -31,7 +31,7 @@ export function getCachedChats(userId: string): ChatInfo[] | null {
 /**
  * Store chat list in memory cache
  */
-export function setCachedChats(userId: string, chats: ChatInfo[]): void {
+export function setCachedChats(userId: string, chats: ChatSettings[]): void {
   chatCache.set(userId, {
     data: chats,
     timestamp: Date.now(),

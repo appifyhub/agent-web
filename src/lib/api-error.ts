@@ -32,7 +32,6 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1003: return "error_codes.invalid_reply_chance";
     case 1004: return "error_codes.invalid_release_notifications";
     case 1005: return "error_codes.invalid_media_mode";
-    case 1006: return "error_codes.invalid_use_about_me";
     case 1007: return "error_codes.invalid_tool_choice";
     case 1008: return "error_codes.invalid_attachment_operation";
     case 1009: return "error_codes.missing_attachment_ids";
@@ -62,8 +61,8 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1033: return "error_codes.self_transfer_not_allowed";
     case 1034: return "error_codes.insufficient_credits";
     case 1035: return "error_codes.sponsored_user_transfer_not_allowed";
-    case 1036: return "error_codes.invalid_use_custom_prompt";
     case 1037: return "error_codes.too_many_input_images";
+    case 1038: return "error_codes.empty_chat_settings_payload";
     case 2001: return "error_codes.user_not_found";
     case 2002: return "error_codes.chat_not_found";
     case 2003: return "error_codes.attachment_not_found";
@@ -85,6 +84,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 3006: return "error_codes.unauthorized_seller";
     case 3007: return "error_codes.waitlist_account_not_active";
     case 3008: return "error_codes.waitlist_invited_policies_required";
+    case 3009: return "error_codes.not_chat_member";
     case 4001: return "error_codes.empty_token";
     case 4002: return "error_codes.no_user_id_in_token";
     case 5001: return "error_codes.image_generation_failed";

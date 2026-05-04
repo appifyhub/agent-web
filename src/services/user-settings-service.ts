@@ -42,13 +42,6 @@ export interface UserSettings {
   created_at?: string;
 }
 
-export interface ChatInfo {
-  chat_id: string;
-  title?: string;
-  platform: string;
-  is_own: boolean;
-}
-
 const PROVIDER_ID_TO_SETTING: Record<string, keyof UserSettings> = {
   "open-ai": "open_ai_key",
   anthropic: "anthropic_key",
@@ -191,29 +184,6 @@ export function areSettingsChanged(
     (field) => userSettings[field] !== remoteSettings[field],
   );
   return booleanChanged;
-}
-
-export async function fetchUserChats({
-  apiBaseUrl,
-  user_id,
-  rawToken,
-}: {
-  apiBaseUrl: string;
-  user_id: string;
-  rawToken: string;
-}): Promise<ChatInfo[]> {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${rawToken}`,
-  };
-  const response = await request(`${apiBaseUrl}/user/${user_id}/chats`, {
-    method: "GET",
-    headers: headers,
-  });
-  if (!response.ok) {
-    throw await parseApiError(response);
-  }
-  return response.json();
 }
 
 export async function fetchUserSettings({
