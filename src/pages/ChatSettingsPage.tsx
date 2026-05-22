@@ -26,6 +26,23 @@ import { Platform } from "@/lib/platform";
 import SettingToggle from "@/components/SettingToggle";
 import { useNavigation } from "@/hooks/useNavigation";
 
+const OUTPUT_TOKEN_OPTIONS = [300, 1500, 5000, 15000, 300000, 1500000];
+const HISTORY_DEPTH_OPTIONS = [1, 5, 10, 50, 100, 200];
+const ITERATION_OPTIONS = [1, 2, 5, 10, 20, 50];
+
+function closestOption(value: number, options: number[]): number {
+  let closest = options[0];
+  let minDiff = Math.abs(value - closest);
+  for (const opt of options) {
+    const diff = Math.abs(value - opt);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = opt;
+    }
+  }
+  return closest;
+}
+
 const ChatSettingsPage: React.FC = () => {
   const { chat_id, user_id, lang_iso_code } = useParams<{
     lang_iso_code: string;
@@ -76,7 +93,10 @@ const ChatSettingsPage: React.FC = () => {
       chatSettings.chat_config.release_notifications !== remoteSettings.chat_config.release_notifications ||
       chatSettings.chat_config.media_mode !== remoteSettings.chat_config.media_mode ||
       chatSettings.user_chat_config.use_about_me !== remoteSettings.user_chat_config.use_about_me ||
-      chatSettings.user_chat_config.use_custom_prompt !== remoteSettings.user_chat_config.use_custom_prompt
+      chatSettings.user_chat_config.use_custom_prompt !== remoteSettings.user_chat_config.use_custom_prompt ||
+      chatSettings.user_chat_config.max_output_tokens !== remoteSettings.user_chat_config.max_output_tokens ||
+      chatSettings.user_chat_config.max_chat_history_depth !== remoteSettings.user_chat_config.max_chat_history_depth ||
+      chatSettings.user_chat_config.max_iterations !== remoteSettings.user_chat_config.max_iterations
     )
     // @formatter:on
   );
@@ -95,7 +115,10 @@ const ChatSettingsPage: React.FC = () => {
 
     const userChatConfigChanged =
       chatSettings.user_chat_config.use_about_me !== remoteSettings.user_chat_config.use_about_me ||
-      chatSettings.user_chat_config.use_custom_prompt !== remoteSettings.user_chat_config.use_custom_prompt;
+      chatSettings.user_chat_config.use_custom_prompt !== remoteSettings.user_chat_config.use_custom_prompt ||
+      chatSettings.user_chat_config.max_output_tokens !== remoteSettings.user_chat_config.max_output_tokens ||
+      chatSettings.user_chat_config.max_chat_history_depth !== remoteSettings.user_chat_config.max_chat_history_depth ||
+      chatSettings.user_chat_config.max_iterations !== remoteSettings.user_chat_config.max_iterations;
 
     const chatConfigPayload =
       isAdmin && chatConfigChanged
@@ -112,6 +135,9 @@ const ChatSettingsPage: React.FC = () => {
       ? {
           use_about_me: chatSettings.user_chat_config.use_about_me,
           use_custom_prompt: chatSettings.user_chat_config.use_custom_prompt,
+          max_output_tokens: chatSettings.user_chat_config.max_output_tokens,
+          max_chat_history_depth: chatSettings.user_chat_config.max_chat_history_depth,
+          max_iterations: chatSettings.user_chat_config.max_iterations,
         }
       : undefined;
 
@@ -448,6 +474,162 @@ const ChatSettingsPage: React.FC = () => {
             {t("chat_settings_personal_subtitle")}
           </h3>
         )}
+
+        {/* Response Length selector */}
+        <SettingSelector
+          label={t("llm_limits.response_length_label")}
+          helperText={t("llm_limits.response_length_helper", { botName })}
+          value={
+            chatSettings
+              ? String(closestOption(chatSettings.user_chat_config.max_output_tokens, OUTPUT_TOKEN_OPTIONS))
+              : undefined
+          }
+          onChange={(val) =>
+            setChatSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    user_chat_config: {
+                      ...prev.user_chat_config,
+                      max_output_tokens: Number(val),
+                    },
+                  }
+                : prev,
+            )
+          }
+          onUndo={
+            chatSettings && remoteSettings &&
+            chatSettings.user_chat_config.max_output_tokens !== remoteSettings.user_chat_config.max_output_tokens
+              ? () =>
+                  setChatSettings((prev) =>
+                    prev && remoteSettings
+                      ? {
+                          ...prev,
+                          user_chat_config: {
+                            ...prev.user_chat_config,
+                            max_output_tokens: remoteSettings.user_chat_config.max_output_tokens,
+                          },
+                        }
+                      : prev,
+                  )
+              : undefined
+          }
+          options={[
+            { value: "300", label: t("llm_limits.response_length_minimum") },
+            { value: "1500", label: t("llm_limits.response_length_cost_saver") },
+            { value: "5000", label: t("llm_limits.response_length_regular") },
+            { value: "15000", label: t("llm_limits.response_length_extended") },
+            { value: "300000", label: t("llm_limits.response_length_full") },
+            { value: "1500000", label: t("llm_limits.response_length_extreme") },
+          ]}
+          disabled={!!error?.isBlocker}
+          placeholder={error?.isBlocker ? "—" : t("select_placeholder")}
+          className="w-full sm:w-md"
+        />
+
+        {/* Memory Depth selector */}
+        <SettingSelector
+          label={t("llm_limits.memory_depth_label")}
+          helperText={t("llm_limits.memory_depth_helper", { botName })}
+          value={
+            chatSettings
+              ? String(closestOption(chatSettings.user_chat_config.max_chat_history_depth, HISTORY_DEPTH_OPTIONS))
+              : undefined
+          }
+          onChange={(val) =>
+            setChatSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    user_chat_config: {
+                      ...prev.user_chat_config,
+                      max_chat_history_depth: Number(val),
+                    },
+                  }
+                : prev,
+            )
+          }
+          onUndo={
+            chatSettings && remoteSettings &&
+            chatSettings.user_chat_config.max_chat_history_depth !== remoteSettings.user_chat_config.max_chat_history_depth
+              ? () =>
+                  setChatSettings((prev) =>
+                    prev && remoteSettings
+                      ? {
+                          ...prev,
+                          user_chat_config: {
+                            ...prev.user_chat_config,
+                            max_chat_history_depth: remoteSettings.user_chat_config.max_chat_history_depth,
+                          },
+                        }
+                      : prev,
+                  )
+              : undefined
+          }
+          options={[
+            { value: "1", label: t("llm_limits.memory_depth_minimal") },
+            { value: "5", label: t("llm_limits.memory_depth_short") },
+            { value: "10", label: t("llm_limits.memory_depth_brief") },
+            { value: "50", label: t("llm_limits.memory_depth_standard") },
+            { value: "100", label: t("llm_limits.memory_depth_deep") },
+            { value: "200", label: t("llm_limits.memory_depth_maximum") },
+          ]}
+          disabled={!!error?.isBlocker}
+          placeholder={error?.isBlocker ? "—" : t("select_placeholder")}
+          className="w-full sm:w-md"
+        />
+
+        {/* Thinking Depth selector */}
+        <SettingSelector
+          label={t("llm_limits.thinking_depth_label")}
+          helperText={t("llm_limits.thinking_depth_helper", { botName })}
+          value={
+            chatSettings
+              ? String(closestOption(chatSettings.user_chat_config.max_iterations, ITERATION_OPTIONS))
+              : undefined
+          }
+          onChange={(val) =>
+            setChatSettings((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    user_chat_config: {
+                      ...prev.user_chat_config,
+                      max_iterations: Number(val),
+                    },
+                  }
+                : prev,
+            )
+          }
+          onUndo={
+            chatSettings && remoteSettings &&
+            chatSettings.user_chat_config.max_iterations !== remoteSettings.user_chat_config.max_iterations
+              ? () =>
+                  setChatSettings((prev) =>
+                    prev && remoteSettings
+                      ? {
+                          ...prev,
+                          user_chat_config: {
+                            ...prev.user_chat_config,
+                            max_iterations: remoteSettings.user_chat_config.max_iterations,
+                          },
+                        }
+                      : prev,
+                  )
+              : undefined
+          }
+          options={[
+            { value: "1", label: t("llm_limits.thinking_depth_minimal") },
+            { value: "2", label: t("llm_limits.thinking_depth_light") },
+            { value: "5", label: t("llm_limits.thinking_depth_brief") },
+            { value: "10", label: t("llm_limits.thinking_depth_standard") },
+            { value: "20", label: t("llm_limits.thinking_depth_thorough") },
+            { value: "50", label: t("llm_limits.thinking_depth_exhaustive") },
+          ]}
+          disabled={!!error?.isBlocker}
+          placeholder={error?.isBlocker ? "—" : t("select_placeholder")}
+          className="w-full sm:w-md"
+        />
 
         {/* Use About Me toggle */}
         <SettingToggle
