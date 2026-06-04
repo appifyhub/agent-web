@@ -585,6 +585,7 @@
     "other_costs": "Прочие расходы",
     "api_call": "За одно использование",
     "second_of_runtime": "За секунду работы",
+    "web_search_query": "За поисковый запрос в интернете",
     "max_input_images": "До {maxImages} справочных изображений"
   },
   "onboarding": {

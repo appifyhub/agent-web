@@ -585,6 +585,7 @@
     "other_costs": "其他成本",
     "api_call": "每次使用",
     "second_of_runtime": "每秒运行时间",
+    "web_search_query": "每次网页搜索查询",
     "max_input_images": "最多 {maxImages} 张参考图片"
   },
   "onboarding": {

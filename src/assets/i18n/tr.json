@@ -585,6 +585,7 @@
     "other_costs": "Diğer Maliyetler",
     "api_call": "Tek kullanım başına",
     "second_of_runtime": "Çalışma süresi saniyesi başına",
+    "web_search_query": "Web arama sorgusu başına",
     "max_input_images": "{maxImages} adede kadar referans görsel"
   },
   "onboarding": {

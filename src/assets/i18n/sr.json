@@ -585,6 +585,7 @@
     "other_costs": "Ostali troškovi",
     "api_call": "Po jednoj upotrebi",
     "second_of_runtime": "Po sekundi izvršavanja",
+    "web_search_query": "Po upitu za internet pretragu",
     "max_input_images": "Do {maxImages} referentnih slika"
   },
   "onboarding": {

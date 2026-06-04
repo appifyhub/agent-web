@@ -585,6 +585,7 @@
     "other_costs": "تكاليف أخرى",
     "api_call": "لكل استخدام واحد",
     "second_of_runtime": "لكل ثانية تشغيل",
+    "web_search_query": "لكل استعلام بحث ويب",
     "max_input_images": "حتى {maxImages} صور مرجعية"
   },
   "onboarding": {
