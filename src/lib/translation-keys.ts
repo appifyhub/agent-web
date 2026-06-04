@@ -473,6 +473,7 @@ export type TranslationKey =
   | "cost_estimate.other_costs"
   | "cost_estimate.api_call"
   | "cost_estimate.second_of_runtime"
+  | "cost_estimate.web_search_query"
   | "cost_estimate.max_input_images"
   | "onboarding.page_title"
   | "onboarding.interface_language_label"

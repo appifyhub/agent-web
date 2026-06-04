@@ -32,6 +32,7 @@ export interface CostEstimate {
   output_image_4k?: number;
   api_call?: number;
   second_of_runtime?: number;
+  web_search_query?: number | null;
 }
 
 export interface ExternalTool {
