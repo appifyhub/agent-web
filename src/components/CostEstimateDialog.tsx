@@ -115,6 +115,11 @@ const CostEstimateContent: React.FC<{
       label: t("cost_estimate.second_of_runtime"),
       value: costEstimate.second_of_runtime,
     },
+    {
+      key: "web_search_query",
+      label: t("cost_estimate.web_search_query"),
+      value: costEstimate.web_search_query,
+    },
   ].filter((item) => item.value != null);
 
   const hasAnyCosts =

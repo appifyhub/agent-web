@@ -585,6 +585,7 @@
     "other_costs": "अन्य लागत",
     "api_call": "प्रति एकल उपयोग",
     "second_of_runtime": "प्रति सेकंड रनटाइम",
+    "web_search_query": "प्रति वेब खोज क्वेरी",
     "max_input_images": "अधिकतम {maxImages} संदर्भ चित्र"
   },
   "onboarding": {

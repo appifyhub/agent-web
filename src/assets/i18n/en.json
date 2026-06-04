@@ -585,6 +585,7 @@
     "other_costs": "Other Costs",
     "api_call": "Per single use",
     "second_of_runtime": "Per second of runtime",
+    "web_search_query": "Per web search query",
     "max_input_images": "Up to {maxImages} reference images"
   },
   "onboarding": {
