@@ -27,6 +27,7 @@ In JavaScript and TypeScript, use types as much as possible: strict mode will be
 ## Project Structure
 
 - Version is managed through the `version` property of the `package.json` file
+- For version bumps, run `bun run bump {major|minor|patch}`; major and minor bumps reset lower version segments, and the script updates both project config and lock files
 - You can see the CI/CD pipeline in `.github/workflows` directory
 - It's best to base API implementation on API docs. If you don't have any, ask for them
 
