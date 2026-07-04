@@ -469,6 +469,7 @@
     "document_search_failed": "Dokumentensuche fehlgeschlagen",
     "audio_transcription_failed": "Audio-Transkription fehlgeschlagen",
     "announcement_not_received": "KI-Ankündigung nicht erhalten",
+    "attachment_storage_failed": "Anhang-Speicherung fehlgeschlagen",
     "user_limit_reached": "Benutzerlimit erreicht",
     "unsupported_chat_type": "Nicht unterstützter Chat-Typ",
     "unsupported_provider": "Nicht unterstützter Anbieter",

@@ -469,6 +469,7 @@
     "document_search_failed": "Document search failed",
     "audio_transcription_failed": "Audio transcription failed",
     "announcement_not_received": "AI announcement not received",
+    "attachment_storage_failed": "Attachment storage failed",
     "user_limit_reached": "User limit reached",
     "unsupported_chat_type": "Unsupported chat type",
     "unsupported_provider": "Unsupported provider",

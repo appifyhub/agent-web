@@ -469,6 +469,7 @@
     "document_search_failed": "文档搜索失败",
     "audio_transcription_failed": "音频转录失败",
     "announcement_not_received": "未收到AI公告",
+    "attachment_storage_failed": "附件存储失败",
     "user_limit_reached": "已达到用户限制",
     "unsupported_chat_type": "不支持的聊天类型",
     "unsupported_provider": "不支持的提供商",

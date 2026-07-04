@@ -469,6 +469,7 @@
     "document_search_failed": "दस्तावेज़ खोज में विफल",
     "audio_transcription_failed": "ऑडियो ट्रांसक्रिप्शन में विफल",
     "announcement_not_received": "AI घोषणा प्राप्त नहीं हुई",
+    "attachment_storage_failed": "अटैचमेंट संग्रहण विफल",
     "user_limit_reached": "उपयोगकर्ता सीमा पूर्ण हो गई",
     "unsupported_chat_type": "असमर्थित चैट प्रकार",
     "unsupported_provider": "असमर्थित प्रदाता",

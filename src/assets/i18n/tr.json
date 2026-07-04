@@ -469,6 +469,7 @@
     "document_search_failed": "Belge araması başarısız",
     "audio_transcription_failed": "Ses transkripsionu başarısız",
     "announcement_not_received": "AI duyurusu alınamadı",
+    "attachment_storage_failed": "Ek depolama başarısız oldu",
     "user_limit_reached": "Kullanıcı limitine ulaşıldı",
     "unsupported_chat_type": "Desteklenmeyen sohbet türü",
     "unsupported_provider": "Desteklenmeyen sağlayıcı",

@@ -8,6 +8,12 @@
 
 In JavaScript and TypeScript, use types as much as possible: strict mode will be turned on! If in doubt, follow Java standard formatting. Finally, we also always want trailing commas in multi-line code blocks.
 
+### Comments
+
+- For new code, avoid comments unless the logic is genuinely complex or the block is long
+- When editing existing code, prefer updating comments over deleting them
+- Comments should start with a lowercase letter, except in documentation or where grammar requires it
+
 ## Environment Management
 
 - ALWAYS use both `bun` and `npm` for dependency management
@@ -23,6 +29,7 @@ In JavaScript and TypeScript, use types as much as possible: strict mode will be
 ## Project Structure
 
 - Version is managed through the `version` property of the `package.json` file
+- For version bumps, run `bun run bump {major|minor|patch}`; major and minor bumps reset lower version segments, and the script updates both project config and lock files
 - You can see the CI/CD pipeline in `.github/workflows` directory
 - It's best to base API implementation on API docs. If you don't have any, ask for them
 

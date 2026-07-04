@@ -469,6 +469,7 @@
     "document_search_failed": "Не удалось выполнить поиск по документу",
     "audio_transcription_failed": "Не удалось расшифровать аудио",
     "announcement_not_received": "Объявление ИИ не получено",
+    "attachment_storage_failed": "Не удалось сохранить вложение",
     "user_limit_reached": "Достигнут лимит пользователей",
     "unsupported_chat_type": "Неподдерживаемый тип чата",
     "unsupported_provider": "Неподдерживаемый провайдер",

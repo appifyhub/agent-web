@@ -469,6 +469,7 @@
     "document_search_failed": "Ricerca del documento non riuscita",
     "audio_transcription_failed": "Trascrizione audio non riuscita",
     "announcement_not_received": "Annuncio IA non ricevuto",
+    "attachment_storage_failed": "Archiviazione allegato non riuscita",
     "user_limit_reached": "Limite utenti raggiunto",
     "unsupported_chat_type": "Tipo di chat non supportato",
     "unsupported_provider": "Provider non supportato",
