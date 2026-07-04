@@ -387,6 +387,7 @@ export type TranslationKey =
   | "error_codes.document_search_failed"
   | "error_codes.audio_transcription_failed"
   | "error_codes.announcement_not_received"
+  | "error_codes.attachment_storage_failed"
   | "error_codes.user_limit_reached"
   | "error_codes.unsupported_chat_type"
   | "error_codes.unsupported_provider"

@@ -469,6 +469,7 @@
     "document_search_failed": "Pretraga dokumenta nije uspela",
     "audio_transcription_failed": "Transkripcija zvuka nije uspela",
     "announcement_not_received": "AI obaveštenje nije primljeno",
+    "attachment_storage_failed": "Čuvanje priloga nije uspelo",
     "user_limit_reached": "Dostignut je limit korisnika",
     "unsupported_chat_type": "Nepodržana vrsta četa",
     "unsupported_provider": "Nepodržan provajder",

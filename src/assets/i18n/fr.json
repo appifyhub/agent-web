@@ -469,6 +469,7 @@
     "document_search_failed": "Échec de la recherche de document",
     "audio_transcription_failed": "Échec de la transcription audio",
     "announcement_not_received": "Annonce de l'IA non reçue",
+    "attachment_storage_failed": "Échec du stockage de la pièce jointe",
     "user_limit_reached": "Limite d'utilisateurs atteinte",
     "unsupported_chat_type": "Type de discussion non pris en charge",
     "unsupported_provider": "Fournisseur non pris en charge",

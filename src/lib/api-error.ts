@@ -99,6 +99,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5010: return "error_codes.document_search_failed";
     case 5011: return "error_codes.audio_transcription_failed";
     case 5012: return "error_codes.announcement_not_received";
+    case 5013: return "error_codes.attachment_storage_failed";
     case 6001: return "error_codes.user_limit_reached";
     case 6002: return "error_codes.insufficient_credits"; // legacy, moved to 1034
     case 7001: return "error_codes.unsupported_chat_type";
