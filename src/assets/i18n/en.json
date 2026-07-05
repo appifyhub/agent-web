@@ -457,6 +457,7 @@
     "unauthorized_seller": "Unauthorized seller",
     "empty_token": "Empty token",
     "no_user_id_in_token": "No user ID present in token",
+    "invalid_attachment_token": "Attachment not found",
     "image_generation_failed": "Failed to generate the image",
     "web_fetch_failed": "Web content fetch failed",
     "llm_unexpected_response": "Received an unexpected response from the AI model",

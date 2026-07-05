@@ -457,6 +457,7 @@
     "unauthorized_seller": "未授权的卖家",
     "empty_token": "令牌为空",
     "no_user_id_in_token": "令牌中不存在用户ID",
+    "invalid_attachment_token": "未找到附件",
     "image_generation_failed": "生成图像失败",
     "web_fetch_failed": "网页内容获取失败",
     "llm_unexpected_response": "收到AI模型的意外响应",

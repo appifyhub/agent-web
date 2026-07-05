@@ -457,6 +457,7 @@
     "unauthorized_seller": "بائع غير مصرح له",
     "empty_token": "رمز فارغ",
     "no_user_id_in_token": "لا يوجد معرّف مستخدم في الرمز",
+    "invalid_attachment_token": "المرفق غير موجود",
     "image_generation_failed": "فشل في توليد الصورة",
     "web_fetch_failed": "فشل في جلب محتوى الويب",
     "llm_unexpected_response": "تم استلام استجابة غير متوقعة من نموذج الذكاء الاصطناعي",

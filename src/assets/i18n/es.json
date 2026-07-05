@@ -457,6 +457,7 @@
     "unauthorized_seller": "Vendedor no autorizado",
     "empty_token": "Token vacío",
     "no_user_id_in_token": "No hay ID de usuario presente en el token",
+    "invalid_attachment_token": "Archivo adjunto no encontrado",
     "image_generation_failed": "Error al generar la imagen",
     "web_fetch_failed": "Error al obtener contenido web",
     "llm_unexpected_response": "Se recibió una respuesta inesperada del modelo de IA",

@@ -457,6 +457,7 @@
     "unauthorized_seller": "अनधिकृत विक्रेता",
     "empty_token": "खाली टोकन",
     "no_user_id_in_token": "टोकन में कोई उपयोगकर्ता ID मौजूद नहीं है",
+    "invalid_attachment_token": "अटैचमेंट नहीं मिला",
     "image_generation_failed": "छवि उत्पन्न करने में विफल",
     "web_fetch_failed": "वेब सामग्री प्राप्त करने में विफल",
     "llm_unexpected_response": "AI मॉडल से एक अप्रत्याशित प्रतिक्रिया प्राप्त हुई",

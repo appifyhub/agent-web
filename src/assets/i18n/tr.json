@@ -457,6 +457,7 @@
     "unauthorized_seller": "Yetkisiz satıcı",
     "empty_token": "Boş belirteç",
     "no_user_id_in_token": "Belirteçte kullanıcı kimliği bulunmuyor",
+    "invalid_attachment_token": "Ek bulunamadı",
     "image_generation_failed": "Görüntü oluşturulamadı",
     "web_fetch_failed": "Web içeriği getirilemedi",
     "llm_unexpected_response": "AI modelinden beklenmeyen yanıt alındı",
