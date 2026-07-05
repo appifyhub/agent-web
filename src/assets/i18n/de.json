@@ -457,6 +457,7 @@
     "unauthorized_seller": "Nicht autorisierter Verkäufer",
     "empty_token": "Leeres Token",
     "no_user_id_in_token": "Keine Benutzer-ID im Token vorhanden",
+    "invalid_attachment_token": "Anhang nicht gefunden",
     "image_generation_failed": "Bilderstellung fehlgeschlagen",
     "web_fetch_failed": "Abrufen von Webinhalten fehlgeschlagen",
     "llm_unexpected_response": "Unerwartete Antwort vom KI-Modell erhalten",

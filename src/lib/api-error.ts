@@ -87,6 +87,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 3009: return "error_codes.not_chat_member";
     case 4001: return "error_codes.empty_token";
     case 4002: return "error_codes.no_user_id_in_token";
+    case 4003: return "error_codes.invalid_attachment_token";
     case 5001: return "error_codes.image_generation_failed";
     case 5002: return "error_codes.web_fetch_failed";
     case 5003: return "error_codes.llm_unexpected_response";

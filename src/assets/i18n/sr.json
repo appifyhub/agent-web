@@ -457,6 +457,7 @@
     "unauthorized_seller": "Neautorizovan prodavac",
     "empty_token": "Prazan token",
     "no_user_id_in_token": "Korisnički ID nije prisutan u tokenu",
+    "invalid_attachment_token": "Prilog nije pronađen",
     "image_generation_failed": "Generisanje slike nije uspelo",
     "web_fetch_failed": "Preuzimanje web sadržaja nije uspelo",
     "llm_unexpected_response": "Primljen je neočekivan odgovor od AI modela",

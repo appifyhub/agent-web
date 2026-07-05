@@ -457,6 +457,7 @@
     "unauthorized_seller": "Vendeur non autorisé",
     "empty_token": "Jeton vide",
     "no_user_id_in_token": "Aucun ID utilisateur présent dans le jeton",
+    "invalid_attachment_token": "Pièce jointe introuvable",
     "image_generation_failed": "Échec de la génération de l'image",
     "web_fetch_failed": "Échec de la récupération du contenu web",
     "llm_unexpected_response": "Réponse inattendue reçue du modèle d'IA",

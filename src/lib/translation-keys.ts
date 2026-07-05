@@ -375,6 +375,7 @@ export type TranslationKey =
   | "error_codes.unauthorized_seller"
   | "error_codes.empty_token"
   | "error_codes.no_user_id_in_token"
+  | "error_codes.invalid_attachment_token"
   | "error_codes.image_generation_failed"
   | "error_codes.web_fetch_failed"
   | "error_codes.llm_unexpected_response"

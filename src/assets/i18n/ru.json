@@ -457,6 +457,7 @@
     "unauthorized_seller": "Неавторизованный продавец",
     "empty_token": "Пустой токен",
     "no_user_id_in_token": "ID пользователя отсутствует в токене",
+    "invalid_attachment_token": "Вложение не найдено",
     "image_generation_failed": "Не удалось сгенерировать изображение",
     "web_fetch_failed": "Не удалось загрузить веб-контент",
     "llm_unexpected_response": "Получен неожиданный ответ от модели ИИ",
