@@ -367,6 +367,10 @@
         "title": "صرف العملات المشفرة",
         "description": "الوصول إلى أسعار الصرف في الوقت الفعلي للعملات المشفرة."
       },
+      "api_stock_quote": {
+        "title": "الأسهم والبورصة",
+        "description": "الوصول إلى أسعار الأسهم في الوقت الفعلي."
+      },
       "api_twitter": {
         "title": "X / تويتر",
         "description": "الوصول لقراءة وتحليل محتوى تويتر."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "بائع غير مصرح له",
     "empty_token": "رمز فارغ",
     "no_user_id_in_token": "لا يوجد معرّف مستخدم في الرمز",
-    "invalid_attachment_token": "المرفق غير موجود",
+    "invalid_resource_token": "رمز المورد غير صالح",
     "image_generation_failed": "فشل في توليد الصورة",
     "web_fetch_failed": "فشل في جلب محتوى الويب",
     "llm_unexpected_response": "تم استلام استجابة غير متوقعة من نموذج الذكاء الاصطناعي",
@@ -500,7 +504,13 @@
     "too_many_input_images": "تم تقديم عدد كبير جدًا من الصور المدخلة",
     "not_chat_member": "أنت لست عضواً في هذه المحادثة.",
     "empty_chat_settings_payload": "لم يتم تغيير أي شيء — قم بإجراء تعديل أولاً.",
-    "unsupported_media_type": "نوع الوسائط غير مدعوم"
+    "unsupported_media_type": "نوع الوسائط غير مدعوم",
+    "invalid_asset_type": "نوع الأصل غير صالح",
+    "invalid_asset_amount": "كمية الأصل غير صالحة",
+    "invalid_stock_symbol": "رمز السهم غير صالح",
+    "stock_quote_not_found": "لم يتم العثور على سعر السهم",
+    "stock_quote_failed": "فشل جلب سعر السهم",
+    "stock_quote_rate_limited": "تم تجاوز حد طلبات أسعار الأسهم"
   },
   "features": {
     "header": "الميزات",

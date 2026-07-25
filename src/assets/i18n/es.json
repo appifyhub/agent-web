@@ -367,6 +367,10 @@
         "title": "Cambio de criptomoneda",
         "description": "Acceso a tipos de cambio en tiempo real para criptomonedas."
       },
+      "api_stock_quote": {
+        "title": "Acciones y bolsa",
+        "description": "Acceso a cotizaciones bursátiles en tiempo real."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Acceso para leer y analizar contenido de Twitter."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Vendedor no autorizado",
     "empty_token": "Token vacío",
     "no_user_id_in_token": "No hay ID de usuario presente en el token",
-    "invalid_attachment_token": "Archivo adjunto no encontrado",
+    "invalid_resource_token": "Token de recurso no válido",
     "image_generation_failed": "Error al generar la imagen",
     "web_fetch_failed": "Error al obtener contenido web",
     "llm_unexpected_response": "Se recibió una respuesta inesperada del modelo de IA",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Se proporcionaron demasiadas imágenes de entrada",
     "not_chat_member": "No eres miembro de este chat.",
     "empty_chat_settings_payload": "El guardado de configuración estaba vacío — cambia algo primero.",
-    "unsupported_media_type": "Tipo de medio no compatible"
+    "unsupported_media_type": "Tipo de medio no compatible",
+    "invalid_asset_type": "Tipo de activo no válido",
+    "invalid_asset_amount": "Cantidad de activo no válida",
+    "invalid_stock_symbol": "Símbolo bursátil no válido",
+    "stock_quote_not_found": "Cotización bursátil no encontrada",
+    "stock_quote_failed": "No se pudo obtener la cotización bursátil",
+    "stock_quote_rate_limited": "Se alcanzó el límite de solicitudes de cotizaciones bursátiles"
   },
   "features": {
     "header": "Funciones",

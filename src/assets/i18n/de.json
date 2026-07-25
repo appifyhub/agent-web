@@ -367,6 +367,10 @@
         "title": "Krypto-Wechselkurs",
         "description": "Zugang zu Echtzeit-Wechselkursen für Kryptowährungen."
       },
+      "api_stock_quote": {
+        "title": "Aktien und Börse",
+        "description": "Zugriff auf Aktienkurse in Echtzeit."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Zugang zum Lesen und Analysieren von Twitter-Inhalten."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Nicht autorisierter Verkäufer",
     "empty_token": "Leeres Token",
     "no_user_id_in_token": "Keine Benutzer-ID im Token vorhanden",
-    "invalid_attachment_token": "Anhang nicht gefunden",
+    "invalid_resource_token": "Ungültiges Ressourcen-Token",
     "image_generation_failed": "Bilderstellung fehlgeschlagen",
     "web_fetch_failed": "Abrufen von Webinhalten fehlgeschlagen",
     "llm_unexpected_response": "Unerwartete Antwort vom KI-Modell erhalten",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Zu viele Eingabebilder angegeben",
     "not_chat_member": "Du bist kein Mitglied dieses Chats.",
     "empty_chat_settings_payload": "Die Einstellungen waren leer — bitte zuerst etwas ändern.",
-    "unsupported_media_type": "Nicht unterstützter Medientyp"
+    "unsupported_media_type": "Nicht unterstützter Medientyp",
+    "invalid_asset_type": "Ungültiger Anlagetyp",
+    "invalid_asset_amount": "Ungültiger Anlagebetrag",
+    "invalid_stock_symbol": "Ungültiges Aktiensymbol",
+    "stock_quote_not_found": "Aktienkurs nicht gefunden",
+    "stock_quote_failed": "Aktienkurs konnte nicht abgerufen werden",
+    "stock_quote_rate_limited": "Anfragelimit für Aktienkurse erreicht"
   },
   "features": {
     "header": "Funktionen",

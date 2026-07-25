@@ -367,6 +367,10 @@
         "title": "Cambio criptovalute",
         "description": "Accesso ai tassi di cambio in tempo reale per le criptovalute."
       },
+      "api_stock_quote": {
+        "title": "Azioni e borsa",
+        "description": "Accesso alle quotazioni azionarie in tempo reale."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Accesso per leggere e analizzare i contenuti di Twitter."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Venditore non autorizzato",
     "empty_token": "Token vuoto",
     "no_user_id_in_token": "Nessun ID utente presente nel token",
-    "invalid_attachment_token": "Allegato non trovato",
+    "invalid_resource_token": "Token della risorsa non valido",
     "image_generation_failed": "Impossibile generare l'immagine",
     "web_fetch_failed": "Recupero del contenuto web non riuscito",
     "llm_unexpected_response": "Ricevuta una risposta inaspettata dal modello IA",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Troppe immagini di input fornite",
     "not_chat_member": "Non sei membro di questa chat.",
     "empty_chat_settings_payload": "Il salvataggio delle impostazioni era vuoto — modifica prima qualcosa.",
-    "unsupported_media_type": "Tipo di media non supportato"
+    "unsupported_media_type": "Tipo di media non supportato",
+    "invalid_asset_type": "Tipo di asset non valido",
+    "invalid_asset_amount": "Importo dell'asset non valido",
+    "invalid_stock_symbol": "Simbolo azionario non valido",
+    "stock_quote_not_found": "Quotazione azionaria non trovata",
+    "stock_quote_failed": "Impossibile recuperare la quotazione azionaria",
+    "stock_quote_rate_limited": "Limite di richieste di quotazioni azionarie raggiunto"
   },
   "features": {
     "header": "Funzionalità",

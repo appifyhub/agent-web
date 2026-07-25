@@ -367,6 +367,10 @@
         "title": "Change de cryptomonnaies",
         "description": "Accès aux taux de change en temps réel pour les cryptomonnaies."
       },
+      "api_stock_quote": {
+        "title": "Actions et bourse",
+        "description": "Accès aux cours des actions en temps réel."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Accès pour lire et analyser le contenu Twitter."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Vendeur non autorisé",
     "empty_token": "Jeton vide",
     "no_user_id_in_token": "Aucun ID utilisateur présent dans le jeton",
-    "invalid_attachment_token": "Pièce jointe introuvable",
+    "invalid_resource_token": "Jeton de ressource invalide",
     "image_generation_failed": "Échec de la génération de l'image",
     "web_fetch_failed": "Échec de la récupération du contenu web",
     "llm_unexpected_response": "Réponse inattendue reçue du modèle d'IA",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Trop d'images d'entrée fournies",
     "not_chat_member": "Vous n'êtes pas membre de cette discussion.",
     "empty_chat_settings_payload": "Aucune modification détectée — effectuez un changement d'abord.",
-    "unsupported_media_type": "Type de média non pris en charge"
+    "unsupported_media_type": "Type de média non pris en charge",
+    "invalid_asset_type": "Type d'actif invalide",
+    "invalid_asset_amount": "Montant d'actif invalide",
+    "invalid_stock_symbol": "Symbole boursier invalide",
+    "stock_quote_not_found": "Cours de l'action introuvable",
+    "stock_quote_failed": "Impossible de récupérer le cours de l'action",
+    "stock_quote_rate_limited": "Limite de demandes de cours d'actions atteinte"
   },
   "features": {
     "header": "Fonctionnalités",

@@ -367,6 +367,10 @@
         "title": "Crypto Exchange",
         "description": "Access to real-time exchange rates for cryptocurrencies."
       },
+      "api_stock_quote": {
+        "title": "Stocks and Stock Market",
+        "description": "Access to real-time stock market quotes."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Access to read and analyze Twitter content."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Unauthorized seller",
     "empty_token": "Empty token",
     "no_user_id_in_token": "No user ID present in token",
-    "invalid_attachment_token": "Attachment not found",
+    "invalid_resource_token": "Invalid resource token",
     "image_generation_failed": "Failed to generate the image",
     "web_fetch_failed": "Web content fetch failed",
     "llm_unexpected_response": "Received an unexpected response from the AI model",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Too many input images provided",
     "not_chat_member": "You are not a member of this chat.",
     "empty_chat_settings_payload": "Settings save was empty — change something first.",
-    "unsupported_media_type": "Unsupported media type"
+    "unsupported_media_type": "Unsupported media type",
+    "invalid_asset_type": "Invalid asset type",
+    "invalid_asset_amount": "Invalid asset amount",
+    "invalid_stock_symbol": "Invalid stock symbol",
+    "stock_quote_not_found": "Stock quote not found",
+    "stock_quote_failed": "Failed to retrieve stock quote",
+    "stock_quote_rate_limited": "Stock quote request limit reached"
   },
   "features": {
     "header": "Features",

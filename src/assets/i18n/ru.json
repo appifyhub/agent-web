@@ -367,6 +367,10 @@
         "title": "Обмен криптовалют",
         "description": "Доступ к курсам обмена криптовалют в реальном времени."
       },
+      "api_stock_quote": {
+        "title": "Акции и биржа",
+        "description": "Доступ к котировкам акций в реальном времени."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Доступ для чтения и анализа контента Twitter."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Неавторизованный продавец",
     "empty_token": "Пустой токен",
     "no_user_id_in_token": "ID пользователя отсутствует в токене",
-    "invalid_attachment_token": "Вложение не найдено",
+    "invalid_resource_token": "Недопустимый токен ресурса",
     "image_generation_failed": "Не удалось сгенерировать изображение",
     "web_fetch_failed": "Не удалось загрузить веб-контент",
     "llm_unexpected_response": "Получен неожиданный ответ от модели ИИ",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Предоставлено слишком много входных изображений",
     "not_chat_member": "Вы не являетесь участником этого чата.",
     "empty_chat_settings_payload": "Сохранение настроек было пустым — сначала измените что-нибудь.",
-    "unsupported_media_type": "Неподдерживаемый тип медиафайла"
+    "unsupported_media_type": "Неподдерживаемый тип медиафайла",
+    "invalid_asset_type": "Недопустимый тип актива",
+    "invalid_asset_amount": "Недопустимое количество актива",
+    "invalid_stock_symbol": "Недопустимый биржевой символ",
+    "stock_quote_not_found": "Котировка акции не найдена",
+    "stock_quote_failed": "Не удалось получить котировку акции",
+    "stock_quote_rate_limited": "Достигнут лимит запросов котировок акций"
   },
   "features": {
     "header": "Возможности",

@@ -367,6 +367,10 @@
         "title": "加密货币汇率",
         "description": "访问加密货币的实时汇率。"
       },
+      "api_stock_quote": {
+        "title": "股票与股市",
+        "description": "访问实时股票市场报价。"
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "访问以读取和分析Twitter内容。"
@@ -457,7 +461,7 @@
     "unauthorized_seller": "未授权的卖家",
     "empty_token": "令牌为空",
     "no_user_id_in_token": "令牌中不存在用户ID",
-    "invalid_attachment_token": "未找到附件",
+    "invalid_resource_token": "无效的资源令牌",
     "image_generation_failed": "生成图像失败",
     "web_fetch_failed": "网页内容获取失败",
     "llm_unexpected_response": "收到AI模型的意外响应",
@@ -500,7 +504,13 @@
     "too_many_input_images": "提供了过多的输入图片",
     "not_chat_member": "您不是此聊天的成员。",
     "empty_chat_settings_payload": "未检测到任何更改 — 请先修改设置。",
-    "unsupported_media_type": "不支持的媒体类型"
+    "unsupported_media_type": "不支持的媒体类型",
+    "invalid_asset_type": "无效的资产类型",
+    "invalid_asset_amount": "无效的资产数量",
+    "invalid_stock_symbol": "无效的股票代码",
+    "stock_quote_not_found": "未找到股票报价",
+    "stock_quote_failed": "获取股票报价失败",
+    "stock_quote_rate_limited": "已达到股票报价请求限制"
   },
   "features": {
     "header": "功能",

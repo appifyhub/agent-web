@@ -367,6 +367,10 @@
         "title": "Kripto menjačnica",
         "description": "Pristup kursevima kripto valuta u realnom vremenu."
       },
+      "api_stock_quote": {
+        "title": "Akcije i berza",
+        "description": "Pristup informacijama s berzi u realnom vremenu."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Pristup za čitanje i analizu Twitter sadržaja."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Neautorizovan prodavac",
     "empty_token": "Prazan token",
     "no_user_id_in_token": "Korisnički ID nije prisutan u tokenu",
-    "invalid_attachment_token": "Prilog nije pronađen",
+    "invalid_resource_token": "Nevažeći token resursa",
     "image_generation_failed": "Generisanje slike nije uspelo",
     "web_fetch_failed": "Preuzimanje web sadržaja nije uspelo",
     "llm_unexpected_response": "Primljen je neočekivan odgovor od AI modela",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Previše ulaznih slika je dostavljeno",
     "not_chat_member": "Nisi član ovog četa.",
     "empty_chat_settings_payload": "Čuvanje podešavanja je bilo prazno — prvo promenite nešto.",
-    "unsupported_media_type": "Nepodržan tip medija"
+    "unsupported_media_type": "Nepodržan tip medija",
+    "invalid_asset_type": "Nevažeći tip imovine",
+    "invalid_asset_amount": "Nevažeća količina imovine",
+    "invalid_stock_symbol": "Nevažeći simbol akcije",
+    "stock_quote_not_found": "Berzanska kotacija nije pronađena",
+    "stock_quote_failed": "Preuzimanje berzanske kotacije nije uspelo",
+    "stock_quote_rate_limited": "Dostignuto je ograničenje zahteva za berzanske kotacije"
   },
   "features": {
     "header": "Mogućnosti",
