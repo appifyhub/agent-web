@@ -5,6 +5,7 @@ import GoogleAILogo from "@/assets/svg/googleai-white.svg";
 import PerplexityLogo from "@/assets/svg/perplexity-white.svg";
 import RapidAPILogo from "@/assets/svg/rapidapi-white.svg";
 import CoinMarketCapLogo from "@/assets/svg/coinmarketcap-white.svg";
+import TwelveDataLogo from "@/assets/svg/twelve-data-white.svg";
 import ReplicateLogo from "@/assets/svg/replicate-white.svg";
 import XLogo from "@/assets/svg/x-logo-white.svg";
 import XAILogo from "@/assets/svg/x-ai-logo-white.svg";
@@ -31,6 +32,7 @@ const ProviderIcon: React.FC<ProviderIconProps> = ({
       perplexity: PerplexityLogo,
       "rapid-api": RapidAPILogo,
       "coinmarketcap-api": CoinMarketCapLogo,
+      "twelve-data": TwelveDataLogo,
       replicate: ReplicateLogo,
       x: XLogo,
       x_ai: XAILogo,

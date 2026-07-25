@@ -63,6 +63,10 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1035: return "error_codes.sponsored_user_transfer_not_allowed";
     case 1037: return "error_codes.too_many_input_images";
     case 1038: return "error_codes.empty_chat_settings_payload";
+    case 1039: return "error_codes.unsupported_media_type";
+    case 1040: return "error_codes.invalid_asset_type";
+    case 1041: return "error_codes.invalid_asset_amount";
+    case 1042: return "error_codes.invalid_stock_symbol";
     case 2001: return "error_codes.user_not_found";
     case 2002: return "error_codes.chat_not_found";
     case 2003: return "error_codes.attachment_not_found";
@@ -76,6 +80,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 2011: return "error_codes.unknown_command";
     case 2012: return "error_codes.no_authorized_chats";
     case 2013: return "error_codes.transfer_recipient_not_found";
+    case 2014: return "error_codes.stock_quote_not_found";
     case 3001: return "error_codes.not_chat_admin";
     case 3002: return "error_codes.not_target_user";
     case 3003: return "error_codes.not_developer";
@@ -87,7 +92,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 3009: return "error_codes.not_chat_member";
     case 4001: return "error_codes.empty_token";
     case 4002: return "error_codes.no_user_id_in_token";
-    case 4003: return "error_codes.invalid_attachment_token";
+    case 4003: return "error_codes.invalid_resource_token";
     case 5001: return "error_codes.image_generation_failed";
     case 5002: return "error_codes.web_fetch_failed";
     case 5003: return "error_codes.llm_unexpected_response";
@@ -101,8 +106,10 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5011: return "error_codes.audio_transcription_failed";
     case 5012: return "error_codes.announcement_not_received";
     case 5013: return "error_codes.attachment_storage_failed";
+    case 5014: return "error_codes.stock_quote_failed";
     case 6001: return "error_codes.user_limit_reached";
     case 6002: return "error_codes.insufficient_credits"; // legacy, moved to 1034
+    case 6003: return "error_codes.stock_quote_rate_limited";
     case 7001: return "error_codes.unsupported_chat_type";
     case 7002: return "error_codes.unsupported_provider";
     case 7003: return "error_codes.missing_chat_context";

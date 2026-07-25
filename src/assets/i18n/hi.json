@@ -367,6 +367,10 @@
         "title": "क्रिप्टो एक्सचेंज",
         "description": "क्रिप्टोकरेंसी के लिए वास्तविक समय विनिमय दरों तक पहुंच।"
       },
+      "api_stock_quote": {
+        "title": "शेयर और शेयर बाज़ार",
+        "description": "रीयल-टाइम शेयर बाज़ार भावों तक पहुंच।"
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Twitter सामग्री पढ़ने और विश्लेषण करने के लिए पहुंच।"
@@ -457,7 +461,7 @@
     "unauthorized_seller": "अनधिकृत विक्रेता",
     "empty_token": "खाली टोकन",
     "no_user_id_in_token": "टोकन में कोई उपयोगकर्ता ID मौजूद नहीं है",
-    "invalid_attachment_token": "अटैचमेंट नहीं मिला",
+    "invalid_resource_token": "अमान्य संसाधन टोकन",
     "image_generation_failed": "छवि उत्पन्न करने में विफल",
     "web_fetch_failed": "वेब सामग्री प्राप्त करने में विफल",
     "llm_unexpected_response": "AI मॉडल से एक अप्रत्याशित प्रतिक्रिया प्राप्त हुई",
@@ -500,7 +504,13 @@
     "too_many_input_images": "बहुत अधिक इनपुट छवियाँ प्रदान की गईं",
     "not_chat_member": "आप इस चैट के सदस्य नहीं हैं.",
     "empty_chat_settings_payload": "सेटिंग्स सेव खाली था — पहले कुछ बदलें.",
-    "unsupported_media_type": "असमर्थित मीडिया प्रकार"
+    "unsupported_media_type": "असमर्थित मीडिया प्रकार",
+    "invalid_asset_type": "अमान्य संपत्ति प्रकार",
+    "invalid_asset_amount": "अमान्य संपत्ति राशि",
+    "invalid_stock_symbol": "अमान्य शेयर प्रतीक",
+    "stock_quote_not_found": "शेयर भाव नहीं मिला",
+    "stock_quote_failed": "शेयर भाव प्राप्त करने में विफल",
+    "stock_quote_rate_limited": "शेयर भाव अनुरोध सीमा पूरी हो गई"
   },
   "features": {
     "header": "विशेषताएं",

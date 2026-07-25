@@ -19,6 +19,7 @@ export interface UserSettings {
   replicate_key?: string;
   rapid_api_key?: string;
   coinmarketcap_key?: string;
+  twelve_data_api_key?: string;
   x_key?: string;
   x_ai_key?: string;
   tool_choice_chat?: string;
@@ -32,6 +33,7 @@ export interface UserSettings {
   tool_choice_embedding?: string;
   tool_choice_api_fiat_exchange?: string;
   tool_choice_api_crypto_exchange?: string;
+  tool_choice_api_stock_quote?: string;
   tool_choice_api_twitter?: string;
   credit_balance: number;
   is_on_waitlist: boolean;
@@ -50,6 +52,7 @@ const PROVIDER_ID_TO_SETTING: Record<string, keyof UserSettings> = {
   replicate: "replicate_key",
   "rapid-api": "rapid_api_key",
   "coinmarketcap-api": "coinmarketcap_key",
+  "twelve-data": "twelve_data_api_key",
   x: "x_key",
   x_ai: "x_ai_key",
 };
@@ -69,6 +72,7 @@ export interface UserSettingsPayload {
   replicate_key?: string;
   rapid_api_key?: string;
   coinmarketcap_key?: string;
+  twelve_data_api_key?: string;
   x_key?: string;
   x_ai_key?: string;
   tool_choice_chat?: string;
@@ -82,6 +86,7 @@ export interface UserSettingsPayload {
   tool_choice_embedding?: string;
   tool_choice_api_fiat_exchange?: string;
   tool_choice_api_crypto_exchange?: string;
+  tool_choice_api_stock_quote?: string;
   tool_choice_api_twitter?: string;
   are_policies_accepted?: boolean;
 }
@@ -94,6 +99,7 @@ const MASKED_FIELDS = [
   "replicate_key",
   "rapid_api_key",
   "coinmarketcap_key",
+  "twelve_data_api_key",
   "x_key",
   "x_ai_key",
 ] as const satisfies readonly (keyof UserSettingsPayload)[];
@@ -113,6 +119,7 @@ const STRING_FIELDS = [
   "tool_choice_embedding",
   "tool_choice_api_fiat_exchange",
   "tool_choice_api_crypto_exchange",
+  "tool_choice_api_stock_quote",
   "tool_choice_api_twitter",
 ] as const satisfies readonly (keyof UserSettingsPayload)[];
 

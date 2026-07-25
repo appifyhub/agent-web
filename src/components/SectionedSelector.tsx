@@ -51,6 +51,7 @@ interface SectionedSelectorProps {
   hasCredits?: boolean;
   className?: string;
   labelClassName?: string;
+  showLabel?: boolean;
   triggerClassName?: string;
   contentClassName?: string;
   hideCostEstimateButton?: boolean;
@@ -69,6 +70,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
   hasCredits = false,
   className = "",
   labelClassName = "",
+  showLabel = true,
   triggerClassName = "",
   contentClassName = "",
   hideCostEstimateButton = false,
@@ -90,32 +92,36 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
 
   return (
     <div className={cn("space-y-2", className)}>
-      <div className="flex items-center justify-between w-full sm:w-md">
-        <Label
-          className={cn(
-            "text-[1.05rem] font-light",
-            disabled ? "text-muted-foreground/50" : "",
-            labelClassName
+      {(showLabel || onUndo !== undefined) && (
+        <div className="flex items-center justify-between w-full sm:w-md">
+          {showLabel && (
+            <Label
+              className={cn(
+                "text-[1.05rem] font-light",
+                disabled ? "text-muted-foreground/50" : "",
+                labelClassName
+              )}
+            >
+              {label}
+            </Label>
           )}
-        >
-          {label}
-        </Label>
-        {onUndo !== undefined && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
-                onClick={onUndo}
-                disabled={disabled || !selectValue}
-              >
-                <Undo2 className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>{t("restore")}</TooltipContent>
-          </Tooltip>
-        )}
-      </div>
+          {onUndo !== undefined && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
+                  onClick={onUndo}
+                  disabled={disabled || !selectValue}
+                >
+                  <Undo2 className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t("restore")}</TooltipContent>
+            </Tooltip>
+          )}
+        </div>
+      )}
       <Select
         value={selectValue}
         disabled={disabled}

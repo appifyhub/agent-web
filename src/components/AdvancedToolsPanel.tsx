@@ -11,6 +11,7 @@ import {
   DatabaseZap,
   Euro,
   Bitcoin,
+  ChartCandlestick,
   Bird,
   ArrowLeftRight,
   BookOpenText,
@@ -89,6 +90,7 @@ const getToolGroupCategory = (toolType: ToolType): ToolGroupCategory => {
     search: "integrations",
     api_fiat_exchange: "integrations",
     api_crypto_exchange: "integrations",
+    api_stock_quote: "integrations",
     api_twitter: "integrations",
     credit_transfer: "integrations",
     deprecated: "integrations",
@@ -182,6 +184,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
       search: "integrations",
       api_fiat_exchange: "integrations",
       api_crypto_exchange: "integrations",
+      api_stock_quote: "integrations",
       api_twitter: "integrations",
       credit_transfer: "integrations",
     } as Record<ToolType, ToolGroupCategory>)
@@ -209,6 +212,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
       embedding: DatabaseZap,
       api_fiat_exchange: Euro,
       api_crypto_exchange: Bitcoin,
+      api_stock_quote: ChartCandlestick,
       api_twitter: Bird,
       credit_transfer: ArrowLeftRight,
     };
@@ -468,6 +472,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
                             onProviderNavigate={onProviderNavigate}
                             hasCredits={hasCredits}
                             labelClassName="text-base"
+                            showLabel={!isSingleOption}
                             hideCostEstimateButton={isSingleOption}
                           />
                         ) : (

@@ -367,6 +367,10 @@
         "title": "Kripto Döviz Kuru",
         "description": "Kripto para birimleri için gerçek zamanlı döviz kurlarına erişim."
       },
+      "api_stock_quote": {
+        "title": "Hisseler ve borsa",
+        "description": "Gerçek zamanlı hisse senedi fiyatlarına erişim."
+      },
       "api_twitter": {
         "title": "X / Twitter",
         "description": "Twitter içeriğini okumak ve analiz etmek için erişim."
@@ -457,7 +461,7 @@
     "unauthorized_seller": "Yetkisiz satıcı",
     "empty_token": "Boş belirteç",
     "no_user_id_in_token": "Belirteçte kullanıcı kimliği bulunmuyor",
-    "invalid_attachment_token": "Ek bulunamadı",
+    "invalid_resource_token": "Geçersiz kaynak belirteci",
     "image_generation_failed": "Görüntü oluşturulamadı",
     "web_fetch_failed": "Web içeriği getirilemedi",
     "llm_unexpected_response": "AI modelinden beklenmeyen yanıt alındı",
@@ -500,7 +504,13 @@
     "too_many_input_images": "Çok fazla giriş görüntüsü sağlandı",
     "not_chat_member": "Bu sohbetin üyesi değilsiniz.",
     "empty_chat_settings_payload": "Kaydedilecek ayar yok — önce bir şeyi değiştirin.",
-    "unsupported_media_type": "Desteklenmeyen medya türü"
+    "unsupported_media_type": "Desteklenmeyen medya türü",
+    "invalid_asset_type": "Geçersiz varlık türü",
+    "invalid_asset_amount": "Geçersiz varlık miktarı",
+    "invalid_stock_symbol": "Geçersiz hisse senedi sembolü",
+    "stock_quote_not_found": "Hisse senedi fiyatı bulunamadı",
+    "stock_quote_failed": "Hisse senedi fiyatı alınamadı",
+    "stock_quote_rate_limited": "Hisse senedi fiyatı istek sınırına ulaşıldı"
   },
   "features": {
     "header": "Özellikler",

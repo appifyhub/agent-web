@@ -259,6 +259,7 @@ const AccessSettingsPage: React.FC = () => {
     delete clearedSettings.replicate_key;
     delete clearedSettings.rapid_api_key;
     delete clearedSettings.coinmarketcap_key;
+    delete clearedSettings.twelve_data_api_key;
     delete clearedSettings.x_key;
     delete clearedSettings.x_ai_key;
 
