@@ -14,6 +14,7 @@ export type ToolType =
   | "embedding"
   | "api_fiat_exchange"
   | "api_crypto_exchange"
+  | "api_stock_quote"
   | "api_twitter"
   | "credit_transfer"
   | "deprecated";
