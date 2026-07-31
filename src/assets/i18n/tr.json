@@ -145,7 +145,9 @@
       "input_image_sizes": "Giriş Görselleri",
       "status_label": "Durum",
       "status_completed": "Tamamlandı",
-      "status_failed": "Başarısız"
+      "status_failed": "Başarısız",
+      "output_video_size": "Çıktı videosu",
+      "output_video_duration": "Video süresi"
     },
     "transfer": {
       "to": "Kime",
@@ -316,7 +318,7 @@
         "title": "İçerik Analizi"
       },
       "image_tools": {
-        "title": "Görüntü Araçları"
+        "title": "Görüntü ve Video Araçları"
       },
       "integrations": {
         "title": "Entegrasyonlar"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Kullanımdan Kaldırıldı",
         "description": "Bu araç veya özellik kullanımdan kaldırıldı ve gelecek sürümlerde kaldırılabilir."
+      },
+      "videos_gen": {
+        "title": "Video Üretimi",
+        "description": "Bu, istemlerden ve referans görüntülerden video üretmek için kullanılan bir modeldir."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Geçersiz hisse senedi sembolü",
     "stock_quote_not_found": "Hisse senedi fiyatı bulunamadı",
     "stock_quote_failed": "Hisse senedi fiyatı alınamadı",
-    "stock_quote_rate_limited": "Hisse senedi fiyatı istek sınırına ulaşıldı"
+    "stock_quote_rate_limited": "Hisse senedi fiyatı istek sınırına ulaşıldı",
+    "video_preparation_failed": "Video hazırlama başarısız oldu",
+    "video_generation_failed": "Video üretimi başarısız oldu",
+    "video_runtime_missing": "Gerekli video çalışma zamanı mevcut değil"
   },
   "features": {
     "header": "Özellikler",
@@ -598,7 +607,11 @@
     "api_call": "Tek kullanım başına",
     "second_of_runtime": "Çalışma süresi saniyesi başına",
     "web_search_query": "Web arama sorgusu başına",
-    "max_input_images": "{maxImages} adede kadar referans görsel"
+    "max_input_images": "{maxImages} adede kadar referans görsel",
+    "output_video_costs": "Çıktı video maliyetleri",
+    "output_video_1k_second": "1K/sn",
+    "output_video_2k_second": "2K/sn",
+    "output_video_4k_second": "4K/sn"
   },
   "onboarding": {
     "page_title": "Başlayın",

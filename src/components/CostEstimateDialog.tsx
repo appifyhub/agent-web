@@ -104,6 +104,24 @@ const CostEstimateContent: React.FC<{
     },
   ].filter((item) => item.value != null);
 
+  const outputVideoCosts = [
+    {
+      key: "output_video_1k_second",
+      label: t("cost_estimate.output_video_1k_second"),
+      value: costEstimate.output_video_1k_second,
+    },
+    {
+      key: "output_video_2k_second",
+      label: t("cost_estimate.output_video_2k_second"),
+      value: costEstimate.output_video_2k_second,
+    },
+    {
+      key: "output_video_4k_second",
+      label: t("cost_estimate.output_video_4k_second"),
+      value: costEstimate.output_video_4k_second,
+    },
+  ].filter((item) => item.value != null);
+
   const otherCosts = [
     {
       key: "api_call",
@@ -126,6 +144,7 @@ const CostEstimateContent: React.FC<{
     tokenCosts.length > 0 ||
     inputImageCosts.length > 0 ||
     outputImageCosts.length > 0 ||
+    outputVideoCosts.length > 0 ||
     otherCosts.length > 0;
 
   return (
@@ -200,6 +219,25 @@ const CostEstimateContent: React.FC<{
           )}
           <div className="space-y-1">
             {outputImageCosts.map((item) => (
+              <div
+                key={item.key}
+                className="flex justify-between text-sm py-1"
+              >
+                <span className="text-muted-foreground">{item.label}</span>
+                <span className="font-medium">{formatCost(item.value!)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {outputVideoCosts.length > 0 && (
+        <div className="space-y-2">
+          <h4 className="text-sm font-medium text-blue-300/80 uppercase">
+            {t("cost_estimate.output_video_costs")}
+          </h4>
+          <div className="space-y-1">
+            {outputVideoCosts.map((item) => (
               <div
                 key={item.key}
                 className="flex justify-between text-sm py-1"

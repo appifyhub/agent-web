@@ -145,7 +145,9 @@
       "input_image_sizes": "输入图像",
       "status_label": "状态",
       "status_completed": "已完成",
-      "status_failed": "失败"
+      "status_failed": "失败",
+      "output_video_size": "输出视频",
+      "output_video_duration": "视频时长"
     },
     "transfer": {
       "to": "发送至",
@@ -316,7 +318,7 @@
         "title": "内容分析"
       },
       "image_tools": {
-        "title": "图像工具"
+        "title": "图像和视频工具"
       },
       "integrations": {
         "title": "集成"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "已弃用",
         "description": "此工具或功能已弃用，可能会在未来版本中移除。"
+      },
+      "videos_gen": {
+        "title": "视频生成",
+        "description": "这是用于根据提示和参考图像生成视频的模型。"
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "无效的股票代码",
     "stock_quote_not_found": "未找到股票报价",
     "stock_quote_failed": "获取股票报价失败",
-    "stock_quote_rate_limited": "已达到股票报价请求限制"
+    "stock_quote_rate_limited": "已达到股票报价请求限制",
+    "video_preparation_failed": "视频准备失败",
+    "video_generation_failed": "视频生成失败",
+    "video_runtime_missing": "所需的视频运行环境不可用"
   },
   "features": {
     "header": "功能",
@@ -598,7 +607,11 @@
     "api_call": "每次使用",
     "second_of_runtime": "每秒运行时间",
     "web_search_query": "每次网页搜索查询",
-    "max_input_images": "最多 {maxImages} 张参考图片"
+    "max_input_images": "最多 {maxImages} 张参考图片",
+    "output_video_costs": "输出视频费用",
+    "output_video_1k_second": "1K/秒",
+    "output_video_2k_second": "2K/秒",
+    "output_video_4k_second": "4K/秒"
   },
   "onboarding": {
     "page_title": "开始使用",

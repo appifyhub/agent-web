@@ -499,6 +499,29 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                     </div>
                   </div>
                 )}
+              {record.output_video_size && (
+                <div className="flex justify-between items-center gap-4">
+                  <span className="text-muted-foreground shrink-0">
+                    {t("usage.context_ids.output_video_size")}
+                  </span>
+                  <Badge
+                    variant="outline"
+                    className="text-xs px-1.5 py-0"
+                  >
+                    {record.output_video_size.toUpperCase()}
+                  </Badge>
+                </div>
+              )}
+              {record.output_video_duration_seconds != null && (
+                <div className="flex justify-between gap-4">
+                  <span className="text-muted-foreground min-w-0 truncate">
+                    {t("usage.context_ids.output_video_duration")}
+                  </span>
+                  <span className="shrink-0">
+                    {formatRuntime(record.output_video_duration_seconds)}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>

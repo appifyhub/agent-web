@@ -145,7 +145,9 @@
       "input_image_sizes": "صور الإدخال",
       "status_label": "الحالة",
       "status_completed": "مكتمل",
-      "status_failed": "فشل"
+      "status_failed": "فشل",
+      "output_video_size": "فيديو الإخراج",
+      "output_video_duration": "مدة الفيديو"
     },
     "transfer": {
       "to": "إلى",
@@ -316,7 +318,7 @@
         "title": "تحليل المحتوى"
       },
       "image_tools": {
-        "title": "أدوات الصور"
+        "title": "أدوات الصور والفيديو"
       },
       "integrations": {
         "title": "التكاملات"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "مُهمل",
         "description": "هذه الأداة أو الميزة مُهملة وقد تُزال في الإصدارات المستقبلية."
+      },
+      "videos_gen": {
+        "title": "توليد الفيديو",
+        "description": "هذا نموذج يُستخدم لتوليد الفيديوهات من المطالبات والصور المرجعية."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "رمز السهم غير صالح",
     "stock_quote_not_found": "لم يتم العثور على سعر السهم",
     "stock_quote_failed": "فشل جلب سعر السهم",
-    "stock_quote_rate_limited": "تم تجاوز حد طلبات أسعار الأسهم"
+    "stock_quote_rate_limited": "تم تجاوز حد طلبات أسعار الأسهم",
+    "video_preparation_failed": "فشل تحضير الفيديو",
+    "video_generation_failed": "فشل توليد الفيديو",
+    "video_runtime_missing": "بيئة تشغيل الفيديو المطلوبة غير متاحة"
   },
   "features": {
     "header": "الميزات",
@@ -598,7 +607,11 @@
     "api_call": "لكل استخدام واحد",
     "second_of_runtime": "لكل ثانية تشغيل",
     "web_search_query": "لكل استعلام بحث ويب",
-    "max_input_images": "حتى {maxImages} صور مرجعية"
+    "max_input_images": "حتى {maxImages} صور مرجعية",
+    "output_video_costs": "تكاليف فيديو الإخراج",
+    "output_video_1k_second": "1K/ث",
+    "output_video_2k_second": "2K/ث",
+    "output_video_4k_second": "4K/ث"
   },
   "onboarding": {
     "page_title": "ابدأ الآن",

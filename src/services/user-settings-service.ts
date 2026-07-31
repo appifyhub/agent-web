@@ -29,6 +29,7 @@ export interface UserSettings {
   tool_choice_hearing?: string;
   tool_choice_images_gen?: string;
   tool_choice_images_edit?: string;
+  tool_choice_videos_gen?: string;
   tool_choice_search?: string;
   tool_choice_embedding?: string;
   tool_choice_api_fiat_exchange?: string;
@@ -82,6 +83,7 @@ export interface UserSettingsPayload {
   tool_choice_hearing?: string;
   tool_choice_images_gen?: string;
   tool_choice_images_edit?: string;
+  tool_choice_videos_gen?: string;
   tool_choice_search?: string;
   tool_choice_embedding?: string;
   tool_choice_api_fiat_exchange?: string;
@@ -115,6 +117,7 @@ const STRING_FIELDS = [
   "tool_choice_hearing",
   "tool_choice_images_gen",
   "tool_choice_images_edit",
+  "tool_choice_videos_gen",
   "tool_choice_search",
   "tool_choice_embedding",
   "tool_choice_api_fiat_exchange",

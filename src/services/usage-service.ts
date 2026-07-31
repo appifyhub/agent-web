@@ -37,6 +37,8 @@ export interface UsageRecord {
   total_tokens?: number;
   output_image_sizes?: string[];
   input_image_sizes?: string[];
+  output_video_size?: string | null;
+  output_video_duration_seconds?: number | null;
   is_failed: boolean;
   participant_details?: ParticipantDetails;
   counterpart_id?: string;
