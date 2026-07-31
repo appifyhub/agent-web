@@ -145,7 +145,9 @@
       "input_image_sizes": "इनपुट छवियाँ",
       "status_label": "स्थिति",
       "status_completed": "पूर्ण",
-      "status_failed": "विफल"
+      "status_failed": "विफल",
+      "output_video_size": "आउटपुट वीडियो",
+      "output_video_duration": "वीडियो अवधि"
     },
     "transfer": {
       "to": "को",
@@ -316,7 +318,7 @@
         "title": "सामग्री विश्लेषण"
       },
       "image_tools": {
-        "title": "छवि उपकरण"
+        "title": "छवि और वीडियो टूल"
       },
       "integrations": {
         "title": "एकीकरण"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "अप्रचलित",
         "description": "यह टूल या सुविधा अप्रचलित है और भविष्य के संस्करणों में हटाया जा सकता है।"
+      },
+      "videos_gen": {
+        "title": "वीडियो उत्पादन",
+        "description": "यह मॉडल संकेतों और संदर्भ छवियों से वीडियो बनाने के लिए उपयोग किया जाता है।"
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "अमान्य शेयर प्रतीक",
     "stock_quote_not_found": "शेयर भाव नहीं मिला",
     "stock_quote_failed": "शेयर भाव प्राप्त करने में विफल",
-    "stock_quote_rate_limited": "शेयर भाव अनुरोध सीमा पूरी हो गई"
+    "stock_quote_rate_limited": "शेयर भाव अनुरोध सीमा पूरी हो गई",
+    "video_preparation_failed": "वीडियो तैयार करने में विफल",
+    "video_generation_failed": "वीडियो बनाने में विफल",
+    "video_runtime_missing": "आवश्यक वीडियो रनटाइम उपलब्ध नहीं है"
   },
   "features": {
     "header": "विशेषताएं",
@@ -598,7 +607,11 @@
     "api_call": "प्रति एकल उपयोग",
     "second_of_runtime": "प्रति सेकंड रनटाइम",
     "web_search_query": "प्रति वेब खोज क्वेरी",
-    "max_input_images": "अधिकतम {maxImages} संदर्भ चित्र"
+    "max_input_images": "अधिकतम {maxImages} संदर्भ चित्र",
+    "output_video_costs": "आउटपुट वीडियो लागत",
+    "output_video_1k_second": "1K/सेकंड",
+    "output_video_2k_second": "2K/सेकंड",
+    "output_video_4k_second": "4K/सेकंड"
   },
   "onboarding": {
     "page_title": "शुरू करें",

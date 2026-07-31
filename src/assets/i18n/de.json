@@ -145,7 +145,9 @@
       "input_image_sizes": "Eingabebilder",
       "status_label": "Status",
       "status_completed": "Abgeschlossen",
-      "status_failed": "Fehlgeschlagen"
+      "status_failed": "Fehlgeschlagen",
+      "output_video_size": "Ausgabevideo",
+      "output_video_duration": "Videodauer"
     },
     "transfer": {
       "to": "An",
@@ -316,7 +318,7 @@
         "title": "Inhaltsanalyse"
       },
       "image_tools": {
-        "title": "Bildtools"
+        "title": "Bild- und Video-Tools"
       },
       "integrations": {
         "title": "Integrationen"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Veraltet",
         "description": "Dieses Tool oder diese Funktion ist veraltet und kann in zukünftigen Versionen entfernt werden."
+      },
+      "videos_gen": {
+        "title": "Videogenerierung",
+        "description": "Dies ist ein Modell, das Videos aus Prompts und Referenzbildern generiert."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Ungültiges Aktiensymbol",
     "stock_quote_not_found": "Aktienkurs nicht gefunden",
     "stock_quote_failed": "Aktienkurs konnte nicht abgerufen werden",
-    "stock_quote_rate_limited": "Anfragelimit für Aktienkurse erreicht"
+    "stock_quote_rate_limited": "Anfragelimit für Aktienkurse erreicht",
+    "video_preparation_failed": "Vorbereitung des Videos fehlgeschlagen",
+    "video_generation_failed": "Videogenerierung fehlgeschlagen",
+    "video_runtime_missing": "Erforderliche Video-Laufzeitumgebung ist nicht verfügbar"
   },
   "features": {
     "header": "Funktionen",
@@ -598,7 +607,11 @@
     "api_call": "Pro einzelne Verwendung",
     "second_of_runtime": "Pro Sekunde Laufzeit",
     "web_search_query": "Pro Web-Suchanfrage",
-    "max_input_images": "Bis zu {maxImages} Referenzbilder"
+    "max_input_images": "Bis zu {maxImages} Referenzbilder",
+    "output_video_costs": "Kosten für Ausgabevideos",
+    "output_video_1k_second": "1K/s",
+    "output_video_2k_second": "2K/s",
+    "output_video_4k_second": "4K/s"
   },
   "onboarding": {
     "page_title": "Loslegen",

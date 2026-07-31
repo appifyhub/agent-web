@@ -145,7 +145,9 @@
       "input_image_sizes": "Входные изображения",
       "status_label": "Статус",
       "status_completed": "Выполнено",
-      "status_failed": "Ошибка"
+      "status_failed": "Ошибка",
+      "output_video_size": "Выходное видео",
+      "output_video_duration": "Длительность видео"
     },
     "transfer": {
       "to": "Кому",
@@ -316,7 +318,7 @@
         "title": "Анализ Контента"
       },
       "image_tools": {
-        "title": "Инструменты Изображений"
+        "title": "Инструменты изображений и видео"
       },
       "integrations": {
         "title": "Интеграции"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Устаревший",
         "description": "Этот инструмент или функция устарели и могут быть удалены в будущих версиях."
+      },
+      "videos_gen": {
+        "title": "Генерация видео",
+        "description": "Это модель, которая используется для генерации видео по подсказкам и референсным изображениям."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Недопустимый биржевой символ",
     "stock_quote_not_found": "Котировка акции не найдена",
     "stock_quote_failed": "Не удалось получить котировку акции",
-    "stock_quote_rate_limited": "Достигнут лимит запросов котировок акций"
+    "stock_quote_rate_limited": "Достигнут лимит запросов котировок акций",
+    "video_preparation_failed": "Не удалось подготовить видео",
+    "video_generation_failed": "Не удалось сгенерировать видео",
+    "video_runtime_missing": "Необходимая видеосреда выполнения недоступна"
   },
   "features": {
     "header": "Возможности",
@@ -598,7 +607,11 @@
     "api_call": "За одно использование",
     "second_of_runtime": "За секунду работы",
     "web_search_query": "За поисковый запрос в интернете",
-    "max_input_images": "До {maxImages} справочных изображений"
+    "max_input_images": "До {maxImages} справочных изображений",
+    "output_video_costs": "Стоимость выходного видео",
+    "output_video_1k_second": "1K/с",
+    "output_video_2k_second": "2K/с",
+    "output_video_4k_second": "4K/с"
   },
   "onboarding": {
     "page_title": "Начать",

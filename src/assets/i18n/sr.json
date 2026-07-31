@@ -145,7 +145,9 @@
       "input_image_sizes": "Ulazne slike",
       "status_label": "Status",
       "status_completed": "Uspešno",
-      "status_failed": "Neuspešno"
+      "status_failed": "Neuspešno",
+      "output_video_size": "Izlazni video",
+      "output_video_duration": "Trajanje videa"
     },
     "transfer": {
       "to": "Za",
@@ -316,7 +318,7 @@
         "title": "Analiza sadržaja"
       },
       "image_tools": {
-        "title": "Alati za slike"
+        "title": "Alati za slike i video"
       },
       "integrations": {
         "title": "Integracije"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Zastarelo",
         "description": "Ovaj alat ili funkcija je zastarela i može biti uklonjena u budućim verzijama."
+      },
+      "videos_gen": {
+        "title": "Generisanje videa",
+        "description": "Ovo je model koji se koristi za generisanje videa iz upita i referentnih slika."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Nevažeći simbol akcije",
     "stock_quote_not_found": "Berzanska kotacija nije pronađena",
     "stock_quote_failed": "Preuzimanje berzanske kotacije nije uspelo",
-    "stock_quote_rate_limited": "Dostignuto je ograničenje zahteva za berzanske kotacije"
+    "stock_quote_rate_limited": "Dostignuto je ograničenje zahteva za berzanske kotacije",
+    "video_preparation_failed": "Priprema videa nije uspela",
+    "video_generation_failed": "Generisanje videa nije uspelo",
+    "video_runtime_missing": "Potreban video runtime nije dostupan"
   },
   "features": {
     "header": "Mogućnosti",
@@ -598,7 +607,11 @@
     "api_call": "Po jednoj upotrebi",
     "second_of_runtime": "Po sekundi izvršavanja",
     "web_search_query": "Po upitu za internet pretragu",
-    "max_input_images": "Do {maxImages} referentnih slika"
+    "max_input_images": "Do {maxImages} referentnih slika",
+    "output_video_costs": "Troškovi izlaznog videa",
+    "output_video_1k_second": "1K/s",
+    "output_video_2k_second": "2K/s",
+    "output_video_4k_second": "4K/s"
   },
   "onboarding": {
     "page_title": "Početak",

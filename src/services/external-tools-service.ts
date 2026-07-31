@@ -10,6 +10,7 @@ export type ToolType =
   | "hearing"
   | "images_gen"
   | "images_edit"
+  | "videos_gen"
   | "search"
   | "embedding"
   | "api_fiat_exchange"
@@ -31,6 +32,9 @@ export interface CostEstimate {
   output_image_1k?: number;
   output_image_2k?: number;
   output_image_4k?: number;
+  output_video_1k_second?: number | null;
+  output_video_2k_second?: number | null;
+  output_video_4k_second?: number | null;
   api_call?: number;
   second_of_runtime?: number;
   web_search_query?: number | null;

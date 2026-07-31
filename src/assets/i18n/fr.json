@@ -145,7 +145,9 @@
       "input_image_sizes": "Images d'entrée",
       "status_label": "Statut",
       "status_completed": "Terminé",
-      "status_failed": "Échoué"
+      "status_failed": "Échoué",
+      "output_video_size": "Vidéo de sortie",
+      "output_video_duration": "Durée de la vidéo"
     },
     "transfer": {
       "to": "À",
@@ -316,7 +318,7 @@
         "title": "Analyse de Contenu"
       },
       "image_tools": {
-        "title": "Outils d'Image"
+        "title": "Outils image et vidéo"
       },
       "integrations": {
         "title": "Intégrations"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Obsolète",
         "description": "Cet outil ou cette fonctionnalité est obsolète et pourrait être supprimé dans les versions futures."
+      },
+      "videos_gen": {
+        "title": "Génération de vidéos",
+        "description": "C'est un modèle utilisé pour générer des vidéos à partir d'invites et d'images de référence."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Symbole boursier invalide",
     "stock_quote_not_found": "Cours de l'action introuvable",
     "stock_quote_failed": "Impossible de récupérer le cours de l'action",
-    "stock_quote_rate_limited": "Limite de demandes de cours d'actions atteinte"
+    "stock_quote_rate_limited": "Limite de demandes de cours d'actions atteinte",
+    "video_preparation_failed": "Échec de la préparation de la vidéo",
+    "video_generation_failed": "Échec de la génération de la vidéo",
+    "video_runtime_missing": "L'environnement vidéo requis n'est pas disponible"
   },
   "features": {
     "header": "Fonctionnalités",
@@ -598,7 +607,11 @@
     "api_call": "Par utilisation unique",
     "second_of_runtime": "Par seconde d'exécution",
     "web_search_query": "Par requête de recherche web",
-    "max_input_images": "Jusqu'à {maxImages} images de référence"
+    "max_input_images": "Jusqu'à {maxImages} images de référence",
+    "output_video_costs": "Coûts des vidéos de sortie",
+    "output_video_1k_second": "1K/s",
+    "output_video_2k_second": "2K/s",
+    "output_video_4k_second": "4K/s"
   },
   "onboarding": {
     "page_title": "Commencer",

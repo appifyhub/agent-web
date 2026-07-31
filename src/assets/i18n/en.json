@@ -145,7 +145,9 @@
       "input_image_sizes": "Input Images",
       "status_label": "Status",
       "status_completed": "Completed",
-      "status_failed": "Failed"
+      "status_failed": "Failed",
+      "output_video_size": "Output Video",
+      "output_video_duration": "Video Duration"
     },
     "transfer": {
       "to": "To",
@@ -316,7 +318,7 @@
         "title": "Content Analysis"
       },
       "image_tools": {
-        "title": "Image Tools"
+        "title": "Image & Video Tools"
       },
       "integrations": {
         "title": "Integrations"
@@ -382,6 +384,10 @@
       "deprecated": {
         "title": "Deprecated",
         "description": "This tool or feature is deprecated and may be removed in future versions."
+      },
+      "videos_gen": {
+        "title": "Video Generation",
+        "description": "This is a model that is used for generating videos from prompts and reference images."
       }
     }
   },
@@ -510,7 +516,10 @@
     "invalid_stock_symbol": "Invalid stock symbol",
     "stock_quote_not_found": "Stock quote not found",
     "stock_quote_failed": "Failed to retrieve stock quote",
-    "stock_quote_rate_limited": "Stock quote request limit reached"
+    "stock_quote_rate_limited": "Stock quote request limit reached",
+    "video_preparation_failed": "Failed to prepare the video",
+    "video_generation_failed": "Failed to generate the video",
+    "video_runtime_missing": "Required video runtime is not available"
   },
   "features": {
     "header": "Features",
@@ -598,7 +607,11 @@
     "api_call": "Per single use",
     "second_of_runtime": "Per second of runtime",
     "web_search_query": "Per web search query",
-    "max_input_images": "Up to {maxImages} reference images"
+    "max_input_images": "Up to {maxImages} reference images",
+    "output_video_costs": "Output Video Costs",
+    "output_video_1k_second": "1K/s",
+    "output_video_2k_second": "2K/s",
+    "output_video_4k_second": "4K/s"
   },
   "onboarding": {
     "page_title": "Get Started",
