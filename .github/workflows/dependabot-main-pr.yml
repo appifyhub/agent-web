@@ -39,9 +39,8 @@ jobs:
 
       - name: Install and lock dependencies
         run: |
-          bun install
-          npm install
-
+          bun install --ignore-scripts
+          npm install --package-lock-only --ignore-scripts
       - name: Commit and push lockfile if changed
         run: |
           git add package-lock.json bun.lock bun.lockb 2>/dev/null || true
