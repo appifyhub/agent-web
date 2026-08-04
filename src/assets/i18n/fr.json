@@ -346,12 +346,8 @@
         "description": "C'est un modèle utilisé pour les tâches d'audition, comme la reconnaissance vocale, la conversion parole-texte, la compréhension du langage naturel et la discussion avec de l'audio. C'est ce qui est utilisé lorsque vous téléchargez un fichier audio dans la discussion."
       },
       "images_gen": {
-        "title": "Génération d'images",
-        "description": "C'est un modèle utilisé uniquement pour la génération d'images à partir d'invites textuelles."
-      },
-      "images_edit": {
-        "title": "Édition d'images",
-        "description": "C'est un modèle utilisé pour l'édition d'images, comme les remplacements de photos, la suppression d'objets, l'ajout d'effets spéciaux et le changement du style des images."
+        "title": "Génération et modification d'images",
+        "description": "Ce modèle crée des images à partir d'invites textuelles et modifie des images de référence."
       },
       "search": {
         "title": "Recherche",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Échec du traitement de la pièce jointe",
     "web_search_failed": "Échec de la recherche web",
     "external_empty_response": "Le service externe a renvoyé une réponse vide",
-    "image_edit_failed": "Échec de la modification de l'image",
     "document_search_failed": "Échec de la recherche de document",
     "audio_transcription_failed": "Échec de la transcription audio",
     "announcement_not_received": "Annonce de l'IA non reçue",

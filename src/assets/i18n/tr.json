@@ -346,12 +346,8 @@
         "description": "Bu işitme görevleri için kullanılan bir modeldir, konuşma tanıma, konuşmadan metne, doğal dil anlama ve sesle sohbet etme gibi. Bu sohbete bir ses dosyası yüklediğinizde kullanılan şeydir."
       },
       "images_gen": {
-        "title": "Görüntü Üretimi",
-        "description": "Bu sadece metin istemlerinden görüntü üretimi için kullanılan bir modeldir."
-      },
-      "images_edit": {
-        "title": "Görüntü Düzenleme",
-        "description": "Bu görüntü düzenleme için kullanılan bir modeldir, fotoğraf değiştirme, nesne kaldırma, özel efekt ekleme ve görüntülerin stilini değiştirme gibi."
+        "title": "Görüntü Üretimi ve Düzenleme",
+        "description": "Bu model metin istemlerinden görüntüler üretir ve referans görüntüleri düzenler."
       },
       "search": {
         "title": "Arama",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Ek işleme başarısız",
     "web_search_failed": "Web araması başarısız",
     "external_empty_response": "Harici servis boş yanıt döndürdü",
-    "image_edit_failed": "Görüntü düzenlenemedi",
     "document_search_failed": "Belge araması başarısız",
     "audio_transcription_failed": "Ses transkripsionu başarısız",
     "announcement_not_received": "AI duyurusu alınamadı",

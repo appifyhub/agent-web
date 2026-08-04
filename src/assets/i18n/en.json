@@ -346,12 +346,8 @@
         "description": "This is a model that is used for hearing tasks, such as speech recognition, speech-to-text, natural language understanding, and chatting with audio. This is what is used when you upload an audio file to the chat."
       },
       "images_gen": {
-        "title": "Images Generation",
-        "description": "This is a model that is used for image generation from text prompts only."
-      },
-      "images_edit": {
-        "title": "Images Edit",
-        "description": "This is a model that is used for image editing, such as photo replacements, object removal, adding special effects, and changing the style of images."
+        "title": "Image Generation & Editing",
+        "description": "This model creates images from text prompts and edits reference images."
       },
       "search": {
         "title": "Search",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Attachment processing failed",
     "web_search_failed": "Web search failed",
     "external_empty_response": "External service returned an empty response",
-    "image_edit_failed": "Failed to edit the image",
     "document_search_failed": "Document search failed",
     "audio_transcription_failed": "Audio transcription failed",
     "announcement_not_received": "AI announcement not received",

@@ -346,12 +346,8 @@
         "description": "Este es un modelo que se usa para tareas de audición, como reconocimiento de voz, conversión de voz a texto, comprensión de lenguaje natural y chatear con audio. Esto es lo que se usa cuando subes un archivo de audio al chat."
       },
       "images_gen": {
-        "title": "Generación de imágenes",
-        "description": "Este es un modelo que se usa solo para generación de imágenes a partir de indicaciones de texto."
-      },
-      "images_edit": {
-        "title": "Edición de imágenes",
-        "description": "Este es un modelo que se usa para edición de imágenes, como reemplazos de fotos, eliminación de objetos, agregar efectos especiales y cambiar el estilo de las imágenes."
+        "title": "Generación y edición de imágenes",
+        "description": "Este modelo crea imágenes a partir de indicaciones de texto y edita imágenes de referencia."
       },
       "search": {
         "title": "Búsqueda",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Error al procesar el archivo adjunto",
     "web_search_failed": "Error en la búsqueda web",
     "external_empty_response": "El servicio externo devolvió una respuesta vacía",
-    "image_edit_failed": "Error al editar la imagen",
     "document_search_failed": "Error en la búsqueda de documentos",
     "audio_transcription_failed": "Error en la transcripción de audio",
     "announcement_not_received": "Anuncio de IA no recibido",
