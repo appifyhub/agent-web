@@ -346,12 +346,8 @@
         "description": "Dies ist ein Modell, das für Höraufgaben verwendet wird, wie Spracherkennung, Sprache-zu-Text, natürliches Sprachverständnis und Chatten mit Audio. Dies wird verwendet, wenn Sie eine Audiodatei zum Chat hochladen."
       },
       "images_gen": {
-        "title": "Bildgenerierung",
-        "description": "Dies ist ein Modell, das nur für die Bildgenerierung aus Textaufforderungen verwendet wird."
-      },
-      "images_edit": {
-        "title": "Bildbearbeitung",
-        "description": "Dies ist ein Modell, das für die Bildbearbeitung verwendet wird, wie Foto-Ersetzungen, Objektentfernung, Hinzufügen von Spezialeffekten und Ändern des Bildstils."
+        "title": "Bilderstellung und -bearbeitung",
+        "description": "Dieses Modell erstellt Bilder aus Textanweisungen und bearbeitet Referenzbilder."
       },
       "search": {
         "title": "Suche",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Anhangverarbeitung fehlgeschlagen",
     "web_search_failed": "Websuche fehlgeschlagen",
     "external_empty_response": "Externer Dienst hat eine leere Antwort zurückgegeben",
-    "image_edit_failed": "Bildbearbeitung fehlgeschlagen",
     "document_search_failed": "Dokumentensuche fehlgeschlagen",
     "audio_transcription_failed": "Audio-Transkription fehlgeschlagen",
     "announcement_not_received": "KI-Ankündigung nicht erhalten",

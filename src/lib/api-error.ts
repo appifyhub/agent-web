@@ -101,7 +101,6 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5006: return "error_codes.attachment_processing_failed";
     case 5007: return "error_codes.web_search_failed";
     case 5008: return "error_codes.external_empty_response";
-    case 5009: return "error_codes.image_edit_failed";
     case 5010: return "error_codes.document_search_failed";
     case 5011: return "error_codes.audio_transcription_failed";
     case 5012: return "error_codes.announcement_not_received";

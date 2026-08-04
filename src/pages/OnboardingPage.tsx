@@ -72,7 +72,11 @@ const OnboardingPage: React.FC = () => {
 
   const { externalTools } = useExternalTools(user_id, accessToken?.raw);
 
-  const { chats } = useChats(user_id, accessToken?.raw);
+  const {
+    chats,
+    isLoading: areChatsLoading,
+    error: chatsError,
+  } = useChats(user_id, accessToken?.raw);
 
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -141,6 +145,38 @@ const OnboardingPage: React.FC = () => {
         (payload as Record<string, unknown>)[fieldName] = toolId;
       }
 
+      const llmLanguageMatch = LLM_LANGUAGES.find((l) => l.isoCode === lang_iso_code);
+      if (!llmLanguageMatch) {
+        throw new Error(`No LLM language matches interface language '${lang_iso_code}'`);
+      }
+      if (areChatsLoading) {
+        throw new Error("Chat settings are still loading");
+      }
+      if (chatsError) {
+        throw chatsError;
+      }
+
+      const ownChats = chats.filter((c) => c.chat_config.is_own);
+      if (ownChats.length === 0) {
+        throw new Error("No own chats are available for the language update");
+      }
+      await Promise.all(
+        ownChats.map((chat) =>
+          saveChatSettings({
+            apiBaseUrl,
+            chat_id: chat.chat_config.chat_id,
+            rawToken: accessToken.raw,
+            chatConfig: {
+              language_name: llmLanguageMatch.defaultName,
+              language_iso_code: llmLanguageMatch.isoCode,
+              reply_chance_percent: chat.chat_config.reply_chance_percent,
+              release_notifications: chat.chat_config.release_notifications,
+              media_mode: chat.chat_config.media_mode,
+            },
+          }),
+        ),
+      );
+
       await saveUserSettings({
         apiBaseUrl,
         user_id,
@@ -153,26 +189,6 @@ const OnboardingPage: React.FC = () => {
       } else {
         clearUserSettingsCache(user_id);
       }
-
-      const llmLanguageMatch = LLM_LANGUAGES.find((l) => l.isoCode === lang_iso_code)!;
-      const ownChats = chats.filter((c) => c.chat_config.is_own);
-      await Promise.allSettled(
-        ownChats.map(async (chat) => {
-          try {
-            await saveChatSettings({
-              apiBaseUrl,
-              chat_id: chat.chat_config.chat_id,
-              rawToken: accessToken.raw,
-              chatConfig: {
-                language_name: llmLanguageMatch.defaultName,
-                language_iso_code: llmLanguageMatch.isoCode,
-              },
-            });
-          } catch (err) {
-            console.error("Failed to update chat language for", chat.chat_config.chat_id, err);
-          }
-        }),
-      );
 
       toast(t("onboarding.success", { botName }));
       if (isSponsored) {

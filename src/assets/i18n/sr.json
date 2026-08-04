@@ -346,12 +346,8 @@
         "description": "Ovo je model koji se koristi za zadatke sluha, kao što su prepoznavanje govora, govor-u-tekst, razumevanje prirodnog jezika i razgovor sa zvukom. Ovo se koristi kada pošaljete zvučni fajl u čet."
       },
       "images_gen": {
-        "title": "Generisanje slika",
-        "description": "Ovo je model koji se koristi samo za generisanje slika iz tekstualnih upita."
-      },
-      "images_edit": {
-        "title": "Uređivanje slika",
-        "description": "Ovo je model koji se koristi za uređivanje slika, kao što su zamene delova fotografija, uklanjanje objekata, dodavanje specijalnih efekata i menjanje stila slika."
+        "title": "Generisanje i uređivanje slika",
+        "description": "Ovaj model pravi slike iz tekstualnih upita i uređuje referentne slike."
       },
       "search": {
         "title": "Pretraga",
@@ -476,7 +472,6 @@
     "attachment_processing_failed": "Obrada priloga nije uspela",
     "web_search_failed": "Web pretraga nije uspela",
     "external_empty_response": "Spoljni servis je vratio prazan odgovor",
-    "image_edit_failed": "Uređivanje slike nije uspelo",
     "document_search_failed": "Pretraga dokumenta nije uspela",
     "audio_transcription_failed": "Transkripcija zvuka nije uspela",
     "announcement_not_received": "AI obaveštenje nije primljeno",

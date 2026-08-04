@@ -9,7 +9,6 @@ export type ToolType =
   | "vision"
   | "hearing"
   | "images_gen"
-  | "images_edit"
   | "videos_gen"
   | "search"
   | "embedding"
