@@ -44,10 +44,10 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies (bun)
-        run: bun install
+        run: bun install --ignore-scripts
 
-      - name: Install dependencies (npm)
-        run: npm install
+      - name: Lock dependencies (npm)
+        run: npm install --package-lock-only --ignore-scripts
 
       - name: Label PR as locked
         uses: actions-ecosystem/action-add-labels@v1
