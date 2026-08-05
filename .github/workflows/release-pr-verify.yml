@@ -27,6 +27,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Remove the verified label if present
+        uses: actions-ecosystem/action-remove-labels@v1
+        continue-on-error: true
+        with:
+          github_token: ${{ env.TOKEN }}
+          labels: Verified
+
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -41,3 +48,21 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Label PR as verified
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ env.TOKEN }}
+          labels: Verified
+
+      - name: Comment on PR to notify about verification
+        env:
+          GH_TOKEN: ${{ env.TOKEN }}
+        run: gh pr comment ${{ github.event.pull_request.number }} --body "✅ Auto-verified!"
+
+      - name: Remove verified label on failure or cancellation
+        if: always() && (failure() || cancelled())
+        uses: actions-ecosystem/action-remove-labels@v1
+        continue-on-error: true
+        with:
+          github_token: ${{ env.TOKEN }}
+          labels: Verified
