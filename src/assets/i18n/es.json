@@ -516,7 +516,8 @@
     "video_generation_failed": "Error al generar el video",
     "social_card_video_composition_failed": "Error al componer el video de la tarjeta social",
     "video_runtime_missing": "El entorno de video requerido no está disponible",
-    "invalid_social_card_video_configuration": "Configuración de video de tarjeta social no válida"
+    "invalid_social_card_video_configuration": "Configuración de video de tarjeta social no válida",
+    "invalid_social_card_mode": "Modo de tarjeta social no válido"
   },
   "features": {
     "header": "Funciones",

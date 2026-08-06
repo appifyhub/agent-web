@@ -516,7 +516,8 @@
     "video_generation_failed": "视频生成失败",
     "social_card_video_composition_failed": "社交卡片视频合成失败",
     "video_runtime_missing": "所需的视频运行环境不可用",
-    "invalid_social_card_video_configuration": "社交卡片视频配置无效"
+    "invalid_social_card_video_configuration": "社交卡片视频配置无效",
+    "invalid_social_card_mode": "社交卡片模式无效"
   },
   "features": {
     "header": "功能",
