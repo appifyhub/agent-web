@@ -117,6 +117,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 7003: return "error_codes.missing_chat_context";
     case 7004: return "error_codes.video_runtime_missing";
     case 7005: return "error_codes.invalid_social_card_video_configuration";
+    case 7006: return "error_codes.invalid_social_card_mode";
     case 8001: return "error_codes.di_dependency_not_met";
     case 8003: return "error_codes.platform_mapping_failed";
     case 8004: return "error_codes.no_attachment_instance";

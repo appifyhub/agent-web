@@ -516,7 +516,8 @@
     "video_generation_failed": "Échec de la génération de la vidéo",
     "social_card_video_composition_failed": "Échec de la composition de la vidéo de carte sociale",
     "video_runtime_missing": "L'environnement vidéo requis n'est pas disponible",
-    "invalid_social_card_video_configuration": "Configuration vidéo de carte sociale invalide"
+    "invalid_social_card_video_configuration": "Configuration vidéo de carte sociale invalide",
+    "invalid_social_card_mode": "Mode de carte sociale invalide"
   },
   "features": {
     "header": "Fonctionnalités",

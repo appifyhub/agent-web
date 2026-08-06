@@ -433,6 +433,7 @@ export type TranslationKey =
   | "error_codes.social_card_video_composition_failed"
   | "error_codes.video_runtime_missing"
   | "error_codes.invalid_social_card_video_configuration"
+  | "error_codes.invalid_social_card_mode"
   | "features.header"
   | "features.title"
   | "features.items.language_intelligence.title"

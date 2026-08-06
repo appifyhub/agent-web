@@ -516,7 +516,8 @@
     "video_generation_failed": "वीडियो बनाने में विफल",
     "social_card_video_composition_failed": "सोशल कार्ड वीडियो बनाने में विफल",
     "video_runtime_missing": "आवश्यक वीडियो रनटाइम उपलब्ध नहीं है",
-    "invalid_social_card_video_configuration": "अमान्य सोशल कार्ड वीडियो कॉन्फ़िगरेशन"
+    "invalid_social_card_video_configuration": "अमान्य सोशल कार्ड वीडियो कॉन्फ़िगरेशन",
+    "invalid_social_card_mode": "अमान्य सोशल कार्ड मोड"
   },
   "features": {
     "header": "विशेषताएं",

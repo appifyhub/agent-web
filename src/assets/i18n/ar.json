@@ -516,7 +516,8 @@
     "video_generation_failed": "فشل توليد الفيديو",
     "social_card_video_composition_failed": "فشل تركيب فيديو بطاقة التواصل الاجتماعي",
     "video_runtime_missing": "بيئة تشغيل الفيديو المطلوبة غير متاحة",
-    "invalid_social_card_video_configuration": "تكوين فيديو بطاقة التواصل الاجتماعي غير صالح"
+    "invalid_social_card_video_configuration": "تكوين فيديو بطاقة التواصل الاجتماعي غير صالح",
+    "invalid_social_card_mode": "وضع بطاقة التواصل الاجتماعي غير صالح"
   },
   "features": {
     "header": "الميزات",

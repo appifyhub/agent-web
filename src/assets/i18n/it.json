@@ -516,7 +516,8 @@
     "video_generation_failed": "Generazione del video non riuscita",
     "social_card_video_composition_failed": "Composizione del video della scheda social non riuscita",
     "video_runtime_missing": "Runtime video richiesto non disponibile",
-    "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida"
+    "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida",
+    "invalid_social_card_mode": "Modalità scheda social non valida"
   },
   "features": {
     "header": "Funzionalità",

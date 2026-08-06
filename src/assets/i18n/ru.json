@@ -516,7 +516,8 @@
     "video_generation_failed": "Не удалось сгенерировать видео",
     "social_card_video_composition_failed": "Не удалось скомпоновать видео социальной карточки",
     "video_runtime_missing": "Необходимая видеосреда выполнения недоступна",
-    "invalid_social_card_video_configuration": "Недопустимая конфигурация видео социальной карточки"
+    "invalid_social_card_video_configuration": "Недопустимая конфигурация видео социальной карточки",
+    "invalid_social_card_mode": "Недопустимый режим социальной карточки"
   },
   "features": {
     "header": "Возможности",

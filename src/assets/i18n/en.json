@@ -516,7 +516,8 @@
     "video_generation_failed": "Failed to generate the video",
     "social_card_video_composition_failed": "Failed to compose the social card video",
     "video_runtime_missing": "Required video runtime is not available",
-    "invalid_social_card_video_configuration": "Invalid social card video configuration"
+    "invalid_social_card_video_configuration": "Invalid social card video configuration",
+    "invalid_social_card_mode": "Invalid social card mode"
   },
   "features": {
     "header": "Features",

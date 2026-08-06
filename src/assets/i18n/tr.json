@@ -516,7 +516,8 @@
     "video_generation_failed": "Video üretimi başarısız oldu",
     "social_card_video_composition_failed": "Sosyal kart videosu oluşturulamadı",
     "video_runtime_missing": "Gerekli video çalışma zamanı mevcut değil",
-    "invalid_social_card_video_configuration": "Geçersiz sosyal kart videosu yapılandırması"
+    "invalid_social_card_video_configuration": "Geçersiz sosyal kart videosu yapılandırması",
+    "invalid_social_card_mode": "Geçersiz sosyal kart modu"
   },
   "features": {
     "header": "Özellikler",

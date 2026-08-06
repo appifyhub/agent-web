@@ -516,7 +516,8 @@
     "video_generation_failed": "Videogenerierung fehlgeschlagen",
     "social_card_video_composition_failed": "Erstellung des Social-Card-Videos fehlgeschlagen",
     "video_runtime_missing": "Erforderliche Video-Laufzeitumgebung ist nicht verfügbar",
-    "invalid_social_card_video_configuration": "Ungültige Social-Card-Video-Konfiguration"
+    "invalid_social_card_video_configuration": "Ungültige Social-Card-Video-Konfiguration",
+    "invalid_social_card_mode": "Ungültiger Social-Card-Modus"
   },
   "features": {
     "header": "Funktionen",
