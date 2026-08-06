@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Anfragelimit für Aktienkurse erreicht",
     "video_preparation_failed": "Vorbereitung des Videos fehlgeschlagen",
     "video_generation_failed": "Videogenerierung fehlgeschlagen",
-    "video_runtime_missing": "Erforderliche Video-Laufzeitumgebung ist nicht verfügbar"
+    "social_card_video_composition_failed": "Erstellung des Social-Card-Videos fehlgeschlagen",
+    "video_runtime_missing": "Erforderliche Video-Laufzeitumgebung ist nicht verfügbar",
+    "invalid_social_card_video_configuration": "Ungültige Social-Card-Video-Konfiguration"
   },
   "features": {
     "header": "Funktionen",

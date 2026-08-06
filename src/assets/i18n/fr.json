@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Limite de demandes de cours d'actions atteinte",
     "video_preparation_failed": "Échec de la préparation de la vidéo",
     "video_generation_failed": "Échec de la génération de la vidéo",
-    "video_runtime_missing": "L'environnement vidéo requis n'est pas disponible"
+    "social_card_video_composition_failed": "Échec de la composition de la vidéo de carte sociale",
+    "video_runtime_missing": "L'environnement vidéo requis n'est pas disponible",
+    "invalid_social_card_video_configuration": "Configuration vidéo de carte sociale invalide"
   },
   "features": {
     "header": "Fonctionnalités",

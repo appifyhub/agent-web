@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Se alcanzó el límite de solicitudes de cotizaciones bursátiles",
     "video_preparation_failed": "Error al preparar el video",
     "video_generation_failed": "Error al generar el video",
-    "video_runtime_missing": "El entorno de video requerido no está disponible"
+    "social_card_video_composition_failed": "Error al componer el video de la tarjeta social",
+    "video_runtime_missing": "El entorno de video requerido no está disponible",
+    "invalid_social_card_video_configuration": "Configuración de video de tarjeta social no válida"
   },
   "features": {
     "header": "Funciones",

@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Dostignuto je ograničenje zahteva za berzanske kotacije",
     "video_preparation_failed": "Priprema videa nije uspela",
     "video_generation_failed": "Generisanje videa nije uspelo",
-    "video_runtime_missing": "Potreban video runtime nije dostupan"
+    "social_card_video_composition_failed": "Sastavljanje videa za društvenu karticu nije uspelo",
+    "video_runtime_missing": "Potreban video runtime nije dostupan",
+    "invalid_social_card_video_configuration": "Nevažeća konfiguracija videa za društvenu karticu"
   },
   "features": {
     "header": "Mogućnosti",

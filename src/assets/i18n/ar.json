@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "تم تجاوز حد طلبات أسعار الأسهم",
     "video_preparation_failed": "فشل تحضير الفيديو",
     "video_generation_failed": "فشل توليد الفيديو",
-    "video_runtime_missing": "بيئة تشغيل الفيديو المطلوبة غير متاحة"
+    "social_card_video_composition_failed": "فشل تركيب فيديو بطاقة التواصل الاجتماعي",
+    "video_runtime_missing": "بيئة تشغيل الفيديو المطلوبة غير متاحة",
+    "invalid_social_card_video_configuration": "تكوين فيديو بطاقة التواصل الاجتماعي غير صالح"
   },
   "features": {
     "header": "الميزات",

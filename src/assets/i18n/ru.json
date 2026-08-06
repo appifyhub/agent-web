@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Достигнут лимит запросов котировок акций",
     "video_preparation_failed": "Не удалось подготовить видео",
     "video_generation_failed": "Не удалось сгенерировать видео",
-    "video_runtime_missing": "Необходимая видеосреда выполнения недоступна"
+    "social_card_video_composition_failed": "Не удалось скомпоновать видео социальной карточки",
+    "video_runtime_missing": "Необходимая видеосреда выполнения недоступна",
+    "invalid_social_card_video_configuration": "Недопустимая конфигурация видео социальной карточки"
   },
   "features": {
     "header": "Возможности",
