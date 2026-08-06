@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "已达到股票报价请求限制",
     "video_preparation_failed": "视频准备失败",
     "video_generation_failed": "视频生成失败",
-    "video_runtime_missing": "所需的视频运行环境不可用"
+    "social_card_video_composition_failed": "社交卡片视频合成失败",
+    "video_runtime_missing": "所需的视频运行环境不可用",
+    "invalid_social_card_video_configuration": "社交卡片视频配置无效"
   },
   "features": {
     "header": "功能",

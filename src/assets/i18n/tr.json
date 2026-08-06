@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Hisse senedi fiyatı istek sınırına ulaşıldı",
     "video_preparation_failed": "Video hazırlama başarısız oldu",
     "video_generation_failed": "Video üretimi başarısız oldu",
-    "video_runtime_missing": "Gerekli video çalışma zamanı mevcut değil"
+    "social_card_video_composition_failed": "Sosyal kart videosu oluşturulamadı",
+    "video_runtime_missing": "Gerekli video çalışma zamanı mevcut değil",
+    "invalid_social_card_video_configuration": "Geçersiz sosyal kart videosu yapılandırması"
   },
   "features": {
     "header": "Özellikler",

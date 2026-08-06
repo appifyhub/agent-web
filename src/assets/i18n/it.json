@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Limite di richieste di quotazioni azionarie raggiunto",
     "video_preparation_failed": "Preparazione del video non riuscita",
     "video_generation_failed": "Generazione del video non riuscita",
-    "video_runtime_missing": "Runtime video richiesto non disponibile"
+    "social_card_video_composition_failed": "Composizione del video della scheda social non riuscita",
+    "video_runtime_missing": "Runtime video richiesto non disponibile",
+    "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida"
   },
   "features": {
     "header": "Funzionalità",

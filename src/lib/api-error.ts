@@ -108,6 +108,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5014: return "error_codes.stock_quote_failed";
     case 5015: return "error_codes.video_preparation_failed";
     case 5016: return "error_codes.video_generation_failed";
+    case 5017: return "error_codes.social_card_video_composition_failed";
     case 6001: return "error_codes.user_limit_reached";
     case 6002: return "error_codes.insufficient_credits"; // legacy, moved to 1034
     case 6003: return "error_codes.stock_quote_rate_limited";
@@ -115,6 +116,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 7002: return "error_codes.unsupported_provider";
     case 7003: return "error_codes.missing_chat_context";
     case 7004: return "error_codes.video_runtime_missing";
+    case 7005: return "error_codes.invalid_social_card_video_configuration";
     case 8001: return "error_codes.di_dependency_not_met";
     case 8003: return "error_codes.platform_mapping_failed";
     case 8004: return "error_codes.no_attachment_instance";

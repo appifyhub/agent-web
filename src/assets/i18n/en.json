@@ -514,7 +514,9 @@
     "stock_quote_rate_limited": "Stock quote request limit reached",
     "video_preparation_failed": "Failed to prepare the video",
     "video_generation_failed": "Failed to generate the video",
-    "video_runtime_missing": "Required video runtime is not available"
+    "social_card_video_composition_failed": "Failed to compose the social card video",
+    "video_runtime_missing": "Required video runtime is not available",
+    "invalid_social_card_video_configuration": "Invalid social card video configuration"
   },
   "features": {
     "header": "Features",
