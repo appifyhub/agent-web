@@ -60,7 +60,7 @@ function App() {
           path="*"
           element={
             <div className="flex flex-col gap-10 items-center justify-center h-screen glass-dark-static">
-              <img src={logoVector} alt="Logo" className="w-32 h-32" />
+              <img src={logoVector} alt="" className="w-32 h-32" />
               <h1 className="text-4xl font-extralight text-center mb-12">
                 {import.meta.env.VITE_APP_NAME}
               </h1>
