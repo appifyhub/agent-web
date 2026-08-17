@@ -266,7 +266,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                       <ProviderIcon
                         providerId={opt.providerId}
                         className="w-4 h-4 opacity-70 shrink-0"
-                        alt="Provider logo"
+                        alt=""
                       />
                     )}
                     <span className="truncate">{opt.label}</span>

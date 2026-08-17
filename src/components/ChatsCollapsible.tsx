@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ChatSettings } from "@/services/chat-settings-service";
 import ChatListItem from "@/components/ChatListItem";
 import { t } from "@/lib/translations";
+import {
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuText,
+  useSidebar,
+} from "@/components/ui/sidebar";
 
 interface ChatsCollapsibleProps {
   chats: ChatSettings[];
@@ -22,50 +27,53 @@ const ChatsCollapsible: React.FC<ChatsCollapsibleProps> = ({
   onOpenChange,
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const { isMobile, setOpen, state } = useSidebar();
+  const hasSelectedChat = selectedChat !== undefined;
 
   const handleToggle = () => {
-    const newState = !isOpen;
+    const newState = state === "collapsed" && !isMobile ? true : !isOpen;
+    if (state === "collapsed" && !isMobile) {
+      setOpen(true);
+    }
     setIsOpen(newState);
     onOpenChange?.(newState);
   };
 
   return (
-    <div
-      className={cn(
-        "w-full rounded-2xl",
-        isOpen ? "bg-white/1 border border-solid border-white/5" : ""
-      )}
-    >
-      <Button
-        variant="ghost"
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        type="button"
+        tooltip={t("your_chats")}
         onClick={handleToggle}
-        className="w-full justify-start gap-3 text-base h-12 rounded-xl font-normal text-white hover:bg-white/10 cursor-pointer"
+        className={cn(hasSelectedChat && "text-sidebar-primary")}
       >
-        <MessageCircle className="h-5 w-5 shrink-0" />
-        <span className="flex-1 text-left">{t("your_chats")}</span>
+        <MessageCircle />
+        <SidebarMenuText>{t("your_chats")}</SidebarMenuText>
         <ChevronDown
           className={cn(
-            "h-4 w-4 shrink-0 transition-transform duration-200",
-            isOpen && "rotate-180"
+            "ml-auto transition-transform duration-200 group-data-[collapsible=icon]:hidden",
+            isOpen && "rotate-180",
           )}
         />
-      </Button>
+      </SidebarMenuButton>
       <div
         className={cn(
-          "overflow-hidden transition-all duration-200 ease-in-out",
-          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          "overflow-hidden transition-all duration-200 ease-in-out group-data-[collapsible=icon]:hidden",
+          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0",
         )}
       >
         {chats.map((chat) => (
           <ChatListItem
             key={chat.chat_config.chat_id}
             chat={chat}
-            isSelected={chat.chat_config.chat_id === selectedChat?.chat_config.chat_id}
+            isSelected={
+              chat.chat_config.chat_id === selectedChat?.chat_config.chat_id
+            }
             onSelect={onChatChange}
           />
         ))}
       </div>
-    </div>
+    </SidebarMenuItem>
   );
 };
 

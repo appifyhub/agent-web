@@ -1,65 +1,62 @@
-import "@/components/header.css";
-import React, { useState } from "react";
+import React from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  BadgeCent,
+  ChevronRight,
+  Gift,
+  Key,
+  LifeBuoy,
+  Merge,
+  Rocket,
+  ShoppingCart,
+  Sparkles,
+  UserRound,
+  X,
+} from "lucide-react";
+import { useLocation, useParams } from "react-router-dom";
+import ChatsCollapsible from "@/components/ChatsCollapsible";
+import CountdownTimer from "@/components/CountdownTimer";
+import LanguageDropdown from "@/components/LanguageDropdown";
 import { Button } from "@/components/ui/button";
 import {
-  UserRound,
-  Gift,
-  LifeBuoy,
-  Menu as MenuIcon,
-  Key,
-  Sparkles,
-  X,
-  Merge,
-  ShoppingCart,
-  BadgeCent,
-  Rocket,
-} from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
-import ChatsCollapsible from "@/components/ChatsCollapsible";
-import { cn } from "@/lib/utils";
-import { Language } from "@/lib/languages";
-import { ChatSettings } from "@/services/chat-settings-service";
-import { useUserSettings } from "@/hooks/useUserSettings";
-import LanguageDropdown from "@/components/LanguageDropdown";
-import ChatsDropdown from "@/components/ChatsDropdown";
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuText,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import logoVector from "@/assets/logo-vector.svg";
-import { t } from "@/lib/translations";
-import { useParams, useLocation } from "react-router-dom";
 import { useNavigation } from "@/hooks/useNavigation";
-
-type Page =
-  | "sponsorships"
-  | "profile"
-  | "chat"
-  | "features"
-  | "access"
-  | "intelligence"
-  | "linked_profiles"
-  | "usage"
-  | "purchases"
-  | "onboarding";
+import { useUserSettings } from "@/hooks/useUserSettings";
+import type { Language } from "@/lib/languages";
+import type { SettingsPage } from "@/lib/settings-pages";
+import type { DecodedToken } from "@/lib/tokens";
+import { t } from "@/lib/translations";
+import { cn } from "@/lib/utils";
+import type { ChatSettings } from "@/services/chat-settings-service";
 
 interface HeaderProps {
-  page: Page;
+  page: SettingsPage;
+  children: React.ReactNode;
   selectedChat?: ChatSettings;
   chats?: ChatSettings[];
   chatsLoading?: boolean;
   userId?: string;
   rawAccessToken?: string;
   selectedLanguage: Language;
-  hasBlockerError?: boolean;
+  decodedToken?: DecodedToken;
+  expiryTimestamp?: number;
+  onTokenExpired?: () => void;
   showProfileButton?: boolean;
   showSponsorshipsButton?: boolean;
   showChatsDropdown?: boolean;
@@ -71,15 +68,219 @@ interface HeaderProps {
   onDrawerOpenChange?: (open: boolean) => void;
 }
 
+interface NavigationItem {
+  page: SettingsPage;
+  label: string;
+  icon: LucideIcon;
+  visible: boolean;
+  onSelect: () => void;
+}
+
+interface NavigationSection {
+  id: "personal" | "agent" | "resources" | "people";
+  label: string;
+  items: NavigationItem[];
+  showChats?: boolean;
+}
+
+interface NavigationPanelProps {
+  currentPage: SettingsPage;
+  sections: NavigationSection[];
+  chats: ChatSettings[];
+  selectedChat?: ChatSettings;
+  onChatChange: (chatId: string) => void;
+}
+
+interface SidebarBrandProps {
+  appName: string;
+  selectedLanguage: Language;
+  showLanguageDropdown: boolean;
+  onActionClicked: () => void;
+  onLanguageChange: (isoCode: string) => void;
+}
+
+interface BrandLogoButtonProps {
+  onActionClicked: () => void;
+  className?: string;
+}
+
+const headerIconHighlightClassName =
+  "hover:shadow-[0_0_8px] hover:shadow-primary/20 focus-visible:shadow-[0_0_8px] focus-visible:shadow-primary/20";
+
+const BrandLogoButton: React.FC<BrandLogoButtonProps> = ({
+  onActionClicked,
+  className,
+}) => (
+  <Button
+    type="button"
+    variant="ghost"
+    size="icon"
+    className={cn(
+      "size-10 shrink-0 rounded-full transition-shadow hover:bg-transparent",
+      headerIconHighlightClassName,
+      className,
+    )}
+    aria-label={t("profile")}
+    onClick={onActionClicked}
+  >
+    <img src={logoVector} alt="" className="size-8" />
+  </Button>
+);
+
+const SidebarBrand: React.FC<SidebarBrandProps> = ({
+  appName,
+  selectedLanguage,
+  showLanguageDropdown,
+  onActionClicked,
+  onLanguageChange,
+}) => {
+  const { isMobile, setOpenMobile, state } = useSidebar();
+
+  return (
+    <SidebarHeader
+      className={`h-20 justify-center border-b border-border/80 bg-background py-0 transition-[padding] duration-200 ease-linear ${
+        isMobile || state === "expanded" ? "px-4" : "px-[0.875rem]"
+      }`}
+    >
+      <div className="flex w-full min-w-0 items-center gap-2">
+        <BrandLogoButton
+          onActionClicked={() => {
+            onActionClicked();
+            setOpenMobile(false);
+          }}
+        />
+        {(isMobile || state === "expanded") && (
+          <span className="min-w-0 flex-1 truncate text-base leading-none font-semibold tracking-[-0.03em] text-sidebar-foreground md:text-lg">
+            {appName}
+          </span>
+        )}
+        {(isMobile || state === "expanded") && showLanguageDropdown && (
+          <LanguageDropdown
+            selectedLanguage={selectedLanguage}
+            onLangChange={onLanguageChange}
+          />
+        )}
+        {isMobile && (
+          <Button
+            type="button"
+            variant="utility"
+            size="icon"
+            className="ml-auto size-9 rounded-full"
+            aria-label={t("close")}
+            onClick={() => setOpenMobile(false)}
+          >
+            <X />
+          </Button>
+        )}
+      </div>
+    </SidebarHeader>
+  );
+};
+
+interface ShellTitleProps {
+  appName: string;
+  sectionLabel: string;
+}
+
+const ShellTitle: React.FC<ShellTitleProps> = ({
+  appName,
+  sectionLabel,
+}) => {
+  const { isMobile, state } = useSidebar();
+
+  if (isMobile) {
+    return (
+      <span className="hidden truncate text-sm font-semibold tracking-tight text-foreground sm:block">
+        {sectionLabel}
+      </span>
+    );
+  }
+
+  return (
+    <span className="flex min-w-0 items-center gap-1.5 truncate text-sm font-semibold tracking-tight text-foreground">
+      {state === "collapsed" && (
+        <>
+          <span>{appName}</span>
+          <ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
+        </>
+      )}
+      <span className="truncate">{sectionLabel}</span>
+    </span>
+  );
+};
+
+const NavigationPanel: React.FC<NavigationPanelProps> = ({
+  currentPage,
+  sections,
+  chats,
+  selectedChat,
+  onChatChange,
+}) => {
+  const { setOpenMobile } = useSidebar();
+
+  const handleSelect = (onSelect: () => void) => {
+    onSelect();
+    setOpenMobile(false);
+  };
+
+  return (
+    <nav aria-label={t("navigation.title")}>
+      {sections.map((section) => (
+        <SidebarGroup key={section.id}>
+          <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = item.page === currentPage;
+
+                return (
+                  <SidebarMenuItem key={item.page}>
+                    <SidebarMenuButton
+                      type="button"
+                      tooltip={item.label}
+                      isActive={isActive}
+                      aria-current={isActive ? "page" : undefined}
+                      disabled={isActive}
+                      onClick={() => handleSelect(item.onSelect)}
+                    >
+                      <Icon />
+                      <SidebarMenuText>{item.label}</SidebarMenuText>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+              {section.showChats && chats.length > 0 && (
+                <ChatsCollapsible
+                  chats={chats}
+                  selectedChat={selectedChat}
+                  onChatChange={(chatId) => {
+                    onChatChange(chatId);
+                    setOpenMobile(false);
+                  }}
+                  defaultOpen={currentPage === "chat"}
+                />
+              )}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </nav>
+  );
+};
+
 const Header: React.FC<HeaderProps> = ({
   page,
-  selectedChat = undefined,
+  children,
+  selectedChat,
   chats: externalChats = [],
   chatsLoading = false,
   userId: propUserId,
   rawAccessToken,
   selectedLanguage,
-  hasBlockerError = false,
+  decodedToken,
+  expiryTimestamp,
+  onTokenExpired,
   showProfileButton = true,
   showSponsorshipsButton = true,
   showChatsDropdown = true,
@@ -87,23 +288,14 @@ const Header: React.FC<HeaderProps> = ({
   showLanguageDropdown = true,
   isLocked = false,
   onGoToOnboarding,
-  drawerOpen: externalDrawerOpen,
+  drawerOpen,
   onDrawerOpenChange,
 }) => {
-  const [internalMenuOpen, setInternalMenuOpen] = useState(false);
-  const [chatsCollapsibleOpen, setChatsCollapsibleOpen] = useState(
-    page === "chat",
-  );
-  const menuOpen =
-    externalDrawerOpen !== undefined ? externalDrawerOpen : internalMenuOpen;
-  const setMenuOpen = onDrawerOpenChange || setInternalMenuOpen;
-
   const { lang_iso_code, user_id, chat_id } = useParams<{
     lang_iso_code: string;
     user_id?: string;
     chat_id?: string;
   }>();
-
   const location = useLocation();
   const {
     navigateToChat,
@@ -117,611 +309,313 @@ const Header: React.FC<HeaderProps> = ({
     navigateToFeatures,
     navigateWithLanguageChange,
   } = useNavigation();
-
-  // Use chats passed from parent component — hide dropdown when done loading and empty
   const chats = externalChats;
   const chatsAvailable = chatsLoading || chats.length > 0;
-
-  // Prefer URL param, fall back to prop (for navigation from non-user-specific pages)
   const effectiveUserId =
     user_id || propUserId || localStorage.getItem("user_id");
-
   const { userSettings } = useUserSettings(
     effectiveUserId || undefined,
     rawAccessToken,
   );
-
-  // Resolve selected chat from URL or prop
   const resolvedSelectedChat =
-    selectedChat || chats.find((chat) => chat.chat_config.chat_id === chat_id);
-
-  // In lock mode, hide most nav items
-  const effectiveShowProfileButton = isLocked ? false : showProfileButton;
-  const effectiveShowSponsorshipsButton = isLocked
-    ? false
-    : showSponsorshipsButton;
-  const effectiveShowChatsDropdown = isLocked ? false : (showChatsDropdown && chatsAvailable);
-  const effectiveShowHelpButton = isLocked
-    ? page !== "features"
-    : showHelpButton;
+    selectedChat ||
+    chats.find((chat) => chat.chat_config.chat_id === chat_id);
+  const effectiveShowProfileButton = !isLocked && showProfileButton;
+  const effectiveShowSponsorshipsButton =
+    !isLocked && showSponsorshipsButton;
+  const effectiveShowChatsDropdown =
+    !isLocked && showChatsDropdown && chatsAvailable;
   const showHelpInline = isLocked && page !== "features";
-  const showHelpInDrawer = effectiveShowHelpButton && !isLocked;
-
-  // Determine if we should show the drawer at all
-  const hasAnyNavItems =
-    effectiveShowProfileButton ||
-    effectiveShowSponsorshipsButton ||
-    showHelpInDrawer ||
-    (effectiveShowChatsDropdown && chats.length > 0);
-
-  const getPageTitle = (page: Page): string => {
-    switch (page) {
-      case "sponsorships":
-        return t("sponsorships");
-      case "profile":
-        return t("profile");
-      case "chat":
-        return t("chat");
-      case "features":
-        return t("features.header");
-      case "access":
-        return t("access");
-      case "intelligence":
-        return t("intelligence");
-      case "linked_profiles":
-        return t("linked_profiles.page_title");
-      case "usage":
-        return t("usage.page_title");
-      case "purchases":
-        return t("purchases.page_title");
-      case "onboarding":
-        return t("onboarding.page_title");
-      default:
-        return "";
-    }
-  };
+  const showHelpInNavigation = !isLocked && showHelpButton;
+  const canNavigateToUserPages = !isLocked && Boolean(effectiveUserId);
+  const appName = import.meta.env.VITE_APP_NAME_SHORT;
+  const currentSectionLabel =
+    page === "profile" || page === "chat"
+      ? t("menu_section.personal")
+      : page === "intelligence" ||
+          page === "features" ||
+          page === "onboarding"
+        ? t("menu_section.agent")
+        : page === "usage" || page === "purchases" || page === "access"
+          ? t("menu_section.resources")
+          : t("menu_section.people");
+  const hasSessionTimer =
+    expiryTimestamp !== undefined && onTokenExpired !== undefined;
 
   const handleLangChange = (isoCode: string) => {
-    if (lang_iso_code) {
-      navigateWithLanguageChange(isoCode, location.pathname);
-    } else {
+    if (!lang_iso_code) {
       console.warn("Cannot navigate without lang_iso_code");
+      return;
     }
+
+    navigateWithLanguageChange(isoCode, location.pathname);
   };
 
   const handleChatChange = (chatId: string) => {
-    if (lang_iso_code) {
-      console.info("Chat changed to:", chatId);
-      navigateToChat(chatId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
+    if (!lang_iso_code) {
       console.warn("Cannot navigate without lang_iso_code");
+      return;
     }
+
+    navigateToChat(chatId, lang_iso_code);
   };
 
-  const handleProfileClick = () => {
-    if (page === "profile") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToProfile(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to profile without user_id");
+  const navigateToUserPage = (
+    destination:
+      | "profile"
+      | "access"
+      | "intelligence"
+      | "sponsorships"
+      | "linked_profiles"
+      | "usage"
+      | "purchases",
+  ) => {
+    if (!lang_iso_code || !effectiveUserId) {
+      console.warn(`Cannot navigate to ${destination} without user_id`);
+      return;
     }
-  };
 
-  const handleSponsorshipsClick = () => {
-    if (page === "sponsorships") return;
+    const navigationByDestination = {
+      profile: navigateToProfile,
+      access: navigateToAccess,
+      intelligence: navigateToIntelligence,
+      sponsorships: navigateToSponsorships,
+      linked_profiles: navigateToLinkedProfiles,
+      usage: navigateToUsage,
+      purchases: navigateToPurchases,
+    };
 
-    if (lang_iso_code && effectiveUserId) {
-      navigateToSponsorships(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to sponsorships without user_id");
-    }
-  };
-
-  const handleAccessClick = () => {
-    if (page === "access") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToAccess(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to access without user_id");
-    }
-  };
-
-  const handleIntelligenceClick = () => {
-    if (page === "intelligence") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToIntelligence(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to intelligence without user_id");
-    }
+    navigationByDestination[destination](effectiveUserId, lang_iso_code);
   };
 
   const handleHelpClick = () => {
-    if (page === "features") return;
-
-    if (lang_iso_code) {
-      navigateToFeatures(lang_iso_code);
-      setMenuOpen(false);
-    } else {
+    if (!lang_iso_code) {
       console.warn("Cannot navigate to features without lang_iso_code");
+      return;
+    }
+
+    navigateToFeatures(lang_iso_code);
+  };
+
+  const handleLogoClick = () => {
+    if (page !== "profile") {
+      navigateToUserPage("profile");
     }
   };
 
-  const handleLinkedProfilesClick = () => {
-    if (page === "linked_profiles") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToLinkedProfiles(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to linked profiles without user_id");
-    }
-  };
-
-  const handleUsageClick = () => {
-    if (page === "usage") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToUsage(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to usage without user_id");
-    }
-  };
-
-  const handlePurchasesClick = () => {
-    if (page === "purchases") return;
-
-    if (lang_iso_code && effectiveUserId) {
-      navigateToPurchases(effectiveUserId, lang_iso_code);
-      setMenuOpen(false);
-    } else {
-      console.warn("Cannot navigate to purchases without user_id");
-    }
-  };
+  const navigationSections = ([
+    {
+      id: "personal",
+      label: t("menu_section.personal"),
+      showChats: effectiveShowChatsDropdown,
+      items: [
+        {
+          page: "profile",
+          label: t("profile"),
+          icon: UserRound,
+          visible: effectiveShowProfileButton,
+          onSelect: () => navigateToUserPage("profile"),
+        },
+      ],
+    },
+    {
+      id: "agent",
+      label: t("menu_section.agent"),
+      items: [
+        {
+          page: "intelligence",
+          label: t("intelligence"),
+          icon: Sparkles,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("intelligence"),
+        },
+        {
+          page: "features",
+          label: t("help"),
+          icon: LifeBuoy,
+          visible: showHelpInNavigation,
+          onSelect: handleHelpClick,
+        },
+      ],
+    },
+    {
+      id: "resources",
+      label: t("menu_section.resources"),
+      items: [
+        {
+          page: "usage",
+          label: t("usage.page_title"),
+          icon: BadgeCent,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("usage"),
+        },
+        {
+          page: "purchases",
+          label: t("purchases.page_title"),
+          icon: ShoppingCart,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("purchases"),
+        },
+        {
+          page: "access",
+          label: t("access"),
+          icon: Key,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("access"),
+        },
+      ],
+    },
+    {
+      id: "people",
+      label: t("menu_section.people"),
+      items: [
+        {
+          page: "sponsorships",
+          label: t("sponsorships"),
+          icon: Gift,
+          visible: effectiveShowSponsorshipsButton,
+          onSelect: () => navigateToUserPage("sponsorships"),
+        },
+        {
+          page: "linked_profiles",
+          label: t("linked_profiles.page_title"),
+          icon: Merge,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("linked_profiles"),
+        },
+      ],
+    },
+  ] satisfies NavigationSection[])
+    .map((section) => ({
+      ...section,
+      items: section.items.filter((item) => item.visible),
+    }))
+    .filter((section) => section.items.length > 0 || section.showChats);
+  const hasNavigation = navigationSections.length > 0;
 
   return (
-    <div className="header-gradient w-screen relative">
-      {/* Mobile & Mid-size menu button - absolute positioned (<lg) */}
-      <div
-        className={cn(
-          "absolute right-6 z-10 lg:hidden flex items-center",
-          "top-6 md:top-12",
-          "gap-6 md:gap-2",
-        )}
-      >
-        {!isLocked && userSettings?.credit_balance !== undefined && (
-          <Button
-            variant="outline"
-            size="icon"
-            className={cn(
-              "rounded-full gap-2 w-auto px-4 scale-120 md:scale-100 touch-manipulation",
-              page === "usage"
-                ? "glass-active text-accent-amber underline underline-offset-4 decoration-accent-amber cursor-default"
-                : "glass cursor-pointer",
-            )}
-            onClick={handleUsageClick}
-            disabled={page === "usage"}
-          >
-            <BadgeCent className="h-5 w-5 text-accent-amber" />
-            <span className="font-mono">
-              {userSettings.credit_balance.toFixed(2)}
-            </span>
-          </Button>
-        )}
-        {onGoToOnboarding && (
-          <Button
-            variant="outline"
-            className={cn(
-              "glass rounded-full cursor-pointer gap-2 w-auto px-4",
-              "scale-120 md:scale-100",
-            )}
-            onClick={onGoToOnboarding}
-          >
-            <Rocket className="h-5 w-5 text-accent-amber" />
-            <span className="text-accent-amber font-medium">
-              {t("onboarding.start")}
-            </span>
-          </Button>
-        )}
-        {showHelpInline && (
-          <Button
-            variant="outline"
-            size="icon"
-            className={cn(
-              "glass rounded-full cursor-pointer",
-              "scale-120 md:scale-100",
-            )}
-            onClick={handleHelpClick}
-          >
-            <LifeBuoy className="h-5 w-5" />
-          </Button>
-        )}
-        {showLanguageDropdown && (
-          <LanguageDropdown
-            selectedLanguage={selectedLanguage}
-            onLangChange={handleLangChange}
-            className="scale-120 md:scale-100"
-          />
-        )}
-        {hasAnyNavItems && (
-          <Button
-            variant="outline"
-            size="icon"
-            className={cn("glass rounded-full", "scale-120 md:scale-100")}
-            onClick={() => setMenuOpen(true)}
-          >
-            <MenuIcon className="h-6 w-6" />
-          </Button>
-        )}
-      </div>
-
-      {/* Header content */}
-      <div
-        className={cn(
-          "flex flex-col items-center space-y-2",
-          "md:flex-row md:justify-between md:items-center md:space-y-0",
-          "px-4 pt-30 pb-12",
-          "md:px-10 md:pt-10 md:pb-24",
-          "max-w-7xl mx-auto text-white",
-        )}
-      >
-        {/* Page title & Icon */}
-        <div
-          className={cn(
-            "flex flex-col items-center space-y-6",
-            "md:flex-row md:items-center md:space-y-0",
-          )}
+    <SidebarProvider
+      openMobile={drawerOpen}
+      onOpenMobileChange={onDrawerOpenChange}
+    >
+      {hasNavigation && (
+        <Sidebar
+          side="left"
+          mobileSide="right"
+          collapsible="icon"
+          mobileTitle={t("navigation.title")}
+          mobileDescription={t("navigation.description")}
         >
-          <a href={import.meta.env.VITE_LANDING_PAGE_URL}>
-            <img
-              src={logoVector}
-              alt="App logo"
-              className={cn("h-20 w-20", "md:h-12 md:w-12")}
-            />
-          </a>
-          <h1
-            className="px-2 md:px-6 overflow-hidden truncate font-playfair font-bold text-3xl text-accent-amber"
-            title={getPageTitle(page)}
-          >
-            {getPageTitle(page)}
-          </h1>
-        </div>
-
-        {/* Desktop navigation - full menu (lg+) */}
-        <div className="hidden lg:flex items-center justify-center gap-2">
-          {/* Chats dropdown */}
-          {effectiveShowChatsDropdown && (
-            <ChatsDropdown
+          <SidebarBrand
+            appName={appName}
+            selectedLanguage={selectedLanguage}
+            showLanguageDropdown={showLanguageDropdown}
+            onActionClicked={handleLogoClick}
+            onLanguageChange={handleLangChange}
+          />
+          <SidebarContent className="border-sidebar-border px-4 py-2 transition-[padding] duration-200 ease-linear md:border-r group-data-[collapsible=icon]:px-0">
+            <NavigationPanel
+              currentPage={page}
+              sections={navigationSections}
               chats={chats}
               selectedChat={resolvedSelectedChat}
-              disabled={hasBlockerError && chats.length === 0}
               onChatChange={handleChatChange}
             />
-          )}
+          </SidebarContent>
+          <SidebarRail label={t("navigation.toggle_sidebar")} />
+        </Sidebar>
+      )}
 
-          {/* Navigation menu */}
-          <NavigationMenu>
-            <NavigationMenuList className="flex items-center gap-2">
-              {effectiveShowProfileButton && (
-                <NavigationMenuItem>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    disabled={page === "profile"}
-                    className={cn(
-                      "gap-2 text-base w-auto px-4 rounded-full",
-                      page === "profile"
-                        ? "glass-active text-accent-amber underline underline-offset-4 decoration-accent-amber cursor-default"
-                        : "glass cursor-pointer",
-                    )}
-                    onClick={handleProfileClick}
-                  >
-                    <UserRound className="h-5 w-5" />
-                    {t("profile")}
-                  </Button>
-                </NavigationMenuItem>
-              )}
+      <SidebarInset className="settings-pane-atmosphere">
+        <header className="sticky top-0 z-40 h-20 border-b border-border/80 bg-background">
+          <div className="flex h-full w-full items-center gap-3 px-4 sm:px-6 md:pl-1">
+            {hasNavigation && (
+              <div className="flex shrink-0 items-center md:contents">
+                <BrandLogoButton
+                  className={cn(
+                    "-ml-1 transition-opacity duration-200 md:hidden",
+                    drawerOpen && "pointer-events-none opacity-0",
+                  )}
+                  onActionClicked={handleLogoClick}
+                />
+                <SidebarTrigger
+                  className={cn(
+                    "hidden border-transparent bg-transparent hover:bg-transparent [&_svg]:size-5 md:ml-0 md:inline-flex",
+                    headerIconHighlightClassName,
+                  )}
+                  label={t("navigation.toggle_sidebar")}
+                />
+              </div>
+            )}
+            <ShellTitle
+              appName={appName}
+              sectionLabel={currentSectionLabel}
+            />
+            <div className="ml-auto flex shrink-0 items-center gap-2">
               {!isLocked && userSettings?.credit_balance !== undefined && (
-                <NavigationMenuItem>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className={cn(
-                      "gap-2 text-base w-auto px-4 rounded-full",
-                      page === "usage"
-                        ? "glass-active text-accent-amber underline underline-offset-4 decoration-accent-amber cursor-default"
-                        : "glass cursor-pointer",
-                    )}
-                    onClick={handleUsageClick}
-                    disabled={page === "usage"}
-                  >
-                    <BadgeCent className="h-5 w-5 text-accent-amber" />
-                    <span className="font-mono">
-                      {userSettings.credit_balance.toFixed(2)}
-                    </span>
-                  </Button>
-                </NavigationMenuItem>
+                <Button
+                  variant="utility"
+                  size="sm"
+                  className="rounded-full font-mono text-xs"
+                  data-active={page === "usage"}
+                  disabled={page === "usage"}
+                  onClick={() => navigateToUserPage("usage")}
+                >
+                  <BadgeCent className="text-accent-amber" />
+                  {userSettings.credit_balance.toFixed(2)}
+                </Button>
               )}
               {onGoToOnboarding && (
-                <NavigationMenuItem>
-                  <Button
-                    variant="outline"
-                    className="glass rounded-full cursor-pointer gap-2 text-base w-auto px-4"
-                    onClick={onGoToOnboarding}
-                  >
-                    <Rocket className="h-5 w-5 text-accent-amber" />
-                    <span className="text-accent-amber font-medium">
-                      {t("onboarding.start")}
-                    </span>
-                  </Button>
-                </NavigationMenuItem>
+                <Button
+                  variant="utility"
+                  size="sm"
+                  className="rounded-full"
+                  onClick={onGoToOnboarding}
+                >
+                  <Rocket className="text-accent-amber" />
+                  <span className="hidden sm:inline">
+                    {t("onboarding.start")}
+                  </span>
+                </Button>
               )}
               {showHelpInline && (
-                <NavigationMenuItem>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="glass cursor-pointer gap-2 text-base w-auto px-4 rounded-full"
-                    onClick={handleHelpClick}
-                  >
-                    <LifeBuoy className="h-5 w-5" />
-                    {t("help")}
-                  </Button>
-                </NavigationMenuItem>
+                <Button
+                  variant="utility"
+                  size="icon"
+                  className="rounded-full"
+                  onClick={handleHelpClick}
+                >
+                  <LifeBuoy />
+                  <span className="sr-only">{t("help")}</span>
+                </Button>
               )}
-              {showLanguageDropdown && (
-                <NavigationMenuItem>
-                  <LanguageDropdown
-                    selectedLanguage={selectedLanguage}
-                    onLangChange={handleLangChange}
-                  />
-                </NavigationMenuItem>
+              {showLanguageDropdown && !hasNavigation && (
+                <LanguageDropdown
+                  selectedLanguage={selectedLanguage}
+                  onLangChange={handleLangChange}
+                />
               )}
-              {hasAnyNavItems && (
-                <NavigationMenuItem>
-                  <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-                    <SheetTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="glass rounded-full cursor-pointer"
-                      >
-                        <MenuIcon className="h-5 w-5" />
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent
-                      side="right"
-                      className="w-full! sm:max-w-sm glass-dark-static border-l border-white/20 px-4 [&>button]:hidden"
-                    >
-                      <SheetTitle className="sr-only">
-                        Navigation Menu
-                      </SheetTitle>
-                      <SheetDescription className="sr-only">
-                        Access your chats, profile, intelligence, usage,
-                        purchases, access, sponsorships, linked profiles, help,
-                        and other
-                      </SheetDescription>
-                      <div className="flex flex-col h-full overflow-y-auto">
-                        <div className="h-6" />
-                        {/* Custom close button */}
-                        <div className="px-1 flex items-center justify-end gap-6">
-                          <div className="flex-1 h-px bg-blue-300/30" />
-                          <SheetClose asChild>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className={cn(
-                                "glass rounded-full cursor-pointer",
-                                "scale-120 md:scale-100",
-                              )}
-                            >
-                              <X className="h-6 w-6" />
-                            </Button>
-                          </SheetClose>
-                        </div>
-
-                        <div className="h-4" />
-
-                        {/* Navigation items */}
-                        <div className="flex flex-col border-white/10">
-                          {/* Personal Section */}
-                          {!isLocked && (
-                            <>
-                              <div className="px-3 pt-2 pb-1">
-                                <span className="text-xs uppercase font-medium text-blue-300">
-                                  {t("menu_section.personal")}
-                                </span>
-                              </div>
-                              {/* Chats collapsible in Personal section */}
-                              {effectiveShowChatsDropdown &&
-                                chats.length > 0 && (
-                                  <>
-                                    <ChatsCollapsible
-                                      chats={chats}
-                                      selectedChat={resolvedSelectedChat}
-                                      onChatChange={handleChatChange}
-                                      defaultOpen={page === "chat"}
-                                      onOpenChange={setChatsCollapsibleOpen}
-                                    />
-                                    {chatsCollapsibleOpen && (
-                                      <div className="h-4" />
-                                    )}
-                                  </>
-                                )}
-                              {effectiveShowProfileButton && (
-                                <Button
-                                  variant="ghost"
-                                  disabled={page === "profile"}
-                                  className={cn(
-                                    "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                    page === "profile"
-                                      ? "bg-accent/70 cursor-default opacity-100"
-                                      : "text-white hover:bg-white/10 cursor-pointer",
-                                  )}
-                                  onClick={handleProfileClick}
-                                >
-                                  <UserRound className="h-5 w-5 shrink-0" />
-                                  {t("profile")}
-                                </Button>
-                              )}
-                              <div className="h-4" />
-                            </>
-                          )}
-
-                          {/* Agent Section */}
-                          <div className="px-3 pt-4 pb-1">
-                            <span className="text-xs uppercase font-medium text-blue-300">
-                              {t("menu_section.agent")}
-                            </span>
-                          </div>
-                          {!isLocked && (
-                            <Button
-                              variant="ghost"
-                              disabled={page === "intelligence"}
-                              className={cn(
-                                "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                page === "intelligence"
-                                  ? "bg-accent/70 cursor-default opacity-100"
-                                  : "text-white hover:bg-white/10 cursor-pointer",
-                              )}
-                              onClick={handleIntelligenceClick}
-                            >
-                              <Sparkles className="h-5 w-5 shrink-0" />
-                              {t("intelligence")}
-                            </Button>
-                          )}
-                          {showHelpInDrawer && (
-                            <Button
-                              variant="ghost"
-                              disabled={page === "features"}
-                              className={cn(
-                                "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                page === "features"
-                                  ? "bg-accent/70 cursor-default opacity-100"
-                                  : "text-white hover:bg-white/10 cursor-pointer",
-                              )}
-                              onClick={handleHelpClick}
-                            >
-                              <LifeBuoy className="h-5 w-5 shrink-0" />
-                              {t("help")}
-                            </Button>
-                          )}
-                          <div className="h-4" />
-
-                          {/* Resources Section */}
-                          {!isLocked && (
-                            <>
-                              <div className="px-3 pt-4 pb-1">
-                                <span className="text-xs uppercase font-medium text-blue-300">
-                                  {t("menu_section.resources")}
-                                </span>
-                              </div>
-                              <Button
-                                variant="ghost"
-                                disabled={page === "usage"}
-                                className={cn(
-                                  "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                  page === "usage"
-                                    ? "bg-accent/70 cursor-default opacity-100"
-                                    : "text-white hover:bg-white/10 cursor-pointer",
-                                )}
-                                onClick={handleUsageClick}
-                              >
-                                <BadgeCent className="h-5 w-5 shrink-0" />
-                                {t("usage.page_title")}
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                disabled={page === "purchases"}
-                                className={cn(
-                                  "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                  page === "purchases"
-                                    ? "bg-accent/70 cursor-default opacity-100"
-                                    : "text-white hover:bg-white/10 cursor-pointer",
-                                )}
-                                onClick={handlePurchasesClick}
-                              >
-                                <ShoppingCart className="h-5 w-5 shrink-0" />
-                                {t("purchases.page_title")}
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                disabled={page === "access"}
-                                className={cn(
-                                  "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                  page === "access"
-                                    ? "bg-accent/70 cursor-default opacity-100"
-                                    : "text-white hover:bg-white/10 cursor-pointer",
-                                )}
-                                onClick={handleAccessClick}
-                              >
-                                <Key className="h-5 w-5 shrink-0" />
-                                {t("access")}
-                              </Button>
-                              <div className="h-4" />
-                            </>
-                          )}
-
-                          {/* People Section */}
-                          {!isLocked && (
-                            <>
-                              <div className="px-3 pt-4 pb-1">
-                                <span className="text-xs uppercase font-medium text-blue-300">
-                                  {t("menu_section.people")}
-                                </span>
-                              </div>
-                              {effectiveShowSponsorshipsButton && (
-                                <Button
-                                  variant="ghost"
-                                  disabled={page === "sponsorships"}
-                                  className={cn(
-                                    "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                    page === "sponsorships"
-                                      ? "bg-accent/70 cursor-default opacity-100"
-                                      : "text-white hover:bg-white/10 cursor-pointer",
-                                  )}
-                                  onClick={handleSponsorshipsClick}
-                                >
-                                  <Gift className="h-5 w-5 shrink-0" />
-                                  {t("sponsorships")}
-                                </Button>
-                              )}
-                              <Button
-                                variant="ghost"
-                                disabled={page === "linked_profiles"}
-                                className={cn(
-                                  "justify-start gap-3 text-base h-12 rounded-xl font-normal",
-                                  page === "linked_profiles"
-                                    ? "bg-accent/70 cursor-default opacity-100"
-                                    : "text-white hover:bg-white/10 cursor-pointer",
-                                )}
-                                onClick={handleLinkedProfilesClick}
-                              >
-                                <Merge className="h-5 w-5 shrink-0" />
-                                {t("linked_profiles.page_title")}
-                              </Button>
-                              <div className="h-4" />
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                </NavigationMenuItem>
+              {hasSessionTimer && (
+                <CountdownTimer
+                  expiryTimestamp={expiryTimestamp}
+                  decodedToken={decodedToken}
+                  onExpire={onTokenExpired}
+                  compactOnNarrow
+                />
               )}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-      </div>
-    </div>
+              {hasNavigation && (
+                <SidebarTrigger
+                  className="md:hidden"
+                  label={t("navigation.toggle_sidebar")}
+                  panelSide="right"
+                />
+              )}
+            </div>
+          </div>
+        </header>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

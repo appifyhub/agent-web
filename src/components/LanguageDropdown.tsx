@@ -38,9 +38,12 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
       <DropdownMenuTrigger asChild>
         {trigger ?? (
           <Button
-            variant="outline"
+            variant="utility"
             size="icon"
-            className={cn("glass w-auto px-4 rounded-full text-xl cursor-pointer", className)}
+            className={cn(
+              "w-auto cursor-pointer rounded-full px-3 text-base",
+              className,
+            )}
           >
             {selectedLanguage.flagEmoji}
             <ChevronDownIcon className="h-4 w-4 ml-1" />
@@ -49,15 +52,15 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="p-6 glass-dark-static rounded-2xl"
+        className="rounded-xl border-border bg-popover p-2 shadow-2xl"
       >
         {INTERFACE_LANGUAGES.map((lang: Language) => (
           <DropdownMenuItem
             key={lang.isoCode}
             onClick={() => onLangChange?.(lang.isoCode)}
             className={cn(
-              "cursor-pointer py-4 px-6 text-foreground",
-              lang.isoCode === selectedLanguage.isoCode ? "bg-accent/70" : ""
+              "cursor-pointer rounded-lg px-3 py-2.5 text-foreground",
+              lang.isoCode === selectedLanguage.isoCode ? "bg-accent" : "",
             )}
             disabled={lang.isoCode === selectedLanguage.isoCode}
           >

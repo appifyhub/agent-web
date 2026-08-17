@@ -29,15 +29,15 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
         : "h-5 w-5 text-foreground-muted";
   return (
     <Button
-      variant="ghost"
+      variant="navigation"
       disabled={isSelected}
       onClick={() => onSelect(chat.chat_config.chat_id)}
       className={cn(
-        "w-full justify-start gap-3 text-base h-12 rounded-xl px-8 font-normal",
+        "h-10 w-full justify-start gap-3 rounded-lg px-6 text-sm font-normal",
         isSelected
-          ? "bg-accent/70 cursor-default opacity-100"
-          : "text-white hover:bg-white/10 cursor-pointer",
-        className
+          ? "cursor-default border-sidebar-border bg-sidebar-accent text-sidebar-primary opacity-100"
+          : "cursor-pointer",
+        className,
       )}
     >
       <div className="flex items-center justify-center w-6 h-6 shrink-0">

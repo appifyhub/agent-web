@@ -83,15 +83,15 @@ const ChatsDropdown: React.FC<ChatsDropdownProps> = ({
         )}
       >
         <Button
-          variant="outline"
+          variant="utility"
           size="icon"
           className={cn(
             chats.length === 0 || disabled
-              ? "glass-dark-static"
+              ? "bg-muted/50"
               : isValidChatSelected
-                ? "glass text-orange-200 font-normal underline underline-offset-4 decoration-accent-amber hover:decoration-white"
-                : "glass font-light",
-            "w-auto min-w-0 whitespace-nowrap overflow-hidden md:w-auto md:max-w-md text-base",
+                ? "border-primary/25 text-foreground"
+                : "font-normal",
+            "h-9 w-auto min-w-0 overflow-hidden whitespace-nowrap rounded-full text-sm md:w-auto md:max-w-md",
           )}
           disabled={chats.length === 0 || disabled}
         >
@@ -103,7 +103,7 @@ const ChatsDropdown: React.FC<ChatsDropdownProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="p-1 glass-dark-static rounded-2xl max-w-xs md:max-w-md"
+        className="max-w-xs rounded-xl border-border bg-popover p-1.5 shadow-2xl md:max-w-md"
       >
         {chats.map((chat) => {
           const platform = Platform.fromString(chat.chat_config.platform);
@@ -118,9 +118,9 @@ const ChatsDropdown: React.FC<ChatsDropdownProps> = ({
               key={chat.chat_config.chat_id}
               onClick={() => onChatChange?.(chat.chat_config.chat_id)}
               className={cn(
-                "cursor-pointer py-4 px-4 text-foreground flex items-center space-x-2 min-w-0 overflow-hidden",
+                "flex min-w-0 cursor-pointer items-center space-x-2 overflow-hidden rounded-lg px-3 py-3 text-foreground",
                 chat.chat_config.chat_id === selectedChat?.chat_config.chat_id
-                  ? "bg-accent/70"
+                  ? "bg-accent"
                   : "",
               )}
               disabled={

@@ -1,5 +1,4 @@
 import React from "react";
-import CountdownTimer from "@/components/CountdownTimer";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -11,10 +10,10 @@ import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 
 interface SettingActionBarProps {
-  expiryTimestamp: number;
-  onTokenExpired: () => void;
   onActionClicked: () => void;
   actionDisabled: boolean;
+  className?: string;
+  leadingContent?: React.ReactNode;
   showActionButton?: boolean;
   actionIcon?: React.ReactNode;
   actionButtonText?: string;
@@ -33,10 +32,10 @@ interface SettingActionBarProps {
 }
 
 const SettingActionBar: React.FC<SettingActionBarProps> = ({
-  expiryTimestamp,
-  onTokenExpired,
   onActionClicked,
   actionDisabled,
+  className,
+  leadingContent,
   showActionButton = true,
   actionIcon,
   actionButtonText = t("save"),
@@ -53,24 +52,23 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
   cancelIcon,
   cancelTooltipText = t("close"),
 }) => (
-  <div className="flex justify-between items-center gap-2">
-    <CountdownTimer
-      expiryTimestamp={expiryTimestamp}
-      onExpire={onTokenExpired}
-    />
-    <div className="flex items-center space-x-2">
+  <div className={cn("flex w-full min-w-0 items-center gap-3", className)}>
+    {leadingContent && (
+      <div className="flex min-w-0 items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {leadingContent}
+      </div>
+    )}
+    <div className="ml-auto flex shrink-0 items-center gap-2">
       {showSecondaryButton && (
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={secondaryDisabled ? "default" : "outline"}
+              variant="utility"
               size={secondaryText ? "default" : "icon"}
               className={cn(
-                secondaryDisabled
-                  ? "text-muted-foreground bg-foreground/20 border border-foreground/20 rounded-full cursor-pointer"
-                  : "glass rounded-full cursor-pointer",
-                secondaryText ? "h-10 px-6 text-[1.05rem]" : "h-10 w-10",
-                secondaryClassName
+                "cursor-pointer rounded-full",
+                secondaryText ? "h-9 px-4 text-sm" : "h-9 w-9",
+                secondaryClassName,
               )}
               disabled={secondaryDisabled}
               onClick={onSecondaryClicked}
@@ -84,12 +82,8 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
       )}
       {showActionButton && (
         <Button
-          className={cn(
-            "bg-primary hover:bg-purple-200 text-primary-foreground hover:text-zinc-900 px-6 py-3 text-[1.05rem] rounded-full cursor-pointer h-10",
-            actionDisabled
-              ? "text-muted-foreground bg-foreground/20 border border-foreground/20"
-              : ""
-          )}
+          variant="brand"
+          className="h-9 cursor-pointer rounded-full px-5 text-sm disabled:bg-primary/30 disabled:text-primary-foreground/55 disabled:opacity-100 disabled:shadow-none"
           disabled={actionDisabled}
           onClick={onActionClicked}
         >
@@ -102,13 +96,9 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={cancelDisabled ? "default" : "outline"}
+              variant="utility"
               size="icon"
-              className={cn(
-                cancelDisabled
-                  ? "text-muted-foreground bg-foreground/20 border border-foreground/20 h-10 w-10 rounded-full cursor-pointer"
-                  : "glass rounded-full cursor-pointer h-10 w-10"
-              )}
+              className="h-9 w-9 cursor-pointer rounded-full"
               disabled={cancelDisabled}
               onClick={onCancelClicked}
             >

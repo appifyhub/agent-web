@@ -87,7 +87,7 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         {helperText && (
           <p
             className={cn(
-              "text-sm font-light opacity-80",
+              "ps-1 text-sm font-light opacity-80",
               disabled ? "text-muted-foreground/50" : "text-muted-foreground"
             )}
           >

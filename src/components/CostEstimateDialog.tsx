@@ -335,7 +335,7 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
           <DialogContent className="sm:max-w-[500px] glass-dark-static p-[2.5rem] rounded-3xl" showCloseButton={false}>
             <DialogClose className="absolute top-8 right-8 glass rounded-full cursor-pointer h-7 w-7 flex items-center justify-center">
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t("close")}</span>
             </DialogClose>
             <DialogHeader>
               <div className="flex items-center gap-3">

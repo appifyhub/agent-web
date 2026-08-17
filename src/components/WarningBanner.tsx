@@ -1,6 +1,7 @@
 import React from "react";
 import { AlertTriangle, X, Trash2, Plus, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { t } from "@/lib/translations";
 
 interface WarningBannerProps {
   message: string;
@@ -83,7 +84,7 @@ const WarningBanner: React.FC<WarningBannerProps> = ({
           type="button"
         >
           <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
+          <span className="sr-only">{t("close")}</span>
         </button>
         <div className="w-0" />
       </div>
