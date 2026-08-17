@@ -220,6 +220,12 @@
     "resources": "Kaynaklar",
     "people": "İnsanlar"
   },
+  "navigation": {
+    "title": "Gezinti",
+    "show_session_timer": "Kalan oturum süresini göster",
+    "toggle_sidebar": "Kenar çubuğunu aç veya kapat",
+    "description": "Ayar sayfalarına ve kullanılabilir sohbetlere göz atın."
+  },
   "linked_profiles": {
     "page_title": "Bağlı Profiller",
     "card_title": "Profilleri Bağla",
@@ -294,7 +300,7 @@
     "platform_user_id": "Platform Kullanıcı ID",
     "platform_handle": "Platform Kullanıcı Adı",
     "version": "AI Sürümü",
-    "reveal_placeholder": "Sizi tanımlayan bilgiler"
+    "session_details": "Oturum ayrıntıları"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "Projeyi incele",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Hizmet Şartları",
     "privacy": "Gizlilik Politikası",

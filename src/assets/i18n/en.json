@@ -220,6 +220,12 @@
     "resources": "Resources",
     "people": "People"
   },
+  "navigation": {
+    "title": "Navigation",
+    "show_session_timer": "Show remaining session time",
+    "toggle_sidebar": "Toggle sidebar",
+    "description": "Browse settings pages and available chats."
+  },
   "linked_profiles": {
     "page_title": "Linked Profiles",
     "card_title": "Link Profiles",
@@ -294,7 +300,7 @@
     "platform_user_id": "Platform User ID",
     "platform_handle": "Platform Handle",
     "version": "AI Version",
-    "reveal_placeholder": "Information that identifies you"
+    "session_details": "Session details"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "Check out the project",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",

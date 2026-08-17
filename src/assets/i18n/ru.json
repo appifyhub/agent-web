@@ -220,6 +220,12 @@
     "resources": "Ресурсы",
     "people": "Люди"
   },
+  "navigation": {
+    "title": "Навигация",
+    "show_session_timer": "Показать оставшееся время сеанса",
+    "toggle_sidebar": "Переключить боковую панель",
+    "description": "Просматривайте страницы настроек и доступные чаты."
+  },
   "linked_profiles": {
     "page_title": "Связанные Профили",
     "card_title": "Подключить Профили",
@@ -294,7 +300,7 @@
     "platform_user_id": "ID пользователя платформы",
     "platform_handle": "Имя пользователя платформы",
     "version": "Версия ИИ",
-    "reveal_placeholder": "Информация, которая вас идентифицирует"
+    "session_details": "Сведения о сеансе"
   },
   "platforms": {
     "telegram": "Телеграм",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "Посмотреть проект",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Логотип",
     "terms": "Условия использования",
     "privacy": "Политика конфиденциальности",

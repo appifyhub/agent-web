@@ -220,6 +220,12 @@
     "resources": "Ressourcen",
     "people": "Personen"
   },
+  "navigation": {
+    "title": "Navigation",
+    "show_session_timer": "Verbleibende Sitzungszeit anzeigen",
+    "toggle_sidebar": "Seitenleiste ein- oder ausblenden",
+    "description": "Einstellungsseiten und verfügbare Chats durchsuchen."
+  },
   "linked_profiles": {
     "page_title": "Verknüpfte Profile",
     "card_title": "Profile verbinden",
@@ -294,7 +300,7 @@
     "platform_user_id": "Plattform-Benutzer-ID",
     "platform_handle": "Plattform-Benutzername",
     "version": "KI-Version",
-    "reveal_placeholder": "Informationen, die Sie identifizieren"
+    "session_details": "Sitzungsdetails"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "Projekt ansehen",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzrichtlinie",

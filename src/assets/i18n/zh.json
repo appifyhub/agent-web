@@ -220,6 +220,12 @@
     "resources": "资源",
     "people": "联系人"
   },
+  "navigation": {
+    "title": "导航",
+    "show_session_timer": "显示剩余会话时间",
+    "toggle_sidebar": "切换侧边栏",
+    "description": "浏览设置页面和可用聊天。"
+  },
   "linked_profiles": {
     "page_title": "关联的配置文件",
     "card_title": "连接配置文件",
@@ -294,7 +300,7 @@
     "platform_user_id": "平台用户ID",
     "platform_handle": "平台用户名",
     "version": "AI 版本",
-    "reveal_placeholder": "识别您的信息"
+    "session_details": "会话详情"
   },
   "platforms": {
     "telegram": "电报",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "查看项目",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "标志",
     "terms": "服务条款",
     "privacy": "隐私政策",

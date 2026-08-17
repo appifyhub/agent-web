@@ -220,6 +220,12 @@
     "resources": "संसाधन",
     "people": "लोग"
   },
+  "navigation": {
+    "title": "नेविगेशन",
+    "show_session_timer": "शेष सत्र समय दिखाएँ",
+    "toggle_sidebar": "साइडबार टॉगल करें",
+    "description": "सेटिंग पेज और उपलब्ध चैट देखें।"
+  },
   "linked_profiles": {
     "page_title": "लिंक किए गए प्रोफाइल",
     "card_title": "प्रोफाइल कनेक्ट करें",
@@ -294,7 +300,7 @@
     "platform_user_id": "प्लेटफॉर्म उपयोगकर्ता आईडी",
     "platform_handle": "प्लेटफॉर्म उपयोगकर्ता नाम",
     "version": "AI संस्करण",
-    "reveal_placeholder": "जानकारी जो आपकी पहचान करती है"
+    "session_details": "सत्र विवरण"
   },
   "platforms": {
     "telegram": "टेलीग्राम",
@@ -628,6 +634,7 @@
   },
   "check_out_project": "प्रोजेक्ट देखें",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "लोगो",
     "terms": "सेवा की शर्तें",
     "privacy": "गोपनीयता नीति",
