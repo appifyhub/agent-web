@@ -4,9 +4,9 @@ import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { usePageSession } from "@/hooks/usePageSession";
 import { ApiError } from "@/lib/api-error";
-import { PageError, cn } from "@/lib/utils";
+import { PageError } from "@/lib/utils";
 import { toast } from "sonner";
-import { ChevronsRight } from "lucide-react";
+import { BadgeCent, KeyRound, Sparkles, type LucideIcon } from "lucide-react";
 import {
   fetchUserSettings,
   saveUserSettings,
@@ -18,6 +18,30 @@ import {
 import { useNavigation } from "@/hooks/useNavigation";
 import SettingTextarea from "@/components/SettingTextarea";
 import SettingInput from "@/components/SettingInput";
+import SettingsSection from "@/components/settings/SettingsSection";
+import { Button } from "@/components/ui/button";
+
+interface ProfileGuideChipProps {
+  icon: LucideIcon;
+  label: string;
+  onActionClicked: () => void;
+}
+
+const ProfileGuideChip: React.FC<ProfileGuideChipProps> = ({
+  icon: Icon,
+  label,
+  onActionClicked,
+}) => (
+  <Button
+    variant="utility"
+    size="sm"
+    className="h-8 shrink-0 rounded-full border-blue-300/25 bg-blue-300/10 px-3 text-xs text-blue-200 hover:border-blue-300/40 hover:bg-blue-300/15 hover:text-blue-100"
+    onClick={onActionClicked}
+  >
+    <Icon className="!size-3" />
+    {label}
+  </Button>
+);
 
 const UserSettingsPage: React.FC = () => {
   const { user_id, lang_iso_code } = useParams<{
@@ -124,17 +148,60 @@ const UserSettingsPage: React.FC = () => {
     }
   };
 
+  let followupContent: React.ReactNode;
+
+  if (userSettings) {
+    const hasApiKeys = hasAnyApiKey(userSettings);
+    const hasCredits = (userSettings.credit_balance ?? 0) > 0;
+
+    followupContent =
+      hasApiKeys || hasCredits ? (
+        <ProfileGuideChip
+          icon={Sparkles}
+          label={t("configure_intelligence")}
+          onActionClicked={() => {
+            if (user_id && lang_iso_code) {
+              navigateToIntelligence(user_id, lang_iso_code);
+            }
+          }}
+        />
+      ) : (
+        <>
+          <ProfileGuideChip
+            icon={BadgeCent}
+            label={t("purchases.buy_credits")}
+            onActionClicked={() => {
+              if (user_id && lang_iso_code) {
+                navigateToPurchases(user_id, lang_iso_code);
+              }
+            }}
+          />
+          <ProfileGuideChip
+            icon={KeyRound}
+            label={t("configure_access_keys")}
+            onActionClicked={() => {
+              if (user_id && lang_iso_code) {
+                navigateToAccess(user_id, lang_iso_code);
+              }
+            }}
+          />
+        </>
+      );
+  }
+
   return (
     <BaseSettingsPage
       page="profile"
       cardTitle={t("profile_card_title", { botName })}
       onActionClicked={handleSave}
       actionDisabled={!hasSettingsChanged}
+      followupContent={followupContent}
       isContentLoading={isLoadingState}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
+      contentVariant="flow"
     >
-      <div className="flex flex-col items-center gap-6">
+      <SettingsSection className="w-full" contentClassName="items-center">
         {/* Full name input */}
         <SettingInput
           id="full-name"
@@ -162,7 +229,8 @@ const UserSettingsPage: React.FC = () => {
           }
           disabled={!!error?.isBlocker}
           placeholder={t("profile_full_name_placeholder")}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-md"
+          variant="section"
           onKeyboardConfirm={() => {
             if (!error?.isBlocker && hasSettingsChanged) {
               handleSave();
@@ -205,7 +273,8 @@ const UserSettingsPage: React.FC = () => {
           }
           minRows={2}
           maxRows={6}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-md"
+          variant="section"
         />
 
         {/* Custom prompt textarea */}
@@ -241,70 +310,11 @@ const UserSettingsPage: React.FC = () => {
           }
           minRows={2}
           maxRows={6}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-md"
+          variant="section"
         />
 
-        {/* Navigation links based on user setup status */}
-        {(() => {
-          if (!userSettings) return null;
-
-          const hasApiKeys = hasAnyApiKey(userSettings);
-          const hasCredits = (userSettings.credit_balance ?? 0) > 0;
-
-          const linkClass =
-            "underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer";
-          const rowClass = "flex items-center gap-2 text-sm text-muted-foreground";
-
-          if (hasApiKeys || hasCredits) {
-            return (
-              <div className={cn(rowClass, "w-full sm:w-md")}>
-                <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
-                <button
-                  onClick={() => {
-                    if (user_id && lang_iso_code) {
-                      navigateToIntelligence(user_id, lang_iso_code);
-                    }
-                  }}
-                  className={linkClass}
-                >
-                  {t("configure_intelligence")}
-                </button>
-              </div>
-            );
-          }
-
-          return (
-            <div className="flex flex-col gap-2 w-full sm:w-md">
-              <div className={rowClass}>
-                <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
-                <button
-                  onClick={() => {
-                    if (user_id && lang_iso_code) {
-                      navigateToPurchases(user_id, lang_iso_code);
-                    }
-                  }}
-                  className={linkClass}
-                >
-                  {t("purchases.buy_credits")}
-                </button>
-              </div>
-              <div className={rowClass}>
-                <ChevronsRight className="h-4 w-4 text-accent-amber/70" />
-                <button
-                  onClick={() => {
-                    if (user_id && lang_iso_code) {
-                      navigateToAccess(user_id, lang_iso_code);
-                    }
-                  }}
-                  className={linkClass}
-                >
-                  {t("configure_access_keys")}
-                </button>
-              </div>
-            </div>
-          );
-        })()}
-      </div>
+      </SettingsSection>
     </BaseSettingsPage>
   );
 };

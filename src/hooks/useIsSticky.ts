@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 
-export function useIsSticky(sentinelRef: RefObject<HTMLElement | null>): boolean {
+export function useIsSticky(
+  sentinelRef: RefObject<HTMLElement | null>,
+  topOffset = 0,
+): boolean {
   const [isSticky, setIsSticky] = useState(false);
   const rafId = useRef(0);
 
@@ -12,7 +15,7 @@ export function useIsSticky(sentinelRef: RefObject<HTMLElement | null>): boolean
         return;
       }
       const rect = sentinel.getBoundingClientRect();
-      setIsSticky(rect.bottom <= 16);
+      setIsSticky(rect.bottom <= topOffset);
     };
 
     const onScroll = () => {
@@ -29,7 +32,7 @@ export function useIsSticky(sentinelRef: RefObject<HTMLElement | null>): boolean
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("scroll", onScroll, { capture: true });
     };
-  }, [sentinelRef]);
+  }, [sentinelRef, topOffset]);
 
   return isSticky;
 }

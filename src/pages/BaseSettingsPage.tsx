@@ -9,11 +9,10 @@ import { useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SettingActionBar from "@/components/SettingActionBar";
-import TokenSummary from "@/components/TokenSummary";
 import ErrorMessage from "@/components/ErrorMessage";
 import SettingsPageSkeleton from "@/components/SettingsPageSkeleton";
 import GenericPageSkeleton from "@/components/GenericPageSkeleton";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { DEFAULT_LANGUAGE, INTERFACE_LANGUAGES } from "@/lib/languages";
 import { t } from "@/lib/translations";
 import { usePageSession } from "@/hooks/usePageSession";
@@ -23,17 +22,13 @@ import { useNavigation } from "@/hooks/useNavigation";
 import { ChatSettings } from "@/services/chat-settings-service";
 import { PageError, cn } from "@/lib/utils";
 import { useIsSticky } from "@/hooks/useIsSticky";
+import {
+  getSettingsPageTitle,
+  type SettingsPage,
+} from "@/lib/settings-pages";
 
-type Page =
-  | "sponsorships"
-  | "profile"
-  | "chat"
-  | "access"
-  | "intelligence"
-  | "linked_profiles"
-  | "usage"
-  | "purchases"
-  | "onboarding";
+type Page = Exclude<SettingsPage, "features">;
+const ACTION_BAR_TOP_OFFSET = 80;
 
 export interface BaseSettingsPageRef {
   openDrawer: () => void;
@@ -45,6 +40,7 @@ interface BaseSettingsPageProps {
   cardTitle?: string;
   onActionClicked?: () => void;
   actionDisabled?: boolean;
+  followupContent?: React.ReactNode;
   showActionButton?: boolean;
   actionIcon?: React.ReactNode;
   actionButtonText?: string;
@@ -68,6 +64,7 @@ interface BaseSettingsPageProps {
   onExternalErrorDismiss?: () => void;
   cardClassName?: string;
   topBanner?: React.ReactNode;
+  contentVariant?: "card" | "flow";
 }
 
 const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
@@ -78,6 +75,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       cardTitle,
       onActionClicked = () => {},
       actionDisabled = false,
+      followupContent,
       showActionButton = true,
       actionIcon,
       actionButtonText,
@@ -101,6 +99,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       onExternalErrorDismiss,
       cardClassName,
       topBanner,
+      contentVariant = "card",
     },
     ref,
   ) => {
@@ -144,7 +143,10 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const stickySentinelRef = useRef<HTMLDivElement>(null);
-    const isActionBarSticky = useIsSticky(stickySentinelRef);
+    const isActionBarSticky = useIsSticky(
+      stickySentinelRef,
+      ACTION_BAR_TOP_OFFSET,
+    );
 
     useImperativeHandle(ref, () => ({
       openDrawer: () => setDrawerOpen(true),
@@ -180,142 +182,168 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       );
     }
 
+    const contentContainerClassName =
+      "mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-10";
+
+    const renderActionBar = (
+      barLeadingContent?: React.ReactNode,
+      className?: string,
+    ) => (
+      <SettingActionBar
+        className={className}
+        onActionClicked={onActionClicked}
+        actionDisabled={
+          actionDisabled || isLoadingState || !!displayError?.isBlocker
+        }
+        leadingContent={barLeadingContent}
+        showActionButton={showActionButton}
+        actionIcon={actionIcon}
+        actionButtonText={actionButtonText}
+        showSecondaryButton={showSecondaryButton}
+        onSecondaryClicked={onSecondaryClicked}
+        secondaryDisabled={
+          secondaryDisabled || isLoadingState || !!displayError?.isBlocker
+        }
+        secondaryIcon={secondaryIcon}
+        secondaryText={secondaryText}
+        secondaryTooltipText={secondaryTooltipText}
+        secondaryClassName={secondaryClassName}
+        showCancelButton={showCancelButton}
+        onCancelClicked={onCancelClicked}
+        cancelDisabled={
+          cancelDisabled || isLoadingState || !!displayError?.isBlocker
+        }
+        cancelIcon={cancelIcon}
+        cancelTooltipText={cancelTooltipText}
+      />
+    );
+
     // render the main content
     return (
-      <div className="flex flex-col min-h-screen">
-        {/* The Header section */}
-        <Header
-          page={page}
-          selectedChat={selectedChat}
-          chats={chats}
-          chatsLoading={isChatsLoading}
-          userId={accessToken?.decoded?.sub}
-          rawAccessToken={accessToken?.raw}
-          selectedLanguage={
-            INTERFACE_LANGUAGES.find(
-              (lang) => lang.isoCode === lang_iso_code,
-            ) || DEFAULT_LANGUAGE
-          }
-          hasBlockerError={!!displayError?.isBlocker}
-          showProfileButton={showProfileButton}
-          showSponsorshipsButton={showSponsorshipsButton}
-          isLocked={page === "onboarding"}
-          showLanguageDropdown={page !== "onboarding"}
-          drawerOpen={drawerOpen}
-          onDrawerOpenChange={setDrawerOpen}
-        />
-
-        {/* The Main content section */}
-        <div className="flex-1 mx-auto w-full max-w-4xl">
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <main>
-              {/* Top banner slot (above action bar) */}
+      <Header
+        page={page}
+        selectedChat={selectedChat}
+        chats={chats}
+        chatsLoading={isChatsLoading}
+        userId={accessToken?.decoded?.sub}
+        rawAccessToken={accessToken?.raw}
+        decodedToken={accessToken?.decoded}
+        selectedLanguage={
+          INTERFACE_LANGUAGES.find(
+            (lang) => lang.isoCode === lang_iso_code,
+          ) || DEFAULT_LANGUAGE
+        }
+        expiryTimestamp={accessToken?.decoded?.exp}
+        onTokenExpired={handleTokenExpired}
+        showProfileButton={showProfileButton}
+        showSponsorshipsButton={showSponsorshipsButton}
+        isLocked={page === "onboarding"}
+        showLanguageDropdown={page !== "onboarding"}
+        drawerOpen={drawerOpen}
+        onDrawerOpenChange={setDrawerOpen}
+      >
+        <div className="flex min-h-0 flex-1 flex-col">
+          <main className="py-8 sm:py-10">
+            <div className={contentContainerClassName}>
               {topBanner}
-              {topBanner && <div className="h-8" />}
+              {topBanner && <div className="h-6" />}
 
-              {/* Sentinel for sticky detection */}
+              <div className="flex min-w-0 items-center justify-between gap-4">
+                <h1 className="min-w-0 max-w-3xl text-balance text-3xl font-semibold tracking-tighter text-foreground sm:text-4xl">
+                  {getSettingsPageTitle(page)}
+                </h1>
+
+                {!isActionBarSticky && (
+                  <div className="shrink-0">
+                    {renderActionBar(undefined, "w-auto")}
+                  </div>
+                )}
+              </div>
+
               <div ref={stickySentinelRef} className="h-px" />
+            </div>
 
-              {/* The Session Expiry timer and Action buttons */}
-              <div
-                className={cn(
-                  "sticky top-0 z-30 transition-all duration-200 ease-in-out",
-                  isActionBarSticky
-                    ? "glass-dark-static rounded-2xl py-3 px-4 -mx-4 sm:-mx-6 lg:-mx-8 shadow-lg shadow-black/40"
-                    : "",
-                )}
-              >
-                <SettingActionBar
-                  expiryTimestamp={accessToken?.decoded?.exp || 0}
-                  onTokenExpired={handleTokenExpired}
-                  onActionClicked={onActionClicked}
-                  actionDisabled={
-                    actionDisabled || isLoadingState || !!displayError?.isBlocker
-                  }
-                  showActionButton={showActionButton}
-                  actionIcon={actionIcon}
-                  actionButtonText={actionButtonText}
-                  showSecondaryButton={showSecondaryButton}
-                  onSecondaryClicked={onSecondaryClicked}
-                  secondaryDisabled={
-                    secondaryDisabled ||
-                    isLoadingState ||
-                    !!displayError?.isBlocker
-                  }
-                  secondaryIcon={secondaryIcon}
-                  secondaryText={secondaryText}
-                  secondaryTooltipText={secondaryTooltipText}
-                  secondaryClassName={secondaryClassName}
-                  showCancelButton={showCancelButton}
-                  onCancelClicked={onCancelClicked}
-                  cancelDisabled={
-                    cancelDisabled || isLoadingState || !!displayError?.isBlocker
-                  }
-                  cancelIcon={cancelIcon}
-                  cancelTooltipText={cancelTooltipText}
-                />
-              </div>
+            <div className="sticky top-20 z-30 h-0 w-full">
+              {isActionBarSticky && (
+                <div className="absolute top-0 left-0 w-full border-b border-border bg-background/94 bg-[radial-gradient(28rem_10rem_at_0%_50%,oklch(0.4_0.12_326/18%),transparent_70%)] py-3 shadow-[0_16px_34px_oklch(0.05_0.01_292/0.24)] backdrop-blur-xl">
+                  <div className={contentContainerClassName}>
+                    {renderActionBar(
+                      <span className="truncate text-base font-semibold tracking-tight text-foreground">
+                        {getSettingsPageTitle(page)}
+                      </span>,
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
-              {/* The Settings card */}
-              <Card
-                className={cn(
-                  "mt-4.5 md:px-6 px-2 md:py-12 py-8 glass-static rounded-3xl",
-                  cardClassName,
-                )}
-              >
-                <CardContent className="space-y-4">
-                  {isLoadingState || isContentLoading ? (
+            {cardTitle && (
+              <>
+                <div aria-hidden="true" className="h-2" />
+                <div className={contentContainerClassName}>
+                  <p className="text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-primary">
+                    {cardTitle}
+                  </p>
+                </div>
+              </>
+            )}
+
+            <div
+              className={cn(
+                contentContainerClassName,
+                "flex flex-col gap-4 pt-10 sm:gap-5 sm:pt-12",
+              )}
+            >
+              {isLoadingState || isContentLoading ? (
+                <Card variant="section" className="py-8">
+                  <CardContent>
                     <SettingsPageSkeleton />
-                  ) : (
-                    <>
-                      {cardTitle && (
-                        <>
-                          <div className="h-2" />
-                          <CardTitle className="text-center mx-auto">
-                            {cardTitle}
-                          </CardTitle>
-                          <div className="h-4" />
-                        </>
-                      )}
-                      {children}
-                    </>
+                  </CardContent>
+                </Card>
+              ) : contentVariant === "flow" ? (
+                <div className={cardClassName}>{children}</div>
+              ) : (
+                <Card
+                  className={cn(
+                    "rounded-2xl border-border/80 bg-card/82 px-2 py-8 shadow-[0_18px_70px_oklch(0.05_0.01_292/0.2)] md:px-6 md:py-10",
+                    cardClassName,
                   )}
-                </CardContent>
-              </Card>
+                >
+                  <CardContent className="space-y-4">{children}</CardContent>
+                </Card>
+              )}
 
-              {/* Spacer */}
-              <div className="h-4" />
+              {followupContent && !isLoadingState && !isContentLoading && (
+                <div className="flex flex-wrap items-center gap-2 px-0.5">
+                  {followupContent}
+                </div>
+              )}
+            </div>
+          </main>
 
-              {/* Token Information */}
-              <div className="text-xs mb-9 text-blue-300/30">
-                {accessToken && <TokenSummary decoded={accessToken.decoded} />}
-              </div>
-            </main>
-          </div>
-        </div>
-
-        {displayError && (
-          <ErrorMessage
-            title={t("errors.oh_no")}
-            description={getErrorText(displayError)}
-            genericMessage={
-              displayError?.showGenericAppendix
-                ? t("errors.check_link")
-                : undefined
-            }
-            isBlocker={displayError.isBlocker}
-            onDismiss={
-              externalError && onExternalErrorDismiss
-                ? onExternalErrorDismiss
-                : !displayError.isBlocker
-                  ? () => setError(null)
+          {displayError && (
+            <ErrorMessage
+              title={t("errors.oh_no")}
+              description={getErrorText(displayError)}
+              genericMessage={
+                displayError?.showGenericAppendix
+                  ? t("errors.check_link")
                   : undefined
-            }
-          />
-        )}
+              }
+              isBlocker={displayError.isBlocker}
+              onDismiss={
+                externalError && onExternalErrorDismiss
+                  ? onExternalErrorDismiss
+                  : !displayError.isBlocker
+                    ? () => setError(null)
+                    : undefined
+              }
+            />
+          )}
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </Header>
     );
   },
 );

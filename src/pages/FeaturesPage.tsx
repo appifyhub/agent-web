@@ -55,7 +55,7 @@ const iconsMap: Record<
 
 export default function FeaturesPage() {
   const { lang_iso_code } = useParams<{ lang_iso_code: string }>();
-  const { accessToken } = usePageSession();
+  const { accessToken, handleTokenExpired } = usePageSession();
   const { chats } = useChats(accessToken?.decoded.sub, accessToken?.raw);
   const { userSettings } = useUserSettings(
     accessToken?.decoded?.sub,
@@ -76,74 +76,75 @@ export default function FeaturesPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header
-        page="features"
-        chats={chats}
-        userId={accessToken?.decoded?.sub}
-        rawAccessToken={accessToken?.raw}
-        selectedLanguage={language}
-        showProfileButton={showNav}
-        showSponsorshipsButton={showNav}
-        showChatsDropdown={showNav}
-        showHelpButton={showNav}
-        hasBlockerError={false}
-        isLocked={isLocked}
-        onGoToOnboarding={
-          isLocked && accessToken?.decoded?.sub && lang_iso_code
-            ? () => navigateToOnboarding(accessToken.decoded.sub, lang_iso_code)
-            : undefined
-        }
-      />
+    <Header
+      page="features"
+      chats={chats}
+      userId={accessToken?.decoded?.sub}
+      rawAccessToken={accessToken?.raw}
+      decodedToken={accessToken?.decoded}
+      selectedLanguage={language}
+      expiryTimestamp={accessToken?.decoded?.exp}
+      onTokenExpired={handleTokenExpired}
+      showProfileButton={showNav}
+      showSponsorshipsButton={showNav}
+      showChatsDropdown={showNav}
+      showHelpButton={showNav}
+      isLocked={isLocked}
+      onGoToOnboarding={
+        isLocked && accessToken?.decoded?.sub && lang_iso_code
+          ? () => navigateToOnboarding(accessToken.decoded.sub, lang_iso_code)
+          : undefined
+      }
+    >
+      <div className="flex min-h-0 flex-1 flex-col">
+        <main className="flex-1">
+          <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 className="mb-16 text-center text-4xl">
+              {t("features.title", { botName })}
+            </h1>
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+              {featureKeys.map((key) => {
+                const Icon = iconsMap[key];
+                return (
+                  <Card
+                    key={key}
+                    className="glass mx-auto max-w-md rounded-3xl px-6 py-8"
+                  >
+                    <div className="flex flex-col items-center space-y-4">
+                      <Icon className="h-10 w-10 text-accent-amber" />
+                      <h3 className="text-center text-xl font-semibold">
+                        {t(`features.items.${key}.title`, { botName })}
+                      </h3>
+                      <p className="text-m text-center font-light opacity-80">
+                        {t(`features.items.${key}.description`, { botName })}
+                      </p>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
 
-      <main className="flex-1">
-        <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-4xl text-center mb-16">
-            {t("features.title", { botName })}
-          </h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {featureKeys.map((key) => {
-              const Icon = iconsMap[key];
-              return (
-                <Card
-                  key={key}
-                  className="glass rounded-3xl max-w-md mx-auto px-6 py-8"
-                >
-                  <div className="flex flex-col items-center space-y-4">
-                    <Icon className="h-10 w-10 text-accent-amber" />
-                    <h3 className="text-xl font-semibold text-center">
-                      {t(`features.items.${key}.title`, { botName })}
-                    </h3>
-                    <p className="text-m font-light text-center opacity-80">
-                      {t(`features.items.${key}.description`, { botName })}
-                    </p>
-                  </div>
-                </Card>
-              );
-            })}
+            <div className="block h-16" />
+
+            <div className="flex justify-center">
+              <Button
+                variant="outline"
+                className="glass hover:glass-active flex cursor-pointer items-center gap-4 rounded-full px-4 py-8 text-lg font-medium transition-all hover:text-accent-amber"
+                onClick={handleProjectClick}
+              >
+                <div className="block h-6" />
+                <ExternalLink className="h-8 w-8" />
+                {t("check_out_project")}
+                <div className="block h-6" />
+              </Button>
+            </div>
+
+            <div className="block h-16" />
           </div>
+        </main>
 
-          <div className="block h-16" />
-
-          {/* Project button */}
-          <div className="flex justify-center">
-            <Button
-              variant="outline"
-              className="glass px-4 py-8 text-lg font-medium rounded-full cursor-pointer hover:glass-active hover:text-accent-amber transition-all flex items-center gap-4"
-              onClick={handleProjectClick}
-            >
-              <div className="block h-6" />
-              <ExternalLink className="h-8 w-8" />
-              {t("check_out_project")}
-              <div className="block h-6" />
-            </Button>
-          </div>
-
-          <div className="block h-16" />
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Header>
   );
 }
