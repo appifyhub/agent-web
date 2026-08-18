@@ -7,7 +7,7 @@
     "clean": "rm -rf dist .vite node_modules/.vite",
     "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
     "rebuild": "bun run clean && bun run build",
-    "dev": "vite",
+    "dev": "bun scripts/check-backend-before-dev.ts && vite",
     "preview": "vite preview",
     "lint": "bun run lint:i18n && bun run lint:code && bun run lint:css",
     "lint:code": "eslint .",
