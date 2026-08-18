@@ -7,6 +7,10 @@
 
 export type TranslationKey =
   | "chat"
+  | "chat_context.private"
+  | "chat_context.group"
+  | "chat_context.defaults"
+  | "chat_context.response_behavior"
   | "profile"
   | "sponsorships"
   | "close"
