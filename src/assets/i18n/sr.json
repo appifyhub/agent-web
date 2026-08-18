@@ -1,5 +1,11 @@
 {
   "chat": "Čet",
+  "chat_context": {
+    "private": "Privatni čet",
+    "group": "Grupni čet",
+    "defaults": "Podrazumevana podešavanja četa",
+    "response_behavior": "Ponašanje odgovora"
+  },
   "profile": "Profil",
   "sponsorships": "Sponzorstva",
   "close": "Zatvori",

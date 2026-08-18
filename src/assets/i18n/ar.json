@@ -1,5 +1,11 @@
 {
   "chat": "دردشة",
+  "chat_context": {
+    "private": "دردشة خاصة",
+    "group": "دردشة جماعية",
+    "defaults": "إعدادات الدردشة الافتراضية",
+    "response_behavior": "سلوك الرد"
+  },
   "profile": "الملف الشخصي",
   "sponsorships": "الرعايات",
   "close": "إغلاق",

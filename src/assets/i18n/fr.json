@@ -1,5 +1,11 @@
 {
   "chat": "Discussion",
+  "chat_context": {
+    "private": "Discussion privée",
+    "group": "Discussion de groupe",
+    "defaults": "Paramètres par défaut du chat",
+    "response_behavior": "Comportement des réponses"
+  },
   "profile": "Profil",
   "sponsorships": "Parrainages",
   "close": "Fermer",

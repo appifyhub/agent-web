@@ -1,5 +1,11 @@
 {
   "chat": "Sohbet",
+  "chat_context": {
+    "private": "Özel sohbet",
+    "group": "Grup sohbeti",
+    "defaults": "Varsayılan sohbet ayarları",
+    "response_behavior": "Yanıt davranışı"
+  },
   "profile": "Profil",
   "sponsorships": "Sponsorluklar",
   "close": "Kapat",

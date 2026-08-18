@@ -1,5 +1,11 @@
 {
   "chat": "चैट",
+  "chat_context": {
+    "private": "निजी चैट",
+    "group": "समूह चैट",
+    "defaults": "चैट डिफ़ॉल्ट",
+    "response_behavior": "जवाब का व्यवहार"
+  },
   "profile": "प्रोफ़ाइल",
   "sponsorships": "प्रायोजन",
   "close": "बंद करें",

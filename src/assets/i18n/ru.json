@@ -1,5 +1,11 @@
 {
   "chat": "Чат",
+  "chat_context": {
+    "private": "Личный чат",
+    "group": "Групповой чат",
+    "defaults": "Настройки чата",
+    "response_behavior": "Поведение ответов"
+  },
   "profile": "Профиль",
   "sponsorships": "Спонсорство",
   "close": "Закрыть",

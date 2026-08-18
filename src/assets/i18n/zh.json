@@ -1,5 +1,11 @@
 {
   "chat": "聊天",
+  "chat_context": {
+    "private": "私聊",
+    "group": "群聊",
+    "defaults": "聊天默认设置",
+    "response_behavior": "回复行为"
+  },
   "profile": "个人资料",
   "sponsorships": "赞助",
   "close": "关闭",
