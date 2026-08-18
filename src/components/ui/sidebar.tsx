@@ -33,6 +33,7 @@ interface SidebarContextProps {
   openMobile: boolean;
   setOpenMobile: (open: boolean | ((open: boolean) => boolean)) => void;
   isMobile: boolean;
+  isCompact: boolean;
   toggleSidebar: () => void;
 }
 
@@ -64,7 +65,10 @@ function SidebarProvider({
   openMobile?: boolean;
   onOpenMobileChange?: (open: boolean) => void;
 }) {
-  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isMobile = useMediaQuery("(max-width: 639px)");
+  const isCompact = useMediaQuery(
+    "(min-width: 640px) and (max-width: 767px)",
+  );
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
   const [internalOpenMobile, setInternalOpenMobile] = React.useState(false);
   const open = openProp ?? internalOpen;
@@ -94,12 +98,12 @@ function SidebarProvider({
     [openMobile, setOpenMobileProp],
   );
   const toggleSidebar = React.useCallback(() => {
-    if (isMobile) {
+    if (isMobile || isCompact) {
       setOpenMobile((current) => !current);
     } else {
       setOpen((current) => !current);
     }
-  }, [isMobile, setOpen, setOpenMobile]);
+  }, [isCompact, isMobile, setOpen, setOpenMobile]);
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -116,7 +120,13 @@ function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleSidebar]);
 
-  const state = open ? "expanded" : "collapsed";
+  const state = isCompact
+    ? openMobile
+      ? "expanded"
+      : "collapsed"
+    : open
+      ? "expanded"
+      : "collapsed";
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       state,
@@ -125,6 +135,7 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       isMobile,
+      isCompact,
       toggleSidebar,
     }),
     [
@@ -134,6 +145,7 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       isMobile,
+      isCompact,
       toggleSidebar,
     ],
   );
@@ -143,6 +155,7 @@ function SidebarProvider({
       <TooltipProvider delayDuration={0}>
         <div
           data-slot="sidebar-wrapper"
+          data-state={state}
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH,
@@ -179,7 +192,8 @@ function Sidebar({
   mobileTitle: React.ReactNode;
   mobileDescription: React.ReactNode;
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isCompact, isMobile, state, openMobile, setOpenMobile } =
+    useSidebar();
 
   if (collapsible === "none") {
     return (
@@ -224,7 +238,8 @@ function Sidebar({
 
   return (
     <div
-      className="group peer hidden text-sidebar-foreground md:block"
+      className="group peer hidden text-sidebar-foreground sm:block"
+      data-compact={isCompact}
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-side={side}
@@ -236,6 +251,7 @@ function Sidebar({
           "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear",
           "group-data-[collapsible=offcanvas]:w-0",
           "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+          "group-data-[compact=true]:w-(--sidebar-width-icon)",
           "group-data-[side=right]:rotate-180",
         )}
       />
@@ -243,9 +259,10 @@ function Sidebar({
         data-slot="sidebar-container"
         data-side={side}
         className={cn(
-          "fixed inset-y-0 z-30 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed inset-y-0 z-30 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear sm:flex",
           "data-[side=left]:left-0 data-[side=right]:right-0",
           "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+          isCompact && openMobile && "z-50 shadow-2xl",
           className,
         )}
         {...props}

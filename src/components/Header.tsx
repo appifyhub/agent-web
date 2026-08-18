@@ -11,7 +11,6 @@ import {
   ShoppingCart,
   Sparkles,
   UserRound,
-  X,
 } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import ChatsCollapsible from "@/components/ChatsCollapsible";
@@ -134,12 +133,15 @@ const SidebarBrand: React.FC<SidebarBrandProps> = ({
   onActionClicked,
   onLanguageChange,
 }) => {
-  const { isMobile, setOpenMobile, state } = useSidebar();
+  const { isCompact, isMobile, openMobile, setOpenMobile, state } =
+    useSidebar();
+  const showBrandDetails = isMobile || state === "expanded";
+  const showCloseButton = isMobile || (isCompact && openMobile);
 
   return (
     <SidebarHeader
       className={`h-20 justify-center border-b border-border/80 bg-background py-0 transition-[padding] duration-200 ease-linear ${
-        isMobile || state === "expanded" ? "px-4" : "px-[0.875rem]"
+        showBrandDetails ? "px-4" : "px-[0.875rem]"
       }`}
     >
       <div className="flex w-full min-w-0 items-center gap-2">
@@ -149,28 +151,23 @@ const SidebarBrand: React.FC<SidebarBrandProps> = ({
             setOpenMobile(false);
           }}
         />
-        {(isMobile || state === "expanded") && (
+        {showBrandDetails && (
           <span className="min-w-0 flex-1 truncate text-base leading-none font-semibold tracking-[-0.03em] text-sidebar-foreground md:text-lg">
             {appName}
           </span>
         )}
-        {(isMobile || state === "expanded") && showLanguageDropdown && (
+        {showBrandDetails && showLanguageDropdown && (
           <LanguageDropdown
             selectedLanguage={selectedLanguage}
             onLangChange={onLanguageChange}
           />
         )}
-        {isMobile && (
-          <Button
-            type="button"
-            variant="utility"
-            size="icon"
-            className="ml-auto size-9 rounded-full"
-            aria-label={t("close")}
-            onClick={() => setOpenMobile(false)}
-          >
-            <X />
-          </Button>
+        {showCloseButton && (
+          <SidebarTrigger
+            className="ml-auto"
+            label={t("navigation.toggle_sidebar")}
+            panelSide={isMobile ? "right" : "left"}
+          />
         )}
       </div>
     </SidebarHeader>
@@ -513,7 +510,7 @@ const Header: React.FC<HeaderProps> = ({
             onActionClicked={handleLogoClick}
             onLanguageChange={handleLangChange}
           />
-          <SidebarContent className="border-sidebar-border px-4 py-2 transition-[padding] duration-200 ease-linear md:border-r group-data-[collapsible=icon]:px-0">
+          <SidebarContent className="border-sidebar-border px-4 py-2 transition-[padding] duration-200 ease-linear sm:border-r group-data-[collapsible=icon]:px-0">
             <NavigationPanel
               currentPage={page}
               sections={navigationSections}
@@ -528,19 +525,27 @@ const Header: React.FC<HeaderProps> = ({
 
       <SidebarInset className="settings-pane-atmosphere">
         <header className="sticky top-0 z-40 h-20 border-b border-border/80 bg-background">
-          <div className="flex h-full w-full items-center gap-3 px-4 sm:px-6 md:pl-1">
+          <div className="flex h-full w-full items-center gap-3 px-4 sm:pl-1">
             {hasNavigation && (
-              <div className="flex shrink-0 items-center md:contents">
+              <div className="flex shrink-0 items-center gap-2 sm:contents">
                 <BrandLogoButton
                   className={cn(
-                    "-ml-1 transition-opacity duration-200 md:hidden",
+                    "-ml-1 transition-opacity duration-200 sm:hidden",
                     drawerOpen && "pointer-events-none opacity-0",
                   )}
                   onActionClicked={handleLogoClick}
                 />
+                <span
+                  className={cn(
+                    "max-w-20 truncate text-sm font-semibold tracking-tight text-foreground transition-opacity duration-200 sm:hidden",
+                    drawerOpen && "opacity-0",
+                  )}
+                >
+                  {appName}
+                </span>
                 <SidebarTrigger
                   className={cn(
-                    "hidden border-transparent bg-transparent hover:bg-transparent [&_svg]:size-5 md:ml-0 md:inline-flex",
+                    "hidden border-transparent bg-transparent hover:bg-transparent [&_svg]:size-5 sm:ml-0 sm:inline-flex",
                     headerIconHighlightClassName,
                   )}
                   label={t("navigation.toggle_sidebar")}
@@ -605,7 +610,7 @@ const Header: React.FC<HeaderProps> = ({
               )}
               {hasNavigation && (
                 <SidebarTrigger
-                  className="md:hidden"
+                  className="sm:hidden"
                   label={t("navigation.toggle_sidebar")}
                   panelSide="right"
                 />

@@ -1,21 +1,38 @@
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface SettingsSectionProps {
   children: React.ReactNode;
+  title?: string;
   className?: string;
   contentClassName?: string;
 }
 
 const SettingsSection: React.FC<SettingsSectionProps> = ({
   children,
+  title,
   className,
   contentClassName,
 }) => (
-  <Card variant="section" className={cn("py-0", className)}>
+  <Card variant="section" className={cn("gap-0 py-0", className)}>
+    {title && (
+      <CardHeader className="flex min-h-14 items-center border-b border-border/70 bg-[radial-gradient(16rem_5rem_at_0%_50%,oklch(0.42_0.11_285/15%),transparent_72%)] px-5 py-0 sm:px-7">
+        <CardTitle className="ps-1 font-mono text-[0.8rem] leading-5 font-semibold tracking-normal text-foreground uppercase">
+          {title}
+        </CardTitle>
+      </CardHeader>
+    )}
     <CardContent
-      className={cn("flex flex-col gap-8 px-5 py-6 sm:px-7 sm:py-8", contentClassName)}
+      className={cn(
+        "settings-section-content flex flex-col gap-8 px-5 py-6 sm:px-7 sm:py-8",
+        contentClassName,
+      )}
     >
       {children}
     </CardContent>

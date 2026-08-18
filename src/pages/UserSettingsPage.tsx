@@ -201,7 +201,7 @@ const UserSettingsPage: React.FC = () => {
       onExternalErrorDismiss={() => setError(null)}
       contentVariant="flow"
     >
-      <SettingsSection className="w-full" contentClassName="items-center">
+      <SettingsSection className="w-full">
         {/* Full name input */}
         <SettingInput
           id="full-name"
@@ -229,7 +229,7 @@ const UserSettingsPage: React.FC = () => {
           }
           disabled={!!error?.isBlocker}
           placeholder={t("profile_full_name_placeholder")}
-          className="w-full sm:w-md"
+          className="settings-field"
           variant="section"
           onKeyboardConfirm={() => {
             if (!error?.isBlocker && hasSettingsChanged) {
@@ -273,7 +273,7 @@ const UserSettingsPage: React.FC = () => {
           }
           minRows={2}
           maxRows={6}
-          className="w-full sm:w-md"
+          className="settings-field"
           variant="section"
         />
 
@@ -310,7 +310,7 @@ const UserSettingsPage: React.FC = () => {
           }
           minRows={2}
           maxRows={6}
-          className="w-full sm:w-md"
+          className="settings-field"
           variant="section"
         />
 

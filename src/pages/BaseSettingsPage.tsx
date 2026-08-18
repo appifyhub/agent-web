@@ -265,7 +265,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
             <div className="sticky top-20 z-30 h-0 w-full">
               {isActionBarSticky && (
-                <div className="absolute top-0 left-0 w-full border-b border-border bg-background/94 bg-[radial-gradient(28rem_10rem_at_0%_50%,oklch(0.4_0.12_326/18%),transparent_70%)] py-3 shadow-[0_16px_34px_oklch(0.05_0.01_292/0.24)] backdrop-blur-xl">
+                <div className="absolute top-0 left-0 w-full animate-in border-b border-border bg-background/94 bg-[radial-gradient(28rem_10rem_at_0%_50%,oklch(0.4_0.12_326/18%),transparent_70%)] py-3 shadow-[0_16px_34px_oklch(0.05_0.01_292/0.24)] fade-in-0 slide-in-from-top-1 duration-200 ease-out backdrop-blur-xl">
                   <div className={contentContainerClassName}>
                     {renderActionBar(
                       <span className="truncate text-base font-semibold tracking-tight text-foreground">

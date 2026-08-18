@@ -221,6 +221,27 @@
     );
 }
 
+.settings-section-content {
+  container-type: inline-size;
+}
+
+.settings-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (width >= 48rem) {
+  [data-slot="sidebar-wrapper"][data-state="collapsed"] .settings-field {
+    width: 36rem;
+  }
+
+  @container (min-width: 40rem) {
+    [data-slot="sidebar-wrapper"][data-state="expanded"] .settings-field {
+      width: 36rem;
+    }
+  }
+}
+
 @media (width < 40rem) {
   .settings-pane-atmosphere {
     --settings-pane-left-glow-opacity: 14%;
