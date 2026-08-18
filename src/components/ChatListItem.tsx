@@ -23,10 +23,8 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
   const platform = Platform.fromString(chat.chat_config.platform);
   const platformIconClass =
     platform === Platform.WHATSAPP
-      ? "h-5 w-5 scale-125 text-[#40D876]"
-      : platform === Platform.TELEGRAM
-        ? "h-5 w-5 text-[#29ABE2]"
-        : "h-5 w-5 text-foreground-muted";
+      ? "h-5 w-5 scale-125"
+      : "h-5 w-5";
   return (
     <Button
       variant="navigation"
@@ -41,7 +39,11 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
       )}
     >
       <div className="flex items-center justify-center w-6 h-6 shrink-0">
-        <PlatformIcon platform={platform} className={platformIconClass} />
+        <PlatformIcon
+          platform={platform}
+          className={platformIconClass}
+          tone="brand"
+        />
       </div>
       <span className="flex-1 truncate text-left min-w-0">
         {chat.chat_config.title || t("untitled")}

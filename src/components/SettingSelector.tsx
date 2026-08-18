@@ -36,6 +36,7 @@ interface SettingSelectorProps {
   labelClassName?: string;
   triggerClassName?: string;
   contentClassName?: string;
+  variant?: "default" | "section";
 }
 
 const SettingSelector: React.FC<SettingSelectorProps> = ({
@@ -51,19 +52,32 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
   labelClassName = "",
   triggerClassName = "",
   contentClassName = "",
+  variant = "default",
 }) => {
   const validOption = options.find((opt) => opt.value === value);
   const selectValue = validOption ? value : undefined;
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div
+      className={cn(
+        variant === "section" ? "space-y-2.5" : "space-y-4",
+        className,
+      )}
+    >
       <div className="space-y-1">
-        <div className="flex items-center justify-between w-full sm:w-md">
+        <div
+          className={cn(
+            "flex w-full items-center justify-between",
+            variant === "default" && "sm:w-md",
+          )}
+        >
           <Label
             className={cn(
-              "text-[1.05rem] font-light",
+              variant === "section"
+                ? "text-sm font-medium tracking-tight text-foreground"
+                : "text-[1.05rem] font-light",
               disabled ? "text-muted-foreground/50" : "",
-              labelClassName
+              labelClassName,
             )}
           >
             {label}
@@ -72,8 +86,12 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
+                  variant={variant === "section" ? "utility" : "outline"}
+                  size="icon"
+                  className={cn(
+                    "h-8 w-8 shrink-0 cursor-pointer rounded-full",
+                    variant === "default" && "glass p-1.5",
+                  )}
                   onClick={onUndo}
                   disabled={disabled || !selectValue}
                 >
@@ -87,8 +105,12 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         {helperText && (
           <p
             className={cn(
-              "ps-1 text-sm font-light opacity-80",
-              disabled ? "text-muted-foreground/50" : "text-muted-foreground"
+              variant === "section"
+                ? "ps-1 text-sm leading-6"
+                : "ps-1 text-sm font-light opacity-80",
+              disabled
+                ? "text-muted-foreground/50"
+                : "text-muted-foreground",
             )}
           >
             {helperText}
@@ -98,17 +120,24 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
       <Select value={selectValue} disabled={disabled} onValueChange={onChange}>
         <SelectTrigger
           className={cn(
-            "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
-            disabled ? "text-muted-foreground/80 glass-static" : "glass",
-            triggerClassName
+            variant === "section"
+              ? "h-12 w-full cursor-pointer overflow-hidden rounded-xl border-border bg-background/45 px-4 text-base shadow-none data-[size=default]:h-12"
+              : "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
+            variant === "default" &&
+              (disabled
+                ? "text-muted-foreground/80 glass-static"
+                : "glass"),
+            triggerClassName,
           )}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent
           className={cn(
-            "p-4 glass-dark-static rounded-2xl text-foreground",
-            contentClassName
+            variant === "section"
+              ? "rounded-xl border-border bg-popover p-2 text-foreground shadow-2xl"
+              : "p-4 glass-dark-static rounded-2xl text-foreground",
+            contentClassName,
           )}
         >
           {options.map((opt) => (
@@ -117,8 +146,10 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
               value={opt.value}
               disabled={opt.disabled || opt.value === value}
               className={cn(
-                "py-4 px-4 cursor-pointer text-foreground",
-                opt.value === value ? "bg-accent/70" : ""
+                variant === "section"
+                  ? "cursor-pointer rounded-lg px-3 py-2.5 text-foreground"
+                  : "py-4 px-4 cursor-pointer text-foreground",
+                opt.value === value ? "bg-accent/70" : "",
               )}
             >
               {opt.label}

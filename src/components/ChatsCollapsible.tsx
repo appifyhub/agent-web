@@ -27,13 +27,18 @@ const ChatsCollapsible: React.FC<ChatsCollapsibleProps> = ({
   onOpenChange,
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
-  const { isMobile, setOpen, state } = useSidebar();
+  const { isCompact, isMobile, setOpen, setOpenMobile, state } =
+    useSidebar();
   const hasSelectedChat = selectedChat !== undefined;
 
   const handleToggle = () => {
     const newState = state === "collapsed" && !isMobile ? true : !isOpen;
     if (state === "collapsed" && !isMobile) {
-      setOpen(true);
+      if (isCompact) {
+        setOpenMobile(true);
+      } else {
+        setOpen(true);
+      }
     }
     setIsOpen(newState);
     onOpenChange?.(newState);
