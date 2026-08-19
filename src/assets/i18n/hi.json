@@ -315,6 +315,7 @@
   },
   "provider_needed_for": "{botName} को इसके लिए {tools} चाहिए",
   "where_is_my_key": "मेरा {providerName} कुंजी कहाँ है?",
+  "configure_profile": "प्रोफ़ाइल अनुकूलित करें",
   "configure_intelligence": "बुद्धिमत्ता कॉन्फ़िगर करें",
   "configure_ai_providers": "AI प्रदाता कॉन्फ़िगर करें",
   "configure_access_keys": "एक्सेस कुंजियाँ कॉन्फ़िगर करें",

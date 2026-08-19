@@ -315,6 +315,7 @@
   },
   "provider_needed_for": "{botName} нужен это для: {tools}",
   "where_is_my_key": "Где мой ключ {providerName}?",
+  "configure_profile": "Настроить профиль",
   "configure_intelligence": "Настроить интеллект",
   "configure_ai_providers": "Настроить AI-провайдеры",
   "configure_access_keys": "Настроить ключи доступа",

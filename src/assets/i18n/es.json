@@ -315,6 +315,7 @@
   },
   "provider_needed_for": "{botName} necesita esto para: {tools}",
   "where_is_my_key": "¿Dónde está mi clave de {providerName}?",
+  "configure_profile": "Personalizar perfil",
   "configure_intelligence": "Configurar inteligencia",
   "configure_ai_providers": "Configurar proveedores de IA",
   "configure_access_keys": "Configurar las claves de acceso",

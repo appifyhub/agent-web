@@ -315,6 +315,7 @@
   },
   "provider_needed_for": "{botName} benötigt dies für: {tools}",
   "where_is_my_key": "Wo ist mein {providerName}-Schlüssel?",
+  "configure_profile": "Profil anpassen",
   "configure_intelligence": "Intelligenz konfigurieren",
   "configure_ai_providers": "KI-Anbieter konfigurieren",
   "configure_access_keys": "Zugriffsschlüssel konfigurieren",

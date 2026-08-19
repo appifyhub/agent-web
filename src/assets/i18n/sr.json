@@ -315,6 +315,7 @@
   },
   "provider_needed_for": "{botName} ovo koristi za: {tools}",
   "where_is_my_key": "Gde je moj {providerName} ključ?",
+  "configure_profile": "Prilagodi profil",
   "configure_intelligence": "Podesi inteligenciju",
   "configure_ai_providers": "Podesi AI provajdere",
   "configure_access_keys": "Podesi pristupne ključeve",
