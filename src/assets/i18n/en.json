@@ -413,6 +413,7 @@
     "custom": "Custom",
     "custom_description": "Individually customized tool selection."
   },
+  "intelligence_preset_title": "Intelligence preset",
   "detailed_tool_choices": "Customize tool choices",
   "errors": {
     "oh_no": "Oh no!",

@@ -413,6 +413,7 @@
     "custom": "कस्टम",
     "custom_description": "व्यक्तिगत रूप से अनुकूलित टूल चयन।"
   },
+  "intelligence_preset_title": "बुद्धिमत्ता प्रीसेट",
   "detailed_tool_choices": "टूल विकल्प अनुकूलित करें",
   "errors": {
     "oh_no": "ओह नहीं!",

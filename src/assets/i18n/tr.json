@@ -413,6 +413,7 @@
     "custom": "Özel",
     "custom_description": "Bireysel olarak özelleştirilmiş araç seçimi."
   },
+  "intelligence_preset_title": "Zeka ön ayarı",
   "detailed_tool_choices": "Araç seçimlerini özelleştir",
   "errors": {
     "oh_no": "Ah hayır!",

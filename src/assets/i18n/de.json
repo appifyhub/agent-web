@@ -413,6 +413,7 @@
     "custom": "Benutzerdefiniert",
     "custom_description": "Individuell angepasste Tool-Auswahl."
   },
+  "intelligence_preset_title": "Intelligenz-Voreinstellung",
   "detailed_tool_choices": "Tool-Auswahl anpassen",
   "errors": {
     "oh_no": "Oh nein!",

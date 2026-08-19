@@ -413,6 +413,7 @@
     "custom": "Personalizzato",
     "custom_description": "Selezione di strumenti personalizzata individualmente."
   },
+  "intelligence_preset_title": "Preimpostazione di intelligenza",
   "detailed_tool_choices": "Personalizza le scelte degli strumenti",
   "errors": {
     "oh_no": "Oh no!",

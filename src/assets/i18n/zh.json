@@ -413,6 +413,7 @@
     "custom": "自定义",
     "custom_description": "个性化定制的工具选择。"
   },
+  "intelligence_preset_title": "智能预设",
   "detailed_tool_choices": "自定义工具选择",
   "errors": {
     "oh_no": "哦不！",

@@ -413,6 +413,7 @@
     "custom": "مخصص",
     "custom_description": "اختيار أدوات مخصص بشكل فردي."
   },
+  "intelligence_preset_title": "إعداد الذكاء المسبق",
   "detailed_tool_choices": "تخصيص اختيارات الأدوات",
   "errors": {
     "oh_no": "أوه لا!",

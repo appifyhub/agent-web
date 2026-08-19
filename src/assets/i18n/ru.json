@@ -413,6 +413,7 @@
     "custom": "Настраиваемый",
     "custom_description": "Индивидуально настроенный выбор инструментов."
   },
+  "intelligence_preset_title": "Профиль интеллекта",
   "detailed_tool_choices": "Настроить выбор инструментов",
   "errors": {
     "oh_no": "О нет!",

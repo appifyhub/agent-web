@@ -413,6 +413,7 @@
     "custom": "Prilagođen",
     "custom_description": "Individualno prilagođen izbor alata."
   },
+  "intelligence_preset_title": "Režim inteligencije",
   "detailed_tool_choices": "Prilagodi izbore alata",
   "errors": {
     "oh_no": "O ne!",
