@@ -135,8 +135,8 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         <SelectContent
           className={cn(
             variant === "section"
-              ? "rounded-xl border-border bg-popover p-2 text-foreground shadow-2xl"
-              : "p-4 glass-dark-static rounded-2xl text-foreground",
+              ? "rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl"
+              : "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
             contentClassName,
           )}
         >

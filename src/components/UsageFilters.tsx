@@ -238,7 +238,7 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
           )}
         />
       </button>
-      {isExpanded && <div className="mt-6">{filtersContent}</div>}
+      {isExpanded && <div className="mt-[1.5rem]">{filtersContent}</div>}
     </>
   );
 };

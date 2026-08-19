@@ -113,7 +113,7 @@ const PurchaseFilters: React.FC<PurchaseFiltersProps> = ({
           )}
         />
       </button>
-      {isExpanded && <div className="mt-6">{filtersContent}</div>}
+      {isExpanded && <div className="mt-[1.5rem]">{filtersContent}</div>}
     </>
   );
 };

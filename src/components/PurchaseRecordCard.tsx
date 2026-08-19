@@ -57,7 +57,7 @@ const PurchaseRecordCard: React.FC<PurchaseRecordCardProps> = ({
       onClick={onToggleExpand}
     >
       <div className="flex items-center w-full">
-        <div className="flex flex-col flex-1 min-w-0 pr-4">
+        <div className="flex flex-col flex-1 min-w-0 pe-4">
           <div className="flex items-center gap-2">
             <span className="text-md font-medium truncate">
               {record.product_name}
@@ -100,7 +100,7 @@ const PurchaseRecordCard: React.FC<PurchaseRecordCardProps> = ({
 
       {isExpanded && (
         <>
-          <div className="flex md:hidden items-center justify-center gap-2 pb-2">
+          <div className="flex md:hidden items-center justify-center gap-2 pb-[0.5rem]">
             {record.test && (
               <Badge variant="outline" className="text-xs px-1.5 py-0 shrink-0">
                 {t("purchases.record.test")}
@@ -195,7 +195,7 @@ const PurchaseRecordCard: React.FC<PurchaseRecordCardProps> = ({
           </div>
 
           {record.product_permalink && (
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-[1rem]">
               <Button
                 variant="outline"
                 size="sm"

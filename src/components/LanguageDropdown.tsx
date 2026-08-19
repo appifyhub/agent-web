@@ -21,7 +21,7 @@ export const LanguageItemContent: React.FC<{ lang: Language }> = ({ lang }) => (
   <span className="inline-flex items-center gap-2">
     {lang.flagEmoji}
     <span className="font-semibold">{lang.localizedName}</span>
-    <span className="ml-2 text-xs text-muted-foreground">
+    <span className="ms-2 text-xs text-muted-foreground">
       ({lang.defaultName})
     </span>
   </span>
@@ -52,7 +52,7 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="rounded-xl border-border bg-popover p-2 shadow-2xl"
+        className="rounded-xl border-border bg-popover px-2 py-2 shadow-2xl"
       >
         {INTERFACE_LANGUAGES.map((lang: Language) => (
           <DropdownMenuItem
@@ -66,7 +66,7 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
           >
             <LanguageItemContent lang={lang} />
             {lang.isoCode === selectedLanguage.isoCode && (
-              <CheckIcon className="ml-2 h-4 w-4" />
+              <CheckIcon className="ms-2 h-4 w-4" />
             )}
           </DropdownMenuItem>
         ))}

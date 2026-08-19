@@ -1,6 +1,5 @@
 import React from "react";
 import { CircleCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +16,7 @@ interface CardSelectorProps {
   onChange: (value: string) => void;
   options: readonly CardSelectorOption[];
   disabled?: boolean;
-  variant?: "default" | "section" | "segmented";
+  variant?: "default" | "segmented";
 }
 
 // the segmented variant stacks into rows and becomes one horizontal strip at
@@ -95,65 +94,6 @@ const CardSelector: React.FC<CardSelectorProps> = ({
             )}
           </p>
         )}
-      </div>
-    );
-  }
-
-  if (variant === "section") {
-    return (
-      <div className="grid w-full gap-3 @min-[40rem]:grid-cols-2">
-        {options.map(({ value: optValue, icon: Icon, title, description }) => {
-          const isSelected = value === optValue;
-
-          return (
-            <Button
-              key={optValue}
-              type="button"
-              variant="utility"
-              className={cn(
-                "h-auto min-h-32 justify-start rounded-2xl border-border/80 bg-surface-subtle/88 p-5 text-left text-foreground shadow-[0_14px_40px_oklch(0.05_0.01_292/0.16)] transition-[border-color,background-color,box-shadow,transform]",
-                "hover:-translate-y-0.5 hover:border-primary/45 hover:bg-secondary/80 hover:text-foreground hover:shadow-[0_18px_46px_oklch(0.05_0.01_292/0.22)]",
-                isSelected &&
-                  "border-primary/70 bg-[linear-gradient(135deg,oklch(0.21_0.035_310/0.96),oklch(0.16_0.022_292/0.96))] shadow-[0_18px_54px_oklch(0.72_0.18_25/0.12)] disabled:opacity-100",
-              )}
-              onClick={() => onChange(optValue)}
-              disabled={disabled || isSelected}
-            >
-              <div className="flex w-full items-start gap-4">
-                <span
-                  className={cn(
-                    "mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-background/60 text-primary",
-                    isSelected && "border-primary/50 bg-primary/12 text-primary",
-                  )}
-                >
-                  {isSelected ? (
-                    <CircleCheck className="h-5 w-5" />
-                  ) : (
-                    <Icon className="h-5 w-5" />
-                  )}
-                </span>
-                <span className="flex min-w-0 flex-col gap-2">
-                  <span
-                    className={cn(
-                      "block text-base font-semibold tracking-tight whitespace-normal text-foreground",
-                      isSelected && "text-primary",
-                    )}
-                  >
-                    {title}
-                    {isSelected && remoteValue != null && remoteValue !== optValue && (
-                      <span className="ml-1 inline-block text-sm leading-none text-accent-amber">
-                        *
-                      </span>
-                    )}
-                  </span>
-                  <span className="block text-sm leading-6 whitespace-normal text-muted-foreground">
-                    {description}
-                  </span>
-                </span>
-              </div>
-            </Button>
-          );
-        })}
       </div>
     );
   }

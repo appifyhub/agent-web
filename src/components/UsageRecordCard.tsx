@@ -176,7 +176,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
     >
       {/* Collapsed view - always visible */}
       <div className="flex items-center w-full">
-        <div className="hidden md:flex items-center justify-center w-6 h-6 shrink-0 mr-2">
+        <div className="hidden md:flex items-center justify-center w-6 h-6 shrink-0 me-2">
           <ProviderIcon
             providerId={record.tool.provider.id}
             alt={record.tool.provider.name}
@@ -191,7 +191,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
           <span className="text-sm text-muted-foreground">{dateStr}</span>
         </div>
 
-        <div className="flex flex-col flex-1 min-w-0 pr-4 md:px-4">
+        <div className="flex flex-col flex-1 min-w-0 pe-4 md:px-4">
           {isTransfer ? (
             <>
               <span className="text-md font-medium truncate">

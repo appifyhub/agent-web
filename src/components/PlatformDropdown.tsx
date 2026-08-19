@@ -58,7 +58,7 @@ const PlatformDropdown: React.FC<PlatformDropdownProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="p-2 glass-dark-static rounded-xl"
+        className="px-2 py-2 glass-dark-static rounded-xl"
       >
         {AVAILABLE_PLATFORMS.map((platformInfo) => (
           <DropdownMenuItem
@@ -70,7 +70,7 @@ const PlatformDropdown: React.FC<PlatformDropdownProps> = ({
             )}
             disabled={platformInfo.platform === selectedPlatform}
           >
-            <platformInfo.icon className="h-4 w-4 mr-2" />
+            <platformInfo.icon className="h-4 w-4 me-2" />
             <span className="font-medium">{Platform.getName(platformInfo.platform)}</span>
             {platformInfo.platform === selectedPlatform && (
               <CheckIcon className="ml-auto h-4 w-4" />

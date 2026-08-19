@@ -1,5 +1,4 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -39,7 +38,8 @@ export interface SectionedSelectorOption {
 }
 
 interface SectionedSelectorProps {
-  label: string;
+  /** accessible name for the trigger; not rendered as visible copy */
+  accessibleName: string;
   value: string | undefined;
   onChange: (value: string) => void;
   onUndo?: () => void;
@@ -50,16 +50,13 @@ interface SectionedSelectorProps {
   onProviderNavigate?: (providerId: string) => void;
   hasCredits?: boolean;
   className?: string;
-  labelClassName?: string;
-  showLabel?: boolean;
   triggerClassName?: string;
   contentClassName?: string;
-  hideCostEstimateButton?: boolean;
   variant?: "default" | "section";
 }
 
 const SectionedSelector: React.FC<SectionedSelectorProps> = ({
-  label,
+  accessibleName,
   value,
   onChange,
   onUndo,
@@ -70,11 +67,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
   onProviderNavigate,
   hasCredits = false,
   className = "",
-  labelClassName = "",
-  showLabel = true,
   triggerClassName = "",
   contentClassName = "",
-  hideCostEstimateButton = false,
   variant = "default",
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -119,7 +113,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
     ) : null;
 
   const costEstimateButton =
-    !hideCostEstimateButton && validOption?.costEstimate && validOption.toolName ? (
+    validOption?.costEstimate && validOption.toolName ? (
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
@@ -155,37 +149,11 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         className,
       )}
     >
-      {showLabel && (
-        <div
-          className={cn(
-            "flex items-center justify-between w-full",
-            variant === "default" && "sm:w-md",
-          )}
-        >
-          <Label
-            className={cn(
-              variant === "section"
-                ? "text-sm font-medium tracking-tight text-foreground"
-                : "text-[1.05rem] font-light",
-              disabled ? "text-muted-foreground/50" : "",
-              labelClassName
-            )}
-          >
-            {label}
-          </Label>
-          <div className="flex items-center gap-1.5">
-            {costEstimateButton}
-            {undoButton}
-          </div>
-        </div>
-      )}
-      {/* with no label above it, the cost-estimate and undo actions sit beside the
-          trigger rather than inside it, so neither crowds the selected value */}
+      {/* the cost-estimate and undo actions sit beside the trigger rather than
+          inside it, so neither crowds the selected value */}
       <div
         className={cn(
-          !showLabel &&
-            (costEstimateButton || undoButton) &&
-            "flex items-center gap-1.5",
+          (costEstimateButton || undoButton) && "flex items-center gap-1.5",
         )}
       >
       <Select
@@ -196,8 +164,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         onOpenChange={setIsOpen}
       >
         <SelectTrigger
-          // the label is often hidden, so the control still needs a name
-          aria-label={label}
+          // no visible label, so the control carries its own accessible name
+          aria-label={accessibleName}
           className={cn(
             // shadcn line-clamps the value via display:-webkit-box, which clips
             // without an ellipsis; restore flex so the label's own truncate wins
@@ -221,8 +189,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         <SelectContent
           className={cn(
             variant === "section"
-              ? "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover p-2 text-foreground shadow-2xl"
-              : "p-4 glass-dark-static rounded-2xl text-foreground",
+              ? "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl"
+              : "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
             contentClassName
           )}
         >
@@ -280,8 +248,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                   disabled={!section.isConfigured && !hasCredits}
                   className={cn(
                     variant === "section"
-                      ? "cursor-pointer rounded-lg px-3 py-2.5 pr-12! text-foreground"
-                      : "py-4 px-8 pr-12! cursor-pointer text-foreground",
+                      ? "cursor-pointer rounded-lg px-3 py-2.5 text-foreground"
+                      : "py-4 px-8 cursor-pointer text-foreground",
                     opt.value === value ? "bg-accent/70" : "",
                     (!section.isConfigured || !opt.isConfigured) ? "text-muted-foreground/50" : ""
                   )}
@@ -290,7 +258,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                       {opt.costEstimate && opt.toolName && (
                         <div
                           className={cn(
-                            "flex items-center gap-2 z-50 pointer-events-auto ml-auto shrink-0 mr-4",
+                            "flex items-center gap-2 z-50 pointer-events-auto shrink-0",
                             "cursor-pointer"
                           )}
                           onPointerDown={(e) => e.stopPropagation()}
@@ -321,8 +289,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                       )}
 
                       {section.isConfigured && !opt.isConfigured && (
-                        <div className="flex items-center gap-2 ml-auto pl-2">
-                          <span className="text-xs text-muted-foreground/60 ml-2">
+                        <div className="flex items-center gap-2 ms-auto ps-2">
+                          <span className="text-xs text-muted-foreground/60 ms-2">
                             {notConfiguredLabel}
                           </span>
                         </div>
@@ -330,7 +298,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                     </>
                   }
                 >
-                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <div className="flex w-full min-w-0 items-center gap-3">
                     {opt.providerId && (
                       <ProviderIcon
                         providerId={opt.providerId}
@@ -348,8 +316,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
           ))}
         </SelectContent>
       </Select>
-        {!showLabel && costEstimateButton}
-        {!showLabel && undoButton}
+        {costEstimateButton}
+        {undoButton}
       </div>
       {costEstimateTarget && (
         <CostEstimateDialog

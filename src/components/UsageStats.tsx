@@ -177,7 +177,7 @@ const UsageStats: React.FC<UsageStatsProps> = ({ stats, isLoading = false }) => 
       )}
 
       {isExpanded && hasBreakdowns && (
-        <div className="mt-4 flex flex-col gap-y-2 gap-x-2 md:grid md:grid-cols-3">
+        <div className="mt-[1rem] flex flex-col gap-y-2 gap-x-2 md:grid md:grid-cols-3">
           {renderBreakdown(t("usage.stats.by_tool"), stats.by_tool, "tool")}
           {renderBreakdown(t("usage.stats.by_purpose"), stats.by_purpose, "purpose")}
           {renderBreakdown(t("usage.stats.by_provider"), stats.by_provider, "provider")}

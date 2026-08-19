@@ -125,7 +125,7 @@ const PurchaseStats: React.FC<PurchaseStatsProps> = ({ stats, isLoading = false 
       )}
 
       {isExpanded && hasBreakdowns && (
-        <div className="mt-4 flex flex-col gap-y-2">
+        <div className="mt-[1rem] flex flex-col gap-y-2">
           {renderBreakdown(t("purchases.stats.by_product"), stats.by_product)}
         </div>
       )}

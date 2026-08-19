@@ -18,9 +18,7 @@ import {
   BrainCog,
   Image,
   Blocks,
-  CircleHelp,
 } from "lucide-react";
-import CostEstimateDialog from "@/components/CostEstimateDialog";
 import { t } from "@/lib/translations";
 import { TranslationKey } from "@/lib/translation-keys";
 import { cn } from "@/lib/utils";
@@ -37,7 +35,6 @@ import {
   ExternalToolResponse,
   ExternalToolProviderResponse,
   ToolType,
-  CostEstimate,
 } from "@/services/external-tools-service";
 import { UserSettings } from "@/services/user-settings-service";
 
@@ -75,6 +72,101 @@ interface ToolTypeGroup {
   currentValue: string | undefined;
   icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }
+
+interface ToolTypeRowProps {
+  group: ToolTypeGroup;
+  changed: boolean;
+  remoteChoice?: string;
+  disabled?: boolean;
+  hasCredits?: boolean;
+  onToolChoiceChange: (toolType: ToolType, toolId: string) => void;
+  onProviderNavigate?: (providerId: string) => void;
+}
+
+// one tool type: its icon, name, description, and the selector for choosing a tool.
+// the icon sits above the text on narrow containers so the description is not
+// squeezed into a few words per line, and moves beside it once there is room.
+// while stacked it centers and grows, since it owns that row by itself. once
+// beside the text it is grouped with the title so the two share a center line,
+// and the body copy below aligns to the title by matching the icon width plus gap
+const ToolTypeRow: React.FC<ToolTypeRowProps> = ({
+  group,
+  changed,
+  remoteChoice,
+  disabled,
+  hasCredits,
+  onToolChoiceChange,
+  onProviderNavigate,
+}) => {
+  const ToolIcon = group.icon;
+  const totalOptions = group.sections.reduce(
+    (count, section) => count + section.options.length,
+    0,
+  );
+  const isSingleOption = totalOptions === 1;
+  const singleOption = isSingleOption ? group.sections[0].options[0] : null;
+
+  return (
+    <div className="rounded-xl border border-border/70 bg-background/35 px-5 py-5">
+      <div className="flex flex-col items-stretch gap-3 @min-[30rem]:gap-2">
+        <div className="flex flex-col items-stretch gap-3 @min-[30rem]:flex-row @min-[30rem]:items-center @min-[30rem]:gap-4">
+          {ToolIcon && (
+            <span className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background/70 text-brand-coral-light @min-[30rem]:mx-0 @min-[30rem]:h-8 @min-[30rem]:w-8">
+              <ToolIcon
+                className="h-5 w-5 @min-[30rem]:h-4 @min-[30rem]:w-4"
+                strokeWidth={2.5}
+              />
+            </span>
+          )}
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-2 @min-[30rem]:justify-start">
+            <h4 className="text-center text-base font-semibold tracking-tight text-foreground @min-[30rem]:ps-1 @min-[30rem]:text-start">
+              {group.title}
+              {changed && (
+                <span className="ms-1 inline-block text-sm leading-none text-accent-amber">
+                  *
+                </span>
+              )}
+            </h4>
+          </div>
+        </div>
+        <div className="flex w-full min-w-0 flex-1 flex-col gap-2 @min-[30rem]:ps-12">
+          <p className="ps-1 text-sm leading-6 text-muted-foreground">
+            {group.description}
+          </p>
+
+          {group.sections.length > 0 ? (
+            <SectionedSelector
+              accessibleName={t("tools.select_tool")}
+              value={
+                isSingleOption && singleOption
+                  ? singleOption.value
+                  : group.currentValue
+              }
+              onChange={(toolId) => onToolChoiceChange(group.type, toolId)}
+              onUndo={
+                changed && remoteChoice
+                  ? () => onToolChoiceChange(group.type, remoteChoice)
+                  : undefined
+              }
+              sections={group.sections}
+              disabled={disabled || isSingleOption}
+              placeholder={t("tools.select_tool")}
+              notConfiguredLabel={t("tools.not_configured_with_prefix")}
+              onProviderNavigate={onProviderNavigate}
+              hasCredits={hasCredits}
+              variant="section"
+              className="settings-field"
+            />
+          ) : (
+            <div className="rounded-xl border border-border/70 bg-background/40 px-4 py-3 text-sm text-muted-foreground">
+              {t("tools.no_tools_available")}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Map tool types to their category
 const getToolGroupCategory = (toolType: ToolType): ToolGroupCategory => {
@@ -127,13 +219,6 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
   onOpenSectionChange: controlledOnOpenSectionChange,
 }) => {
   const [internalOpenSection, setInternalOpenSection] = useState<string>("");
-  const [costEstimateTarget, setCostEstimateTarget] = useState<{
-    toolName: string;
-    estimate: CostEstimate;
-    providerId?: string;
-    providerName?: string;
-    maxInputImages?: number;
-  } | null>(null);
 
   // Use controlled props if provided, otherwise use internal state
   const openSection = controlledOpenSection !== undefined ? controlledOpenSection : internalOpenSection;
@@ -410,136 +495,24 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
               </AccordionTrigger>
               <AccordionContent className="pb-0">
                 <div className="flex flex-col gap-5 px-5 pb-[1.5rem] sm:px-6">
-                  {categoryGroup.toolTypes.map((toolTypeGroup) => {
-                    const ToolIcon = toolTypeGroup.icon;
-                    const toolTypeChanged = isToolTypeChanged(toolTypeGroup.type);
-                    const totalOptions = toolTypeGroup.sections.reduce(
-                      (count, section) => count + section.options.length,
-                      0,
-                    );
-                    const isSingleOption = totalOptions === 1;
-                    const singleOption = isSingleOption
-                      ? toolTypeGroup.sections[0].options[0]
-                      : null;
-
-                    return (
-                      <div
-                        key={toolTypeGroup.type}
-                        className="rounded-xl border border-border/70 bg-background/35 px-5 py-5"
-                      >
-                        {/* the icon sits above the text on narrow containers so the
-                            description is not squeezed into a few words per line,
-                            and moves beside it once there is room. while stacked it
-                            centers and grows, since it owns that row by itself.
-                            once beside the text it is grouped with the title so the
-                            two share a center line, and the body copy below aligns
-                            to the title by matching the icon's width plus gap */}
-                        <div className="flex flex-col items-stretch gap-3 @min-[30rem]:gap-2">
-                          <div className="flex flex-col items-stretch gap-3 @min-[30rem]:flex-row @min-[30rem]:items-center @min-[30rem]:gap-4">
-                            {ToolIcon && (
-                              <span className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background/70 text-brand-coral-light @min-[30rem]:mx-0 @min-[30rem]:h-8 @min-[30rem]:w-8">
-                                <ToolIcon
-                                  className="h-5 w-5 @min-[30rem]:h-4 @min-[30rem]:w-4"
-                                  strokeWidth={2.5}
-                                />
-                              </span>
-                            )}
-                            <div className="flex min-w-0 flex-1 items-center justify-center gap-2 @min-[30rem]:justify-start">
-                              <h4 className="text-center text-base font-semibold tracking-tight text-foreground @min-[30rem]:ps-1 @min-[30rem]:text-start">
-                                {toolTypeGroup.title}
-                                {toolTypeChanged && (
-                                  <span className="ml-1 inline-block text-sm leading-none text-accent-amber">
-                                    *
-                                  </span>
-                                )}
-                              </h4>
-                              {isSingleOption &&
-                                singleOption?.costEstimate &&
-                                singleOption.toolName && (
-                                  <button
-                                    type="button"
-                                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/10 hover:text-primary"
-                                    onClick={() =>
-                                      setCostEstimateTarget({
-                                        toolName: singleOption.toolName!,
-                                        estimate: singleOption.costEstimate!,
-                                        providerId: singleOption.providerId,
-                                        providerName: providers.find(
-                                          (p) => p.definition.id === singleOption.providerId,
-                                        )?.definition.name,
-                                        maxInputImages: singleOption.maxInputImages,
-                                      })
-                                    }
-                                  >
-                                    <CircleHelp className="size-4" />
-                                    <span className="sr-only">
-                                      {t("cost_estimate.title")}
-                                    </span>
-                                  </button>
-                                )}
-                            </div>
-                          </div>
-                          <div className="flex w-full min-w-0 flex-1 flex-col gap-2 @min-[30rem]:ps-12">
-                            <p className="ps-1 text-sm leading-6 text-muted-foreground">
-                              {toolTypeGroup.description}
-                            </p>
-
-                            {toolTypeGroup.sections.length > 0 ? (
-                              <SectionedSelector
-                                label={t("tools.select_tool")}
-                                value={
-                                  isSingleOption && singleOption
-                                    ? singleOption.value
-                                    : toolTypeGroup.currentValue
-                                }
-                                onChange={(toolId) =>
-                                  onToolChoiceChange(toolTypeGroup.type, toolId)
-                                }
-                                onUndo={
-                                  isToolTypeChanged(toolTypeGroup.type) && getRemoteToolChoice(toolTypeGroup.type)
-                                    ? () => onToolChoiceChange(toolTypeGroup.type, getRemoteToolChoice(toolTypeGroup.type)!)
-                                    : undefined
-                                }
-                                sections={toolTypeGroup.sections}
-                                disabled={disabled || isSingleOption}
-                                placeholder={t("tools.select_tool")}
-                                notConfiguredLabel={t("tools.not_configured_with_prefix")}
-                                onProviderNavigate={onProviderNavigate}
-                                hasCredits={hasCredits}
-                                showLabel={false}
-                                hideCostEstimateButton={isSingleOption}
-                                variant="section"
-                                className="settings-field"
-                              />
-                            ) : (
-                              <div className="rounded-xl border border-border/70 bg-background/40 px-4 py-3 text-sm text-muted-foreground">
-                                {t("tools.no_tools_available")}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {categoryGroup.toolTypes.map((toolTypeGroup) => (
+                    <ToolTypeRow
+                      key={toolTypeGroup.type}
+                      group={toolTypeGroup}
+                      changed={isToolTypeChanged(toolTypeGroup.type)}
+                      remoteChoice={getRemoteToolChoice(toolTypeGroup.type)}
+                      disabled={disabled}
+                      hasCredits={hasCredits}
+                      onToolChoiceChange={onToolChoiceChange}
+                      onProviderNavigate={onProviderNavigate}
+                    />
+                  ))}
                 </div>
               </AccordionContent>
             </AccordionItem>
           );
         })}
       </Accordion>
-      {costEstimateTarget && (
-        <CostEstimateDialog
-          toolName={costEstimateTarget.toolName}
-          costEstimate={costEstimateTarget.estimate}
-          providerId={costEstimateTarget.providerId}
-          providerName={costEstimateTarget.providerName}
-          maxInputImages={costEstimateTarget.maxInputImages}
-          open={!!costEstimateTarget}
-          onOpenChange={(open) => {
-            if (!open) setCostEstimateTarget(null);
-          }}
-        />
-      )}
     </div>
   );
 };

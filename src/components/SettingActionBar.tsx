@@ -74,7 +74,7 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
               onClick={onSecondaryClicked}
             >
               {secondaryIcon}
-              {secondaryText && <span className="ml-2">{secondaryText}</span>}
+              {secondaryText && <span className="ms-2">{secondaryText}</span>}
             </Button>
           </TooltipTrigger>
           <TooltipContent>{secondaryTooltipText}</TooltipContent>
@@ -88,7 +88,7 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
           onClick={onActionClicked}
         >
           {actionIcon}
-          {actionIcon && actionButtonText && <span className="ml-2">{actionButtonText}</span>}
+          {actionIcon && actionButtonText && <span className="ms-2">{actionButtonText}</span>}
           {!actionIcon && actionButtonText}
         </Button>
       )}

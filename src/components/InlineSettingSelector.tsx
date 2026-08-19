@@ -69,7 +69,7 @@ const InlineSettingSelector: React.FC<InlineSettingSelectorProps> = ({
         </SelectTrigger>
         <SelectContent
           className={cn(
-            "p-4 glass-dark-static rounded-2xl text-foreground",
+            "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
             contentClassName
           )}
         >
