@@ -65,7 +65,10 @@ function DrawerContent({
         )}
         {...props}
       >
-        <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
+        {/* vaul's Handle owns the drag behavior and ships its own base styles,
+            including a light background and `display:block`, so the theme color
+            and the bottom-only visibility are re-asserted here */}
+        <DrawerPrimitive.Handle className="bg-muted! mx-auto mt-[1rem] hidden! h-2! w-[100px]! shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block!" />
         <div className="flex-1 overflow-y-auto" data-vaul-no-drag>
           {children}
         </div>

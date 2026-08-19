@@ -63,7 +63,7 @@ type ToolGroupCategory =
 interface ToolCategoryGroup {
   category: ToolGroupCategory;
   title: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   toolTypes: ToolTypeGroup[];
 }
 
@@ -73,7 +73,7 @@ interface ToolTypeGroup {
   description: string;
   sections: SectionedSelectorSection[];
   currentValue: string | undefined;
-  icon?: React.ComponentType<{ className?: string }>;
+  icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }
 
 // Map tool types to their category
@@ -349,11 +349,11 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
   }
 
   return (
-    <div className="space-y-6 px-0 sm:px-12">
+    <div className="w-full">
       <Accordion
         type="single"
         collapsible
-        className="w-full"
+        className="flex w-full flex-col gap-3"
         value={openSection}
         onValueChange={setOpenSection}
       >
@@ -362,48 +362,60 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
           const isCurrentlyOpen = openSection === categoryGroup.category;
           const shouldReduceOpacity = openSection && !isCurrentlyOpen;
           const categoryChanged = isCategoryChanged(categoryGroup.category);
-          const headerAsteriskColor =
-            isCurrentlyOpen || shouldReduceOpacity
-              ? "text-white"
-              : "text-accent-amber";
 
           return (
             <AccordionItem
               key={categoryGroup.category}
               value={categoryGroup.category}
-              className="border-b border-muted-foreground/20 last:border-b-0"
+              className={cn(
+                // the accordion base drops the bottom border on the last item for
+                // divided lists; these are discrete cards, so each keeps all four
+                "overflow-hidden rounded-2xl border border-border bg-surface-subtle/70 shadow-[0_14px_42px_oklch(0.05_0.01_292/0.12)] last:border-b",
+                isCurrentlyOpen && "border-primary/40 bg-secondary/48",
+                shouldReduceOpacity && "opacity-55",
+              )}
             >
               <AccordionTrigger
                 className={cn(
-                  "py-4 px-0",
-                  "text-[1.05rem] font-normal text-left",
-                  "data-[state=open]:font-medium data-[state=open]:text-accent-amber data-[state=open]:underline underline-offset-4",
-                  "hover:no-underline cursor-pointer",
+                  "items-center px-5 py-4 text-left hover:no-underline sm:px-6",
                   "transition-opacity duration-200",
-                  shouldReduceOpacity ? "opacity-30" : "opacity-100"
+                  "[&>svg]:translate-y-0 [&>svg]:text-muted-foreground",
                 )}
               >
-                <div className="flex items-center gap-4">
-                  <CategoryIcon className="h-5 w-5 shrink-0" />
-                  <span>
-                    {categoryGroup.title}
-                    {categoryChanged && (
-                      <span className={cn("text-sm leading-none inline-block no-underline ml-0.5", headerAsteriskColor)}>
-                        *
-                      </span>
+                <div className="flex min-w-0 items-center gap-4">
+                  <span
+                    className={cn(
+                      "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/35 bg-background/70 text-brand-coral-light",
+                      isCurrentlyOpen && "border-primary/60 bg-background/85",
                     )}
+                  >
+                    <CategoryIcon className="h-5 w-5 shrink-0" strokeWidth={2.5} />
+                  </span>
+                  <span className="min-w-0">
+                    <span
+                      className={cn(
+                        "block text-base font-semibold tracking-tight text-foreground",
+                        isCurrentlyOpen && "text-primary",
+                      )}
+                    >
+                      {categoryGroup.title}
+                      {categoryChanged && (
+                        <span className="ml-1 inline-block text-sm leading-none text-accent-amber">
+                          *
+                        </span>
+                      )}
+                    </span>
                   </span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-3 px-2">
-                  <div className="h-2" />
+              <AccordionContent className="pb-0">
+                <div className="flex flex-col gap-5 px-5 pb-[1.5rem] sm:px-6">
                   {categoryGroup.toolTypes.map((toolTypeGroup) => {
                     const ToolIcon = toolTypeGroup.icon;
                     const toolTypeChanged = isToolTypeChanged(toolTypeGroup.type);
                     const totalOptions = toolTypeGroup.sections.reduce(
                       (count, section) => count + section.options.length,
-                      0
+                      0,
                     );
                     const isSingleOption = totalOptions === 1;
                     const singleOption = isSingleOption
@@ -411,80 +423,104 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
                       : null;
 
                     return (
-                      <div key={toolTypeGroup.type} className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          {ToolIcon && (
-                            <ToolIcon className="h-4 w-4 text-blue-100" />
-                          )}
-                          <h4 className="text-base font-medium text-blue-100 underline underline-offset-4">
-                            {toolTypeGroup.title}
-                            {toolTypeChanged && (
-                              <span className="text-sm leading-none inline-block no-underline ml-0.5 text-accent-amber">
-                                *
+                      <div
+                        key={toolTypeGroup.type}
+                        className="rounded-xl border border-border/70 bg-background/35 px-5 py-5"
+                      >
+                        {/* the icon sits above the text on narrow containers so the
+                            description is not squeezed into a few words per line,
+                            and moves beside it once there is room. while stacked it
+                            centers and grows, since it owns that row by itself.
+                            once beside the text it is grouped with the title so the
+                            two share a center line, and the body copy below aligns
+                            to the title by matching the icon's width plus gap */}
+                        <div className="flex flex-col items-stretch gap-3 @min-[30rem]:gap-2">
+                          <div className="flex flex-col items-stretch gap-3 @min-[30rem]:flex-row @min-[30rem]:items-center @min-[30rem]:gap-4">
+                            {ToolIcon && (
+                              <span className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background/70 text-brand-coral-light @min-[30rem]:mx-0 @min-[30rem]:h-8 @min-[30rem]:w-8">
+                                <ToolIcon
+                                  className="h-5 w-5 @min-[30rem]:h-4 @min-[30rem]:w-4"
+                                  strokeWidth={2.5}
+                                />
                               </span>
                             )}
-                          </h4>
-                          {isSingleOption &&
-                            singleOption?.costEstimate &&
-                            singleOption.toolName && (
-                              <div
-                                className="cursor-pointer text-blue-300 hover:text-blue-400 transition-colors"
-                                onClick={() =>
-                                  setCostEstimateTarget({
-                                    toolName: singleOption.toolName!,
-                                    estimate: singleOption.costEstimate!,
-                                    providerId: singleOption.providerId,
-                                    providerName: providers.find(
-                                      (p) => p.definition.id === singleOption.providerId
-                                    )?.definition.name,
-                                    maxInputImages: singleOption.maxInputImages,
-                                  })
+                            <div className="flex min-w-0 flex-1 items-center justify-center gap-2 @min-[30rem]:justify-start">
+                              <h4 className="text-center text-base font-semibold tracking-tight text-foreground @min-[30rem]:ps-1 @min-[30rem]:text-start">
+                                {toolTypeGroup.title}
+                                {toolTypeChanged && (
+                                  <span className="ml-1 inline-block text-sm leading-none text-accent-amber">
+                                    *
+                                  </span>
+                                )}
+                              </h4>
+                              {isSingleOption &&
+                                singleOption?.costEstimate &&
+                                singleOption.toolName && (
+                                  <button
+                                    type="button"
+                                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/10 hover:text-primary"
+                                    onClick={() =>
+                                      setCostEstimateTarget({
+                                        toolName: singleOption.toolName!,
+                                        estimate: singleOption.costEstimate!,
+                                        providerId: singleOption.providerId,
+                                        providerName: providers.find(
+                                          (p) => p.definition.id === singleOption.providerId,
+                                        )?.definition.name,
+                                        maxInputImages: singleOption.maxInputImages,
+                                      })
+                                    }
+                                  >
+                                    <CircleHelp className="size-4" />
+                                    <span className="sr-only">
+                                      {t("cost_estimate.title")}
+                                    </span>
+                                  </button>
+                                )}
+                            </div>
+                          </div>
+                          <div className="flex w-full min-w-0 flex-1 flex-col gap-2 @min-[30rem]:ps-12">
+                            <p className="ps-1 text-sm leading-6 text-muted-foreground">
+                              {toolTypeGroup.description}
+                            </p>
+
+                            {toolTypeGroup.sections.length > 0 ? (
+                              <SectionedSelector
+                                label={t("tools.select_tool")}
+                                value={
+                                  isSingleOption && singleOption
+                                    ? singleOption.value
+                                    : toolTypeGroup.currentValue
                                 }
-                              >
-                                <CircleHelp className="size-4" />
+                                onChange={(toolId) =>
+                                  onToolChoiceChange(toolTypeGroup.type, toolId)
+                                }
+                                onUndo={
+                                  isToolTypeChanged(toolTypeGroup.type) && getRemoteToolChoice(toolTypeGroup.type)
+                                    ? () => onToolChoiceChange(toolTypeGroup.type, getRemoteToolChoice(toolTypeGroup.type)!)
+                                    : undefined
+                                }
+                                sections={toolTypeGroup.sections}
+                                disabled={disabled || isSingleOption}
+                                placeholder={t("tools.select_tool")}
+                                notConfiguredLabel={t("tools.not_configured_with_prefix")}
+                                onProviderNavigate={onProviderNavigate}
+                                hasCredits={hasCredits}
+                                showLabel={false}
+                                hideCostEstimateButton={isSingleOption}
+                                variant="section"
+                                className="settings-field"
+                              />
+                            ) : (
+                              <div className="rounded-xl border border-border/70 bg-background/40 px-4 py-3 text-sm text-muted-foreground">
+                                {t("tools.no_tools_available")}
                               </div>
                             )}
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-tight">
-                          {toolTypeGroup.description}
-                        </p>
-
-                        {toolTypeGroup.sections.length > 0 ? (
-                          <SectionedSelector
-                            label={t("tools.select_tool")}
-                            value={
-                              isSingleOption && singleOption
-                                ? singleOption.value
-                                : toolTypeGroup.currentValue
-                            }
-                            onChange={(toolId) =>
-                              onToolChoiceChange(toolTypeGroup.type, toolId)
-                            }
-                            onUndo={
-                              isToolTypeChanged(toolTypeGroup.type) && getRemoteToolChoice(toolTypeGroup.type)
-                                ? () => onToolChoiceChange(toolTypeGroup.type, getRemoteToolChoice(toolTypeGroup.type)!)
-                                : undefined
-                            }
-                            sections={toolTypeGroup.sections}
-                            disabled={disabled || isSingleOption}
-                            placeholder={t("tools.select_tool")}
-                            notConfiguredLabel={t("tools.not_configured_with_prefix")}
-                            onProviderNavigate={onProviderNavigate}
-                            hasCredits={hasCredits}
-                            labelClassName="text-base"
-                            showLabel={!isSingleOption}
-                            hideCostEstimateButton={isSingleOption}
-                          />
-                        ) : (
-                          <div className="text-sm text-muted-foreground text-center py-4">
-                            {t("tools.no_tools_available")}
                           </div>
-                        )}
-                        <div className="h-6" />
+                        </div>
                       </div>
                     );
                   })}
-                  <div className="h-2" />
                 </div>
               </AccordionContent>
             </AccordionItem>

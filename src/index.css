@@ -51,6 +51,7 @@
   --color-surface-raised: var(--surface-raised);
   --color-surface-subtle: var(--surface-subtle);
   --color-brand-coral: var(--brand-coral);
+  --color-brand-coral-light: var(--brand-coral-light);
   --color-brand-indigo: var(--brand-indigo);
   --color-brand-plum: var(--brand-plum);
 }
@@ -100,6 +101,7 @@
   --surface-raised: oklch(0.19 0.024 292);
   --surface-subtle: oklch(0.15 0.018 292);
   --brand-coral: oklch(0.72 0.18 25);
+  --brand-coral-light: oklch(0.82 0.13 25);
   --brand-indigo: oklch(0.48 0.12 285);
   --brand-plum: oklch(0.35 0.1 326);
 }
@@ -145,6 +147,7 @@
   --surface-raised: oklch(0.18 0.022 292);
   --surface-subtle: oklch(0.145 0.017 292);
   --brand-coral: oklch(0.72 0.18 25);
+  --brand-coral-light: oklch(0.82 0.13 25);
   --brand-indigo: oklch(0.48 0.12 285);
   --brand-plum: oklch(0.35 0.1 326);
 }
@@ -230,6 +233,19 @@
   max-width: 100%;
 }
 
+/* tool names share a long common prefix and are told apart by their tail, so the
+   ellipsis belongs at the start. css can only relocate it by flipping `direction`
+   on the clipping box; the label inside is wrapped in `<bdi>` so it still reads
+   left to right. do NOT add `unicode-bidi: plaintext` here — it re-derives
+   direction from the first strong character and cancels the flip. */
+.truncate-start {
+  direction: rtl;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (width >= 48rem) {
   [data-slot="sidebar-wrapper"][data-state="collapsed"] .settings-field {
     width: 36rem;
@@ -255,6 +271,29 @@
 
 .font-mono {
   font-family: var(--font-utility);
+}
+
+/* the customization section expands and collapses on a grid-row transition so it
+   animates both in and out. tailwind 4.3.3 emits the `animate-*` shorthand
+   without separators, and radix collapsible sets `hidden` (display:none) while
+   closed, so neither can animate this — hence the explicit rules. */
+.settings-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 300ms ease-out;
+}
+
+.settings-reveal > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.settings-reveal[data-expanded="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

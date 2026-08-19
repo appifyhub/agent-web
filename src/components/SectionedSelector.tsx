@@ -55,6 +55,7 @@ interface SectionedSelectorProps {
   triggerClassName?: string;
   contentClassName?: string;
   hideCostEstimateButton?: boolean;
+  variant?: "default" | "section";
 }
 
 const SectionedSelector: React.FC<SectionedSelectorProps> = ({
@@ -74,6 +75,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
   triggerClassName = "",
   contentClassName = "",
   hideCostEstimateButton = false,
+  variant = "default",
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [costEstimateTarget, setCostEstimateTarget] = React.useState<{
@@ -90,38 +92,102 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
     .find((opt) => opt.value === value);
   const selectValue = validOption ? value : undefined;
 
+  // both trailing actions share one treatment so they read as a pair
+  const actionButtonVariant = variant === "section" ? "utility" : "outline";
+  const actionButtonClassName = cn(
+    "h-8 w-8 shrink-0 cursor-pointer rounded-full",
+    variant === "default" && "glass p-1.5",
+  );
+
+  const undoButton =
+    onUndo !== undefined ? (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={actionButtonVariant}
+            size="icon"
+            className={actionButtonClassName}
+            onClick={onUndo}
+            disabled={disabled || !selectValue}
+          >
+            <Undo2 className="h-4 w-4" />
+            <span className="sr-only">{t("restore")}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{t("restore")}</TooltipContent>
+      </Tooltip>
+    ) : null;
+
+  const costEstimateButton =
+    !hideCostEstimateButton && validOption?.costEstimate && validOption.toolName ? (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant={actionButtonVariant}
+            size="icon"
+            className={actionButtonClassName}
+            onClick={() => {
+              const validOptionSection = sections.find((s) =>
+                s.options.some((o) => o.value === value)
+              );
+              setCostEstimateTarget({
+                toolName: validOption.toolName!,
+                estimate: validOption.costEstimate!,
+                providerId: validOption.providerId,
+                providerName: validOptionSection?.sectionTitle,
+                maxInputImages: validOption.maxInputImages,
+              });
+            }}
+          >
+            <CircleHelp className="h-4 w-4" />
+            <span className="sr-only">{t("cost_estimate.title")}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{t("cost_estimate.title")}</TooltipContent>
+      </Tooltip>
+    ) : null;
+
   return (
-    <div className={cn("space-y-2", className)}>
-      {(showLabel || onUndo !== undefined) && (
-        <div className="flex items-center justify-between w-full sm:w-md">
-          {showLabel && (
-            <Label
-              className={cn(
-                "text-[1.05rem] font-light",
-                disabled ? "text-muted-foreground/50" : "",
-                labelClassName
-              )}
-            >
-              {label}
-            </Label>
+    <div
+      className={cn(
+        variant === "section" ? "flex flex-col gap-2.5" : "space-y-2",
+        className,
+      )}
+    >
+      {showLabel && (
+        <div
+          className={cn(
+            "flex items-center justify-between w-full",
+            variant === "default" && "sm:w-md",
           )}
-          {onUndo !== undefined && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
-                  onClick={onUndo}
-                  disabled={disabled || !selectValue}
-                >
-                  <Undo2 className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("restore")}</TooltipContent>
-            </Tooltip>
-          )}
+        >
+          <Label
+            className={cn(
+              variant === "section"
+                ? "text-sm font-medium tracking-tight text-foreground"
+                : "text-[1.05rem] font-light",
+              disabled ? "text-muted-foreground/50" : "",
+              labelClassName
+            )}
+          >
+            {label}
+          </Label>
+          <div className="flex items-center gap-1.5">
+            {costEstimateButton}
+            {undoButton}
+          </div>
         </div>
       )}
+      {/* with no label above it, the cost-estimate and undo actions sit beside the
+          trigger rather than inside it, so neither crowds the selected value */}
+      <div
+        className={cn(
+          !showLabel &&
+            (costEstimateButton || undoButton) &&
+            "flex items-center gap-1.5",
+        )}
+      >
       <Select
         value={selectValue}
         disabled={disabled}
@@ -130,50 +196,46 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         onOpenChange={setIsOpen}
       >
         <SelectTrigger
+          // the label is often hidden, so the control still needs a name
+          aria-label={label}
           className={cn(
-            "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
-            disabled ? "text-muted-foreground/80 glass-static" : "glass",
+            // shadcn line-clamps the value via display:-webkit-box, which clips
+            // without an ellipsis; restore flex so the label's own truncate wins
+            "*:data-[slot=select-value]:flex *:data-[slot=select-value]:min-w-0 *:data-[slot=select-value]:flex-1",
+            // the icon-to-label gap lives on the value's inner row; tightened only
+            // here, since the portalled dropdown has no container ancestor
+            "*:data-[slot=select-value]:*:gap-1.5 @min-[30rem]:*:data-[slot=select-value]:*:gap-3",
+            // the chevron is lifted out of the flex row and parked in the trailing
+            // padding, so the value can never share or overrun its space
+            "relative [&>svg]:absolute [&>svg]:end-2 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2",
+            variant === "section"
+              ? "h-12 w-full min-w-0 flex-1 basis-0 cursor-pointer gap-0 overflow-hidden rounded-xl border-border bg-background/45 ps-2 pe-8 text-sm shadow-none data-[size=default]:h-12 @min-[30rem]:ps-4 @min-[30rem]:pe-9 @min-[30rem]:text-base"
+              : "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
+            variant === "default" &&
+              (disabled ? "text-muted-foreground/80 glass-static" : "glass"),
             triggerClassName
           )}
         >
-          <div className="flex items-center justify-between w-full min-w-0 pr-2">
-            <SelectValue placeholder={placeholder} />
-            {!hideCostEstimateButton && validOption?.costEstimate && validOption.toolName && (
-              <div
-                className="flex items-center gap-2 z-50 pointer-events-auto ml-2 shrink-0 cursor-pointer"
-                onPointerDown={(e) => e.stopPropagation()}
-                onPointerUp={(e) => e.stopPropagation()}
-                onMouseDown={(e) => e.stopPropagation()}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const validOptionSection = sections.find((s) =>
-                    s.options.some((o) => o.value === value)
-                  );
-                  setCostEstimateTarget({
-                    toolName: validOption.toolName!,
-                    estimate: validOption.costEstimate!,
-                    providerId: validOption.providerId,
-                    providerName: validOptionSection?.sectionTitle,
-                    maxInputImages: validOption.maxInputImages,
-                  });
-                }}
-              >
-                <CircleHelp className="size-5 text-blue-300 hover:text-blue-400 transition-colors" />
-              </div>
-            )}
-          </div>
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent
           className={cn(
-            "p-4 glass-dark-static rounded-2xl text-foreground",
+            variant === "section"
+              ? "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover p-2 text-foreground shadow-2xl"
+              : "p-4 glass-dark-static rounded-2xl text-foreground",
             contentClassName
           )}
         >
           {sections.map((section) => (
             <div key={section.sectionTitle}>
-              {/* Section Header */}
-              <div className="py-2 px-4 text-sm font-medium text-muted-foreground/90 flex items-center justify-between pointer-events-auto">
+              <div
+                className={cn(
+                  "flex items-center justify-between pointer-events-auto",
+                  variant === "section"
+                    ? "px-3 py-2 text-xs font-semibold uppercase tracking-[0.06em] text-muted-foreground"
+                    : "py-2 px-4 text-sm font-medium text-muted-foreground/90",
+                )}
+              >
                 <span>{section.sectionTitle}</span>
                 {!section.isConfigured && !hasCredits && (
                   <button
@@ -183,9 +245,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                       if (section.providerId) {
                         if (onProviderNavigate) {
                           onProviderNavigate(section.providerId);
-                          // Close the select dropdown
                           setIsOpen(false);
-                          // Scroll to top to show the carousel
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         } else {
                           console.warn(
@@ -201,7 +261,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                     }}
                     disabled={!section.providerId}
                     className={cn(
-                      "text-xs px-3 py-1.5 rounded-full border transition-colors font-medium pointer-events-auto",
+                      "rounded-full border font-medium transition-colors pointer-events-auto",
+                      variant === "section" ? "px-2.5 py-1 text-xs" : "text-xs px-3 py-1.5",
                       !section.providerId
                         ? "text-muted-foreground/60 border-muted-foreground/20 cursor-not-allowed"
                         : "text-accent-amber border-accent-amber/30 bg-accent-amber/5 hover:bg-accent-amber/15 hover:border-accent-amber/50 cursor-pointer active:scale-95 transition-transform"
@@ -212,14 +273,15 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                 )}
               </div>
 
-              {/* Section Options */}
               {section.options.map((opt) => (
                 <SelectItem
                   key={opt.value}
                   value={opt.value}
                   disabled={!section.isConfigured && !hasCredits}
                   className={cn(
-                    "py-4 px-8 pr-12! cursor-pointer text-foreground", // Remove nested span width overrides as structure changed
+                    variant === "section"
+                      ? "cursor-pointer rounded-lg px-3 py-2.5 pr-12! text-foreground"
+                      : "py-4 px-8 pr-12! cursor-pointer text-foreground",
                     opt.value === value ? "bg-accent/70" : "",
                     (!section.isConfigured || !opt.isConfigured) ? "text-muted-foreground/50" : ""
                   )}
@@ -247,7 +309,14 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                             });
                           }}
                         >
-                          <CircleHelp className="size-5 text-blue-300 hover:text-blue-400 transition-colors" />
+                          <CircleHelp
+                            className={cn(
+                              "transition-colors",
+                              variant === "section"
+                                ? "size-4 text-muted-foreground hover:text-foreground"
+                                : "size-5 text-blue-300 hover:text-blue-400",
+                            )}
+                          />
                         </div>
                       )}
 
@@ -261,7 +330,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                     </>
                   }
                 >
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
                     {opt.providerId && (
                       <ProviderIcon
                         providerId={opt.providerId}
@@ -269,7 +338,9 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                         alt=""
                       />
                     )}
-                    <span className="truncate">{opt.label}</span>
+                    <span className="truncate-start min-w-0 flex-1">
+                      <bdi>{opt.label}</bdi>
+                    </span>
                   </div>
                 </SelectItem>
               ))}
@@ -277,6 +348,9 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
           ))}
         </SelectContent>
       </Select>
+        {!showLabel && costEstimateButton}
+        {!showLabel && undoButton}
+      </div>
       {costEstimateTarget && (
         <CostEstimateDialog
           toolName={costEstimateTarget.toolName}
