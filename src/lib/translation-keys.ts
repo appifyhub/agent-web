@@ -328,6 +328,7 @@ export type TranslationKey =
   | "intelligence_presets.agent_choice_description"
   | "intelligence_presets.custom"
   | "intelligence_presets.custom_description"
+  | "intelligence_preset_title"
   | "detailed_tool_choices"
   | "errors.oh_no"
   | "errors.expired"
