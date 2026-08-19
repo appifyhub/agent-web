@@ -16,6 +16,7 @@ import {
   Key,
   ShoppingCart,
   Lightbulb,
+  UserRound,
 } from "lucide-react";
 import {
   saveUserSettings,
@@ -35,6 +36,7 @@ import {
 } from "@/lib/tool-presets";
 import CardSelector from "@/components/CardSelector";
 import SettingsSection from "@/components/settings/SettingsSection";
+import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 
 const IntelligenceSettingsPage: React.FC = () => {
   const { user_id, lang_iso_code } = useParams<{
@@ -45,7 +47,8 @@ const IntelligenceSettingsPage: React.FC = () => {
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
 
-  const { navigateToAccess, navigateToPurchases } = useNavigation();
+  const { navigateToAccess, navigateToPurchases, navigateToProfile } =
+    useNavigation();
 
   const { userSettings: remoteSettings, updateSettingsCache } = useUserSettings(
     user_id,
@@ -214,6 +217,17 @@ const IntelligenceSettingsPage: React.FC = () => {
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
       contentVariant="flow"
+      followupContent={
+        <SettingsGuideChip
+          icon={UserRound}
+          label={t("configure_profile")}
+          onActionClicked={() => {
+            if (user_id && lang_iso_code) {
+              navigateToProfile(user_id, lang_iso_code);
+            }
+          }}
+        />
+      }
       topBanner={
         showNoAccessWarning ? (
           <WarningBanner
@@ -251,7 +265,9 @@ const IntelligenceSettingsPage: React.FC = () => {
           <div
             className="settings-reveal"
             data-expanded={selectedPreset === "custom"}
-            aria-hidden={selectedPreset !== "custom"}
+            // the content stays mounted so it can animate out, so `inert` is what
+            // keeps a collapsed section out of the tab order and a11y tree
+            inert={selectedPreset !== "custom"}
           >
             {/* the gap lives inside the animated region so a collapsed section
                 leaves no leftover space above it */}

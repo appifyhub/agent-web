@@ -237,7 +237,7 @@ const OnboardingPage: React.FC = () => {
       onExternalErrorDismiss={() => setError(null)}
     >
       {isWaitlisted ? (
-        <div className="flex flex-col items-center space-y-6 text-center mt-4 mb-8">
+        <div className="flex flex-col items-center space-y-6 text-center mt-[1rem] mb-[2rem]">
           <Clock className="h-14 w-14 text-accent-amber" />
           <h3 className="text-xl font-semibold">
             {t("onboarding.waitlist_title")}

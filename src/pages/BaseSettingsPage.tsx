@@ -174,7 +174,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     if ((!accessToken && !error) || isGateLoading) {
       console.info("Rendering the loading state!");
       return (
-        <div className="container mx-auto p-4 h-screen">
+        <div className="container mx-auto px-4 py-4 h-screen">
           <div className="flex flex-col items-center space-y-6 h-full justify-center p-9">
             <GenericPageSkeleton />
           </div>

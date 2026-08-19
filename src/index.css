@@ -1,6 +1,11 @@
 @import "@fontsource-variable/inter";
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @import "tw-animate-css";
+
+/* tailwind's automatic source detection walks the whole project, which pulls class
+   names out of prose in markdown (openspec specs) and emits utilities nothing
+   renders. `source(none)` disables that, and detection is scoped to the app. */
+@source "../src";
 
 @tailwind utilities;
 

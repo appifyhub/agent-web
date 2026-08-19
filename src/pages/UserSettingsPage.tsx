@@ -6,7 +6,7 @@ import { usePageSession } from "@/hooks/usePageSession";
 import { ApiError } from "@/lib/api-error";
 import { PageError } from "@/lib/utils";
 import { toast } from "sonner";
-import { BadgeCent, KeyRound, Sparkles, type LucideIcon } from "lucide-react";
+import { BadgeCent, KeyRound, Sparkles } from "lucide-react";
 import {
   fetchUserSettings,
   saveUserSettings,
@@ -19,29 +19,7 @@ import { useNavigation } from "@/hooks/useNavigation";
 import SettingTextarea from "@/components/SettingTextarea";
 import SettingInput from "@/components/SettingInput";
 import SettingsSection from "@/components/settings/SettingsSection";
-import { Button } from "@/components/ui/button";
-
-interface ProfileGuideChipProps {
-  icon: LucideIcon;
-  label: string;
-  onActionClicked: () => void;
-}
-
-const ProfileGuideChip: React.FC<ProfileGuideChipProps> = ({
-  icon: Icon,
-  label,
-  onActionClicked,
-}) => (
-  <Button
-    variant="utility"
-    size="sm"
-    className="h-8 shrink-0 rounded-full border-blue-300/25 bg-blue-300/10 px-3 text-xs text-blue-200 hover:border-blue-300/40 hover:bg-blue-300/15 hover:text-blue-100"
-    onClick={onActionClicked}
-  >
-    <Icon className="!size-3" />
-    {label}
-  </Button>
-);
+import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 
 const UserSettingsPage: React.FC = () => {
   const { user_id, lang_iso_code } = useParams<{
@@ -156,7 +134,7 @@ const UserSettingsPage: React.FC = () => {
 
     followupContent =
       hasApiKeys || hasCredits ? (
-        <ProfileGuideChip
+        <SettingsGuideChip
           icon={Sparkles}
           label={t("configure_intelligence")}
           onActionClicked={() => {
@@ -167,7 +145,7 @@ const UserSettingsPage: React.FC = () => {
         />
       ) : (
         <>
-          <ProfileGuideChip
+          <SettingsGuideChip
             icon={BadgeCent}
             label={t("purchases.buy_credits")}
             onActionClicked={() => {
@@ -176,7 +154,7 @@ const UserSettingsPage: React.FC = () => {
               }
             }}
           />
-          <ProfileGuideChip
+          <SettingsGuideChip
             icon={KeyRound}
             label={t("configure_access_keys")}
             onActionClicked={() => {

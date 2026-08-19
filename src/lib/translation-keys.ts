@@ -278,6 +278,7 @@ export type TranslationKey =
   | "platforms.unknown"
   | "provider_needed_for"
   | "where_is_my_key"
+  | "configure_profile"
   | "configure_intelligence"
   | "configure_ai_providers"
   | "configure_access_keys"

@@ -387,7 +387,7 @@ const PurchasesPage: React.FC = () => {
         ) : (
           <>
             {userSettings?.credit_balance !== undefined && (
-              <div className="flex items-center justify-center gap-2 text-lg mt-2">
+              <div className="flex items-center justify-center gap-2 text-lg mt-[0.5rem]">
                 <span className="text-muted-foreground font-light">
                   {t("usage.credit_balance", { balance: "" }).trim()}
                 </span>

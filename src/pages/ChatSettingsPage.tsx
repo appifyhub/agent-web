@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { UserRound } from "lucide-react";
 import ChatContextBar from "@/components/settings/chat/ChatContextBar";
 import ChatSettingsForm from "@/components/settings/chat/ChatSettingsForm";
+import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 import { useChats } from "@/hooks/useChats";
 import { useNavigation } from "@/hooks/useNavigation";
 import { usePageSession } from "@/hooks/usePageSession";
@@ -204,6 +206,13 @@ const ChatSettingsPage: React.FC = () => {
       onExternalErrorDismiss={() => setError(null)}
       contentVariant="flow"
       selectedChat={selectedChat}
+      followupContent={
+        <SettingsGuideChip
+          icon={UserRound}
+          label={t("configure_profile")}
+          onActionClicked={handleProfileLinkClick}
+        />
+      }
     >
       <div className="flex flex-col gap-5">
         {selectedChat && <ChatContextBar chat={selectedChat} />}
