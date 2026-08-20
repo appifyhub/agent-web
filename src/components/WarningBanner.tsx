@@ -1,5 +1,6 @@
 import React from "react";
 import { AlertTriangle, X, Trash2, Plus, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 
@@ -42,76 +43,67 @@ const WarningBanner: React.FC<WarningBannerProps> = ({
       type: "destructive" as const,
       label: destructiveLabel,
       onClick: destructiveOnClick,
-      icon: destructiveIcon ?? <Trash2 className="h-3.5 w-3.5 mb-0.5" />,
-      className: "glass-red text-red-200 hover:text-red-100",
+      icon: destructiveIcon ?? <Trash2 className="h-3.5 w-3.5" />,
+      variant: "destructive" as const,
     },
     {
       type: "primary" as const,
       label: primaryLabel,
       onClick: primaryOnClick,
-      icon: primaryIcon ?? <Plus className="h-3.5 w-3.5 mb-0.5" />,
-      className: "glass-muted text-foreground/90 hover:text-foreground",
+      icon: primaryIcon ?? <Plus className="h-3.5 w-3.5" />,
+      variant: "outline" as const,
     },
     {
       type: "secondary" as const,
       label: secondaryLabel,
       onClick: secondaryOnClick,
-      icon: secondaryIcon ?? <Check className="h-3.5 w-3.5 mb-0.5" />,
-      className: "glass-purple text-purple-200 hover:text-purple-100",
+      icon: secondaryIcon ?? <Check className="h-3.5 w-3.5" />,
+      variant: "outline" as const,
     },
   ].filter((btn) => btn.label && btn.onClick);
 
   return (
     <div
       className={cn(
-        "w-full max-w-2xl mx-auto flex flex-col gap-4 border rounded-xl",
+        "w-full flex flex-col gap-4 rounded-2xl border bg-surface-raised/60",
         borderColor,
       )}
     >
-      <div className="h-1" />
-      <div className="flex items-start gap-3">
-        <div className="w-1" />
+      <div className="flex items-start gap-3 px-[1.25rem] pt-[1.25rem]">
         <div className="flex items-center gap-3 flex-1">
           {icon ?? defaultIcon}
           <p className="text-base font-light text-foreground/90 leading-relaxed flex-1">
             {message}
           </p>
         </div>
-        <div className="w-1" />
-        <button
-          onClick={onDismiss}
-          className="glass rounded-full cursor-pointer h-7 w-7 flex items-center justify-center shrink-0"
-          type="button"
-        >
-          <X className="h-4 w-4" />
-          <span className="sr-only">{t("close")}</span>
-        </button>
-        <div className="w-0" />
+        {onDismiss && (
+          <Button
+            variant="utility"
+            size="icon"
+            className="h-7 w-7 shrink-0 rounded-full"
+            onClick={onDismiss}
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">{t("close")}</span>
+          </Button>
+        )}
       </div>
-      <div className="flex flex-col sm:flex-row">
-        {buttons.map((button, index) => {
-          const isSingle = buttons.length === 1;
-          const isFirst = index === 0;
-          const isLast = index === buttons.length - 1;
-          return (
-            <button
+      {buttons.length > 0 && (
+        <div className="flex flex-col gap-2 px-[1.25rem] pb-[1.25rem] sm:flex-row">
+          {buttons.map((button) => (
+            <Button
               key={button.type}
+              variant={button.variant}
+              size="default"
+              className="flex-1"
               onClick={button.onClick}
-              className={cn(
-                "flex items-center justify-center gap-3 px-3 py-2.5 text-sm font-medium border cursor-pointer flex-1",
-                isSingle && "rounded-b-xl",
-                !isSingle && isFirst && "sm:rounded-bl-xl",
-                !isSingle && isLast && "rounded-b-xl sm:rounded-bl-none",
-                button.className,
-              )}
-              type="button"
             >
               {button.icon}
               {button.label}
-            </button>
-          );
-        })}
-      </div>
+            </Button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

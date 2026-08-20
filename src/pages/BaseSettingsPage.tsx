@@ -148,6 +148,14 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       ACTION_BAR_TOP_OFFSET,
     );
 
+    // retain the last non-null banner so settings-reveal can animate it out
+    const lastBannerRef = useRef<React.ReactNode>(null);
+    if (topBanner) {
+      lastBannerRef.current = topBanner;
+    }
+    const bannerVisible = !!topBanner;
+    const bannerContent = topBanner ?? lastBannerRef.current;
+
     useImperativeHandle(ref, () => ({
       openDrawer: () => setDrawerOpen(true),
     }));
@@ -245,8 +253,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         <div className="flex min-h-0 flex-1 flex-col">
           <main className="py-8 sm:py-10">
             <div className={contentContainerClassName}>
-              {topBanner}
-              {topBanner && <div className="h-6" />}
 
               <div className="flex min-w-0 items-center justify-between gap-4">
                 <h1 className="min-w-0 max-w-3xl text-balance text-3xl font-semibold tracking-tighter text-foreground sm:text-4xl">
@@ -287,6 +293,13 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
                 </div>
               </>
             )}
+
+              <div
+                className={cn(contentContainerClassName, "settings-reveal")}
+                data-expanded={bannerVisible}
+              >
+                <div className="pt-[1.25rem]">{bannerContent}</div>
+              </div>
 
             <div
               className={cn(
