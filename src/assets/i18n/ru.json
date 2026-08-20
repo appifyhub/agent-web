@@ -15,7 +15,7 @@
   "help": "Помощь",
   "configure_title": "Настроить поведение {botName}а",
   "intelligence_card_title": "Усильте Интеллект {botName}а",
-  "access": "Доступ",
+  "access": "Доступ (BYOK)",
   "intelligence": "Интеллект",
   "access_card_title": "Сделайте {botName}а независимым",
   "access_use_credits_warning_prefix": "Чтобы использовать кредиты, удалите все ключи API",

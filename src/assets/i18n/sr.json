@@ -15,7 +15,7 @@
   "help": "Pomoć",
   "configure_title": "Podesi ponašanje {botName}a",
   "intelligence_card_title": "Unapredi {botName}ovu Inteligenciju",
-  "access": "Pristup",
+  "access": "Pristup (BYOK)",
   "intelligence": "Inteligencija",
   "access_card_title": "Učini {botName}a nezavisnim",
   "access_use_credits_warning_prefix": "Da biste koristili kredite, uklonite sve API ključeve",

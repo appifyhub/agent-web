@@ -15,7 +15,7 @@
   "help": "सहायता",
   "configure_title": "{botName} का व्यवहार कॉन्फ़िगर करें",
   "intelligence_card_title": "{botName} की बुद्धिमत्ता बढ़ाएं",
-  "access": "पहुंच",
+  "access": "पहुंच (BYOK)",
   "intelligence": "बुद्धिमत्ता",
   "access_card_title": "{botName} को स्वतंत्र बनाएं",
   "access_use_credits_warning_prefix": "क्रेडिट का उपयोग करने के लिए, सभी API कुंजियां हटाएं",

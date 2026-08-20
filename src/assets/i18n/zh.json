@@ -15,7 +15,7 @@
   "help": "帮助",
   "configure_title": "配置{botName}的行为",
   "intelligence_card_title": "提升 {botName} 的智能",
-  "access": "访问",
+  "access": "访问 (BYOK)",
   "intelligence": "智能",
   "access_card_title": "让 {botName} 独立",
   "access_use_credits_warning_prefix": "要使用积分，请删除所有API密钥",

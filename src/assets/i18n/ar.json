@@ -15,7 +15,7 @@
   "help": "مساعدة",
   "configure_title": "تكوين سلوك {botName}",
   "intelligence_card_title": "تعزيز ذكاء {botName}",
-  "access": "الوصول",
+  "access": "الوصول (BYOK)",
   "intelligence": "الذكاء",
   "access_card_title": "اجعل {botName} مستقلاً",
   "access_use_credits_warning_prefix": "لاستخدام الاعتمادات، قم بإزالة جميع مفاتيح API",

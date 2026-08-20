@@ -15,7 +15,7 @@
   "help": "Aiuto",
   "configure_title": "Configura il comportamento di {botName}",
   "intelligence_card_title": "Potenzia l'Intelligenza di {botName}",
-  "access": "Accesso",
+  "access": "Accesso (BYOK)",
   "intelligence": "Intelligenza",
   "access_card_title": "Rendi {botName} indipendente",
   "access_use_credits_warning_prefix": "Per utilizzare i crediti, rimuovi tutte le chiavi API",

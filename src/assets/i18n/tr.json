@@ -15,7 +15,7 @@
   "help": "Yardım",
   "configure_title": "{botName}'ın Davranışını Yapılandır",
   "intelligence_card_title": "{botName}'ın Zekasını Güçlendir",
-  "access": "Erişim",
+  "access": "Erişim (BYOK)",
   "intelligence": "Zeka",
   "access_card_title": "{botName}'ı bağımsız yapın",
   "access_use_credits_warning_prefix": "Kredi kullanmak için tüm API anahtarlarını kaldırın",
