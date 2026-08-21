@@ -49,7 +49,6 @@ interface BaseSettingsPageProps {
   secondaryDisabled?: boolean;
   secondaryIcon?: React.ReactNode;
   secondaryText?: string;
-  secondaryTooltipText?: string;
   secondaryClassName?: string;
   showCancelButton?: boolean;
   onCancelClicked?: () => void;
@@ -84,7 +83,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       secondaryDisabled = false,
       secondaryIcon,
       secondaryText,
-      secondaryTooltipText,
       secondaryClassName,
       showCancelButton = false,
       onCancelClicked = () => {},
@@ -214,7 +212,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         }
         secondaryIcon={secondaryIcon}
         secondaryText={secondaryText}
-        secondaryTooltipText={secondaryTooltipText}
         secondaryClassName={secondaryClassName}
         showCancelButton={showCancelButton}
         onCancelClicked={onCancelClicked}

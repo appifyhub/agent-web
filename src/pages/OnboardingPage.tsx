@@ -231,7 +231,6 @@ const OnboardingPage: React.FC = () => {
       }
       onSecondaryClicked={handlePrev}
       secondaryIcon={<ChevronLeft className="h-5 w-5" />}
-      secondaryTooltipText={t("back")}
       isContentLoading={isLoadingState}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}

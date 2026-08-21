@@ -322,7 +322,6 @@ const PurchasesPage: React.FC = () => {
         showSecondaryButton={shouldShowSecondaryButton}
         onSecondaryClicked={handleStartEditing}
         secondaryText={t("purchases.license")}
-        secondaryTooltipText={t("purchases.use_license")}
         showCancelButton={shouldShowCancelButton}
         onCancelClicked={handleCancelEditing}
         cancelIcon={<X className="h-6 w-6" />}

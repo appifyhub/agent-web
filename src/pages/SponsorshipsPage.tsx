@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Check,
-  CheckCheck,
-  VenetianMask,
-  AtSign,
   Link,
   UsersRound,
-  UserX,
-  ChevronDown,
-  UserRound,
-  Phone,
-  ScrollText,
-  Mail,
-  Clock,
 } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { ApiError } from "@/lib/api-error";
-import { PageError, cn, cleanUsername } from "@/lib/utils";
+import { PageError, cleanUsername } from "@/lib/utils";
 import { toast } from "sonner";
 import { t } from "@/lib/translations";
 import {
@@ -31,8 +20,8 @@ import { Platform } from "@/lib/platform";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import PlatformHandleInput from "@/components/PlatformHandleInput";
-import PlatformIcon from "@/components/PlatformIcon";
-import { Button } from "@/components/ui/button";
+import SponsorshipItem from "@/components/SponsorshipItem";
+import SettingsSection from "@/components/settings/SettingsSection";
 import { fetchExternalTools } from "@/services/external-tools-service";
 
 const SponsorshipsPage: React.FC = () => {
@@ -49,6 +38,8 @@ const SponsorshipsPage: React.FC = () => {
   const [sponsorships, setSponsorships] = useState<SponsorshipResponse[]>([]);
   const [maxSponsorships, setMaxSponsorships] = useState<number>(0);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
+  const [removingIndex, setRemovingIndex] = useState<number | null>(null);
+  const [collapsingIndex, setCollapsingIndex] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [platformHandle, setPlatformHandle] = useState<string>("");
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>(
@@ -173,10 +164,10 @@ const SponsorshipsPage: React.FC = () => {
     }
   };
 
-  const handleUnsponsor = async (sponsorship: SponsorshipResponse) => {
+  const handleUnsponsor = async (sponsorship: SponsorshipResponse, index: number) => {
     if (!sponsorship.platform_handle || !sponsorship.platform || !user_id || !accessToken) return;
 
-    setIsLoadingState(true);
+    setRemovingIndex(index);
     setError(null);
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -188,23 +179,26 @@ const SponsorshipsPage: React.FC = () => {
         rawToken: accessToken.raw,
       });
 
-      // Remove the sponsorship from local state
-      setSponsorships((prev) =>
-        sortSponsorships(prev.filter((s) => s !== sponsorship))
-      );
-
-      // Collapse expanded items since the list changed
-      setExpandedItems(new Set());
       toast(t("saved"));
+
+      // animate out, then remove from state
+      setCollapsingIndex(index);
+      setTimeout(() => {
+        setSponsorships((prev) =>
+          sortSponsorships(prev.filter((s) => s !== sponsorship))
+        );
+        setExpandedItems(new Set());
+        setRemovingIndex(null);
+        setCollapsingIndex(null);
+      }, 300);
     } catch (err) {
       console.error("Error saving sponsorship!", err);
+      setRemovingIndex(null);
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
           : PageError.simple("errors.save_failed"),
       );
-    } finally {
-      setIsLoadingState(false);
     }
   };
 
@@ -234,56 +228,6 @@ const SponsorshipsPage: React.FC = () => {
     }
   };
 
-  const getDisplayName = (sponsorship: SponsorshipResponse) => {
-    const { full_name, platform_handle, platform } = sponsorship;
-
-    if (full_name || platform_handle) {
-      let prefixIcon = null;
-      let prefixChar = "";
-
-      if (!full_name && platform_handle) {
-        if (platform === Platform.WHATSAPP) {
-          prefixIcon = <Phone className="h-5 w-5 text-accent-amber shrink-0" />;
-          prefixChar = "+";
-        } else if (platform === Platform.TELEGRAM) {
-          prefixIcon = (
-            <AtSign className="h-5 w-5 text-accent-amber shrink-0" />
-          );
-        } else {
-          prefixIcon = (
-            <UserRound className="h-5 w-5 text-accent-amber translate-y-0.5 shrink-0" />
-          );
-        }
-      } else if (full_name) {
-        prefixIcon = (
-          <UserRound className="h-5 w-5 text-accent-amber translate-y-0.5 shrink-0" />
-        );
-      }
-
-      return (
-        <div
-          className={cn(
-            "flex justify-center space-x-3 truncate overflow-hidden whitespace-nowrap",
-            prefixIcon !== null ? "items-center" : "items-stretch"
-          )}
-        >
-          {prefixIcon}
-          <span className="font-normal truncate overflow-hidden whitespace-nowrap">
-            {prefixChar}
-            {full_name || platform_handle}
-          </span>
-        </div>
-      );
-    }
-    return (
-      <div className="flex items-center justify-center space-x-2 truncate overflow-hidden whitespace-nowrap">
-        <VenetianMask className="h-5 w-5 text-accent-amber shrink-0" />
-        <span className="font-normal truncate overflow-hidden whitespace-nowrap">
-          {t("sponsorship.incognito")}
-        </span>
-      </div>
-    );
-  };
 
   // Action button logic
   const getActionButtonText = () => {
@@ -301,6 +245,7 @@ const SponsorshipsPage: React.FC = () => {
   };
 
   const isActionDisabled = () => {
+    if (removingIndex !== null) return true;
     // Disable if no API keys configured (only when trying to sponsor, not when unlinking)
     if (
       !userSettings?.is_sponsored &&
@@ -329,15 +274,6 @@ const SponsorshipsPage: React.FC = () => {
   const shouldShowCancelButton =
     isEditing && !userSettings?.is_sponsored;
 
-  const getSponsorshipStatusLabel = (sponsorship: SponsorshipResponse): string => {
-    return sponsorship.accepted_at
-      ? t("sponsorship.details.accepted")
-      : t("sponsorship.details.received");
-  };
-
-  const getBooleanLabel = (value: boolean): string => {
-    return value ? t("sponsorship.details.yes") : t("sponsorship.details.no");
-  };
 
   return (
     <BaseSettingsPage
@@ -355,13 +291,14 @@ const SponsorshipsPage: React.FC = () => {
       showCancelButton={shouldShowCancelButton}
       onCancelClicked={handleCancelEditing}
       isContentLoading={isLoadingState}
+      contentVariant="flow"
     >
       {userSettings?.is_sponsored ? (
         <>
           {/* Sponsored user message */}
           <div className="flex flex-col items-center space-y-10 text-center mt-12">
             <Link className="h-12 w-12 text-accent-amber" />
-            <p className="text-[1.05rem] font-light text-justify md:text-left [hyphens:auto] opacity-80">
+            <p className="text-[1.05rem] font-light md:text-justify [hyphens:auto] opacity-80">
               {t("sponsorship.unlink_message")}
             </p>
           </div>
@@ -384,212 +321,48 @@ const SponsorshipsPage: React.FC = () => {
           />
         </div>
       ) : (
-        <>
-          {/* Sponsorships List */}
-          <div className="flex flex-col space-y-0">
-            {sponsorships.length === 0 ? (
-              <div className="flex flex-col items-center space-y-10 text-center mt-12">
-                <UsersRound className="h-12 w-12 text-accent-amber" />
-                <p className="text-foreground/80 font-light">
-                  {!hasApiKeysConfigured
-                    ? t("sponsorship.configure_ai_access_first")
-                    : t("sponsorship.no_sponsorships_found")}
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="h-6" />
-                {sponsorships.map((sponsorship, index) => {
-                  // Expanded state management
-                  const isExpanded = expandedItems.has(index);
-                  const toggleExpanded = () => {
-                    const newExpandedItems = new Set(expandedItems);
-                    if (isExpanded) {
-                      newExpandedItems.delete(index);
-                    } else {
-                      newExpandedItems.add(index);
-                    }
-                    setExpandedItems(newExpandedItems);
-                  };
-
-                  // Border classes
-                  const isFirst = index === 0;
-                  const isLast = index === sponsorships.length - 1;
-                  let roundedClasses = "";
-                  let borderClasses = "border-t-0";
-                  if (sponsorships.length === 1) {
-                    roundedClasses = "rounded-2xl";
-                    borderClasses = "border-t-1";
-                  } else if (isFirst) {
-                    roundedClasses = "rounded-t-2xl";
-                    borderClasses = "border-t-1";
-                  } else if (isLast) {
-                    roundedClasses = "rounded-b-2xl";
+        <SettingsSection
+          title={t("sponsorship.profiles_i_sponsor")}
+          contentClassName="gap-0 py-2 sm:py-3"
+        >
+          {sponsorships.length === 0 ? (
+            <div className="flex flex-col items-center space-y-10 text-center py-6">
+              <UsersRound className="h-12 w-12 text-accent-amber" />
+              <p className="text-foreground/80 font-light">
+                {!hasApiKeysConfigured
+                  ? t("sponsorship.configure_ai_access_first")
+                  : t("sponsorship.no_sponsorships_found")}
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-col divide-y divide-border/50">
+              {sponsorships.map((sponsorship, index) => {
+                const isExpanded = expandedItems.has(index);
+                const toggleExpanded = () => {
+                  const newExpandedItems = new Set(expandedItems);
+                  if (isExpanded) {
+                    newExpandedItems.delete(index);
+                  } else {
+                    newExpandedItems.add(index);
                   }
+                  setExpandedItems(newExpandedItems);
+                };
 
-                  return (
-                    <div
-                      key={index}
-                      className={cn(
-                        "flex flex-col px-5 items-start justify-center glass-muted border cursor-pointer w-full",
-                        isExpanded ? "space-y-4 py-4" : "space-y-0 py-3",
-                        roundedClasses,
-                        borderClasses
-                      )}
-                      onClick={toggleExpanded}
-                    >
-                      {/* Display name row (horizontal) - display name block and status icon */}
-                      <div className="flex items-center w-full">
-                        <div className="flex items-center space-x-3 flex-1 min-w-0">
-                          <div className="min-w-0">
-                            {getDisplayName(sponsorship)}
-                          </div>
-                          {/* Sponsorship status icon */}
-                          {!isExpanded &&
-                            (sponsorship.accepted_at ? (
-                              <CheckCheck className="h-4 w-4 text-success shrink-0" />
-                            ) : (
-                              <Check className="h-4 w-4 text-success shrink-0" />
-                            ))}
-                        </div>
-                        {/* Right side: Chevron */}
-                        <ChevronDown
-                          className={cn(
-                            "h-5 w-5 text-muted-foreground shrink-0 transition-transform duration-300",
-                            isExpanded
-                              ? "text-foreground rotate-180"
-                              : "rotate-0"
-                          )}
-                        />
-                      </div>
-
-                      <div
-                        className={cn(
-                          "w-full",
-                          isExpanded ? "block" : "hidden"
-                        )}
-                      >
-                        <div className="flex flex-col gap-3">
-                          <div className="flex flex-col gap-y-2 gap-x-2 md:grid md:grid-cols-2">
-                            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-                              <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                                {t("sponsorship.details.identity_title")}
-                              </h4>
-                              <div className="flex flex-col space-y-1 text-sm">
-                                <div className="flex justify-between gap-4">
-                                  <span className="text-muted-foreground min-w-0 truncate flex items-center gap-2">
-                                    <PlatformIcon
-                                      platform={sponsorship.platform ?? Platform.UNKNOWN}
-                                      className="h-4 w-4 shrink-0"
-                                    />
-                                    {t("sponsorship.details.platform")}
-                                  </span>
-                                  <span className="shrink-0">
-                                    {Platform.getName(sponsorship.platform ?? Platform.UNKNOWN)}
-                                  </span>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <span className="text-muted-foreground min-w-0 truncate flex items-center gap-2">
-                                    {sponsorship.accepted_at ? (
-                                      <CheckCheck className="h-4 w-4 text-success shrink-0" />
-                                    ) : (
-                                      <Check className="h-4 w-4 text-success shrink-0" />
-                                    )}
-                                    {t("sponsorship.details.status")}
-                                  </span>
-                                  <span className="shrink-0">
-                                    {getSponsorshipStatusLabel(sponsorship)}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-                              <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                                {t("sponsorship.details.account_title")}
-                              </h4>
-                              <div className="flex flex-col space-y-1 text-sm">
-                                <div className="flex justify-between gap-4">
-                                  <span className="text-muted-foreground min-w-0 truncate flex items-center gap-2">
-                                    <Clock className="h-4 w-4 text-blue-300 shrink-0" />
-                                    {t("sponsorship.details.waitlist")}
-                                  </span>
-                                  <span
-                                    className={cn(
-                                      "shrink-0",
-                                      sponsorship.is_on_waitlist
-                                        ? "text-accent-amber"
-                                        : "text-green-200"
-                                    )}
-                                  >
-                                    {getBooleanLabel(sponsorship.is_on_waitlist)}
-                                  </span>
-                                </div>
-                                <div
-                                  className={cn(
-                                    "flex justify-between gap-4",
-                                    !sponsorship.is_on_waitlist && "line-through opacity-40"
-                                  )}
-                                >
-                                  <span className="text-muted-foreground min-w-0 truncate flex items-center gap-2">
-                                    <Mail className="h-4 w-4 text-blue-300 shrink-0" />
-                                    {t("sponsorship.details.invited")}
-                                  </span>
-                                  <span
-                                    className={cn(
-                                      "shrink-0",
-                                      sponsorship.is_invited_to_start
-                                        ? "text-green-200"
-                                        : "text-muted-foreground"
-                                    )}
-                                  >
-                                    {getBooleanLabel(sponsorship.is_invited_to_start)}
-                                  </span>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <span className="text-muted-foreground min-w-0 truncate flex items-center gap-2">
-                                    <ScrollText className="h-4 w-4 text-blue-300 shrink-0" />
-                                    {t("sponsorship.details.policies")}
-                                  </span>
-                                  <span
-                                    className={cn(
-                                      "shrink-0",
-                                      sponsorship.are_policies_accepted
-                                        ? "text-green-200"
-                                        : "text-muted-foreground"
-                                    )}
-                                  >
-                                    {getBooleanLabel(sponsorship.are_policies_accepted)}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex justify-center pt-1">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="w-full text-white glass-purple cursor-pointer"
-                              onClick={(e: React.MouseEvent) => {
-                                e.stopPropagation();
-                                if (!error?.isBlocker) {
-                                  handleUnsponsor(sponsorship);
-                                }
-                              }}
-                              disabled={!!error?.isBlocker}
-                            >
-                              <UserX className="h-4 w-4 mr-1.5" />
-                              {t("sponsorship.unlink")}
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </>
-            )}
-          </div>
-        </>
+                return (
+                  <SponsorshipItem
+                    key={index}
+                    sponsorship={sponsorship}
+                    isExpanded={isExpanded}
+                    isCollapsing={collapsingIndex === index}
+                    disabled={!!error?.isBlocker || removingIndex !== null}
+                    onToggle={toggleExpanded}
+                    onUnsponsor={() => handleUnsponsor(sponsorship, index)}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </SettingsSection>
       )}
     </BaseSettingsPage>
   );

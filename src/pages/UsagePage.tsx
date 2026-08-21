@@ -367,7 +367,6 @@ const UsagePage: React.FC = () => {
         showSecondaryButton={!isTransferring}
         onSecondaryClicked={handleStartTransfer}
         secondaryText={t("usage.transfer.action")}
-        secondaryTooltipText={t("usage.transfer.action")}
         showCancelButton={isTransferring}
         onCancelClicked={handleCancelTransfer}
         isContentLoading={isLoadingState || isTransferSaving}
