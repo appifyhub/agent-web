@@ -113,7 +113,8 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
                   size="icon"
                   className={cn(
                     "h-8 w-8 shrink-0 cursor-pointer rounded-full",
-                    variant === "default" && "glass p-1.5",
+                    variant === "default" &&
+                      "bg-surface-raised/50 border border-border/60 p-1.5",
                   )}
                   onClick={handleClear}
                   disabled={disabled || !value}
@@ -144,7 +145,7 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
         className={cn(
           variant === "section"
             ? "w-full resize-none rounded-xl border-border bg-background/45 px-4 py-3 text-base leading-6 shadow-none"
-            : "py-6 px-6 w-full sm:w-md text-[1.05rem] glass rounded-xl resize-none",
+            : "py-6 px-6 w-full sm:w-md text-[1.05rem] bg-surface-raised/50 border border-border/60 rounded-xl resize-none",
           disabled ? "cursor-not-allowed" : "",
           textareaClassName
         )}

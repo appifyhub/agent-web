@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import InlineSettingSelector from "@/components/InlineSettingSelector";
 import SettingToggle from "@/components/SettingToggle";
 import { t } from "@/lib/translations";
@@ -98,7 +99,7 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
 
   const filtersContent = (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="border-1 border-muted-foreground/30 rounded-xl space-y-4.5 p-[1rem]">
+      <div className="border border-border/50 rounded-xl space-y-4.5 p-[1rem]">
         <h3 className="text-md font-medium text-blue-300/80 uppercase truncate">
           {t("usage.filters.scope_section")}
         </h3>
@@ -143,7 +144,7 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
         )}
       </div>
 
-      <div className="border-1 border-muted-foreground/30 rounded-xl space-y-4 p-[1rem]">
+      <div className="border border-border/50 rounded-xl space-y-4 p-[1rem]">
         <h3 className="text-md font-medium text-blue-300/80 uppercase truncate">
           {t("usage.filters.filters_section")}
         </h3>
@@ -217,10 +218,11 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
 
   return (
     <>
-      <button
+      <Button
+        variant="ghost"
         onClick={() => setIsExpanded(!isExpanded)}
         className={cn(
-          "w-full flex items-center justify-between py-3 px-2 border-b border-muted-foreground/20 text-[1.05rem]",
+          "w-full flex items-center justify-between py-3 px-2 border-b border-border/50 text-[1.05rem]",
           isExpanded
             ? "font-medium text-accent-amber underline underline-offset-4"
             : "font-light"
@@ -237,7 +239,7 @@ const UsageFilters: React.FC<UsageFiltersProps> = ({
             isExpanded ? "rotate-180" : "rotate-0"
           )}
         />
-      </button>
+      </Button>
       {isExpanded && <div className="mt-[1.5rem]">{filtersContent}</div>}
     </>
   );

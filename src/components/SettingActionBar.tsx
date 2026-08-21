@@ -63,18 +63,17 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant="utility"
-              size={secondaryText ? "default" : "icon"}
+              variant="outline"
               className={cn(
-                "cursor-pointer rounded-full",
-                secondaryText ? "h-9 px-4 text-sm" : "h-9 w-9",
+                "h-9 cursor-pointer rounded-full border-border/60 px-[0.85rem] text-sm text-foreground/80 hover:text-foreground hover:bg-surface-raised/60",
                 secondaryClassName,
               )}
               disabled={secondaryDisabled}
               onClick={onSecondaryClicked}
             >
               {secondaryIcon}
-              {secondaryText && <span className="ms-2">{secondaryText}</span>}
+              {secondaryIcon && secondaryText && <span className="ms-2">{secondaryText}</span>}
+              {!secondaryIcon && secondaryText}
             </Button>
           </TooltipTrigger>
           <TooltipContent>{secondaryTooltipText}</TooltipContent>
@@ -83,7 +82,7 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
       {showActionButton && (
         <Button
           variant="brand"
-          className="h-9 cursor-pointer rounded-full px-5 text-sm disabled:bg-primary/30 disabled:text-primary-foreground/55 disabled:opacity-100 disabled:shadow-none"
+          className="h-9 cursor-pointer rounded-full px-[0.85rem] text-sm disabled:bg-primary/30 disabled:text-primary-foreground/55 disabled:opacity-100 disabled:shadow-none"
           disabled={actionDisabled}
           onClick={onActionClicked}
         >

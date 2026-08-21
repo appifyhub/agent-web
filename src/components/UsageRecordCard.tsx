@@ -167,8 +167,8 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col px-5 glass-muted border cursor-pointer w-full space-y-4",
-        isExpanded ? "py-8" : "py-3",
+        "flex flex-col px-5 py-3 bg-surface-subtle/50 border cursor-pointer w-full transition-[padding,gap,background] duration-300",
+        isExpanded ? "py-8 gap-4 bg-[radial-gradient(20rem_8rem_at_0%_0%,oklch(0.42_0.11_285/15%),transparent_76%)]" : "gap-0",
         roundedClasses,
         borderClasses
       )}
@@ -275,257 +275,265 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
       </div>
 
       {/* Expanded view */}
-      {isExpanded && (
-        <div className={`flex flex-col gap-y-2 gap-x-2 md:grid ${gridColsClass}`}>
-          {/* Cost Breakdown */}
-          {hasCostBreakdown && (
-            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-              <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                {t("usage.cost_breakdown.title")}
-              </h4>
-              <div className="flex flex-col gap-y-1 text-sm">
-                {record.model_cost_credits > 0 && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.cost_breakdown.model_cost")}
-                    </span>
-                    <span className="shrink-0">{formatCredits(record.model_cost_credits)}</span>
-                  </div>
-                )}
-                {record.remote_runtime_cost_credits > 0 && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.cost_breakdown.remote_cost")}
-                    </span>
-                    <span className="shrink-0">
-                      {formatCredits(record.remote_runtime_cost_credits)}
-                    </span>
-                  </div>
-                )}
-                {record.api_call_cost_credits > 0 && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.cost_breakdown.api_call_cost")}
-                    </span>
-                    <span className="shrink-0">{formatCredits(record.api_call_cost_credits)}</span>
-                  </div>
-                )}
-                {record.maintenance_fee_credits > 0 && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.cost_breakdown.maintenance_fee")}
-                    </span>
-                    <span className="shrink-0">{formatCredits(record.maintenance_fee_credits, 2)}</span>
-                  </div>
-                )}
-                <div className="flex justify-between gap-4 font-medium pt-[0.4rem] border-t border-muted-foreground/20">
-                  <span className={cn(
-                    "min-w-0 truncate",
-                    !record.uses_credits && "line-through"
-                  )}>
-                    {t("usage.cost_breakdown.total")}
-                  </span>
-                  <span className="shrink-0 flex items-center gap-1">
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows,opacity] duration-300",
+          isExpanded ? "opacity-100" : "opacity-0"
+        )}
+        style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className={`flex flex-col gap-y-3 gap-x-3 mt-[0.5rem] md:grid ${gridColsClass}`}>
+            {/* Cost Breakdown */}
+            {hasCostBreakdown && (
+              <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
+                <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
+                  {t("usage.cost_breakdown.title")}
+                </h4>
+                <div className="flex flex-col gap-y-1 text-sm">
+                  {record.model_cost_credits > 0 && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.cost_breakdown.model_cost")}
+                      </span>
+                      <span className="shrink-0">{formatCredits(record.model_cost_credits)}</span>
+                    </div>
+                  )}
+                  {record.remote_runtime_cost_credits > 0 && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.cost_breakdown.remote_cost")}
+                      </span>
+                      <span className="shrink-0">
+                        {formatCredits(record.remote_runtime_cost_credits)}
+                      </span>
+                    </div>
+                  )}
+                  {record.api_call_cost_credits > 0 && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.cost_breakdown.api_call_cost")}
+                      </span>
+                      <span className="shrink-0">{formatCredits(record.api_call_cost_credits)}</span>
+                    </div>
+                  )}
+                  {record.maintenance_fee_credits > 0 && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.cost_breakdown.maintenance_fee")}
+                      </span>
+                      <span className="shrink-0">{formatCredits(record.maintenance_fee_credits, 2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between gap-4 font-medium pt-[0.4rem] border-t border-muted-foreground/20">
                     <span className={cn(
-                      "font-mono",
-                      !record.uses_credits && "line-through",
-                      isSponsoredByOthersForMe ? "text-blue-300" : "text-accent-amber"
+                      "min-w-0 truncate",
+                      !record.uses_credits && "line-through"
                     )}>
-                      {formatCredits(record.total_cost_credits)}
+                      {t("usage.cost_breakdown.total")}
                     </span>
-                    {record.uses_credits ? (
-                      <BadgeCent className={cn(
-                        "h-3.5 w-3.5",
+                    <span className="shrink-0 flex items-center gap-1">
+                      <span className={cn(
+                        "font-mono",
+                        !record.uses_credits && "line-through",
                         isSponsoredByOthersForMe ? "text-blue-300" : "text-accent-amber"
-                      )} />
-                    ) : (
-                      <Key className={cn(
-                        "h-3.5 w-3.5",
-                        isSponsoredByOthersForMe ? "text-blue-300" : "text-accent-amber"
-                      )} />
-                    )}
-                  </span>
+                      )}>
+                        {formatCredits(record.total_cost_credits)}
+                      </span>
+                      {record.uses_credits ? (
+                        <BadgeCent className={cn(
+                          "h-3.5 w-3.5",
+                          isSponsoredByOthersForMe ? "text-blue-300" : "text-accent-amber"
+                        )} />
+                      ) : (
+                        <Key className={cn(
+                          "h-3.5 w-3.5",
+                          isSponsoredByOthersForMe ? "text-blue-300" : "text-accent-amber"
+                        )} />
+                      )}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Token Stats */}
-          {hasTokenStats && (
-            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
+            {/* Token Stats */}
+            {hasTokenStats && (
+              <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
+                <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
+                  {t("usage.token_stats.title")}
+                </h4>
+                <div className="flex flex-col space-y-1 text-sm">
+                  {record.input_tokens != null && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.token_stats.input_tokens")}
+                      </span>
+                      <span className="shrink-0">{record.input_tokens.toLocaleString()}</span>
+                    </div>
+                  )}
+                  {record.output_tokens != null && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.token_stats.output_tokens")}
+                      </span>
+                      <span className="shrink-0">{record.output_tokens.toLocaleString()}</span>
+                    </div>
+                  )}
+                  {record.search_tokens != null && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("usage.token_stats.search_tokens")}
+                      </span>
+                      <span className="shrink-0">{record.search_tokens.toLocaleString()}</span>
+                    </div>
+                  )}
+                  {record.total_tokens != null && (
+                    <div className="flex justify-between gap-4 font-medium pt-[0.4rem] border-t border-muted-foreground/20">
+                      <span className="min-w-0 truncate">{t("usage.token_stats.total")}</span>
+                      <span className="shrink-0">{record.total_tokens.toLocaleString()}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Context & IDs */}
+            <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
               <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                {t("usage.token_stats.title")}
+                {t("usage.context_ids.title")}
               </h4>
               <div className="flex flex-col space-y-1 text-sm">
-                {record.input_tokens != null && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.token_stats.input_tokens")}
-                    </span>
-                    <span className="shrink-0">{record.input_tokens.toLocaleString()}</span>
-                  </div>
-                )}
-                {record.output_tokens != null && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.token_stats.output_tokens")}
-                    </span>
-                    <span className="shrink-0">{record.output_tokens.toLocaleString()}</span>
-                  </div>
-                )}
-                {record.search_tokens != null && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("usage.token_stats.search_tokens")}
-                    </span>
-                    <span className="shrink-0">{record.search_tokens.toLocaleString()}</span>
-                  </div>
-                )}
-                {record.total_tokens != null && (
-                  <div className="flex justify-between gap-4 font-medium pt-[0.4rem] border-t border-muted-foreground/20">
-                    <span className="min-w-0 truncate">{t("usage.token_stats.total")}</span>
-                    <span className="shrink-0">{record.total_tokens.toLocaleString()}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Context & IDs */}
-          <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-            <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-              {t("usage.context_ids.title")}
-            </h4>
-            <div className="flex flex-col space-y-1 text-sm">
-              <div className="flex md:hidden justify-between gap-4">
-                <span className="text-muted-foreground min-w-0 truncate">
-                  {t("usage.context_ids.date_label")}
-                </span>
-                <span className="shrink-0">{dateStr}</span>
-              </div>
-              <div className="flex md:hidden justify-between gap-4">
-                <span className="text-muted-foreground min-w-0 truncate">
-                  {t("usage.context_ids.time_label")}
-                </span>
-                <span className="shrink-0">{timeStr}</span>
-              </div>
-              <div className="flex md:hidden justify-between gap-4">
-                <span className="text-muted-foreground min-w-0 truncate">
-                  {t("usage.context_ids.runtime_label")}
-                </span>
-                <span className="shrink-0">{formatRuntime(record.runtime_seconds)}</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground min-w-0 truncate">
-                  {t("usage.context_ids.status_label")}
-                </span>
-                <span className={cn("shrink-0", record.is_failed ? "text-red-400" : "text-green-200")}>
-                  {record.is_failed ? t("usage.context_ids.status_failed") : t("usage.context_ids.status_completed")}
-                </span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground min-w-0 truncate">
-                  {t("usage.context_ids.user_label")}
-                </span>
-                <span className="shrink-0">{getUserDisplayName()}</span>
-              </div>
-              {isTransfer && getCounterpartDisplay() && (
+                <div className="flex md:hidden justify-between gap-4">
+                  <span className="text-muted-foreground min-w-0 truncate">
+                    {t("usage.context_ids.date_label")}
+                  </span>
+                  <span className="shrink-0">{dateStr}</span>
+                </div>
+                <div className="flex md:hidden justify-between gap-4">
+                  <span className="text-muted-foreground min-w-0 truncate">
+                    {t("usage.context_ids.time_label")}
+                  </span>
+                  <span className="shrink-0">{timeStr}</span>
+                </div>
+                <div className="flex md:hidden justify-between gap-4">
+                  <span className="text-muted-foreground min-w-0 truncate">
+                    {t("usage.context_ids.runtime_label")}
+                  </span>
+                  <span className="shrink-0">{formatRuntime(record.runtime_seconds)}</span>
+                </div>
                 <div className="flex justify-between gap-4">
                   <span className="text-muted-foreground min-w-0 truncate">
-                    {isTransferSent ? t("usage.transfer.to") : t("usage.transfer.from")}
+                    {t("usage.context_ids.status_label")}
                   </span>
-                  <span className="shrink-0">{getCounterpartDisplay()}</span>
-                </div>
-              )}
-              {(!isTransfer || record.chat_id) && (
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground shrink-0">
-                    {t("usage.context_ids.chat_label")}
+                  <span className={cn("shrink-0", record.is_failed ? "text-red-400" : "text-green-200")}>
+                    {record.is_failed ? t("usage.context_ids.status_failed") : t("usage.context_ids.status_completed")}
                   </span>
-                  <span className="min-w-0 truncate">{getChatDisplay()}</span>
                 </div>
-              )}
-              {isTransfer && record.note && (
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground shrink-0">
-                    {t("usage.transfer.note")}
-                  </span>
-                  <span className="max-w-1/2 text-right break-words">{record.note}</span>
-                </div>
-              )}
-              {record.remote_runtime_seconds != null && (
                 <div className="flex justify-between gap-4">
                   <span className="text-muted-foreground min-w-0 truncate">
-                    {t("usage.context_ids.remote_runtime")}
+                    {t("usage.context_ids.user_label")}
                   </span>
-                  <span className="shrink-0">{formatRuntime(record.remote_runtime_seconds)}</span>
+                  <span className="shrink-0">{getUserDisplayName()}</span>
                 </div>
-              )}
-              {record.output_image_sizes &&
-                record.output_image_sizes.length > 0 && (
+                {isTransfer && getCounterpartDisplay() && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {isTransferSent ? t("usage.transfer.to") : t("usage.transfer.from")}
+                    </span>
+                    <span className="shrink-0">{getCounterpartDisplay()}</span>
+                  </div>
+                )}
+                {(!isTransfer || record.chat_id) && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground shrink-0">
+                      {t("usage.context_ids.chat_label")}
+                    </span>
+                    <span className="min-w-0 truncate">{getChatDisplay()}</span>
+                  </div>
+                )}
+                {isTransfer && record.note && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground shrink-0">
+                      {t("usage.transfer.note")}
+                    </span>
+                    <span className="max-w-1/2 text-right break-words">{record.note}</span>
+                  </div>
+                )}
+                {record.remote_runtime_seconds != null && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("usage.context_ids.remote_runtime")}
+                    </span>
+                    <span className="shrink-0">{formatRuntime(record.remote_runtime_seconds)}</span>
+                  </div>
+                )}
+                {record.output_image_sizes &&
+                  record.output_image_sizes.length > 0 && (
+                    <div className="flex justify-between items-center gap-4">
+                      <span className="text-muted-foreground shrink-0">
+                        {t("usage.context_ids.output_image_sizes")}
+                      </span>
+                      <div className="flex flex-wrap gap-1 min-w-0 justify-end">
+                        {record.output_image_sizes.map((size, idx) => (
+                          <Badge
+                            key={idx}
+                            variant="outline"
+                            className="text-xs px-1.5 py-0"
+                          >
+                            {size.toUpperCase()}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                {record.input_image_sizes &&
+                  record.input_image_sizes.length > 0 && (
+                    <div className="flex justify-between items-center gap-4">
+                      <span className="text-muted-foreground shrink-0">
+                        {t("usage.context_ids.input_image_sizes")}
+                      </span>
+                      <div className="flex flex-wrap gap-1 min-w-0 justify-end">
+                        {record.input_image_sizes.map((size, idx) => (
+                          <Badge
+                            key={idx}
+                            variant="outline"
+                            className="text-xs px-1.5 py-0"
+                          >
+                            {size.toUpperCase()}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                {record.output_video_size && (
                   <div className="flex justify-between items-center gap-4">
                     <span className="text-muted-foreground shrink-0">
-                      {t("usage.context_ids.output_image_sizes")}
+                      {t("usage.context_ids.output_video_size")}
                     </span>
-                    <div className="flex flex-wrap gap-1 min-w-0 justify-end">
-                      {record.output_image_sizes.map((size, idx) => (
-                        <Badge
-                          key={idx}
-                          variant="outline"
-                          className="text-xs px-1.5 py-0"
-                        >
-                          {size.toUpperCase()}
-                        </Badge>
-                      ))}
-                    </div>
+                    <Badge
+                      variant="outline"
+                      className="text-xs px-1.5 py-0"
+                    >
+                      {record.output_video_size.toUpperCase()}
+                    </Badge>
                   </div>
                 )}
-              {record.input_image_sizes &&
-                record.input_image_sizes.length > 0 && (
-                  <div className="flex justify-between items-center gap-4">
-                    <span className="text-muted-foreground shrink-0">
-                      {t("usage.context_ids.input_image_sizes")}
+                {record.output_video_duration_seconds != null && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("usage.context_ids.output_video_duration")}
                     </span>
-                    <div className="flex flex-wrap gap-1 min-w-0 justify-end">
-                      {record.input_image_sizes.map((size, idx) => (
-                        <Badge
-                          key={idx}
-                          variant="outline"
-                          className="text-xs px-1.5 py-0"
-                        >
-                          {size.toUpperCase()}
-                        </Badge>
-                      ))}
-                    </div>
+                    <span className="shrink-0">
+                      {formatRuntime(record.output_video_duration_seconds)}
+                    </span>
                   </div>
                 )}
-              {record.output_video_size && (
-                <div className="flex justify-between items-center gap-4">
-                  <span className="text-muted-foreground shrink-0">
-                    {t("usage.context_ids.output_video_size")}
-                  </span>
-                  <Badge
-                    variant="outline"
-                    className="text-xs px-1.5 py-0"
-                  >
-                    {record.output_video_size.toUpperCase()}
-                  </Badge>
-                </div>
-              )}
-              {record.output_video_duration_seconds != null && (
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("usage.context_ids.output_video_duration")}
-                  </span>
-                  <span className="shrink-0">
-                    {formatRuntime(record.output_video_duration_seconds)}
-                  </span>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

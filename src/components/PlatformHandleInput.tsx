@@ -53,7 +53,7 @@ const PlatformHandleInput: React.FC<PlatformHandleInputProps> = ({
           onPlatformChange={onPlatformChange}
         />
         <Input
-          className="py-6 px-6 w-full text-[1.05rem] glass rounded-2xl"
+          className="py-6 px-6 w-full text-[1.05rem] bg-surface-raised/50 border border-border/60 rounded-2xl"
           placeholder={getPlatformPlaceholder(selectedPlatform, disabled)}
           disabled={disabled}
           value={platformHandle}

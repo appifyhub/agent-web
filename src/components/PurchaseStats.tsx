@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, BadgeCent, ListOrdered } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import { PurchaseAggregates, ProductAggregateStats } from "@/services/purchase-service";
@@ -37,7 +38,7 @@ const PurchaseStats: React.FC<PurchaseStatsProps> = ({ stats, isLoading = false 
     }
 
     return (
-      <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
+      <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
         <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
           {title}
         </h4>
@@ -74,34 +75,35 @@ const PurchaseStats: React.FC<PurchaseStatsProps> = ({ stats, isLoading = false 
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="glass-static rounded-lg px-[1.5rem] md:px-[1rem] py-[1rem] flex items-center justify-between gap-3">
-          <ListOrdered strokeWidth={1.5} className="h-10 w-10 shrink-0 text-blue-300" />
-          <div className="text-right space-y-0.5 min-w-0 flex-1">
-            <p className="md:text-sm text-md text-foreground truncate">
-              {t("purchases.stats.total_purchases")}
+      <div className="grid grid-cols-2 gap-[0.5rem]">
+        <div className="bg-[oklch(0.22_0.02_292)] border border-border/80 rounded-lg px-[0.75rem] py-[0.75rem] flex flex-col items-center gap-[0.5rem]">
+          <BadgeCent strokeWidth={1.5} className="h-6 w-6 shrink-0 text-accent-amber" />
+          <div className="text-center min-w-0">
+            <p className="text-xs text-foreground/70 truncate">
+              {t("purchases.stats.total_paid")}
             </p>
-            <p className="text-2xl font-medium text-blue-300 truncate">
-              {stats.total_purchase_count.toLocaleString()}
+            <p className="text-lg font-medium text-accent-amber truncate">
+              {formatCurrency(stats.total_cost_cents)}
             </p>
           </div>
         </div>
 
-        <div className="glass-static rounded-lg px-[1.5rem] md:px-[1rem] py-[1rem] flex items-center justify-between gap-3">
-          <BadgeCent strokeWidth={1.5} className="h-10 w-10 shrink-0 text-accent-amber" />
-          <div className="text-right space-y-0.5 min-w-0 flex-1">
-            <p className="md:text-sm text-md text-foreground truncate">
-              {t("purchases.stats.total_paid")}
+        <div className="bg-[oklch(0.22_0.02_292)] border border-border/80 rounded-lg px-[0.75rem] py-[0.75rem] flex flex-col items-center gap-[0.5rem]">
+          <ListOrdered strokeWidth={1.5} className="h-6 w-6 shrink-0 text-blue-300" />
+          <div className="text-center min-w-0">
+            <p className="text-xs text-foreground/70 truncate">
+              {t("purchases.stats.total_purchases")}
             </p>
-            <p className="text-2xl font-medium text-accent-amber truncate">
-              {formatCurrency(stats.total_cost_cents)}
+            <p className="text-lg font-medium text-blue-300 truncate">
+              {stats.total_purchase_count.toLocaleString()}
             </p>
           </div>
         </div>
       </div>
 
       {hasBreakdowns && (
-        <button
+        <Button
+          variant="ghost"
           onClick={() => setIsExpanded(!isExpanded)}
           className={cn(
             "w-full flex items-center justify-between py-3 px-2 border-b border-muted-foreground/20 text-[1.05rem]",
@@ -121,7 +123,7 @@ const PurchaseStats: React.FC<PurchaseStatsProps> = ({ stats, isLoading = false 
               isExpanded ? "rotate-180" : "rotate-0"
             )}
           />
-        </button>
+        </Button>
       )}
 
       {isExpanded && hasBreakdowns && (

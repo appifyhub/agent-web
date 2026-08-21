@@ -58,8 +58,8 @@ const InlineSettingSelector: React.FC<InlineSettingSelectorProps> = ({
       <Select value={selectValue} disabled={disabled} onValueChange={onChange}>
         <SelectTrigger
           className={cn(
-            "py-3 px-4 w-auto min-w-[40%] max-w-[60%] text-base rounded-full cursor-pointer",
-            disabled ? "text-muted-foreground/80 glass-static" : "glass",
+            "py-2.5 px-4 w-auto min-w-[40%] max-w-[60%] text-sm rounded-xl cursor-pointer border-border bg-background/45 shadow-none",
+            disabled && "text-muted-foreground/80",
             triggerClassName
           )}
         >
@@ -69,7 +69,7 @@ const InlineSettingSelector: React.FC<InlineSettingSelectorProps> = ({
         </SelectTrigger>
         <SelectContent
           className={cn(
-            "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
+            "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl",
             contentClassName
           )}
         >
@@ -79,7 +79,7 @@ const InlineSettingSelector: React.FC<InlineSettingSelectorProps> = ({
               value={opt.value}
               disabled={opt.disabled || opt.value === value}
               className={cn(
-                "py-4 px-4 cursor-pointer text-foreground",
+                "cursor-pointer rounded-lg px-3 py-2.5 text-foreground",
                 opt.value === value ? "bg-accent/70" : ""
               )}
             >

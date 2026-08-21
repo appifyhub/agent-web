@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import InlineSettingSelector from "@/components/InlineSettingSelector";
 import { t } from "@/lib/translations";
 import { PurchaseAggregates } from "@/services/purchase-service";
@@ -54,7 +55,7 @@ const PurchaseFilters: React.FC<PurchaseFiltersProps> = ({
 
   const filtersContent = (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="border-1 border-muted-foreground/30 rounded-xl space-y-4 p-[1rem]">
+      <div className="border border-border/50 rounded-xl space-y-4 p-[1rem]">
         <InlineSettingSelector
           label={t("purchases.filters.time_range_label")}
           value={timeRange}
@@ -69,7 +70,7 @@ const PurchaseFilters: React.FC<PurchaseFiltersProps> = ({
         />
       </div>
 
-      <div className="border-1 border-muted-foreground/30 rounded-xl space-y-4 p-[1rem]">
+      <div className="border border-border/50 rounded-xl space-y-4 p-[1rem]">
         <InlineSettingSelector
           label={t("purchases.filters.product_label")}
           value={selectedProduct}
@@ -92,10 +93,11 @@ const PurchaseFilters: React.FC<PurchaseFiltersProps> = ({
 
   return (
     <>
-      <button
+      <Button
+        variant="ghost"
         onClick={() => setIsExpanded(!isExpanded)}
         className={cn(
-          "w-full flex items-center justify-between py-3 px-2 border-b border-muted-foreground/20 text-[1.05rem]",
+          "w-full flex items-center justify-between py-3 px-2 border-b border-border/20 text-[1.05rem]",
           isExpanded
             ? "font-medium text-accent-amber underline underline-offset-4"
             : "font-light"
@@ -112,7 +114,7 @@ const PurchaseFilters: React.FC<PurchaseFiltersProps> = ({
             isExpanded ? "rotate-180" : "rotate-0"
           )}
         />
-      </button>
+      </Button>
       {isExpanded && <div className="mt-[1.5rem]">{filtersContent}</div>}
     </>
   );
