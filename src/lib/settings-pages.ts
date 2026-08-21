@@ -4,7 +4,7 @@ export type SettingsPage =
   | "sponsorships"
   | "profile"
   | "chat"
-  | "features"
+  | "help"
   | "access"
   | "intelligence"
   | "linked_profiles"
@@ -20,8 +20,8 @@ export const getSettingsPageTitle = (page: SettingsPage): string => {
       return t("profile");
     case "chat":
       return t("chat");
-    case "features":
-      return t("features.header");
+    case "help":
+      return t("help");
     case "access":
       return t("access");
     case "intelligence":

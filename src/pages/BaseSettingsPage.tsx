@@ -27,7 +27,6 @@ import {
   type SettingsPage,
 } from "@/lib/settings-pages";
 
-type Page = Exclude<SettingsPage, "features">;
 const ACTION_BAR_TOP_OFFSET = 80;
 
 export interface BaseSettingsPageRef {
@@ -35,7 +34,7 @@ export interface BaseSettingsPageRef {
 }
 
 interface BaseSettingsPageProps {
-  page: Page;
+  page: SettingsPage;
   children: React.ReactNode;
   cardTitle?: string;
   onActionClicked?: () => void;
@@ -115,13 +114,20 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     // Fetch user settings for gate check (uses cache, so child pages avoid duplicate network calls)
     const { userSettings: gateSettings, isLoading: isGateLoading } =
       useUserSettings(effectiveUserId, accessToken?.raw);
+    const isHelpLocked =
+      page === "help" &&
+      gateSettings !== null &&
+      !gateSettings.are_policies_accepted;
+    const isShellLocked =
+      page === "onboarding" ||
+      (page === "help" && (!accessToken || isHelpLocked));
 
     // Gate: redirect based on policies accepted state
     useEffect(() => {
       if (!accessToken || !effectiveUserId || !lang_iso_code || !gateSettings)
         return;
 
-      if (page !== "onboarding" && !gateSettings.are_policies_accepted) {
+      if (page !== "onboarding" && page !== "help" && !gateSettings.are_policies_accepted) {
         navigateToOnboarding(effectiveUserId, lang_iso_code);
       } else if (page === "onboarding" && gateSettings.are_policies_accepted) {
         navigateToProfile(effectiveUserId, lang_iso_code);
@@ -242,8 +248,13 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         onTokenExpired={handleTokenExpired}
         showProfileButton={showProfileButton}
         showSponsorshipsButton={showSponsorshipsButton}
-        isLocked={page === "onboarding"}
+        isLocked={isShellLocked}
         showLanguageDropdown={page !== "onboarding"}
+        onGoToOnboarding={
+          isHelpLocked && effectiveUserId && lang_iso_code
+            ? () => navigateToOnboarding(effectiveUserId, lang_iso_code)
+            : undefined
+        }
         drawerOpen={drawerOpen}
         onDrawerOpenChange={setDrawerOpen}
       >

@@ -9,7 +9,7 @@ export interface NavigationHelpers {
   navigateToLinkedProfiles: (userId: string, langIsoCode: string) => void;
   navigateToUsage: (userId: string, langIsoCode: string) => void;
   navigateToPurchases: (userId: string, langIsoCode: string) => void;
-  navigateToFeatures: (langIsoCode: string) => void;
+  navigateToHelp: (langIsoCode: string) => void;
   navigateToOnboarding: (userId: string, langIsoCode: string) => void;
   navigateWithLanguageChange: (
     langIsoCode: string,
@@ -85,9 +85,9 @@ export const useNavigation = (): NavigationHelpers => {
     );
   };
 
-  const navigateToFeatures = (langIsoCode: string) => {
-    console.info("Navigating to features");
-    navigate(`/${langIsoCode}/features${getPreservedSearchParams()}`);
+  const navigateToHelp = (langIsoCode: string) => {
+    console.info("Navigating to help");
+    navigate(`/${langIsoCode}/help${getPreservedSearchParams()}`);
   };
 
   const navigateToOnboarding = (userId: string, langIsoCode: string) => {
@@ -123,7 +123,7 @@ export const useNavigation = (): NavigationHelpers => {
     navigateToLinkedProfiles,
     navigateToUsage,
     navigateToPurchases,
-    navigateToFeatures,
+    navigateToHelp,
     navigateToOnboarding,
     navigateWithLanguageChange,
   };

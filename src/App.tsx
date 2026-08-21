@@ -8,7 +8,7 @@ import SponsorshipsPage from "@/pages/SponsorshipsPage";
 import LinkedProfilesPage from "@/pages/LinkedProfilesPage";
 import UsagePage from "@/pages/UsagePage";
 import PurchasesPage from "@/pages/PurchasesPage";
-import FeaturesPage from "@/pages/FeaturesPage";
+import HelpPage from "@/pages/HelpPage";
 import OnboardingPage from "@/pages/OnboardingPage";
 import logoVector from "@/assets/logo-vector.svg";
 import { DEFAULT_LANGUAGE } from "@/lib/languages";
@@ -50,7 +50,7 @@ function App() {
           path="/:lang_iso_code/user/:user_id/purchases"
           element={<PurchasesPage />}
         />
-        <Route path="/:lang_iso_code/features" element={<FeaturesPage />} />
+        <Route path="/:lang_iso_code/help" element={<HelpPage />} />
         <Route
           path="/:lang_iso_code/user/:user_id/onboarding"
           element={<OnboardingPage />}
@@ -79,11 +79,10 @@ function App() {
             </div>
           }
         />
-        {/* Root redirects to features page */}
         <Route
           path="/"
           element={
-            <Navigate to={`/${DEFAULT_LANGUAGE.isoCode}/features`} replace />
+            <Navigate to={`/${DEFAULT_LANGUAGE.isoCode}/help`} replace />
           }
         />
       </Routes>
