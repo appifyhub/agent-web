@@ -51,11 +51,11 @@
   "always": "总是",
   "reply_frequency": "{percent}% 的时间",
   "sponsorship": {
-    "users_you_sponsor": "您赞助的用户",
+    "users_you_sponsor": "管理赞助",
     "no_sponsorships_found": "未找到赞助",
     "configure_ai_access_first": "在您可以赞助其他用户和资料之前，必须先配置AI访问权限。",
     "incognito": "匿名",
-    "add_sponsorship": "赞助",
+    "add_sponsorship": "添加",
     "platform_handle_label": "您想要赞助的用户的用户名或电话",
     "platform_handle_placeholder": "@用户名 或 +00-电话",
     "platform_handle_placeholder_telegram": "@用户名",
@@ -75,7 +75,8 @@
       "waitlist": "等待名单中",
       "yes": "是",
       "no": "否"
-    }
+    },
+    "profiles_i_sponsor": "我赞助的资料"
   },
   "usage": {
     "page_title": "使用情况",
@@ -224,7 +225,7 @@
     "personal": "个人",
     "agent": "助手",
     "resources": "资源",
-    "people": "联系人"
+    "people": "社交"
   },
   "navigation": {
     "title": "导航",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "关联的配置文件",
-    "card_title": "连接配置文件",
-    "show_my_key": "显示我的连接密钥",
-    "hide_my_key": "隐藏我的连接密钥",
+    "card_title": "连接、关联和合并",
     "copy_key": "复制",
     "regenerate_key": "重新生成",
     "share_key": "分享",
@@ -251,7 +250,7 @@
     "connect_button": "连接",
     "connecting": "连接中...",
     "main_info": "如果您拥有该配置文件的连接密钥，则可以将此配置文件连接到另一个配置文件。例如，这可用于合并您的 WhatsApp 和 Telegram 配置文件。每个配置文件的连接密钥都是唯一且保密的！要从另一个配置文件获取连接密钥，您必须使用该配置文件与 {botName} 的聊天打开此页面。连接两个配置文件会将它们合并为一个配置文件。",
-    "my_key_info": "这是您的连接密钥。不要与您的其他配置文件以外的任何人分享您的连接密钥！",
+    "my_key_info": "这是您的连接密钥。",
     "command_info": "您也可以使用连接命令在支持的平台之一中直接将此密钥发送给 {botName}。这将自动将此配置文件与您发送到的配置文件连接：",
     "chat_command_info": "或者，您可以要求 {botName} 使用聊天连接到另一个配置文件：",
     "chat_command_example": "请将我连接到此配置文件：{connectKey}。",
@@ -260,7 +259,9 @@
     "connect_success": "配置文件连接成功！",
     "regenerate_success": "连接密钥重新生成成功！",
     "copy_failed": "复制失败",
-    "generic_error": "发生错误"
+    "generic_error": "发生错误",
+    "my_key": "我的密钥",
+    "key_warning": "不要与除您的其他个人资料以外的任何人分享您的连接密钥！"
   },
   "about_me_label": "{botName} 知道关于我的这些：",
   "about_me_name_fallback": "用户",

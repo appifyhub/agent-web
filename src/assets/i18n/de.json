@@ -51,11 +51,11 @@
   "always": "Immer",
   "reply_frequency": "{percent}% der Zeit",
   "sponsorship": {
-    "users_you_sponsor": "Benutzer, die Sie sponsern",
+    "users_you_sponsor": "Sponsoring verwalten",
     "no_sponsorships_found": "Keine Sponsorings gefunden",
     "configure_ai_access_first": "Sie müssen zuerst den KI-Zugang konfigurieren, bevor Sie andere Benutzer und Profile sponsern können.",
     "incognito": "Inkognito",
-    "add_sponsorship": "Sponsern",
+    "add_sponsorship": "Hinzufügen",
     "platform_handle_label": "Benutzername oder Telefon des Benutzers, den Sie sponsern möchten",
     "platform_handle_placeholder": "@benutzername oder +00-telefon",
     "platform_handle_placeholder_telegram": "@benutzername",
@@ -75,7 +75,8 @@
       "waitlist": "Auf der Warteliste",
       "yes": "Ja",
       "no": "Nein"
-    }
+    },
+    "profiles_i_sponsor": "Profile, die ich sponsere"
   },
   "usage": {
     "page_title": "Nutzung",
@@ -224,7 +225,7 @@
     "personal": "Persönlich",
     "agent": "Assistent",
     "resources": "Ressourcen",
-    "people": "Personen"
+    "people": "Sozial"
   },
   "navigation": {
     "title": "Navigation",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "Verknüpfte Profile",
-    "card_title": "Profile verbinden",
-    "show_my_key": "Meinen Verbindungsschlüssel anzeigen",
-    "hide_my_key": "Meinen Verbindungsschlüssel ausblenden",
+    "card_title": "Verbinden, verknüpfen und zusammenführen",
     "copy_key": "Kopieren",
     "regenerate_key": "Erneuern",
     "share_key": "Teilen",
@@ -251,7 +250,7 @@
     "connect_button": "Verbinden",
     "connecting": "Verbinden...",
     "main_info": "Sie können dieses Profil mit einem anderen Profil verbinden, wenn Sie den Verbindungsschlüssel dieses Profils haben. Dies kann beispielsweise verwendet werden, um Ihre WhatsApp- und Telegram-Profile zusammenzuführen. Der Verbindungsschlüssel jedes Profils ist eindeutig und geheim! Um den Verbindungsschlüssel von einem anderen Profil zu erhalten, müssen Sie diese Seite über den Chat dieses Profils mit {botName} öffnen. Das Verbinden der beiden Profile führt sie zu einem einzigen Profil zusammen.",
-    "my_key_info": "Dies ist Ihr Verbindungsschlüssel. Teilen Sie Ihren Verbindungsschlüssel nicht mit anderen als Ihren anderen Profilen!",
+    "my_key_info": "Dies ist Ihr Connect Key.",
     "command_info": "Sie können diesen Schlüssel auch direkt an {botName} auf einer der unterstützten Plattformen senden, indem Sie einen Verbindungsbefehl verwenden. Dies verbindet automatisch dieses Profil mit dem Profil, an das Sie es senden:",
     "chat_command_info": "Alternativ können Sie {botName} bitten, sich über den Chat mit einem anderen Profil zu verbinden:",
     "chat_command_example": "Bitte verbinde mich mit diesem Profil: {connectKey}.",
@@ -260,7 +259,9 @@
     "connect_success": "Profile erfolgreich verbunden!",
     "regenerate_success": "Verbindungsschlüssel erfolgreich erneuert!",
     "copy_failed": "Kopieren fehlgeschlagen",
-    "generic_error": "Ein Fehler ist aufgetreten"
+    "generic_error": "Ein Fehler ist aufgetreten",
+    "my_key": "Mein Schlüssel",
+    "key_warning": "Teilen Sie Ihren Connect Key mit niemandem außer Ihren anderen Profilen!"
   },
   "about_me_label": "{botName} weiß Folgendes über mich:",
   "about_me_name_fallback": "Nutzer",

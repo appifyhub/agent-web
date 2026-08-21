@@ -51,11 +51,11 @@
   "always": "Always",
   "reply_frequency": "{percent}% of the time",
   "sponsorship": {
-    "users_you_sponsor": "Users I am sponsoring",
+    "users_you_sponsor": "Manage Sponsorships",
     "no_sponsorships_found": "No sponsorships found",
     "configure_ai_access_first": "You must configure AI access first, before you can sponsor other users and profiles.",
     "incognito": "Incognito",
-    "add_sponsorship": "Sponsor",
+    "add_sponsorship": "Add",
     "platform_handle_label": "Username or phone of the user you want to sponsor",
     "platform_handle_placeholder": "@username or +00-phone",
     "platform_handle_placeholder_telegram": "@username",
@@ -75,7 +75,8 @@
       "waitlist": "On Waitlist",
       "yes": "Yes",
       "no": "No"
-    }
+    },
+    "profiles_i_sponsor": "Profiles I sponsor"
   },
   "usage": {
     "page_title": "Usage",
@@ -224,7 +225,7 @@
     "personal": "Personal",
     "agent": "Agent",
     "resources": "Resources",
-    "people": "People"
+    "people": "Social"
   },
   "navigation": {
     "title": "Navigation",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "Linked Profiles",
-    "card_title": "Link Profiles",
-    "show_my_key": "Show my Connect Key",
-    "hide_my_key": "Hide my Connect Key",
+    "card_title": "Connect, link, and merge",
     "copy_key": "Copy",
     "regenerate_key": "Regenerate",
     "share_key": "Share",
@@ -251,7 +250,7 @@
     "connect_button": "Connect",
     "connecting": "Connecting...",
     "main_info": "You can connect this profile to another profile if you have that profile's Connect Key. For example, this can be used to merge your WhatsApp and Telegram profiles. Each profile's Connect Key is unique and secret! To get the Connect Key from another profile, you must open this same page using that profile's chat with {botName}. Connecting the two profiles merges them into a single profile.",
-    "my_key_info": "This is your Connect Key. Do not share your Connect Key with anyone other than your other profiles!",
+    "my_key_info": "This is your Connect Key.",
     "command_info": "You can also directly send this key to {botName} in one of the supported platforms, using a Connect command. This will automatically connect this profile with the profile you send it to:",
     "chat_command_info": "Alternatively, you can ask {botName} to connect to another profile using chat:",
     "chat_command_example": "Please connect me to this profile: {connectKey}.",
@@ -260,7 +259,9 @@
     "connect_success": "Profiles connected successfully!",
     "regenerate_success": "Connect key regenerated successfully!",
     "copy_failed": "Failed to copy",
-    "generic_error": "An error occurred"
+    "generic_error": "An error occurred",
+    "my_key": "My key",
+    "key_warning": "Do not share your Connect Key with anyone other than your other profiles!"
   },
   "about_me_label": "{botName} knows this about me:",
   "about_me_name_fallback": "User",

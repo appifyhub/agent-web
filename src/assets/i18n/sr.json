@@ -51,11 +51,11 @@
   "always": "Uvek",
   "reply_frequency": "{percent}% vremena",
   "sponsorship": {
-    "users_you_sponsor": "Korisnici koje sponzorišem",
+    "users_you_sponsor": "Upravljanje sponzorstvima",
     "no_sponsorships_found": "Nisu pronađena sponzorstva",
     "configure_ai_access_first": "Morate prvo da konfigurišete AI pristup, pre nego što možete da sponzorišete druge korisnike i profile.",
     "incognito": "Inkognito",
-    "add_sponsorship": "Sponzoriši",
+    "add_sponsorship": "Dodaj",
     "platform_handle_label": "Korisničko ime ili telefon korisnika koga želite da sponzorišete",
     "platform_handle_placeholder": "@korisnik ili +00-telefon",
     "platform_handle_placeholder_telegram": "@korisničko_ime",
@@ -75,7 +75,8 @@
       "waitlist": "Na čekanju",
       "yes": "Da",
       "no": "Ne"
-    }
+    },
+    "profiles_i_sponsor": "Profili koje sponzorišem"
   },
   "usage": {
     "page_title": "Korišćenje",
@@ -224,7 +225,7 @@
     "personal": "Lično",
     "agent": "Asistent",
     "resources": "Resursi",
-    "people": "Ljudi"
+    "people": "Društveno"
   },
   "navigation": {
     "title": "Navigacija",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "Povezani profili",
-    "card_title": "Poveži profile",
-    "show_my_key": "Prikaži moj ključ za povezivanje",
-    "hide_my_key": "Sakrij moj ključ za povezivanje",
+    "card_title": "Poveži, pridruži i spoji",
     "copy_key": "Kopiraj",
     "regenerate_key": "Osveži",
     "share_key": "Podeli",
@@ -251,7 +250,7 @@
     "connect_button": "Poveži",
     "connecting": "Povezivanje...",
     "main_info": "Možete povezati ovaj profil sa drugim profilom ako imate ključ za povezivanje tog profila. Na primer, ovo se može koristiti za spajanje vaših WhatsApp i Telegram profila. Ključ za povezivanje svakog profila je jedinstven i tajan! Da biste dobili ključ za povezivanje drugog profila, morate otvoriti ovu istu stranicu koristeći čet tog profila sa {botName}om. Povezivanje dva profila spaja ih u jedan profil.",
-    "my_key_info": "Ovo je vaš ključ za povezivanje. Ne delite svoj ključ za povezivanje sa bilo kim osim sa svojim drugim profilima!",
+    "my_key_info": "Ovo je vaš ključ za povezivanje.",
     "command_info": "Takođe možete direktno poslati ovaj ključ {botName}u na jednoj od podržanih platformi, koristeći komandu za povezivanje. Ovo će automatski povezati ovaj profil sa profilom kome ga pošaljete:",
     "chat_command_info": "Alternativno, možete zamoliti {botName}a da se poveže sa drugim profilom koristeći čet:",
     "chat_command_example": "Molim te poveži me sa ovim profilom: {connectKey}.",
@@ -260,7 +259,9 @@
     "connect_success": "Profili su uspešno povezani!",
     "regenerate_success": "Ključ za povezivanje je uspešno regenerisan!",
     "copy_failed": "Neuspešno kopiranje",
-    "generic_error": "Došlo je do greške"
+    "generic_error": "Došlo je do greške",
+    "my_key": "Moj ključ",
+    "key_warning": "Ne delite svoj ključ za povezivanje ni sa kim osim sa svojim drugim profilima!"
   },
   "about_me_label": "{botName} zna ovo o meni:",
   "about_me_name_fallback": "Korisnik",

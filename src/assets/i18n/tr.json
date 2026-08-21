@@ -51,11 +51,11 @@
   "always": "Her zaman",
   "reply_frequency": "Zamanın %{percent}'i",
   "sponsorship": {
-    "users_you_sponsor": "Sponsor olduğunuz kullanıcılar",
+    "users_you_sponsor": "Sponsorlukları yönet",
     "no_sponsorships_found": "Sponsorluk bulunamadı",
     "configure_ai_access_first": "Diğer kullanıcıları ve profilleri sponsor edebilmeniz için önce AI erişimini yapılandırmanız gerekir.",
     "incognito": "Gizli",
-    "add_sponsorship": "Sponsor Ol",
+    "add_sponsorship": "Ekle",
     "platform_handle_label": "Sponsor olmak istediğiniz kullanıcının kullanıcı adı veya telefonu",
     "platform_handle_placeholder": "@kullanıcı veya +00-telefon",
     "platform_handle_placeholder_telegram": "@kullanıcı_adı",
@@ -75,7 +75,8 @@
       "waitlist": "Bekleme listesinde",
       "yes": "Evet",
       "no": "Hayır"
-    }
+    },
+    "profiles_i_sponsor": "Sponsor olduğum profiller"
   },
   "usage": {
     "page_title": "Kullanım",
@@ -224,7 +225,7 @@
     "personal": "Kişisel",
     "agent": "Asistan",
     "resources": "Kaynaklar",
-    "people": "İnsanlar"
+    "people": "Sosyal"
   },
   "navigation": {
     "title": "Gezinti",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "Bağlı Profiller",
-    "card_title": "Profilleri Bağla",
-    "show_my_key": "Bağlantı Anahtarımı Göster",
-    "hide_my_key": "Bağlantı Anahtarımı Gizle",
+    "card_title": "Bağla, ilişkilendir ve birleştir",
     "copy_key": "Kopyala",
     "regenerate_key": "Yeniden Oluştur",
     "share_key": "Paylaş",
@@ -251,7 +250,7 @@
     "connect_button": "Bağlan",
     "connecting": "Bağlanıyor...",
     "main_info": "O profilin Bağlantı Anahtarına sahipseniz, bu profili başka bir profile bağlayabilirsiniz. Örneğin, bu WhatsApp ve Telegram profillerinizi birleştirmek için kullanılabilir. Her profilin Bağlantı Anahtarı benzersiz ve gizlidir! Başka bir profilden Bağlantı Anahtarını almak için, o profilin {botName} ile sohbetini kullanarak bu aynı sayfayı açmalısınız. İki profili bağlamak onları tek bir profile birleştirir.",
-    "my_key_info": "Bu sizin Bağlantı Anahtarınızdır. Bağlantı Anahtarınızı diğer profilleriniz dışında kimseyle paylaşmayın!",
+    "my_key_info": "Bu sizin bağlantı anahtarınızdır.",
     "command_info": "Ayrıca bu anahtarı doğrudan desteklenen platformlardan birinde {botName}'e bir Bağlantı komutu kullanarak gönderebilirsiniz. Bu, bu profili gönderdiğiniz profile otomatik olarak bağlayacaktır:",
     "chat_command_info": "Alternatif olarak, {botName}'den sohbet kullanarak başka bir profile bağlanmasını isteyebilirsiniz:",
     "chat_command_example": "Lütfen beni bu profile bağlayın: {connectKey}.",
@@ -260,7 +259,9 @@
     "connect_success": "Profiller başarıyla bağlandı!",
     "regenerate_success": "Bağlantı anahtarı başarıyla yeniden oluşturuldu!",
     "copy_failed": "Kopyalama başarısız",
-    "generic_error": "Bir hata oluştu"
+    "generic_error": "Bir hata oluştu",
+    "my_key": "Anahtarım",
+    "key_warning": "Bağlantı anahtarınızı diğer profilleriniz dışında kimseyle paylaşmayın!"
   },
   "about_me_label": "{botName} hakkımda şunu biliyor:",
   "about_me_name_fallback": "Kullanıcı",

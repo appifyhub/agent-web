@@ -51,11 +51,11 @@
   "always": "Siempre",
   "reply_frequency": "{percent}% del tiempo",
   "sponsorship": {
-    "users_you_sponsor": "Usuarios que patrocinas",
+    "users_you_sponsor": "Gestionar patrocinios",
     "no_sponsorships_found": "No se encontraron patrocinios",
     "configure_ai_access_first": "Debe configurar primero el acceso a la IA, antes de poder patrocinar a otros usuarios y perfiles.",
     "incognito": "Incógnito",
-    "add_sponsorship": "Patrocinar",
+    "add_sponsorship": "Añadir",
     "platform_handle_label": "Nombre de usuario o teléfono del usuario que quieres patrocinar",
     "platform_handle_placeholder": "@usuario o +00-teléfono",
     "platform_handle_placeholder_telegram": "@nombre_usuario",
@@ -75,7 +75,8 @@
       "waitlist": "En lista de espera",
       "yes": "Sí",
       "no": "No"
-    }
+    },
+    "profiles_i_sponsor": "Perfiles que patrocino"
   },
   "usage": {
     "page_title": "Uso",
@@ -224,7 +225,7 @@
     "personal": "Personal",
     "agent": "Asistente",
     "resources": "Recursos",
-    "people": "Personas"
+    "people": "Social"
   },
   "navigation": {
     "title": "Navegación",
@@ -234,9 +235,7 @@
   },
   "linked_profiles": {
     "page_title": "Perfiles Vinculados",
-    "card_title": "Conectar Perfiles",
-    "show_my_key": "Mostrar mi Clave de Conexión",
-    "hide_my_key": "Ocultar mi Clave de Conexión",
+    "card_title": "Conectar, vincular y fusionar",
     "copy_key": "Copiar",
     "regenerate_key": "Regenerar",
     "share_key": "Compartir",
@@ -251,7 +250,7 @@
     "connect_button": "Conectar",
     "connecting": "Conectando...",
     "main_info": "Puedes conectar este perfil a otro perfil si tienes la Clave de Conexión de ese perfil. Por ejemplo, esto se puede usar para fusionar tus perfiles de WhatsApp y Telegram. ¡La Clave de Conexión de cada perfil es única y secreta! Para obtener la Clave de Conexión de otro perfil, debes abrir esta misma página usando el chat de ese perfil con {botName}. Conectar los dos perfiles los fusiona en un solo perfil.",
-    "my_key_info": "Esta es tu Clave de Conexión. ¡No compartas tu Clave de Conexión con nadie más que con tus otros perfiles!",
+    "my_key_info": "Esta es tu clave de conexión.",
     "command_info": "También puedes enviar directamente esta clave a {botName} en una de las plataformas compatibles, usando un comando de Conexión. Esto conectará automáticamente este perfil con el perfil al que se la envíes:",
     "chat_command_info": "Alternativamente, puedes pedirle a {botName} que se conecte a otro perfil usando el chat:",
     "chat_command_example": "Por favor, conéctame a este perfil: {connectKey}.",
@@ -260,7 +259,9 @@
     "connect_success": "¡Perfiles conectados exitosamente!",
     "regenerate_success": "¡Clave de conexión regenerada exitosamente!",
     "copy_failed": "Error al copiar",
-    "generic_error": "Ocurrió un error"
+    "generic_error": "Ocurrió un error",
+    "my_key": "Mi clave",
+    "key_warning": "¡No compartas tu clave de conexión con nadie que no sean tus otros perfiles!"
   },
   "about_me_label": "{botName} sabe esto sobre mí:",
   "about_me_name_fallback": "Usuario",
