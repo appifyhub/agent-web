@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Usage",
-    "card_title": "Usage History",
+    "card_title": "Credits & History",
     "no_records_found": "No usage records found",
     "filters": {
       "scope_section": "SCOPE",
@@ -160,22 +160,22 @@
       "from": "From",
       "note": "Note",
       "card_title": "Transfer Credits",
-      "button": "Transfer Credits",
       "handle_label": "Username or phone of the recipient",
       "amount_label": "Amount",
       "amount_placeholder": "1.00",
       "note_label": "Note (optional)",
-      "note_placeholder": "Reason for transfer…"
+      "note_placeholder": "Reason for transfer…",
+      "action": "Transfer"
     },
     "load_more": "Load more",
-    "credit_balance": "Credits I own: {balance}"
+    "credit_balance": "Credits I own: {balance}",
+    "top_up": "Top up"
   },
   "purchases": {
     "page_title": "Purchases",
     "card_title": "Purchase History",
     "use_license": "Use a License",
     "license": "License",
-    "buy": "Buy",
     "license_key_label": "Enter your license key",
     "license_key_placeholder": "Paste or type your license key",
     "bind_success": "License linked successfully!",

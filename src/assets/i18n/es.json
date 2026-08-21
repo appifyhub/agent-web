@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Uso",
-    "card_title": "Historial de uso",
+    "card_title": "Créditos e historial",
     "no_records_found": "No se encontraron registros de uso",
     "filters": {
       "scope_section": "ALCANCE",
@@ -160,22 +160,22 @@
       "from": "De",
       "note": "Nota",
       "card_title": "Transferir créditos",
-      "button": "Transferir créditos",
       "handle_label": "Nombre de usuario o teléfono del destinatario",
       "amount_label": "Cantidad",
       "amount_placeholder": "1,00",
       "note_label": "Nota (opcional)",
-      "note_placeholder": "Motivo de la transferencia…"
+      "note_placeholder": "Motivo de la transferencia…",
+      "action": "Transferir"
     },
     "load_more": "Cargar más",
-    "credit_balance": "Créditos que poseo: {balance}"
+    "credit_balance": "Créditos que poseo: {balance}",
+    "top_up": "Recargar"
   },
   "purchases": {
     "page_title": "Compras",
     "card_title": "Historial de Compras",
     "use_license": "Usar una Licencia",
     "license": "Licencia",
-    "buy": "Comprar",
     "license_key_label": "Ingrese su clave de licencia",
     "license_key_placeholder": "Pegue o escriba su clave de licencia",
     "bind_success": "Licencia vinculada correctamente!",

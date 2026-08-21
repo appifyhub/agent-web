@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Использование",
-    "card_title": "История использования",
+    "card_title": "Кредиты и история",
     "no_records_found": "Записи об использовании не найдены",
     "filters": {
       "scope_section": "ОБЛАСТЬ",
@@ -160,22 +160,22 @@
       "from": "От",
       "note": "Примечание",
       "card_title": "Перевести кредиты",
-      "button": "Перевести кредиты",
       "handle_label": "Имя пользователя или телефон получателя",
       "amount_label": "Сумма",
       "amount_placeholder": "1,00",
       "note_label": "Примечание (необязательно)",
-      "note_placeholder": "Причина перевода…"
+      "note_placeholder": "Причина перевода…",
+      "action": "Перевод"
     },
     "load_more": "Загрузить ещё",
-    "credit_balance": "Кредиты, которыми я владею: {balance}"
+    "credit_balance": "Кредиты, которыми я владею: {balance}",
+    "top_up": "Пополнить"
   },
   "purchases": {
     "page_title": "Покупки",
     "card_title": "История покупок",
     "use_license": "Использовать лицензию",
     "license": "Лицензия",
-    "buy": "Купить",
     "license_key_label": "Введите ключ лицензии",
     "license_key_placeholder": "Вставьте или введите ключ лицензии",
     "bind_success": "Лицензия успешно связана!",

@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Utilizzo",
-    "card_title": "Cronologia di utilizzo",
+    "card_title": "Crediti e cronologia",
     "no_records_found": "Nessun record di utilizzo trovato",
     "filters": {
       "scope_section": "AMBITO",
@@ -160,22 +160,22 @@
       "from": "Da",
       "note": "Nota",
       "card_title": "Trasferisci crediti",
-      "button": "Trasferisci crediti",
       "handle_label": "Nome utente o telefono del destinatario",
       "amount_label": "Importo",
       "amount_placeholder": "1,00",
       "note_label": "Nota (facoltativo)",
-      "note_placeholder": "Motivo del trasferimento…"
+      "note_placeholder": "Motivo del trasferimento…",
+      "action": "Trasferisci"
     },
     "load_more": "Carica altro",
-    "credit_balance": "Crediti che possiedo: {balance}"
+    "credit_balance": "Crediti che possiedo: {balance}",
+    "top_up": "Ricarica"
   },
   "purchases": {
     "page_title": "Acquisti",
     "card_title": "Cronologia degli Acquisti",
     "use_license": "Usa una Licenza",
     "license": "Licenza",
-    "buy": "Compra",
     "license_key_label": "Inserisci la tua chiave di licenza",
     "license_key_placeholder": "Incolla o digita la tua chiave di licenza",
     "bind_success": "Licenza collegata con successo!",

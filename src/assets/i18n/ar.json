@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "الاستخدام",
-    "card_title": "سجل الاستخدام",
+    "card_title": "الرصيد والسجل",
     "no_records_found": "لم يتم العثور على سجلات استخدام",
     "filters": {
       "scope_section": "النطاق",
@@ -160,22 +160,22 @@
       "from": "من",
       "note": "ملاحظة",
       "card_title": "تحويل الرصيد",
-      "button": "تحويل الرصيد",
       "handle_label": "اسم المستخدم أو هاتف المستلم",
       "amount_label": "المبلغ",
       "amount_placeholder": "1.00",
       "note_label": "ملاحظة (اختياري)",
-      "note_placeholder": "سبب التحويل…"
+      "note_placeholder": "سبب التحويل…",
+      "action": "تحويل"
     },
     "load_more": "تحميل المزيد",
-    "credit_balance": "الأرصدة التي أملكها: {balance}"
+    "credit_balance": "الأرصدة التي أملكها: {balance}",
+    "top_up": "شحن"
   },
   "purchases": {
     "page_title": "المشتريات",
     "card_title": "سجل المشتريات",
     "use_license": "استخدم رخصة",
     "license": "رخصة",
-    "buy": "شراء",
     "license_key_label": "أدخل مفتاح الترخيص الخاص بك",
     "license_key_placeholder": "الصق أو اكتب مفتاح الترخيص الخاص بك",
     "bind_success": "تم ربط الترخيص بنجاح!",

@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Korišćenje",
-    "card_title": "Istorija korišćenja",
+    "card_title": "Krediti i istorija",
     "no_records_found": "Nema pronađenih zapisa o korišćenju",
     "filters": {
       "scope_section": "OPSEG",
@@ -160,22 +160,22 @@
       "from": "Od",
       "note": "Napomena",
       "card_title": "Prenos kredita",
-      "button": "Prenos kredita",
       "handle_label": "Korisničko ime ili telefon primaoca",
       "amount_label": "Iznos",
       "amount_placeholder": "1,00",
       "note_label": "Napomena (opciono)",
-      "note_placeholder": "Razlog prenosa…"
+      "note_placeholder": "Razlog prenosa…",
+      "action": "Transfer"
     },
     "load_more": "Učitaj još",
-    "credit_balance": "Krediti koje posedujem: {balance}"
+    "credit_balance": "Krediti koje posedujem: {balance}",
+    "top_up": "Dopuni"
   },
   "purchases": {
     "page_title": "Kupovine",
     "card_title": "Istorija kupovina",
     "use_license": "Unesite licencu",
     "license": "Licenca",
-    "buy": "Kupi",
     "license_key_label": "Unesite vašu licencnu oznaku",
     "license_key_placeholder": "Nalepite ili unesite vašu licencnu oznaku",
     "bind_success": "Licenca uspešno povezana!",

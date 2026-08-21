@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "उपयोग",
-    "card_title": "उपयोग इतिहास",
+    "card_title": "क्रेडिट और इतिहास",
     "no_records_found": "कोई उपयोग रिकॉर्ड नहीं मिला",
     "filters": {
       "scope_section": "दायरा",
@@ -160,22 +160,22 @@
       "from": "से",
       "note": "नोट",
       "card_title": "क्रेडिट ट्रांसफर करें",
-      "button": "क्रेडिट ट्रांसफर करें",
       "handle_label": "प्राप्तकर्ता का उपयोगकर्ता नाम या फ़ोन",
       "amount_label": "राशि",
       "amount_placeholder": "1.00",
       "note_label": "नोट (वैकल्पिक)",
-      "note_placeholder": "ट्रांसफर का कारण…"
+      "note_placeholder": "ट्रांसफर का कारण…",
+      "action": "ट्रांसफ़र"
     },
     "load_more": "और लोड करें",
-    "credit_balance": "मेरे पास क्रेडिट: {balance}"
+    "credit_balance": "मेरे पास क्रेडिट: {balance}",
+    "top_up": "टॉप अप"
   },
   "purchases": {
     "page_title": "खरीदें",
     "card_title": "खरीद का इतिहास",
     "use_license": "एक लाइसेंस का उपयोग करें",
     "license": "लाइसेंस",
-    "buy": "खरीदें",
     "license_key_label": "अपनी लाइसेंस कुंजी दर्ज करें",
     "license_key_placeholder": "अपनी लाइसेंस कुंजी को पेस्ट करें या टाइप करें",
     "bind_success": "लाइसेंस सफलतापूर्वक जुड़ा गया!",

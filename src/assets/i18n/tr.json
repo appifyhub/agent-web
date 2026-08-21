@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Kullanım",
-    "card_title": "Kullanım Geçmişi",
+    "card_title": "Krediler ve geçmiş",
     "no_records_found": "Kullanım kaydı bulunamadı",
     "filters": {
       "scope_section": "KAPSAM",
@@ -160,22 +160,22 @@
       "from": "Kimden",
       "note": "Not",
       "card_title": "Kredi Transfer Et",
-      "button": "Kredi Transfer Et",
       "handle_label": "Alıcının kullanıcı adı veya telefonu",
       "amount_label": "Tutar",
       "amount_placeholder": "1,00",
       "note_label": "Not (isteğe bağlı)",
-      "note_placeholder": "Transfer nedeni…"
+      "note_placeholder": "Transfer nedeni…",
+      "action": "Transfer"
     },
     "load_more": "Daha fazla yükle",
-    "credit_balance": "Sahip olduğum krediler: {balance}"
+    "credit_balance": "Sahip olduğum krediler: {balance}",
+    "top_up": "Yükle"
   },
   "purchases": {
     "page_title": "Satın Almalar",
     "card_title": "Satın Alma Geçmişi",
     "use_license": "Lisans Kullan",
     "license": "Lisans",
-    "buy": "Satın Al",
     "license_key_label": "Lisans anahtarınızı girin",
     "license_key_placeholder": "Lisans anahtarınızı yapıştırın veya yazın",
     "bind_success": "Lisans başarıyla bağlandı!",

@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "Utilisation",
-    "card_title": "Historique d'utilisation",
+    "card_title": "Crédits et historique",
     "no_records_found": "Aucun enregistrement d'utilisation trouvé",
     "filters": {
       "scope_section": "PORTÉE",
@@ -160,22 +160,22 @@
       "from": "De",
       "note": "Note",
       "card_title": "Transférer des crédits",
-      "button": "Transférer des crédits",
       "handle_label": "Nom d'utilisateur ou téléphone du destinataire",
       "amount_label": "Montant",
       "amount_placeholder": "1,00",
       "note_label": "Note (facultatif)",
-      "note_placeholder": "Motif du transfert…"
+      "note_placeholder": "Motif du transfert…",
+      "action": "Transférer"
     },
     "load_more": "Charger plus",
-    "credit_balance": "Crédits que je possède : {balance}"
+    "credit_balance": "Crédits que je possède : {balance}",
+    "top_up": "Recharger"
   },
   "purchases": {
     "page_title": "Achats",
     "card_title": "Historique d'Achats",
     "use_license": "Utiliser une Licence",
     "license": "Licence",
-    "buy": "Acheter",
     "license_key_label": "Entrez votre clé de licence",
     "license_key_placeholder": "Collez ou tapez votre clé de licence",
     "bind_success": "Licence liée avec succès!",

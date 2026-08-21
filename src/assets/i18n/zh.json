@@ -79,7 +79,7 @@
   },
   "usage": {
     "page_title": "使用情况",
-    "card_title": "使用历史",
+    "card_title": "积分与历史",
     "no_records_found": "未找到使用记录",
     "filters": {
       "scope_section": "范围",
@@ -160,22 +160,22 @@
       "from": "来自",
       "note": "备注",
       "card_title": "转账积分",
-      "button": "转账积分",
       "handle_label": "收款人的用户名或电话",
       "amount_label": "金额",
       "amount_placeholder": "1.00",
       "note_label": "备注（可选）",
-      "note_placeholder": "转账原因…"
+      "note_placeholder": "转账原因…",
+      "action": "转账"
     },
     "load_more": "加载更多",
-    "credit_balance": "我拥有的积分：{balance}"
+    "credit_balance": "我拥有的积分：{balance}",
+    "top_up": "充值"
   },
   "purchases": {
     "page_title": "购买",
     "card_title": "购买历史",
     "use_license": "使用许可证",
     "license": "许可证",
-    "buy": "购买",
     "license_key_label": "输入您的许可证密钥",
     "license_key_placeholder": "粘贴或输入您的许可证密钥",
     "bind_success": "许可证链接成功！",
