@@ -303,7 +303,7 @@ const Header: React.FC<HeaderProps> = ({
     navigateToLinkedProfiles,
     navigateToUsage,
     navigateToPurchases,
-    navigateToFeatures,
+    navigateToHelp,
     navigateWithLanguageChange,
   } = useNavigation();
   const chats = externalChats;
@@ -322,7 +322,7 @@ const Header: React.FC<HeaderProps> = ({
     !isLocked && showSponsorshipsButton;
   const effectiveShowChatsDropdown =
     !isLocked && showChatsDropdown && chatsAvailable;
-  const showHelpInline = isLocked && page !== "features";
+  const showHelpInline = isLocked && page !== "help";
   const showHelpInNavigation = !isLocked && showHelpButton;
   const canNavigateToUserPages = !isLocked && Boolean(effectiveUserId);
   const appName = import.meta.env.VITE_APP_NAME_SHORT;
@@ -330,7 +330,7 @@ const Header: React.FC<HeaderProps> = ({
     page === "profile" || page === "chat"
       ? t("menu_section.personal")
       : page === "intelligence" ||
-          page === "features" ||
+          page === "help" ||
           page === "onboarding"
         ? t("menu_section.agent")
         : page === "usage" || page === "purchases" || page === "access"
@@ -387,11 +387,11 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleHelpClick = () => {
     if (!lang_iso_code) {
-      console.warn("Cannot navigate to features without lang_iso_code");
+      console.warn("Cannot navigate to help without lang_iso_code");
       return;
     }
 
-    navigateToFeatures(lang_iso_code);
+    navigateToHelp(lang_iso_code);
   };
 
   const handleLogoClick = () => {
@@ -427,7 +427,7 @@ const Header: React.FC<HeaderProps> = ({
           onSelect: () => navigateToUserPage("intelligence"),
         },
         {
-          page: "features",
+          page: "help",
           label: t("help"),
           icon: LifeBuoy,
           visible: showHelpInNavigation,
