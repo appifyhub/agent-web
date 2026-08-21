@@ -16,7 +16,7 @@ function Card({
       className={cn(
         "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
         variant === "section" &&
-          "rounded-2xl border-border/80 bg-surface-raised/88 shadow-[0_18px_70px_oklch(0.05_0.01_292/0.22)]",
+          "overflow-hidden rounded-2xl border-border/80 bg-surface-raised/88 shadow-[0_18px_70px_oklch(0.05_0.01_292/0.22)]",
         className,
       )}
       {...props}

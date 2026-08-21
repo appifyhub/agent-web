@@ -69,10 +69,13 @@ const WarningBanner: React.FC<WarningBannerProps> = ({
         borderColor,
       )}
     >
-      <div className="flex items-start gap-3 px-[1.25rem] pt-[1.25rem]">
-        <div className="flex items-center gap-3 flex-1">
+      <div className={cn(
+        "flex items-start gap-3 px-[1.25rem] pt-[1.25rem]",
+        buttons.length === 0 && "pb-[1.25rem]",
+      )}>
+        <div className="flex items-center gap-4 flex-1">
           {icon ?? defaultIcon}
-          <p className="text-base font-light text-foreground/90 leading-relaxed flex-1">
+          <p className="text-base font-light text-foreground/90 leading-relaxed flex-1 md:text-justify [hyphens:auto]">
             {message}
           </p>
         </div>

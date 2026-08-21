@@ -22,7 +22,6 @@ interface SettingActionBarProps {
   secondaryDisabled?: boolean;
   secondaryIcon?: React.ReactNode;
   secondaryText?: string;
-  secondaryTooltipText?: string;
   secondaryClassName?: string;
   showCancelButton?: boolean;
   onCancelClicked?: () => void;
@@ -44,7 +43,6 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
   secondaryDisabled = false,
   secondaryIcon,
   secondaryText,
-  secondaryTooltipText,
   secondaryClassName = "",
   showCancelButton = false,
   onCancelClicked = () => {},
@@ -60,24 +58,19 @@ const SettingActionBar: React.FC<SettingActionBarProps> = ({
     )}
     <div className="ml-auto flex shrink-0 items-center gap-2">
       {showSecondaryButton && (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "h-9 cursor-pointer rounded-full border-border/60 px-[0.85rem] text-sm text-foreground/80 hover:text-foreground hover:bg-surface-raised/60",
-                secondaryClassName,
-              )}
-              disabled={secondaryDisabled}
-              onClick={onSecondaryClicked}
-            >
-              {secondaryIcon}
-              {secondaryIcon && secondaryText && <span className="ms-2">{secondaryText}</span>}
-              {!secondaryIcon && secondaryText}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>{secondaryTooltipText}</TooltipContent>
-        </Tooltip>
+        <Button
+          variant="outline"
+          className={cn(
+            "h-9 cursor-pointer rounded-full border-border/60 px-[0.85rem] text-sm text-foreground/80 hover:text-foreground hover:bg-surface-raised/60",
+            secondaryClassName,
+          )}
+          disabled={secondaryDisabled}
+          onClick={onSecondaryClicked}
+        >
+          {secondaryIcon}
+          {secondaryIcon && secondaryText && <span className="ms-2">{secondaryText}</span>}
+          {!secondaryIcon && secondaryText}
+        </Button>
       )}
       {showActionButton && (
         <Button
