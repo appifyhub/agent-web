@@ -473,8 +473,8 @@
     "not_chat_admin": "L'utente non è un amministratore in questa chat",
     "not_target_user": "L'utente di destinazione non corrisponde all'utente corrente",
     "not_developer": "L'utente corrente non è uno sviluppatore",
-    "no_private_chat": "L'utente non ha una chat privata con il bot",
-    "bot_cannot_set_alerts": "Il bot non può impostare avvisi di prezzo",
+    "no_private_chat": "L’utente non ha chat private con l’Agente",
+    "bot_cannot_set_alerts": "L’Agente non può impostare avvisi di prezzo",
     "unauthorized_seller": "Venditore non autorizzato",
     "empty_token": "Token vuoto",
     "no_user_id_in_token": "Nessun ID utente presente nel token",
@@ -534,49 +534,69 @@
     "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida",
     "invalid_social_card_mode": "Modalità scheda social non valida"
   },
-  "features": {
-    "header": "Funzionalità",
-    "title": "Cosa può fare {botName}?",
-    "items": {
-      "language_intelligence": {
-        "title": "Intelligenza linguistica",
-        "description": "L’assistente comprende e risponde nella tua lingua preferita con il supporto di oltre 50 lingue, rendendo le conversazioni naturali e accessibili agli utenti di tutto il mondo. Chiedi qualsiasi cosa e ottieni risposte intelligenti in un attimo."
+  "help_page": {
+    "intro_eyebrow": "Una mappa pratica",
+    "intro_title": "Fai funzionare {botName} come ti aspetti.",
+    "intro_description": "Scegli il risultato che desideri. Ogni guida spiega cosa configurare, cosa cambia dietro le quinte e come proseguire.",
+    "principle_label": "La distinzione utile",
+    "principle_title": "Chiedi in base al risultato. Configura in base alla capacità.",
+    "principle_description": "Interagisci con {botName} in chat. Le impostazioni determinano gli strumenti, il percorso di accesso e le regole che supportano ogni attività.",
+    "guides_title": "Guide pratiche",
+    "example": "Un obiettivo concreto",
+    "how_it_works": "Come funziona",
+    "keep_in_mind": "Da ricordare",
+    "open_destination": "Apri {destination}",
+    "setup_locked": "Puoi usare la Guida mentre configuri il tuo account. Le normali impostazioni restano bloccate finché non accetti le informative obbligatorie.",
+    "return_to_setup": "Torna alla configurazione",
+    "guides": {
+      "setup": {
+        "title": "Configura {botName} una sola volta",
+        "summary": "Usa Gemini, ChatGPT, Claude e altri modelli supportati senza creare un account separato presso ciascuno dei relativi provider.",
+        "example": "Voglio un unico assistente per Gemini, OpenAI, Claude e altri servizi, non una configurazione separata per ciascuno.",
+        "guide": "Configura una sola volta il tuo profilo {botName}, il contesto e le preferenze. Usa i crediti per accedere ai provider supportati senza gestire singole chiavi API, oppure collega le tue chiavi se preferisci BYOK. Nella sezione «Intelligenza», scegli il modello migliore per ogni funzionalità, mentre {botName} mantiene la stessa identità e lo stesso comportamento con tutti i provider.",
+        "note": "Disponibilità e costi variano tra i provider. Per BYOK: l’aggiunta di una chiave API rende disponibile il relativo provider, ma non ne seleziona automaticamente i modelli; i modelli continuano a essere selezionati nella sezione «Intelligenza»."
       },
-      "independent": {
-        "title": "Indipendente",
-        "description": "Passa tra app di chat e piattaforme di IA senza perdere la cronologia delle chat o le impostazioni. L’assistente mantiene un’esperienza coerente e fluida ovunque interagisci."
+      "intelligence": {
+        "title": "Configura Intelligenza",
+        "summary": "Scegli il modello o lo strumento adatto a ogni capacità invece di un unico modello globale.",
+        "example": "Usa un modello potente per il ragionamento, ma uno più economico per le chat quotidiane.",
+        "guide": "Intelligenza viene configurata per singola capacità. Inizia con una preimpostazione oppure personalizza separatamente chat, ragionamento, visione, trascrizione, generazione di immagini e video, ricerca web e strumenti per i dati. Configura le chiavi fornitore in Accesso o usa crediti prepagati.",
+        "note": "L’aggiunta di una chiave fornitore non seleziona automaticamente quel fornitore. Lo strumento selezionato deve inoltre disporre di una chiave fornitore utilizzabile, crediti prepagati o accesso sponsorizzato."
       },
-      "privacy": {
-        "title": "Aperto, ma privato",
-        "description": "Il codice è completamente open source per garantire trasparenza, ma i tuoi dati e le tue conversazioni rimangono privati e accessibili solo a te. Ospita autonomamente per avere un controllo ancora maggiore sulle tue informazioni."
+      "behavior": {
+        "title": "Personalizza profilo e comportamento della chat",
+        "summary": "Separa il contesto valido per tutto l’account dalle regole di una singola chat.",
+        "example": "Ricorda ovunque che cosa faccio, ma mantieni concisa una chat di gruppo.",
+        "guide": "Il profilo conserva nome, background e istruzioni personali in tutte le chat. Ogni chat può controllare separatamente contesto, profondità della cronologia, lunghezza dell’output, limiti di ragionamento e comportamento dei contenuti multimediali. I controlli per l’intero gruppo richiedono l’autorizzazione di amministratore della chat.",
+        "note": "Le chat private rispondono sempre quando vengono interpellate. La probabilità di risposta nei gruppi e le impostazioni condivise della chat sono disponibili solo se consentite dalla piattaforma e dal tuo ruolo di amministratore."
       },
-      "web_search": {
-        "title": "Ricerca web",
-        "description": "Ottieni informazioni aggiornate dal web, comprese notizie, analisi, tassi di cambio, prezzi delle criptovalute, asset e altro ancora, direttamente nella chat."
+      "capabilities": {
+        "title": "Vai oltre il testo",
+        "summary": "Usa ricerca, contenuti multimediali, generazione, monitoraggio e strumenti di gruppo dalla chat.",
+        "example": "Monitora questo argomento, avvisami quando cambia e riassumi la fonte.",
+        "guide": "Invia testo, immagini, messaggi vocali o documenti e descrivi il risultato desiderato. Quando la capacità richiesta è configurata, l’Agente può cercare, analizzare, trascrivere, creare o modificare contenuti multimediali e monitorare gli argomenti supportati.",
+        "note": "La disponibilità dipende dalla piattaforma di chat, dallo strumento selezionato, dall’accesso al fornitore e dalla distribuzione. Se una capacità non è disponibile, controlla prima Intelligenza e Accesso."
       },
-      "media": {
-        "title": "Allegati e media",
-        "description": "Invia immagini, note vocali e documenti all’assistente: può elaborarli e usarli per creare risposte utili o eseguire attività. Chatta con le tue foto o i tuoi documenti, non solo con il testo."
-      },
-      "imaging": {
-        "title": "Creazione di immagini con IA",
-        "description": "Crea nuove immagini, modifica immagini esistenti utilizzando istruzioni testuali o ripristina immagini vecchie e danneggiate utilizzando modelli IA avanzati. L’assistente dà vita alle tue idee con strumenti potenti e facili da usare."
-      },
-      "monitoring": {
-        "title": "Monitoraggio",
-        "description": "Rimani informato con il monitoraggio in tempo reale di notizie, mercati e argomenti di tuo interesse. L’assistente ti tiene proattivamente aggiornato, così non perdi nulla."
-      },
-      "profile": {
-        "title": "Profilo utente",
-        "description": "Un profilo utente unificato ti consente di gestire identità, fatturazione, crediti, preferenze degli strumenti e impostazioni del provider IA su tutte le piattaforme di chat. Personalizza tutto: chiedi all’assistente di aprire le tue impostazioni o digita `/settings` nella chat."
-      },
-      "chat_settings": {
-        "title": "Impostazioni chat",
-        "description": "Personalizza il comportamento dell’assistente in ogni chat, inclusi lingua, stile di risposta e preferenze di notifica. Accedi a queste opzioni in qualsiasi momento chiedendo all’assistente di aprire le impostazioni o digitando `/settings` nella chat."
+      "costs": {
+        "title": "Comprendi crediti e costi",
+        "summary": "Scopri come è stata pagata ogni attività e scegli come finanziare l’uso futuro.",
+        "example": "Mostrami cosa ha consumato crediti questo mese e quali strumenti ne sono stati la causa.",
+        "guide": "Acquista crediti prepagati in Acquisti o inserisci le tue chiavi fornitore in Accesso. Utilizzo mostra pagante, fornitore, finalità, dettagli sui token o sul tempo di esecuzione, trasferimenti, utilizzo sponsorizzato e chiamate non riuscite.",
+        "note": "I costi variano in base al modello e ai contenuti. Una ricerca può generare più di una query fatturata. Le chiamate non riuscite restano visibili ma non detraggono crediti; i dati di utilizzo dettagliati vengono conservati per 30 giorni."
       },
       "sponsorships": {
-        "title": "Sponsorizzazioni",
-        "description": "Condividi il tuo accesso all’assistente con gli altri mantenendo private le tue e le loro attività. Le sponsorizzazioni ti consentono di estendere i vantaggi dell’assistente ad amici o familiari e puoi sempre gestirle tramite l’assistente o digitando `/settings` nella chat."
+        "title": "Sponsorizza un’altra persona",
+        "summary": "Finanzia l’uso dell’Agente di un’altra persona senza condividere account o dati privati.",
+        "example": "Dai accesso a un familiare senza condividere le mie chiavi fornitore.",
+        "guide": "Uno sponsor può finanziare un altro profilo tramite il relativo handle della piattaforma senza condividere account, chiavi, impostazioni o chat. Lo sponsor deve disporre di crediti o di almeno una chiave di un provider. I nuovi destinatari accettano avviando l’Agente.",
+        "note": "Non sono ammesse l’autosponsorizzazione e le catene di sponsorizzazione; inoltre, non sono idonei i destinatari che possiedono chiavi fornitore o hanno già uno sponsor. Una sponsorizzazione in sospeso scade dopo 30 giorni e può essere revocata."
+      },
+      "profiles": {
+        "title": "Collega Telegram e WhatsApp",
+        "summary": "Unisci due profili multipiattaforma in un’unica identità dell’Agente.",
+        "example": "Usa un solo account e saldo su Telegram e WhatsApp.",
+        "guide": "Apri La mia chiave in un profilo, quindi inserisci la chiave dal profilo dell’altra piattaforma. I profili Telegram e WhatsApp possono essere uniti tra piattaforme; crediti, messaggi, avvisi e rapporti di sponsorizzazione vengono combinati.",
+        "note": "L’unione ha conseguenze importanti: in caso di impostazioni in conflitto prevale il profilo meno recente, l’altro account viene rimosso e la chiave di connessione viene cambiata. Controlla entrambi i profili prima di continuare."
       }
     }
   },
@@ -641,7 +661,6 @@
     "waitlist_message": "Ti avviseremo quando sarà di nuovo possibile attivare il tuo account.",
     "success": "{botName} è ora pronto! Torna nella tua chat e chiedi qualsiasi cosa."
   },
-  "check_out_project": "Scopri il progetto",
   "footer": {
     "brand_name": "Appify Hub",
     "logo_alt": "Logo",

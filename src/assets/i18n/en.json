@@ -473,8 +473,8 @@
     "not_chat_admin": "User is not an admin in this chat",
     "not_target_user": "Target user does not match the current user",
     "not_developer": "Current user is not a developer",
-    "no_private_chat": "User has no private chat with the bot",
-    "bot_cannot_set_alerts": "Bot cannot set price alerts",
+    "no_private_chat": "User has no private chat with the Agent",
+    "bot_cannot_set_alerts": "The Agent cannot set price alerts",
     "unauthorized_seller": "Unauthorized seller",
     "empty_token": "Empty token",
     "no_user_id_in_token": "No user ID present in token",
@@ -534,49 +534,69 @@
     "invalid_social_card_video_configuration": "Invalid social card video configuration",
     "invalid_social_card_mode": "Invalid social card mode"
   },
-  "features": {
-    "header": "Features",
-    "title": "What can {botName} do?",
-    "items": {
-      "language_intelligence": {
-        "title": "Language Intelligence",
-        "description": "The assistant understands and responds in your preferred language with 50+ languages supported, making conversations natural and accessible for users worldwide. Ask anything and get smart answers, fast."
+  "help_page": {
+    "intro_eyebrow": "A practical map",
+    "intro_title": "Get {botName} working the way you expect.",
+    "intro_description": "Choose the outcome you want. Each guide explains what to configure, what changes behind the scenes, and where to go next.",
+    "principle_label": "The useful distinction",
+    "principle_title": "Ask by outcome. Configure by capability.",
+    "principle_description": "You work with {botName} in chat. Settings decide which tools, access path, and rules support each task.",
+    "guides_title": "How-to guides",
+    "example": "A real goal",
+    "how_it_works": "How it works",
+    "keep_in_mind": "Keep in mind",
+    "open_destination": "Open {destination}",
+    "setup_locked": "You can use Help while setting up your account. Regular settings remain locked until the required policies are accepted.",
+    "return_to_setup": "Return to setup",
+    "guides": {
+      "setup": {
+        "title": "Set up {botName} only once",
+        "summary": "Use Gemini, ChatGPT, Claude, and other supported models without creating a separate account with each of their providers.",
+        "example": "I want one assistant for Gemini, OpenAI, Claude, and other services—not a separate setup for each one.",
+        "guide": "Set up your {botName} profile, context, and preferences once. Use credits to access supported providers without managing individual API keys, or connect your own keys if you prefer BYOK. In “Intelligence,” choose the best model for each capability while {botName} keeps the same identity and behavior across all providers.",
+        "note": "Availability and costs differ among providers. For BYOK: adding an API key makes that provider available but does not automatically select its models; models are still selected in “Intelligence.”"
       },
-      "independent": {
-        "title": "Independent",
-        "description": "Switch between chat apps and AI platforms without losing your chat history or settings. The assistant keeps your experience consistent and seamless, wherever you interact."
+      "intelligence": {
+        "title": "Configure Intelligence",
+        "summary": "Choose the right model or tool for each capability instead of one global model.",
+        "example": "Use a strong model for reasoning, but a lower-cost one for everyday chat.",
+        "guide": "Intelligence is configured per capability. Start with a preset or customize chat, reasoning, vision, transcription, image and video generation, web search, and data tools separately. Configure provider keys in Access or use prepaid credits.",
+        "note": "Adding a provider key does not select that provider automatically. A selected tool must also have a usable provider key, prepaid credits, or sponsored access."
       },
-      "privacy": {
-        "title": "Open, yet private",
-        "description": "The code is fully open-source for transparency, but your data and conversations remain private and accessible only to you. Self-host for even greater control over your information."
+      "behavior": {
+        "title": "Shape profile and chat behavior",
+        "summary": "Separate account-wide context from rules that belong to one chat.",
+        "example": "Remember what I do everywhere, but keep one group chat concise.",
+        "guide": "Profile stores your name, background, and personal instructions across chats. Each chat can separately control context, history depth, output length, reasoning limits, and media behavior. Group-wide controls require chat-administrator permission.",
+        "note": "Private chats always reply when addressed. Group reply likelihood and shared chat settings are available only where the platform and your administrator role allow them."
       },
-      "web_search": {
-        "title": "Web Search",
-        "description": "Get up-to-date information from the web, including news, analysis, currency prices, crypto prices, assets, and more, directly within your chat."
+      "capabilities": {
+        "title": "Work beyond text",
+        "summary": "Use search, media, generation, monitoring, and group tools from chat.",
+        "example": "Watch this topic, alert me when it changes, and summarize the source.",
+        "guide": "Send text, images, voice messages, or documents and describe the outcome. The Agent can search, analyze, transcribe, create or edit media, and monitor supported topics when the required capability is configured.",
+        "note": "Availability depends on the chat platform, selected tool, provider access, and deployment. If a capability is unavailable, check Intelligence and Access first."
       },
-      "media": {
-        "title": "Attachments & Media",
-        "description": "Send images, voice messages, and documents to the assistant – it can process and use them to create helpful responses or perform tasks. Chat with your photos or documents, not just text."
-      },
-      "imaging": {
-        "title": "AI Imaging",
-        "description": "Create new images, edit existing images using text instructions, or restore old and broken images using advanced AI models. The assistant brings your ideas to life with powerful and easy-to-use tools."
-      },
-      "monitoring": {
-        "title": "Monitoring",
-        "description": "Stay informed with real-time monitoring of news, markets, and topics you care about. The assistant proactively keeps you in the loop, so you never miss a beat."
-      },
-      "profile": {
-        "title": "User Profile",
-        "description": "A unified user profile lets you manage your identity, billing, credits, tool preferences, and AI provider settings across all chat platforms. Adjust anything – just ask the assistant to open your settings, or type `/settings` in chat."
-      },
-      "chat_settings": {
-        "title": "Chat Settings",
-        "description": "Customize how the assistant behaves in each chat, including language, reply style, and notification preferences. Access these options anytime by asking the assistant to open settings, or by typing `/settings` in chat."
+      "costs": {
+        "title": "Understand credits and costs",
+        "summary": "See what paid for each task and choose how future usage is funded.",
+        "example": "Show me what used credits this month and which tools caused it.",
+        "guide": "Buy prepaid credits in Purchases or supply your own provider keys in Access. Usage shows the payer, provider, purpose, token or runtime details, transfers, sponsored usage, and failed calls.",
+        "note": "Costs vary by model and content. Search can create more than one billed query. Failed calls remain visible but do not deduct credits, and detailed usage is retained for 30 days."
       },
       "sponsorships": {
-        "title": "Sponsorships",
-        "description": "Share your access to the assistant with others, while keeping your and their usage private. Sponsorships let you extend your assistant's benefits to friends or family, and you can always manage them via the assistant or by typing `/settings` in chat."
+        "title": "Sponsor another person",
+        "summary": "Fund someone else's Agent use without sharing accounts or private data.",
+        "example": "Give a family member access without sharing my provider keys.",
+        "guide": "A sponsor can fund another profile by platform handle without sharing accounts, keys, settings, or chats. The sponsor needs credits or at least one provider key. New recipients accept by starting the Agent.",
+        "note": "Self-sponsoring, sponsorship chains, and recipients with provider keys or an existing sponsor are not eligible. A pending sponsorship expires after 30 days and can be revoked."
+      },
+      "profiles": {
+        "title": "Connect Telegram and WhatsApp",
+        "summary": "Merge two cross-platform profiles into one Agent identity.",
+        "example": "Use one account and balance across Telegram and WhatsApp.",
+        "guide": "Open My key on one profile, then enter that key from the other platform's profile. Telegram and WhatsApp profiles can merge across platforms; credits, messages, alerts, and sponsorship relationships are combined.",
+        "note": "The merge is consequential: the older profile wins conflicting settings, the other account is removed, and the connection key rotates. Review both profiles before continuing."
       }
     }
   },
@@ -600,7 +620,7 @@
   "cost_estimate": {
     "title": "Cost Estimate",
     "description": "Estimated costs for using. All values are in credits.",
-    "disclaimer": "Note: Estimates may change without notice due to vendor pricing changes.",
+    "disclaimer": "Note: Estimates may change without notice due to provider pricing changes.",
     "no_data": "No cost information available for this tool.",
     "token_costs": "Token Costs",
     "input_tokens": "Per million input tokens",
@@ -641,7 +661,6 @@
     "waitlist_message": "We'll notify you when it's possible to activate your account again.",
     "success": "{botName} is now ready! Go back to your chat and ask anything."
   },
-  "check_out_project": "Check out the project",
   "footer": {
     "brand_name": "Appify Hub",
     "logo_alt": "Logo",
