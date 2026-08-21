@@ -254,8 +254,8 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
           <main className="py-8 sm:py-10">
             <div className={contentContainerClassName}>
 
-              <div className="flex min-w-0 items-center justify-between gap-4">
-                <h1 className="min-w-0 max-w-3xl text-balance text-3xl font-semibold tracking-tighter text-foreground sm:text-4xl">
+              <div className="flex min-w-0 items-center justify-between gap-[0.75rem]">
+                <h1 className="min-w-0 shrink font-semibold tracking-tighter text-foreground text-[clamp(1.1rem,4.5vw,2.25rem)]">
                   {getSettingsPageTitle(page)}
                 </h1>
 

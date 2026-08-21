@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ChartNoAxesCombined, BadgeCent, ShoppingCart, ArrowRightLeft } from "lucide-react";
+import { ChartNoAxesCombined, BadgeCent } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError, cleanUsername } from "@/lib/utils";
@@ -363,12 +363,11 @@ const UsagePage: React.FC = () => {
         cardTitle={isTransferring ? t("usage.transfer.card_title") : t("usage.card_title")}
         onActionClicked={isTransferring ? handleSaveTransfer : handleBuyMore}
         actionDisabled={isTransferring ? !isTransferValid : false}
-        actionIcon={isTransferring ? undefined : <ShoppingCart className="h-5 w-5" />}
-        actionButtonText={isTransferring ? t("save") : t("purchases.buy_credits")}
+        actionButtonText={isTransferring ? t("save") : t("usage.top_up")}
         showSecondaryButton={!isTransferring}
         onSecondaryClicked={handleStartTransfer}
-        secondaryIcon={<ArrowRightLeft className="h-5 w-5" />}
-        secondaryTooltipText={t("usage.transfer.button")}
+        secondaryText={t("usage.transfer.action")}
+        secondaryTooltipText={t("usage.transfer.action")}
         showCancelButton={isTransferring}
         onCancelClicked={handleCancelTransfer}
         isContentLoading={isLoadingState || isTransferSaving}
