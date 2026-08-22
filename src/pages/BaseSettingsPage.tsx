@@ -103,7 +103,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     const { lang_iso_code } = useParams<{
       lang_iso_code: string;
     }>();
-
     const { error, accessToken, isLoadingState, handleTokenExpired, setError } =
       usePageSession();
 
@@ -129,7 +128,10 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
       if (page !== "onboarding" && page !== "help" && !gateSettings.are_policies_accepted) {
         navigateToOnboarding(effectiveUserId, lang_iso_code);
-      } else if (page === "onboarding" && gateSettings.are_policies_accepted) {
+      } else if (
+        page === "onboarding" &&
+        gateSettings.are_policies_accepted
+      ) {
         navigateToProfile(effectiveUserId, lang_iso_code);
       }
     }, [
@@ -196,6 +198,67 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
     const contentContainerClassName =
       "mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-10";
+    if (page === "onboarding") {
+      return (
+        <Header
+          page={page}
+          chats={chats}
+          chatsLoading={isChatsLoading}
+          userId={accessToken?.decoded?.sub}
+          rawAccessToken={accessToken?.raw}
+          decodedToken={accessToken?.decoded}
+          selectedLanguage={
+            INTERFACE_LANGUAGES.find(
+              (lang) => lang.isoCode === lang_iso_code,
+            ) || DEFAULT_LANGUAGE
+          }
+          expiryTimestamp={accessToken?.decoded?.exp}
+          onTokenExpired={handleTokenExpired}
+          isLocked
+          showLanguageDropdown={false}
+          showHelpButton={false}
+          drawerOpen={drawerOpen}
+          onDrawerOpenChange={setDrawerOpen}
+        >
+          <div className="flex min-h-[calc(100svh-5rem)] flex-1 flex-col">
+            <main className="flex flex-1 justify-center px-5 py-8 sm:px-8 sm:py-12">
+              <div className="w-full max-w-3xl">
+                {isLoadingState || isContentLoading ? (
+                  <Card variant="section" className="py-8">
+                    <CardContent>
+                      <SettingsPageSkeleton />
+                    </CardContent>
+                  </Card>
+                ) : (
+                  children
+                )}
+              </div>
+            </main>
+
+            {displayError && (
+              <ErrorMessage
+                title={t("errors.oh_no")}
+                description={getErrorText(displayError)}
+                genericMessage={
+                  displayError.showGenericAppendix
+                    ? t("errors.check_link")
+                    : undefined
+                }
+                isBlocker={displayError.isBlocker}
+                onDismiss={
+                  externalError && onExternalErrorDismiss
+                    ? onExternalErrorDismiss
+                    : !displayError.isBlocker
+                      ? () => setError(null)
+                      : undefined
+                }
+              />
+            )}
+          </div>
+        </Header>
+      );
+    }
+
 
     const renderActionBar = (
       barLeadingContent?: React.ReactNode,
@@ -249,7 +312,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         showProfileButton={showProfileButton}
         showSponsorshipsButton={showSponsorshipsButton}
         isLocked={isShellLocked}
-        showLanguageDropdown={page !== "onboarding"}
+        showLanguageDropdown
         onGoToOnboarding={
           isHelpLocked && effectiveUserId && lang_iso_code
             ? () => navigateToOnboarding(effectiveUserId, lang_iso_code)
