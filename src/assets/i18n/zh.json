@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "社交卡片视频配置无效",
     "invalid_social_card_mode": "社交卡片模式无效"
   },
+  "not_found_page": {
+    "title": "未找到页面",
+    "description": "此地址无法进入您的智能体空间。",
+    "action": "返回首页"
+  },
   "help_page": {
     "intro_eyebrow": "实用指南",
     "intro_title": "让 {botName} 按你的预期工作。",
@@ -546,8 +551,6 @@
     "how_it_works": "工作原理",
     "keep_in_mind": "请注意",
     "open_destination": "打开{destination}",
-    "setup_locked": "设置账户时可以使用“帮助”。在接受必需的政策之前，常规设置将保持锁定。",
-    "return_to_setup": "返回设置",
     "guides": {
       "setup": {
         "title": "只需设置一次 {botName}",
@@ -665,7 +668,6 @@
     "access_credits_description": "使用预付积分驱动 AI 交互，无需 API 密钥。",
     "finish": "出发吧！",
     "continue": "继续",
-    "start": "开始",
     "waitlist_title": "您已加入等待列表",
     "waitlist_message": "当再次可以激活您的账户时，我们会通知您。",
     "success": "{botName} 现在已就绪！返回您的对话，提出任何问题。"

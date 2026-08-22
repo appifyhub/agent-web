@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Geçersiz sosyal kart videosu yapılandırması",
     "invalid_social_card_mode": "Geçersiz sosyal kart modu"
   },
+  "not_found_page": {
+    "title": "Sayfa bulunamadı",
+    "description": "Bu adres agentinizin alanına yönlendirmiyor.",
+    "action": "Ana sayfaya git"
+  },
   "help_page": {
     "intro_eyebrow": "Pratik bir yol haritası",
     "intro_title": "{botName} botunu beklediğiniz gibi çalışacak şekilde ayarlayın.",
@@ -546,8 +551,6 @@
     "how_it_works": "Nasıl çalışır?",
     "keep_in_mind": "Aklınızda bulunsun",
     "open_destination": "{destination} bölümünü aç",
-    "setup_locked": "Hesabınızı ayarlarken Yardım'ı kullanabilirsiniz. Gerekli politikalar kabul edilene kadar normal ayarlar kilitli kalır.",
-    "return_to_setup": "Kuruluma dön",
     "guides": {
       "setup": {
         "title": "{botName}’i yalnızca bir kez ayarlayın",
@@ -665,7 +668,6 @@
     "access_credits_description": "AI etkileşimleri için ön ödemeli kredi kullanın. API anahtarı gerekmez.",
     "finish": "Hadi başlayalım!",
     "continue": "Devam et",
-    "start": "Başla",
     "waitlist_title": "Bekleme listindesiniz",
     "waitlist_message": "Hesabınızı tekrar aktive etmek mümkün olduğunda sizi bilgilendireceğiz.",
     "success": "{botName} artık hazır! Sohbetine geri dön ve istediğini sor."

@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Nevažeća konfiguracija videa za društvenu karticu",
     "invalid_social_card_mode": "Nevažeći režim društvene kartice"
   },
+  "not_found_page": {
+    "title": "Stranica nije pronađena",
+    "description": "Ova adresa ne vodi do prostora vašeg agenta.",
+    "action": "Idi na početnu"
+  },
   "help_page": {
     "intro_eyebrow": "Praktična mapa",
     "intro_title": "Podesite {botName}a da radi kako očekujete.",
@@ -546,8 +551,6 @@
     "how_it_works": "Kako funkcioniše",
     "keep_in_mind": "Imajte u vidu",
     "open_destination": "Otvori {destination}",
-    "setup_locked": "Možete da koristite Pomoć dok podešavate nalog. Redovna podešavanja ostaju zaključana dok ne prihvatite obavezna pravila.",
-    "return_to_setup": "Nazad na podešavanje",
     "guides": {
       "setup": {
         "title": "Podesite {botName}a samo jednom",
@@ -665,7 +668,6 @@
     "access_credits_description": "Koristiću unapred plaćene kredite za AI interakcije, bez podešavanja ključeva.",
     "finish": "Počnimo!",
     "continue": "Nastavi",
-    "start": "Počni",
     "waitlist_title": "Na listi čekanja ste",
     "waitlist_message": "Obavestićemo vas kada opet bude moguće aktivirati nalog.",
     "success": "{botName} je sada spreman! Vrati se u čet i postavi bilo koje pitanje."

@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Configuration vidéo de carte sociale invalide",
     "invalid_social_card_mode": "Mode de carte sociale invalide"
   },
+  "not_found_page": {
+    "title": "Page introuvable",
+    "description": "Cette adresse ne mène pas à l’espace de votre agent.",
+    "action": "Retour à l’accueil"
+  },
   "help_page": {
     "intro_eyebrow": "Un guide pratique",
     "intro_title": "Faites fonctionner {botName} comme vous le souhaitez.",
@@ -546,8 +551,6 @@
     "how_it_works": "Fonctionnement",
     "keep_in_mind": "À retenir",
     "open_destination": "Ouvrir {destination}",
-    "setup_locked": "Vous pouvez utiliser l’aide pendant la configuration de votre compte. Les paramètres habituels restent verrouillés tant que les politiques obligatoires ne sont pas acceptées.",
-    "return_to_setup": "Revenir à la configuration",
     "guides": {
       "setup": {
         "title": "Configurez {botName} une seule fois",
@@ -665,7 +668,6 @@
     "access_credits_description": "Utilisez des crédits prépayés pour vos interactions IA. Aucune clé API requise.",
     "finish": "C'est parti !",
     "continue": "Continuer",
-    "start": "Commencer",
     "waitlist_title": "Vous êtes sur la liste d'attente",
     "waitlist_message": "Nous vous notifierons dès que l'activation de votre compte sera à nouveau possible.",
     "success": "{botName} est maintenant prêt ! Retourne dans ton chat et pose n'importe quelle question."

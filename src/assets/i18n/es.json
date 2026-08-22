@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Configuración de video de tarjeta social no válida",
     "invalid_social_card_mode": "Modo de tarjeta social no válido"
   },
+  "not_found_page": {
+    "title": "Página no encontrada",
+    "description": "Esta dirección no lleva al espacio de tu agente.",
+    "action": "Ir al inicio"
+  },
   "help_page": {
     "intro_eyebrow": "Un mapa práctico",
     "intro_title": "Haz que {botName} funcione como esperas.",
@@ -546,8 +551,6 @@
     "how_it_works": "Cómo funciona",
     "keep_in_mind": "Ten en cuenta",
     "open_destination": "Abrir {destination}",
-    "setup_locked": "Puedes usar la Ayuda mientras configuras tu cuenta. Los ajustes habituales seguirán bloqueados hasta que aceptes las políticas obligatorias.",
-    "return_to_setup": "Volver a la configuración",
     "guides": {
       "setup": {
         "title": "Configura {botName} una sola vez",
@@ -665,7 +668,6 @@
     "access_credits_description": "Usa créditos de prepago para tus interacciones de IA. No se necesitan claves API.",
     "finish": "¡Vamos!",
     "continue": "Continuar",
-    "start": "Empezar",
     "waitlist_title": "Estás en la lista de espera",
     "waitlist_message": "Te notificaremos cuando sea posible activar tu cuenta de nuevo.",
     "success": "¡{botName} ya está listo! Vuelve a tu chat y pregunta lo que quieras."

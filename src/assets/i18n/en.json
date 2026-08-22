@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Invalid social card video configuration",
     "invalid_social_card_mode": "Invalid social card mode"
   },
+  "not_found_page": {
+    "title": "Page not found",
+    "description": "This address does not lead to your agent's space.",
+    "action": "Go home"
+  },
   "help_page": {
     "intro_eyebrow": "A practical map",
     "intro_title": "Get {botName} working the way you expect.",
@@ -546,8 +551,6 @@
     "how_it_works": "How it works",
     "keep_in_mind": "Keep in mind",
     "open_destination": "Open {destination}",
-    "setup_locked": "You can use Help while setting up your account. Regular settings remain locked until the required policies are accepted.",
-    "return_to_setup": "Return to setup",
     "guides": {
       "setup": {
         "title": "Set up {botName} only once",
@@ -665,7 +668,6 @@
     "access_credits_description": "Use prepaid credits to power your AI interactions. No API keys needed.",
     "finish": "Let's Go!",
     "continue": "Continue",
-    "start": "Start",
     "waitlist_title": "You're on the waitlist",
     "waitlist_message": "We'll notify you when it's possible to activate your account again.",
     "success": "{botName} is now ready! Go back to your chat and ask anything."

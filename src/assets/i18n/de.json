@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Ungültige Social-Card-Video-Konfiguration",
     "invalid_social_card_mode": "Ungültiger Social-Card-Modus"
   },
+  "not_found_page": {
+    "title": "Seite nicht gefunden",
+    "description": "Diese Adresse führt nicht zum Bereich deines Agenten.",
+    "action": "Zur Startseite"
+  },
   "help_page": {
     "intro_eyebrow": "Eine praktische Übersicht",
     "intro_title": "Sorge dafür, dass {botName} so arbeitet, wie du es erwartest.",
@@ -546,8 +551,6 @@
     "how_it_works": "So funktioniert es",
     "keep_in_mind": "Wichtig",
     "open_destination": "{destination} öffnen",
-    "setup_locked": "Während der Kontoeinrichtung kannst du die Hilfe nutzen. Die regulären Einstellungen bleiben gesperrt, bis du die erforderlichen Richtlinien akzeptiert hast.",
-    "return_to_setup": "Zurück zur Einrichtung",
     "guides": {
       "setup": {
         "title": "Richten Sie {botName} nur einmal ein",
@@ -665,7 +668,6 @@
     "access_credits_description": "Nutzen Sie Prepaid-Credits für Ihre KI-Interaktionen. Keine API-Schlüssel erforderlich.",
     "finish": "Los geht's!",
     "continue": "Weiter",
-    "start": "Starten",
     "waitlist_title": "Sie stehen auf der Warteliste",
     "waitlist_message": "Wir benachrichtigen Sie, sobald eine Kontoaktivierung wieder möglich ist.",
     "success": "{botName} ist jetzt bereit! Gehe zurück in deinen Chat und stelle eine Frage."

@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida",
     "invalid_social_card_mode": "Modalità scheda social non valida"
   },
+  "not_found_page": {
+    "title": "Pagina non trovata",
+    "description": "Questo indirizzo non porta allo spazio del tuo agent.",
+    "action": "Vai alla home"
+  },
   "help_page": {
     "intro_eyebrow": "Una mappa pratica",
     "intro_title": "Fai funzionare {botName} come ti aspetti.",
@@ -546,8 +551,6 @@
     "how_it_works": "Come funziona",
     "keep_in_mind": "Da ricordare",
     "open_destination": "Apri {destination}",
-    "setup_locked": "Puoi usare la Guida mentre configuri il tuo account. Le normali impostazioni restano bloccate finché non accetti le informative obbligatorie.",
-    "return_to_setup": "Torna alla configurazione",
     "guides": {
       "setup": {
         "title": "Configura {botName} una sola volta",
@@ -665,7 +668,6 @@
     "access_credits_description": "Usa crediti prepagati per le interazioni AI. Non sono necessarie chiavi API.",
     "finish": "Andiamo!",
     "continue": "Continua",
-    "start": "Inizia",
     "waitlist_title": "Sei in lista d'attesa",
     "waitlist_message": "Ti avviseremo quando sarà di nuovo possibile attivare il tuo account.",
     "success": "{botName} è ora pronto! Torna nella tua chat e chiedi qualsiasi cosa."
