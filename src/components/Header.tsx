@@ -317,12 +317,13 @@ const Header: React.FC<HeaderProps> = ({
   const resolvedSelectedChat =
     selectedChat ||
     chats.find((chat) => chat.chat_config.chat_id === chat_id);
+  const isOnboarding = page === "onboarding";
   const effectiveShowProfileButton = !isLocked && showProfileButton;
   const effectiveShowSponsorshipsButton =
     !isLocked && showSponsorshipsButton;
   const effectiveShowChatsDropdown =
     !isLocked && showChatsDropdown && chatsAvailable;
-  const showHelpInline = isLocked && page !== "help";
+  const showHelpInline = isLocked && page !== "help" && showHelpButton;
   const showHelpInNavigation = !isLocked && showHelpButton;
   const canNavigateToUserPages = !isLocked && Boolean(effectiveUserId);
   const appName = import.meta.env.VITE_APP_NAME_SHORT;
@@ -525,7 +526,12 @@ const Header: React.FC<HeaderProps> = ({
 
       <SidebarInset className="settings-pane-atmosphere">
         <header className="sticky top-0 z-40 h-20 border-b border-border/80 bg-background">
-          <div className="flex h-full w-full items-center gap-3 px-4 sm:pl-1">
+          <div
+            className={cn(
+              "flex h-full w-full items-center gap-3 px-4",
+              !isOnboarding && "sm:pl-1",
+            )}
+          >
             {hasNavigation && (
               <div className="flex shrink-0 items-center gap-2 sm:contents">
                 <BrandLogoButton
@@ -552,10 +558,18 @@ const Header: React.FC<HeaderProps> = ({
                 />
               </div>
             )}
-            <ShellTitle
-              appName={appName}
-              sectionLabel={currentSectionLabel}
-            />
+            {isOnboarding ? (
+              <img
+                src={logoVector}
+                alt={appName}
+                className="ms-[0.3125rem] size-8 shrink-0"
+              />
+            ) : (
+              <ShellTitle
+                appName={appName}
+                sectionLabel={currentSectionLabel}
+              />
+            )}
             <div className="ml-auto flex shrink-0 items-center gap-2">
               {!isLocked && userSettings?.credit_balance !== undefined && (
                 <Button
