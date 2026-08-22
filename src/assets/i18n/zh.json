@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "开始使用",
+    "intro": "通过四个清晰步骤，设置 {botName} 所需的语言、个性、智能和访问方式。",
+    "progress": "第 {current} 步，共 {total} 步",
+    "steps": {
+      "policies": "政策",
+      "profile": "个人资料",
+      "intelligence": "智能",
+      "access": "访问"
+    },
     "interface_language_label": "{botName} 将主要使用此语言",
     "policy_prefix": "开始之前必须接受这些政策。您是否已阅读并同意这两项内容？",
     "policy_label": "我接受",
@@ -656,6 +664,7 @@
     "access_credits_title": "购买积分",
     "access_credits_description": "使用预付积分驱动 AI 交互，无需 API 密钥。",
     "finish": "出发吧！",
+    "continue": "继续",
     "start": "开始",
     "waitlist_title": "您已加入等待列表",
     "waitlist_message": "当再次可以激活您的账户时，我们会通知您。",

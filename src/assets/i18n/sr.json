@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Početak",
+    "intro": "Četiri jasna koraka podešavaju jezik, ličnost, inteligenciju i pristup koji su potrebni {botName}u.",
+    "progress": "Korak {current} od {total}",
+    "steps": {
+      "policies": "Polise",
+      "profile": "Profil",
+      "intelligence": "Inteligencija",
+      "access": "Pristup"
+    },
     "interface_language_label": "{botName} će koristiti uglavnom ovaj jezik",
     "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja. Da li ste pročitali i slažete se sa obe?",
     "policy_label": "Prihvatam",
@@ -656,6 +664,7 @@
     "access_credits_title": "Kupujem kredite",
     "access_credits_description": "Koristiću unapred plaćene kredite za AI interakcije, bez podešavanja ključeva.",
     "finish": "Počnimo!",
+    "continue": "Nastavi",
     "start": "Počni",
     "waitlist_title": "Na listi čekanja ste",
     "waitlist_message": "Obavestićemo vas kada opet bude moguće aktivirati nalog.",

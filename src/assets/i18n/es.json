@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Comenzar",
+    "intro": "Cuatro pasos claros configuran el idioma, la personalidad, la inteligencia y el acceso que necesita {botName}.",
+    "progress": "Paso {current} de {total}",
+    "steps": {
+      "policies": "Políticas",
+      "profile": "Perfil",
+      "intelligence": "Inteligencia",
+      "access": "Acceso"
+    },
     "interface_language_label": "{botName} usará principalmente este idioma",
     "policy_prefix": "Estas políticas deben aceptarse antes de comenzar. ¿Las has leído y estás de acuerdo con ambas?",
     "policy_label": "Acepto",
@@ -656,6 +664,7 @@
     "access_credits_title": "Comprar créditos",
     "access_credits_description": "Usa créditos de prepago para tus interacciones de IA. No se necesitan claves API.",
     "finish": "¡Vamos!",
+    "continue": "Continuar",
     "start": "Empezar",
     "waitlist_title": "Estás en la lista de espera",
     "waitlist_message": "Te notificaremos cuando sea posible activar tu cuenta de nuevo.",

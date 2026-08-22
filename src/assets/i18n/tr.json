@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Başlayın",
+    "intro": "Dört net adım, {botName} için gereken dili, kişiliği, zekâyı ve erişimi ayarlar.",
+    "progress": "Adım {current} / {total}",
+    "steps": {
+      "policies": "Politikalar",
+      "profile": "Profil",
+      "intelligence": "Zekâ",
+      "access": "Erişim"
+    },
     "interface_language_label": "{botName} öncelikli olarak bu dili kullanacak",
     "policy_prefix": "Başlamadan önce bu politikaların kabul edilmesi gerekir. Her ikisini de okudunuz ve kabul ediyor musunuz?",
     "policy_label": "Kabul ediyorum",
@@ -656,6 +664,7 @@
     "access_credits_title": "Kredi satın al",
     "access_credits_description": "AI etkileşimleri için ön ödemeli kredi kullanın. API anahtarı gerekmez.",
     "finish": "Hadi başlayalım!",
+    "continue": "Devam et",
     "start": "Başla",
     "waitlist_title": "Bekleme listindesiniz",
     "waitlist_message": "Hesabınızı tekrar aktive etmek mümkün olduğunda sizi bilgilendireceğiz.",

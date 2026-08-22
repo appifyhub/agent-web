@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Loslegen",
+    "intro": "Vier klare Schritte richten Sprache, Persönlichkeit, Intelligenz und den Zugriff ein, die {botName} benötigt.",
+    "progress": "Schritt {current} von {total}",
+    "steps": {
+      "policies": "Richtlinien",
+      "profile": "Profil",
+      "intelligence": "Intelligenz",
+      "access": "Zugriff"
+    },
     "interface_language_label": "{botName} wird hauptsächlich diese Sprache verwenden",
     "policy_prefix": "Diese Richtlinien müssen vor dem Start akzeptiert werden. Haben Sie beide gelesen und stimmen zu?",
     "policy_label": "Ich akzeptiere",
@@ -656,6 +664,7 @@
     "access_credits_title": "Credits kaufen",
     "access_credits_description": "Nutzen Sie Prepaid-Credits für Ihre KI-Interaktionen. Keine API-Schlüssel erforderlich.",
     "finish": "Los geht's!",
+    "continue": "Weiter",
     "start": "Starten",
     "waitlist_title": "Sie stehen auf der Warteliste",
     "waitlist_message": "Wir benachrichtigen Sie, sobald eine Kontoaktivierung wieder möglich ist.",

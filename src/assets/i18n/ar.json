@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "ابدأ الآن",
+    "intro": "أربع خطوات واضحة تضبط اللغة والشخصية والذكاء والوصول الذي يحتاجه {botName}.",
+    "progress": "الخطوة {current} من {total}",
+    "steps": {
+      "policies": "السياسات",
+      "profile": "الملف الشخصي",
+      "intelligence": "الذكاء",
+      "access": "الوصول"
+    },
     "interface_language_label": "سيستخدم {botName} هذه اللغة بشكل أساسي",
     "policy_prefix": "يجب قبول هذه السياسات قبل البدء. هل قرأتهما وتوافق عليهما؟",
     "policy_label": "أوافق",
@@ -656,6 +664,7 @@
     "access_credits_title": "شراء رصيد",
     "access_credits_description": "استخدم رصيدًا مدفوعًا مسبقًا لتشغيل تفاعلات الذكاء الاصطناعي. لا تحتاج إلى مفاتيح API.",
     "finish": "هيا نبدأ!",
+    "continue": "متابعة",
     "start": "ابدأ",
     "waitlist_title": "أنت على قائمة الانتظار",
     "waitlist_message": "سنُعلمك عندما يصبح بالإمكان تفعيل حسابك مجدداً.",

@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Get Started",
+    "intro": "Four focused steps set the language, personality, intelligence, and access {botName} needs.",
+    "progress": "Step {current} of {total}",
+    "steps": {
+      "policies": "Policies",
+      "profile": "Profile",
+      "intelligence": "Intelligence",
+      "access": "Access"
+    },
     "interface_language_label": "{botName} will use primarily this language",
     "policy_prefix": "These policies must be accepted before you start. Have you read and agree to both?",
     "policy_label": "I accept",
@@ -656,6 +664,7 @@
     "access_credits_title": "Buy credits",
     "access_credits_description": "Use prepaid credits to power your AI interactions. No API keys needed.",
     "finish": "Let's Go!",
+    "continue": "Continue",
     "start": "Start",
     "waitlist_title": "You're on the waitlist",
     "waitlist_message": "We'll notify you when it's possible to activate your account again.",

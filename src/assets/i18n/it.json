@@ -648,6 +648,14 @@
   },
   "onboarding": {
     "page_title": "Inizia",
+    "intro": "Quattro passaggi chiari configurano la lingua, la personalità, l’intelligenza e l’accesso necessari a {botName}.",
+    "progress": "Passaggio {current} di {total}",
+    "steps": {
+      "policies": "Informative",
+      "profile": "Profilo",
+      "intelligence": "Intelligenza",
+      "access": "Accesso"
+    },
     "interface_language_label": "{botName} utilizzerà principalmente questa lingua",
     "policy_prefix": "Queste politiche devono essere accettate prima di iniziare. Le hai lette e sei d'accordo con entrambe?",
     "policy_label": "Accetto",
@@ -656,6 +664,7 @@
     "access_credits_title": "Acquista crediti",
     "access_credits_description": "Usa crediti prepagati per le interazioni AI. Non sono necessarie chiavi API.",
     "finish": "Andiamo!",
+    "continue": "Continua",
     "start": "Inizia",
     "waitlist_title": "Sei in lista d'attesa",
     "waitlist_message": "Ti avviseremo quando sarà di nuovo possibile attivare il tuo account.",
