@@ -36,7 +36,6 @@ interface SettingSelectorProps {
   labelClassName?: string;
   triggerClassName?: string;
   contentClassName?: string;
-  variant?: "default" | "section";
 }
 
 const SettingSelector: React.FC<SettingSelectorProps> = ({
@@ -52,30 +51,17 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
   labelClassName = "",
   triggerClassName = "",
   contentClassName = "",
-  variant = "default",
 }) => {
   const validOption = options.find((opt) => opt.value === value);
   const selectValue = validOption ? value : undefined;
 
   return (
-    <div
-      className={cn(
-        variant === "section" ? "space-y-2.5" : "space-y-4",
-        className,
-      )}
-    >
+    <div className={cn("space-y-2.5", className)}>
       <div className="space-y-1">
-        <div
-          className={cn(
-            "flex w-full items-center justify-between",
-            variant === "default" && "sm:w-md",
-          )}
-        >
+        <div className="flex w-full items-center justify-between">
           <Label
             className={cn(
-              variant === "section"
-                ? "text-sm font-medium tracking-tight text-foreground"
-                : "text-[1.05rem] font-light",
+              "text-sm font-medium tracking-tight text-foreground",
               disabled ? "text-muted-foreground/50" : "",
               labelClassName,
             )}
@@ -86,12 +72,9 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant={variant === "section" ? "utility" : "outline"}
+                  variant="utility"
                   size="icon"
-                  className={cn(
-                    "h-8 w-8 shrink-0 cursor-pointer rounded-full",
-                    variant === "default" && "glass p-1.5",
-                  )}
+                  className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                   onClick={onUndo}
                   disabled={disabled || !selectValue}
                 >
@@ -105,9 +88,7 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         {helperText && (
           <p
             className={cn(
-              variant === "section"
-                ? "ps-1 text-sm leading-6"
-                : "ps-1 text-sm font-light opacity-80",
+              "ps-1 text-sm leading-6",
               disabled
                 ? "text-muted-foreground/50"
                 : "text-muted-foreground",
@@ -120,13 +101,7 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
       <Select value={selectValue} disabled={disabled} onValueChange={onChange}>
         <SelectTrigger
           className={cn(
-            variant === "section"
-              ? "h-12 w-full cursor-pointer overflow-hidden rounded-xl border-border bg-background/45 px-4 text-base shadow-none data-[size=default]:h-12"
-              : "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
-            variant === "default" &&
-              (disabled
-                ? "text-muted-foreground/80 glass-static"
-                : "glass"),
+            "h-12 w-full cursor-pointer overflow-hidden rounded-xl border-border bg-background/45 px-4 text-base shadow-none data-[size=default]:h-12",
             triggerClassName,
           )}
         >
@@ -134,9 +109,7 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         </SelectTrigger>
         <SelectContent
           className={cn(
-            variant === "section"
-              ? "rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl"
-              : "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
+            "rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl",
             contentClassName,
           )}
         >
@@ -146,9 +119,7 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
               value={opt.value}
               disabled={opt.disabled || opt.value === value}
               className={cn(
-                variant === "section"
-                  ? "cursor-pointer rounded-lg px-3 py-2.5 text-foreground"
-                  : "py-4 px-4 cursor-pointer text-foreground",
+                "cursor-pointer rounded-lg px-3 py-2.5 text-foreground",
                 opt.value === value ? "bg-accent/70" : "",
               )}
             >

@@ -47,7 +47,7 @@ export default function Footer() {
                 href="https://www.appifyhub.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-primary"
+                className="underline decoration-dotted decoration-muted-foreground/35 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/60"
               >
                 {brandName}
               </a>

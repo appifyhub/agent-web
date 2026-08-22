@@ -201,7 +201,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                 {isTransferSent ? (
                   <SquareArrowRightExit className="h-3.5 w-3.5 text-red-400 shrink-0" />
                 ) : (
-                  <SquareArrowRightEnter className="h-3.5 w-3.5 text-green-200 shrink-0 -scale-x-100" />
+                  <SquareArrowRightEnter className="h-3.5 w-3.5 text-success shrink-0 -scale-x-100" />
                 )}
                 {getOwnerDisplay()}
               </span>
@@ -225,8 +225,8 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
           )}>
             {isTransferReceived ? (
               <>
-                <BadgeCent className="h-4 w-4 text-green-200" />
-                <span className="text-base font-medium font-mono text-green-200">
+                <BadgeCent className="h-4 w-4 text-success" />
+                <span className="text-base font-medium font-mono text-success">
                   +{formatCredits(record.total_cost_credits)}
                 </span>
               </>
@@ -426,7 +426,12 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                   <span className="text-muted-foreground min-w-0 truncate">
                     {t("usage.context_ids.status_label")}
                   </span>
-                  <span className={cn("shrink-0", record.is_failed ? "text-red-400" : "text-green-200")}>
+                  <span
+                    className={cn(
+                      "shrink-0",
+                      record.is_failed ? "text-destructive" : "text-success",
+                    )}
+                  >
                     {record.is_failed ? t("usage.context_ids.status_failed") : t("usage.context_ids.status_completed")}
                   </span>
                 </div>

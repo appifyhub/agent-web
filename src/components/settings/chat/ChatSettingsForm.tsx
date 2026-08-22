@@ -96,7 +96,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
               disabled ? "—" : t("preferred_language_placeholder")
             }
             className={fieldClassName}
-            variant="section"
           />
 
           <SettingSelector
@@ -141,7 +140,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
               disabled ? "—" : t("notifications.releases_placeholder")
             }
             className={fieldClassName}
-            variant="section"
           />
 
           <SettingSelector
@@ -175,7 +173,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
             disabled={disabled}
             placeholder={disabled ? "—" : t("media.mode_placeholder")}
             className={fieldClassName}
-            variant="section"
           />
 
           {!chatConfig.is_private && (
@@ -214,7 +211,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
                 disabled ? "—" : t("spontaneous_placeholder")
               }
               className={fieldClassName}
-              variant="section"
             />
           )}
         </SettingsSection>
@@ -272,7 +268,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           disabled={disabled}
           placeholder={disabled ? "—" : t("select_placeholder")}
           className={fieldClassName}
-          variant="section"
         />
 
         <SettingSelector
@@ -324,7 +319,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           disabled={disabled}
           placeholder={disabled ? "—" : t("select_placeholder")}
           className={fieldClassName}
-          variant="section"
         />
 
         <SettingSelector
@@ -371,7 +365,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           disabled={disabled}
           placeholder={disabled ? "—" : t("select_placeholder")}
           className={fieldClassName}
-          variant="section"
         />
       </SettingsSection>
 
@@ -390,7 +383,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           className={fieldClassName}
           onProfileLinkClick={onProfileLinkClick}
           profileLinkText={t("use_about_me_which_information")}
-          variant="section"
         />
 
         <SettingToggle
@@ -405,7 +397,6 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           className={fieldClassName}
           onProfileLinkClick={onProfileLinkClick}
           profileLinkText={t("use_custom_prompt_which_instructions")}
-          variant="section"
         />
       </SettingsSection>
     </div>

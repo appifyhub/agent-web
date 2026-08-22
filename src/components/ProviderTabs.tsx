@@ -41,7 +41,7 @@ const ProviderTabs: React.FC<ProviderTabsProps> = ({
               onClick={() => onProviderClick(index)}
               disabled={disabled}
               className={cn(
-                "h-8 w-8 rounded-full border transition-all duration-200",
+                "h-8 w-8 cursor-pointer rounded-full border transition-all duration-200",
                 selectedIndex === index
                   ? "border-foreground/60 opacity-100"
                   : "border-border/40 opacity-40 hover:opacity-70",

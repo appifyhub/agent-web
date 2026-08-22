@@ -1,5 +1,5 @@
 import React from "react";
-import { Info, X } from "lucide-react";
+import { X } from "lucide-react";
 import { t } from "@/lib/translations";
 import { CostEstimate } from "@/services/external-tools-service";
 import {
@@ -25,9 +25,8 @@ interface CostEstimateDialogProps {
   providerId?: string;
   providerName?: string;
   maxInputImages?: number;
-  children?: React.ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const CostEstimateContent: React.FC<{
@@ -233,54 +232,11 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
   providerId,
   providerName,
   maxInputImages,
-  children,
   open,
   onOpenChange,
 }) => {
-  const [internalOpen, setInternalOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const isControlled = open !== undefined;
-  const show = isControlled ? open : internalOpen;
-  
-  const handleOpenChange = (newVal: boolean) => {
-    if (!isControlled) setInternalOpen(newVal);
-    onOpenChange?.(newVal);
-  };
-
-  const handleClick = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleOpenChange(true);
-  };
-
-  const trigger = isControlled && !children ? null : children ? (
-    <button
-      type="button"
-      onClick={handleClick}
-      onPointerDown={(e) => { e.stopPropagation(); }}
-      onPointerUp={(e) => { e.stopPropagation(); }}
-      onMouseDown={(e) => { e.stopPropagation(); }}
-      onMouseUp={(e) => { e.stopPropagation(); }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          handleClick(e);
-        }
-      }}
-      className="inline-flex cursor-pointer"
-    >
-      {children}
-    </button>
-  ) : (
-    <button
-      onClick={handleClick}
-      className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
-      type="button"
-    >
-      <Info className="h-4 w-4" />
-      <span className="sr-only">{t("cost_estimate.title")}</span>
-    </button>
-  );
 
   const heading = (
     <>
@@ -308,9 +264,7 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
 
   if (isDesktop) {
     return (
-      <>
-        {trigger}
-        <Dialog open={show} onOpenChange={handleOpenChange}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
           <DialogContent
             className="max-h-[min(42rem,calc(100vh-3rem))] gap-0 overflow-y-auto rounded-3xl border-border bg-popover px-7 py-7 shadow-[0_28px_90px_oklch(0.03_0.01_292/0.55)] sm:max-w-[520px]"
             showCloseButton={false}
@@ -329,14 +283,11 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
             </div>
           </DialogContent>
         </Dialog>
-      </>
     );
   }
 
   return (
-    <>
-      {trigger}
-      <Drawer open={show} onOpenChange={handleOpenChange}>
+    <Drawer open={open} onOpenChange={onOpenChange}>
         {/* DrawerContent already provides its own inner scroll region, so this
             must not scroll too — a second scroller lets the header slide away.
             the base radius comes from an attribute selector, hence `!` */}
@@ -351,7 +302,6 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
           </div>
         </DrawerContent>
       </Drawer>
-    </>
   );
 };
 

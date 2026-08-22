@@ -208,7 +208,6 @@ const UserSettingsPage: React.FC = () => {
           disabled={!!error?.isBlocker}
           placeholder={t("profile_full_name_placeholder")}
           className="settings-field"
-          variant="section"
           onKeyboardConfirm={() => {
             if (!error?.isBlocker && hasSettingsChanged) {
               handleSave();
@@ -252,7 +251,6 @@ const UserSettingsPage: React.FC = () => {
           minRows={2}
           maxRows={6}
           className="settings-field"
-          variant="section"
         />
 
         {/* Custom prompt textarea */}
@@ -289,7 +287,6 @@ const UserSettingsPage: React.FC = () => {
           minRows={2}
           maxRows={6}
           className="settings-field"
-          variant="section"
         />
 
       </SettingsSection>

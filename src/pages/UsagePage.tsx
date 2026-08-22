@@ -374,7 +374,7 @@ const UsagePage: React.FC = () => {
         onExternalErrorDismiss={() => setError(null)}
       >
       {isTransferring ? (
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-start gap-6">
           <PlatformHandleInput
             label={t("usage.transfer.handle_label")}
             selectedPlatform={transferPlatform}
@@ -382,7 +382,7 @@ const UsagePage: React.FC = () => {
             platformHandle={transferHandle}
             onPlatformHandleChange={setTransferHandle}
             disabled={!!error?.isBlocker}
-            className="w-full sm:w-auto"
+            className="settings-field"
             onKeyboardConfirm={() => {
               if (!error?.isBlocker && isTransferValid) {
                 handleSaveTransfer();
@@ -397,7 +397,7 @@ const UsagePage: React.FC = () => {
             disabled={!!error?.isBlocker}
             placeholder={t("usage.transfer.amount_placeholder")}
             type="number"
-            className="w-full sm:w-auto"
+            className="settings-field"
             onKeyboardConfirm={() => {
               if (!error?.isBlocker && isTransferValid) {
                 handleSaveTransfer();
@@ -413,7 +413,7 @@ const UsagePage: React.FC = () => {
             placeholder={t("usage.transfer.note_placeholder")}
             minRows={2}
             maxRows={6}
-            className="w-full sm:w-auto"
+            className="settings-field"
           />
         </div>
       ) : (

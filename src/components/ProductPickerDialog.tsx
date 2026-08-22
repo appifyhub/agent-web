@@ -162,7 +162,10 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[500px] bg-card/90 border border-border/80 p-[2.5rem] rounded-3xl" showCloseButton={false}>
+        <DialogContent
+          className="flex max-h-[calc(100dvh-3rem)] flex-col overflow-hidden rounded-3xl border border-border/80 bg-card/90 p-[2.5rem] sm:max-w-[500px]"
+          showCloseButton={false}
+        >
           <DialogClose className="absolute top-8 right-8 bg-surface-raised/50 border border-border/60 rounded-full cursor-pointer h-7 w-7 flex items-center justify-center">
             <X className="h-4 w-4" />
             <span className="sr-only">{t("close")}</span>
@@ -173,7 +176,13 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
               <DialogTitle className="text-white">{t("products.shop.title")}</DialogTitle>
             </div>
           </DialogHeader>
-          <ProductPickerContent products={products} shopUrl={shopUrl} onClose={() => onOpenChange(false)} />
+          <div className="min-h-0 overflow-y-auto pe-1">
+            <ProductPickerContent
+              products={products}
+              shopUrl={shopUrl}
+              onClose={() => onOpenChange(false)}
+            />
+          </div>
         </DialogContent>
       </Dialog>
     );

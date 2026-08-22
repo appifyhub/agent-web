@@ -7,7 +7,6 @@ import {
   Key,
   LifeBuoy,
   Merge,
-  Rocket,
   ShoppingCart,
   Sparkles,
   UserRound,
@@ -62,7 +61,6 @@ interface HeaderProps {
   showHelpButton?: boolean;
   showLanguageDropdown?: boolean;
   isLocked?: boolean;
-  onGoToOnboarding?: () => void;
   drawerOpen?: boolean;
   onDrawerOpenChange?: (open: boolean) => void;
 }
@@ -284,7 +282,6 @@ const Header: React.FC<HeaderProps> = ({
   showHelpButton = true,
   showLanguageDropdown = true,
   isLocked = false,
-  onGoToOnboarding,
   drawerOpen,
   onDrawerOpenChange,
 }) => {
@@ -582,19 +579,6 @@ const Header: React.FC<HeaderProps> = ({
                 >
                   <BadgeCent className="text-accent-amber" />
                   {userSettings.credit_balance.toFixed(2)}
-                </Button>
-              )}
-              {onGoToOnboarding && (
-                <Button
-                  variant="utility"
-                  size="sm"
-                  className="rounded-full"
-                  onClick={onGoToOnboarding}
-                >
-                  <Rocket className="text-accent-amber" />
-                  <span className="hidden sm:inline">
-                    {t("onboarding.start")}
-                  </span>
                 </Button>
               )}
               {showHelpInline && (

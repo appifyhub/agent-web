@@ -261,7 +261,6 @@ const OnboardingPage: React.FC = () => {
               disabled: language.isoCode === lang_iso_code,
             }))}
             disabled={isInteractionDisabled}
-            variant="section"
           />
           <div className="space-y-4">
             <p className="text-sm leading-6 text-muted-foreground">
@@ -297,7 +296,6 @@ const OnboardingPage: React.FC = () => {
                 }
               }}
               disabled={isInteractionDisabled || isPolicyAccepted}
-              variant="section"
             />
           </div>
         </div>
@@ -315,7 +313,6 @@ const OnboardingPage: React.FC = () => {
             onClear={() => setFullName("")}
             disabled={isInteractionDisabled || !isPolicyAccepted}
             placeholder={t("profile_full_name_placeholder")}
-            variant="section"
           />
           <SettingTextarea
             id="about-me"
@@ -333,7 +330,6 @@ const OnboardingPage: React.FC = () => {
             }
             minRows={2}
             maxRows={6}
-            variant="section"
           />
           <SettingTextarea
             id="custom-prompt"
@@ -349,7 +345,6 @@ const OnboardingPage: React.FC = () => {
             }
             minRows={2}
             maxRows={6}
-            variant="section"
           />
         </div>
       );
@@ -363,7 +358,6 @@ const OnboardingPage: React.FC = () => {
             setSelectedPreset(value as IntelligencePreset)
           }
           disabled={isInteractionDisabled || !isPolicyAccepted}
-          variant="segmented"
           options={[
             {
               value: "lowest_price",
@@ -413,7 +407,6 @@ const OnboardingPage: React.FC = () => {
         value={accessChoice}
         onChange={(value) => setAccessChoice(value as AccessChoice)}
         disabled={isInteractionDisabled || !isPolicyAccepted}
-        variant="segmented"
         options={[
           {
             value: "credits",

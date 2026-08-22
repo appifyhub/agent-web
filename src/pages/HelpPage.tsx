@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowLeft,
   BadgeCent,
   BrainCircuit,
   Gift,
@@ -18,7 +17,6 @@ import {
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import SettingsSection from "@/components/settings/SettingsSection";
 import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
-import WarningBanner from "@/components/WarningBanner";
 import {
   Accordion,
   AccordionContent,
@@ -98,14 +96,11 @@ export default function HelpPage() {
     navigateToPurchases,
     navigateToSponsorships,
     navigateToLinkedProfiles,
-    navigateToOnboarding,
   } = useNavigation();
   const [openGuide, setOpenGuide] = useState<GuideId | "">("");
 
   const userId = accessToken?.decoded.sub;
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
-  const isOnboardingLocked =
-    userSettings !== null && !userSettings.are_policies_accepted;
   const pageError = settingsError
     ? settingsError instanceof ApiError
       ? PageError.fromApiError(settingsError, true)
@@ -113,7 +108,7 @@ export default function HelpPage() {
     : null;
 
   const navigateToDestination = (destination: Destination) => {
-    if (!userId || !lang_iso_code || isOnboardingLocked) return;
+    if (!userId || !lang_iso_code) return;
 
     const navigationByDestination = {
       profile: navigateToProfile,
@@ -128,10 +123,6 @@ export default function HelpPage() {
     navigationByDestination[destination](userId, lang_iso_code);
   };
 
-  const returnToOnboarding = () => {
-    if (!userId || !lang_iso_code) return;
-    navigateToOnboarding(userId, lang_iso_code);
-  };
 
   const destinationLabels: Record<Destination, string> = {
     profile: t("profile"),
@@ -194,16 +185,6 @@ export default function HelpPage() {
     },
   };
 
-  const lockedBanner = isOnboardingLocked ? (
-    <WarningBanner
-      message={t("help_page.setup_locked")}
-      icon={<Rocket className="h-5.5 w-5.5 shrink-0 text-blue-200" />}
-      borderColor="border-blue-300/40"
-      primaryLabel={t("help_page.return_to_setup")}
-      primaryOnClick={returnToOnboarding}
-      primaryIcon={<ArrowLeft className="h-3.5 w-3.5" />}
-    />
-  ) : null;
 
   return (
     <BaseSettingsPage
@@ -214,9 +195,10 @@ export default function HelpPage() {
       externalError={pageError}
       contentVariant="flow"
       cardClassName="flex flex-col gap-5 sm:gap-6"
-      topBanner={lockedBanner}
     >
-      {accessToken && !settingsError ? (
+      {accessToken &&
+      userSettings?.are_policies_accepted &&
+      !settingsError ? (
         <>
           <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-surface-raised/78 shadow-[0_18px_70px_oklch(0.05_0.01_292/0.18)]">
             <div
@@ -311,7 +293,6 @@ export default function HelpPage() {
                           </aside>
                         </div>
 
-                        {!isOnboardingLocked && (
                           <div className="mt-[1.5rem] flex flex-wrap gap-2">
                             {guideActions[guideId].map((destination) => (
                               <SettingsGuideChip
@@ -327,7 +308,6 @@ export default function HelpPage() {
                               />
                             ))}
                           </div>
-                        )}
                       </AccordionContent>
                     </AccordionItem>
                   );

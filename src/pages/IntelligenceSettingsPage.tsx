@@ -253,7 +253,6 @@ const IntelligenceSettingsPage: React.FC = () => {
               remoteValue={remotePreset}
               onChange={handlePresetChange}
               disabled={!!error?.isBlocker}
-              variant="segmented"
               options={[
                 { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
                 { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },

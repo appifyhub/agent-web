@@ -90,22 +90,26 @@ const ProvidersCarousel: React.FC<ProvidersCarouselProps> = ({
               <SettingsSection className="relative overflow-hidden">
                 {/* gradient edge nav — sm+ only */}
                 {canScrollPrev && !disabled && (
-                  <button
+                  <Button
+                    type="button"
+                    variant="ghost"
                     onClick={() => api?.scrollPrev()}
                     aria-label={t("back")}
-                    className="absolute inset-y-0 start-0 z-10 hidden w-20 cursor-pointer items-center justify-start ps-4 bg-gradient-to-r from-[oklch(0.16_0.021_292)] to-transparent sm:flex"
+                    className="group absolute inset-y-0 start-0 z-10 hidden h-auto w-20 cursor-pointer items-center justify-start rounded-none bg-gradient-to-r from-[oklch(0.16_0.021_292)] to-transparent ps-4 hover:from-[oklch(0.12_0.018_292)] hover:bg-transparent dark:hover:bg-transparent sm:flex"
                   >
-                    <ChevronsLeft className="h-5 w-5 text-foreground/50 transition-all duration-200 hover:text-foreground/90 hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
-                  </button>
+                    <ChevronsLeft className="h-5 w-5 text-foreground/50 transition-all duration-200 group-hover:text-foreground/90 group-hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
+                  </Button>
                 )}
                 {canScrollNext && !disabled && (
-                  <button
+                  <Button
+                    type="button"
+                    variant="ghost"
                     onClick={() => api?.scrollNext()}
                     aria-label={t("next")}
-                    className="absolute inset-y-0 end-0 z-10 hidden w-20 cursor-pointer items-center justify-end pe-4 bg-gradient-to-l from-[oklch(0.16_0.021_292)] to-transparent sm:flex"
+                    className="group absolute inset-y-0 end-0 z-10 hidden h-auto w-20 cursor-pointer items-center justify-end rounded-none bg-gradient-to-l from-[oklch(0.16_0.021_292)] to-transparent pe-4 hover:from-[oklch(0.12_0.018_292)] hover:bg-transparent dark:hover:bg-transparent sm:flex"
                   >
-                    <ChevronsRight className="h-5 w-5 text-foreground/50 transition-all duration-200 hover:text-foreground/90 hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
-                  </button>
+                    <ChevronsRight className="h-5 w-5 text-foreground/50 transition-all duration-200 group-hover:text-foreground/90 group-hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
+                  </Button>
                 )}
 
                 <div className="flex flex-col items-center gap-6 sm:mx-20">
@@ -171,7 +175,6 @@ const ProvidersCarousel: React.FC<ProvidersCarouselProps> = ({
                     spellCheck={false}
                     inputClassName="font-mono"
                     onClear={() => onSettingChange(provider.id, "")}
-                    variant="section"
                     className="settings-field"
                   />
 

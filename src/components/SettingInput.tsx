@@ -26,7 +26,6 @@ interface SettingInputProps {
   autoComplete?: string;
   spellCheck?: boolean;
   onKeyboardConfirm?: () => void;
-  variant?: "default" | "section";
 }
 
 const SettingInput: React.FC<SettingInputProps> = ({
@@ -44,7 +43,6 @@ const SettingInput: React.FC<SettingInputProps> = ({
   autoComplete = "off",
   spellCheck = false,
   onKeyboardConfirm = () => {},
-  variant = "default",
 }) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !disabled) {
@@ -61,24 +59,12 @@ const SettingInput: React.FC<SettingInputProps> = ({
   };
 
   return (
-    <div
-      className={cn(
-        variant === "section" ? "space-y-2.5" : "space-y-4",
-        className,
-      )}
-    >
-      <div
-        className={cn(
-          "flex items-center justify-between w-full",
-          variant === "default" && "sm:w-md",
-        )}
-      >
+    <div className={cn("space-y-2.5", className)}>
+      <div className="flex w-full items-center justify-between">
         <Label
           htmlFor={id}
           className={cn(
-            variant === "section"
-              ? "text-sm font-medium tracking-tight text-foreground"
-              : "ps-2 text-[1.05rem] font-light",
+            "text-sm font-medium tracking-tight text-foreground",
             disabled ? "text-muted-foreground/50" : "",
             labelClassName
           )}
@@ -89,12 +75,9 @@ const SettingInput: React.FC<SettingInputProps> = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant={variant === "section" ? "utility" : "outline"}
+                variant="utility"
                 size="icon"
-                className={cn(
-                  "h-8 w-8 shrink-0 cursor-pointer rounded-full",
-                  variant === "default" && "glass p-1.5",
-                )}
+                className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                 onClick={handleClear}
                 disabled={disabled || !value}
               >
@@ -108,9 +91,7 @@ const SettingInput: React.FC<SettingInputProps> = ({
       <Input
         id={id}
         className={cn(
-          variant === "section"
-            ? "h-12 w-full rounded-xl border-border bg-background/45 px-4 text-base shadow-none"
-            : "py-6 px-6 w-full sm:w-md text-[1.05rem] glass rounded-2xl",
+          "h-12 w-full rounded-xl border-border bg-background/45 px-4 text-base shadow-none",
           disabled ? "cursor-not-allowed" : "",
           inputClassName
         )}

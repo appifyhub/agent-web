@@ -40,6 +40,7 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
           <Button
             variant="utility"
             size="icon"
+            aria-label={`${selectedLanguage.localizedName} (${selectedLanguage.defaultName})`}
             className={cn(
               "w-auto cursor-pointer rounded-full px-3 text-base",
               className,

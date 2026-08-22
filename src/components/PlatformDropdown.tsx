@@ -42,23 +42,25 @@ const PlatformDropdown: React.FC<PlatformDropdownProps> = ({
     (p) => p.platform === selectedPlatform
   );
 
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         asChild
         className={cn("cursor-pointer", className)}
       >
-        <Button variant="outline" className="glass py-3 px-3 h-auto rounded-2xl">
+        <Button
+          variant="outline"
+          className="h-12 w-[4.5rem] shrink-0 justify-center rounded-xl border-border bg-background/45 px-3 shadow-none"
+        >
           {selectedPlatformInfo && (
             <selectedPlatformInfo.icon className="h-4 w-4" />
           )}
-          <ChevronDownIcon className="h-4 w-4 ml-1" />
+          <ChevronDownIcon className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="px-2 py-2 glass-dark-static rounded-xl"
+        className="rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl"
       >
         {AVAILABLE_PLATFORMS.map((platformInfo) => (
           <DropdownMenuItem

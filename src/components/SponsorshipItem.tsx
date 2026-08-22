@@ -102,7 +102,7 @@ const SponsorshipItem: React.FC<SponsorshipItemProps> = ({
           onClick={onToggle}
         >
           {/* collapsed row */}
-          <div className="flex items-center w-full">
+          <div className="flex w-full cursor-pointer items-center">
             <div className="flex items-center space-x-3 flex-1 min-w-0">
               <div className="min-w-0">{displayName}</div>
               {!isExpanded &&

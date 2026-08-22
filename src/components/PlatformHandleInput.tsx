@@ -43,17 +43,17 @@ const PlatformHandleInput: React.FC<PlatformHandleInputProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("space-y-4", className)}>
-      <Label className="ps-2 text-[1.05rem] font-light w-full sm:w-md">
+    <div className={cn("space-y-2.5", className)}>
+      <Label className="text-sm font-medium tracking-tight text-foreground">
         {label}
       </Label>
-      <div className="flex space-x-3 w-full sm:w-md">
+      <div className="flex w-full gap-3">
         <PlatformDropdown
           selectedPlatform={selectedPlatform}
           onPlatformChange={onPlatformChange}
         />
         <Input
-          className="py-6 px-6 w-full text-[1.05rem] bg-surface-raised/50 border border-border/60 rounded-2xl"
+          className="h-12 w-full rounded-xl border-border bg-background/45 px-4 text-base shadow-none"
           placeholder={getPlatformPlaceholder(selectedPlatform, disabled)}
           disabled={disabled}
           value={platformHandle}

@@ -154,7 +154,6 @@ const ToolTypeRow: React.FC<ToolTypeRowProps> = ({
               notConfiguredLabel={t("tools.not_configured_with_prefix")}
               onProviderNavigate={onProviderNavigate}
               hasCredits={hasCredits}
-              variant="section"
               className="settings-field"
             />
           ) : (

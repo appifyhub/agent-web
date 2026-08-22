@@ -52,7 +52,6 @@ interface SectionedSelectorProps {
   className?: string;
   triggerClassName?: string;
   contentClassName?: string;
-  variant?: "default" | "section";
 }
 
 const SectionedSelector: React.FC<SectionedSelectorProps> = ({
@@ -69,7 +68,6 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
   className = "",
   triggerClassName = "",
   contentClassName = "",
-  variant = "default",
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [costEstimateTarget, setCostEstimateTarget] = React.useState<{
@@ -86,19 +84,15 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
     .find((opt) => opt.value === value);
   const selectValue = validOption ? value : undefined;
 
-  // both trailing actions share one treatment so they read as a pair
-  const actionButtonVariant = variant === "section" ? "utility" : "outline";
-  const actionButtonClassName = cn(
-    "h-8 w-8 shrink-0 cursor-pointer rounded-full",
-    variant === "default" && "glass p-1.5",
-  );
+  const actionButtonClassName =
+    "h-8 w-8 shrink-0 cursor-pointer rounded-full";
 
   const undoButton =
     onUndo !== undefined ? (
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant={actionButtonVariant}
+            variant="utility"
             size="icon"
             className={actionButtonClassName}
             onClick={onUndo}
@@ -118,7 +112,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         <TooltipTrigger asChild>
           <Button
             type="button"
-            variant={actionButtonVariant}
+            variant="utility"
             size="icon"
             className={actionButtonClassName}
             onClick={() => {
@@ -143,12 +137,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
     ) : null;
 
   return (
-    <div
-      className={cn(
-        variant === "section" ? "flex flex-col gap-2.5" : "space-y-2",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-col gap-2.5", className)}>
       {/* the cost-estimate and undo actions sit beside the trigger rather than
           inside it, so neither crowds the selected value */}
       <div
@@ -176,11 +165,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
             // the chevron is lifted out of the flex row and parked in the trailing
             // padding, so the value can never share or overrun its space
             "relative [&>svg]:absolute [&>svg]:end-2 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2",
-            variant === "section"
-              ? "h-12 w-full min-w-0 flex-1 basis-0 cursor-pointer gap-0 overflow-hidden rounded-xl border-border bg-background/45 ps-2 pe-8 text-sm shadow-none data-[size=default]:h-12 @min-[30rem]:ps-4 @min-[30rem]:pe-9 @min-[30rem]:text-base"
-              : "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
-            variant === "default" &&
-              (disabled ? "text-muted-foreground/80 glass-static" : "glass"),
+            "h-12 w-full min-w-0 flex-1 basis-0 cursor-pointer gap-0 overflow-hidden rounded-xl border-border bg-background/45 ps-2 pe-8 text-sm shadow-none data-[size=default]:h-12 @min-[30rem]:ps-4 @min-[30rem]:pe-9 @min-[30rem]:text-base",
             triggerClassName
           )}
         >
@@ -188,9 +173,7 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
         </SelectTrigger>
         <SelectContent
           className={cn(
-            variant === "section"
-              ? "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl"
-              : "px-4 py-4 glass-dark-static rounded-2xl text-foreground",
+            "max-w-[min(42rem,calc(100vw-2rem))] rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl",
             contentClassName
           )}
         >
@@ -199,17 +182,18 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
               <div
                 className={cn(
                   "flex items-center justify-between pointer-events-auto",
-                  variant === "section"
-                    ? "px-3 py-2 text-xs font-semibold uppercase tracking-[0.06em] text-muted-foreground"
-                    : "py-2 px-4 text-sm font-medium text-muted-foreground/90",
+                  "px-3 py-2 text-xs font-semibold uppercase tracking-[0.06em] text-muted-foreground",
                 )}
               >
                 <span>{section.sectionTitle}</span>
                 {!section.isConfigured && !hasCredits && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
                       if (section.providerId) {
                         if (onProviderNavigate) {
                           onProviderNavigate(section.providerId);
@@ -218,26 +202,25 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                         } else {
                           console.warn(
                             "Provider navigation not available yet for:",
-                            section.providerId
+                            section.providerId,
                           );
                         }
                       }
                     }}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
                     }}
                     disabled={!section.providerId}
                     className={cn(
-                      "rounded-full border font-medium transition-colors pointer-events-auto",
-                      variant === "section" ? "px-2.5 py-1 text-xs" : "text-xs px-3 py-1.5",
+                      "pointer-events-auto h-auto rounded-full px-2.5 py-1 text-xs font-medium",
                       !section.providerId
-                        ? "text-muted-foreground/60 border-muted-foreground/20 cursor-not-allowed"
-                        : "text-accent-amber border-accent-amber/30 bg-accent-amber/5 hover:bg-accent-amber/15 hover:border-accent-amber/50 cursor-pointer active:scale-95 transition-transform"
+                        ? "cursor-not-allowed border-muted-foreground/20 text-muted-foreground/60"
+                        : "cursor-pointer border-accent-amber/30 bg-accent-amber/5 text-accent-amber transition-transform hover:border-accent-amber/50 hover:bg-accent-amber/15 active:scale-95",
                     )}
                   >
                     {notConfiguredLabel}
-                  </button>
+                  </Button>
                 )}
               </div>
 
@@ -247,26 +230,25 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                   value={opt.value}
                   disabled={!section.isConfigured && !hasCredits}
                   className={cn(
-                    variant === "section"
-                      ? "cursor-pointer rounded-lg px-3 py-2.5 text-foreground"
-                      : "py-4 px-8 cursor-pointer text-foreground",
+                    "cursor-pointer rounded-lg px-3 py-2.5 text-foreground",
                     opt.value === value ? "bg-accent/70" : "",
                     (!section.isConfigured || !opt.isConfigured) ? "text-muted-foreground/50" : ""
                   )}
                   addon={
                     <>
                       {opt.costEstimate && opt.toolName && (
-                        <div
-                          className={cn(
-                            "flex items-center gap-2 z-50 pointer-events-auto shrink-0",
-                            "cursor-pointer"
-                          )}
-                          onPointerDown={(e) => e.stopPropagation()}
-                          onPointerUp={(e) => e.stopPropagation()}
-                          onMouseDown={(e) => e.stopPropagation()}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="pointer-events-auto z-50 size-7 shrink-0 cursor-pointer rounded-full text-muted-foreground hover:text-foreground"
+                          aria-label={t("cost_estimate.title")}
+                          onPointerDown={(event) => event.stopPropagation()}
+                          onPointerUp={(event) => event.stopPropagation()}
+                          onMouseDown={(event) => event.stopPropagation()}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
                             setIsOpen(false);
                             setCostEstimateTarget({
                               toolName: opt.toolName!,
@@ -277,15 +259,8 @@ const SectionedSelector: React.FC<SectionedSelectorProps> = ({
                             });
                           }}
                         >
-                          <CircleHelp
-                            className={cn(
-                              "transition-colors",
-                              variant === "section"
-                                ? "size-4 text-muted-foreground hover:text-foreground"
-                                : "size-5 text-blue-300 hover:text-blue-400",
-                            )}
-                          />
-                        </div>
+                          <CircleHelp className="size-4" />
+                        </Button>
                       )}
 
                       {section.isConfigured && !opt.isConfigured && (

@@ -25,7 +25,6 @@ interface SettingTextareaProps {
   textareaClassName?: string;
   minRows?: number;
   maxRows?: number;
-  variant?: "default" | "section";
 }
 
 const SettingTextarea: React.FC<SettingTextareaProps> = ({
@@ -42,7 +41,6 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
   textareaClassName,
   minRows = 2,
   maxRows = 10,
-  variant = "default",
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -80,25 +78,13 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
   };
 
   return (
-    <div
-      className={cn(
-        variant === "section" ? "space-y-2.5" : "space-y-4",
-        className,
-      )}
-    >
+    <div className={cn("space-y-2.5", className)}>
       <div className="space-y-1">
-        <div
-          className={cn(
-            "flex items-center justify-between w-full",
-            variant === "default" && "sm:w-md",
-          )}
-        >
+        <div className="flex w-full items-center justify-between">
           <Label
             htmlFor={id}
             className={cn(
-              variant === "section"
-                ? "text-sm font-medium tracking-tight text-foreground"
-                : "ps-2 text-[1.05rem] font-light",
+              "text-sm font-medium tracking-tight text-foreground",
               disabled ? "text-muted-foreground/50" : "",
               labelClassName
             )}
@@ -109,13 +95,9 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant={variant === "section" ? "utility" : "outline"}
+                  variant="utility"
                   size="icon"
-                  className={cn(
-                    "h-8 w-8 shrink-0 cursor-pointer rounded-full",
-                    variant === "default" &&
-                      "bg-surface-raised/50 border border-border/60 p-1.5",
-                  )}
+                  className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                   onClick={handleClear}
                   disabled={disabled || !value}
                 >
@@ -129,9 +111,7 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
         {helperText && (
           <p
             className={cn(
-              variant === "section"
-                ? "ps-1 text-sm leading-6"
-                : "ps-2 text-sm font-light opacity-80",
+              "ps-1 text-sm leading-6",
               disabled ? "text-muted-foreground/50" : "text-muted-foreground"
             )}
           >
@@ -143,9 +123,7 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
         id={id}
         ref={textareaRef}
         className={cn(
-          variant === "section"
-            ? "w-full resize-none rounded-xl border-border bg-background/45 px-4 py-3 text-base leading-6 shadow-none"
-            : "py-6 px-6 w-full sm:w-md text-[1.05rem] bg-surface-raised/50 border border-border/60 rounded-xl resize-none",
+          "w-full resize-none rounded-xl border-border bg-background/45 px-4 py-3 text-base leading-6 shadow-none",
           disabled ? "cursor-not-allowed" : "",
           textareaClassName
         )}

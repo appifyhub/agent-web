@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ChatSettingsPage from "@/pages/ChatSettingsPage";
 import UserSettingsPage from "@/pages/UserSettingsPage";
@@ -12,6 +13,37 @@ import HelpPage from "@/pages/HelpPage";
 import OnboardingPage from "@/pages/OnboardingPage";
 import logoVector from "@/assets/logo-vector.svg";
 import { DEFAULT_LANGUAGE } from "@/lib/languages";
+import { t } from "@/lib/translations";
+
+function NotFoundPage() {
+  return (
+    <main className="settings-pane-atmosphere flex min-h-dvh items-center justify-center px-[1rem] py-[3rem]">
+      <section className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-border/80 bg-surface-raised/78 shadow-[0_24px_90px_oklch(0.04_0.01_292/0.32)]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(32rem_18rem_at_50%_0%,oklch(0.42_0.12_285/24%),transparent_72%)]"
+        />
+        <div className="relative flex flex-col items-center px-[1.5rem] py-[3rem] text-center sm:px-[3rem] sm:py-[4rem]">
+          <img src={logoVector} alt="" className="size-16" />
+          <p className="mt-[1.5rem] font-mono text-sm font-semibold tracking-[0.18em] text-blue-300">
+            404
+          </p>
+          <h1 className="mt-[0.75rem] text-[clamp(2rem,8vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.045em] text-foreground">
+            {t("not_found_page.title")}
+          </h1>
+          <p className="mt-[1rem] max-w-md text-base leading-7 text-muted-foreground">
+            {t("not_found_page.description")}
+          </p>
+          <Button asChild size="lg" className="mt-[2rem] rounded-xl">
+            <a href={import.meta.env.VITE_LANDING_PAGE_URL}>
+              {t("not_found_page.action")}
+            </a>
+          </Button>
+        </div>
+      </section>
+    </main>
+  );
+}
 
 function App() {
   return (
@@ -58,26 +90,7 @@ function App() {
         {/* Edge-cases */}
         <Route
           path="*"
-          element={
-            <div className="flex flex-col gap-10 items-center justify-center h-screen glass-dark-static">
-              <img src={logoVector} alt="" className="w-32 h-32" />
-              <h1 className="text-4xl font-extralight text-center mb-12">
-                {import.meta.env.VITE_APP_NAME}
-              </h1>
-              <span className="text-5xl font-bold text-center text-accent-strong flex flex-col items-center gap-4">
-                <p className="text-3xl">⚠️ 404 ⚠️</p>
-                <a
-                  href={import.meta.env.VITE_LANDING_PAGE_URL}
-                  className="text-accent-amber hover:text-white text-lg underline"
-                >
-                  {import.meta.env.VITE_LANDING_PAGE_URL.replace(
-                    "https://",
-                    "www.",
-                  )}
-                </a>
-              </span>
-            </div>
-          }
+          element={<NotFoundPage />}
         />
         <Route
           path="/"

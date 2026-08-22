@@ -126,7 +126,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       if (!accessToken || !effectiveUserId || !lang_iso_code || !gateSettings)
         return;
 
-      if (page !== "onboarding" && page !== "help" && !gateSettings.are_policies_accepted) {
+      if (page !== "onboarding" && !gateSettings.are_policies_accepted) {
         navigateToOnboarding(effectiveUserId, lang_iso_code);
       } else if (
         page === "onboarding" &&
@@ -189,7 +189,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       console.info("Rendering the loading state!");
       return (
         <div className="container mx-auto px-4 py-4 h-screen">
-          <div className="flex flex-col items-center space-y-6 h-full justify-center p-9">
+          <div className="flex h-full flex-col items-center justify-center space-y-6 p-9">
             <GenericPageSkeleton />
           </div>
         </div>
@@ -313,11 +313,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         showSponsorshipsButton={showSponsorshipsButton}
         isLocked={isShellLocked}
         showLanguageDropdown
-        onGoToOnboarding={
-          isHelpLocked && effectiveUserId && lang_iso_code
-            ? () => navigateToOnboarding(effectiveUserId, lang_iso_code)
-            : undefined
-        }
         drawerOpen={drawerOpen}
         onDrawerOpenChange={setDrawerOpen}
       >
