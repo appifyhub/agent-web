@@ -2,12 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
+import { Undo2, Sparkles, UserRound } from "lucide-react";
 import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import WarningBanner from "@/components/WarningBanner";
 import ProvidersCarousel from "@/components/ProvidersCarousel";
 import ProviderTabs from "@/components/ProviderTabs";
+import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 import {
   saveUserSettings,
   UserSettings,
@@ -34,7 +36,7 @@ const AccessSettingsPage: React.FC = () => {
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
 
-  const { navigateToIntelligence } = useNavigation();
+  const { navigateToIntelligence, navigateToProfile } = useNavigation();
 
   const { userSettings: remoteSettings, updateSettingsCache } = useUserSettings(
     user_id,
@@ -45,9 +47,6 @@ const AccessSettingsPage: React.FC = () => {
   const [externalToolProviders, setExternalToolProviders] = useState<
     ExternalToolProvider[]
   >([]);
-  const [providerConfigStatus, setProviderConfigStatus] = useState<
-    Map<string, boolean>
-  >(new Map());
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentProviderIndex, setCurrentProviderIndex] = useState(0);
   const [isWarningDismissed, setIsWarningDismissed] = useState(false);
@@ -85,11 +84,6 @@ const AccessSettingsPage: React.FC = () => {
         setExternalToolProviders(
           visibleProviders.map((p) => p.definition),
         );
-        const statusMap = new Map<string, boolean>();
-        visibleProviders.forEach((p) => {
-          statusMap.set(p.definition.id, p.is_configured);
-        });
-        setProviderConfigStatus(statusMap);
         hasLoadedOnce.current = true;
       } catch (err) {
         console.error("Error fetching data!", err);
@@ -213,12 +207,6 @@ const AccessSettingsPage: React.FC = () => {
       setExternalToolProviders(
         updatedVisibleProviders.map((p) => p.definition),
       );
-      // Update provider configuration status
-      const statusMap = new Map<string, boolean>();
-      updatedVisibleProviders.forEach((p) => {
-        statusMap.set(p.definition.id, p.is_configured);
-      });
-      setProviderConfigStatus(statusMap);
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
@@ -267,15 +255,47 @@ const AccessSettingsPage: React.FC = () => {
     toast(t("access_keys_cleared_message"));
   };
 
+  const handleRestoreSettings = () => {
+    if (!remoteSettings) return;
+    setUserSettings(remoteSettings);
+  };
+
   return (
     <BaseSettingsPage
       page="access"
       cardTitle={t("access_card_title", { botName })}
       onActionClicked={handleSave}
       actionDisabled={!hasSettingsChanged}
+      showCancelButton={hasSettingsChanged}
+      onCancelClicked={handleRestoreSettings}
+      cancelIcon={<Undo2 className="h-6 w-6" />}
+      cancelTooltipText={t("restore")}
       isContentLoading={isLoadingState}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
+      contentVariant="flow"
+      followupContent={
+        <>
+          <SettingsGuideChip
+            icon={UserRound}
+            label={t("configure_profile")}
+            onActionClicked={() => {
+              if (user_id && lang_iso_code) {
+                navigateToProfile(user_id, lang_iso_code);
+              }
+            }}
+          />
+          <SettingsGuideChip
+            icon={Sparkles}
+            label={t("configure_intelligence")}
+            onActionClicked={() => {
+              if (user_id && lang_iso_code) {
+                navigateToIntelligence(user_id, lang_iso_code);
+              }
+            }}
+          />
+        </>
+      }
       topBanner={
         showCreditsWarning ? (
           <WarningBanner
@@ -297,7 +317,6 @@ const AccessSettingsPage: React.FC = () => {
       <ProvidersCarousel
         providers={externalToolProviders}
         userSettings={userSettings}
-        providerConfigStatus={providerConfigStatus}
         onSettingChange={(providerId, value) => {
           const key = getSettingsFieldName(providerId);
           if (!key) return;
@@ -312,11 +331,6 @@ const AccessSettingsPage: React.FC = () => {
         }}
         disabled={!!error?.isBlocker}
         setApi={setCarouselApi}
-        onNavigateToIntelligence={() => {
-          if (user_id && lang_iso_code) {
-            navigateToIntelligence(user_id, lang_iso_code);
-          }
-        }}
       />
     </BaseSettingsPage>
   );

@@ -59,12 +59,12 @@ const SettingInput: React.FC<SettingInputProps> = ({
   };
 
   return (
-    <div className={cn("space-y-4", className)}>
-      <div className="flex items-center justify-between w-full sm:w-md">
+    <div className={cn("space-y-2.5", className)}>
+      <div className="flex w-full items-center justify-between">
         <Label
           htmlFor={id}
           className={cn(
-            "ps-2 text-[1.05rem] font-light",
+            "text-sm font-medium tracking-tight text-foreground",
             disabled ? "text-muted-foreground/50" : "",
             labelClassName
           )}
@@ -75,8 +75,9 @@ const SettingInput: React.FC<SettingInputProps> = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="outline"
-                className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
+                variant="utility"
+                size="icon"
+                className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                 onClick={handleClear}
                 disabled={disabled || !value}
               >
@@ -90,7 +91,7 @@ const SettingInput: React.FC<SettingInputProps> = ({
       <Input
         id={id}
         className={cn(
-          "py-6 px-6 w-full sm:w-md text-[1.05rem] glass rounded-2xl",
+          "h-12 w-full rounded-xl border-border bg-background/45 px-4 text-base shadow-none",
           disabled ? "cursor-not-allowed" : "",
           inputClassName
         )}

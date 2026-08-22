@@ -46,16 +46,16 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({
 
   return (
     <div className="max-w-md mx-auto fixed bottom-5 lg:top-30 inset-x-0 px-6 z-50">
-      <Alert className="relative space-y-2 py-4 px-6 glass-accent-static shadow-2xl shadow-black/60 rounded-xl overflow-hidden">
+      <Alert className="relative space-y-2 overflow-hidden rounded-xl border-destructive/35 bg-card px-6 py-4 shadow-2xl shadow-black/60">
         {!isBlocker && onDismiss && (
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-foreground/10">
             <div
-              className="h-full bg-red-300/10 transition-all duration-16 linear"
+              className="h-full bg-destructive/35 transition-all duration-16 linear"
               style={{ width: `${progress}%` }}
             />
           </div>
         )}
-        <AlertCircle className="text-foreground scale-120" />
+        <AlertCircle className="scale-120 text-destructive" />
         <AlertTitle className="text-[1.04rem] font-bold font-sans text-foreground">
           {title}
         </AlertTitle>

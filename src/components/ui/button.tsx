@@ -20,6 +20,12 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        brand:
+          "bg-primary text-primary-foreground shadow-[0_8px_28px_oklch(0.72_0.18_25/0.16)] hover:bg-primary/90",
+        utility:
+          "border border-border bg-surface-subtle/90 text-foreground shadow-none hover:bg-secondary hover:text-secondary-foreground",
+        navigation:
+          "justify-start border border-transparent bg-transparent text-muted-foreground shadow-none hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:border-sidebar-border data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-primary disabled:opacity-100",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -32,7 +38,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 function Button({

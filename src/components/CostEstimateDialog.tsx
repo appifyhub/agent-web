@@ -1,5 +1,5 @@
 import React from "react";
-import { Info, X } from "lucide-react";
+import { X } from "lucide-react";
 import { t } from "@/lib/translations";
 import { CostEstimate } from "@/services/external-tools-service";
 import {
@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ProviderIcon from "@/components/ProviderIcon";
-
-// ... imports
+import { cn } from "@/lib/utils";
 
 interface CostEstimateDialogProps {
   toolName: string;
@@ -26,9 +25,8 @@ interface CostEstimateDialogProps {
   providerId?: string;
   providerName?: string;
   maxInputImages?: number;
-  children?: React.ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const CostEstimateContent: React.FC<{
@@ -147,127 +145,83 @@ const CostEstimateContent: React.FC<{
     outputVideoCosts.length > 0 ||
     otherCosts.length > 0;
 
+  const maxImagesNote =
+    maxInputImages != null && maxInputImages > 0
+      ? t("cost_estimate.max_input_images", { maxImages: maxInputImages })
+      : undefined;
+
+  // a rate card reads as one column of figures, so groups are separated by a
+  // label and hairlines rather than each being boxed into its own surface
+  const renderGroup = (
+    title: string,
+    rows: { key: string; label: string; value?: number | null }[],
+    note?: string,
+  ) =>
+    rows.length > 0 ? (
+      <section>
+        <h4 className="font-mono text-[0.7rem] font-semibold tracking-[0.14em] text-primary uppercase">
+          {title}
+        </h4>
+        {note && (
+          <p className="mt-1 text-xs leading-5 text-muted-foreground/70">
+            {note}
+          </p>
+        )}
+        <dl className="mt-[0.75rem] grid grid-cols-[1fr_auto] items-baseline gap-x-6">
+          {rows.map((item, index) => {
+            // the last row drops its rule so the group gap does the separating
+            const ruled = index < rows.length - 1 ? "border-b border-border/45" : "";
+
+            return (
+              <React.Fragment key={item.key}>
+                <dt className={cn("py-2.5 text-sm text-muted-foreground", ruled)}>
+                  {item.label}
+                </dt>
+                <dd
+                  className={cn(
+                    "py-2.5 text-end font-mono text-sm font-medium text-foreground tabular-nums",
+                    ruled,
+                  )}
+                >
+                  {formatCost(item.value!)}
+                </dd>
+              </React.Fragment>
+            );
+          })}
+        </dl>
+      </section>
+    ) : null;
+
   return (
-    <div className="space-y-8 mt-[1rem]">
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">
+    <div className="flex flex-col gap-7">
+      <div>
+        <p className="text-sm leading-6 text-muted-foreground">
           {t("cost_estimate.description", { toolName })}
         </p>
-        <p className="text-xs text-muted-foreground/70 italic">
+        <p className="mt-1.5 text-xs leading-5 text-muted-foreground/60">
           {t("cost_estimate.disclaimer")}
         </p>
       </div>
 
       {!hasAnyCosts && (
-        <p className="text-sm text-muted-foreground italic">
+        <p className="text-sm text-muted-foreground">
           {t("cost_estimate.no_data")}
         </p>
       )}
 
-      {tokenCosts.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium text-blue-300 uppercase">
-            {t("cost_estimate.token_costs")}
-          </h4>
-          <div className="space-y-1">
-            {tokenCosts.map((item) => (
-              <div
-                key={item.key}
-                className="flex justify-between text-sm py-1"
-              >
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-medium">{formatCost(item.value!)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      {renderGroup(t("cost_estimate.token_costs"), tokenCosts)}
+      {renderGroup(
+        t("cost_estimate.input_image_costs"),
+        inputImageCosts,
+        maxImagesNote,
       )}
-
-      {inputImageCosts.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium text-blue-300/80 uppercase">
-            {t("cost_estimate.input_image_costs")}
-          </h4>
-          {maxInputImages != null && maxInputImages > 0 && (
-            <p className="text-xs text-muted-foreground/70">
-              — {t("cost_estimate.max_input_images", { maxImages: maxInputImages })}
-            </p>
-          )}
-          <div className="space-y-1">
-            {inputImageCosts.map((item) => (
-              <div
-                key={item.key}
-                className="flex justify-between text-sm py-1"
-              >
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-medium">{formatCost(item.value!)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      {renderGroup(
+        t("cost_estimate.output_image_costs"),
+        outputImageCosts,
+        inputImageCosts.length === 0 ? maxImagesNote : undefined,
       )}
-
-      {outputImageCosts.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium text-blue-300/80 uppercase">
-            {t("cost_estimate.output_image_costs")}
-          </h4>
-          {inputImageCosts.length === 0 && maxInputImages != null && maxInputImages > 0 && (
-            <p className="text-xs text-muted-foreground/70">
-              {t("cost_estimate.max_input_images", { maxImages: maxInputImages })}
-            </p>
-          )}
-          <div className="space-y-1">
-            {outputImageCosts.map((item) => (
-              <div
-                key={item.key}
-                className="flex justify-between text-sm py-1"
-              >
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-medium">{formatCost(item.value!)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {outputVideoCosts.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium text-blue-300/80 uppercase">
-            {t("cost_estimate.output_video_costs")}
-          </h4>
-          <div className="space-y-1">
-            {outputVideoCosts.map((item) => (
-              <div
-                key={item.key}
-                className="flex justify-between text-sm py-1"
-              >
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-medium">{formatCost(item.value!)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {otherCosts.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium text-blue-300/80 uppercase">
-            {t("cost_estimate.other_costs")}
-          </h4>
-          <div className="space-y-1">
-            {otherCosts.map((item) => (
-              <div
-                key={item.key}
-                className="flex justify-between text-sm py-1"
-              >
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-medium">{formatCost(item.value!)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {renderGroup(t("cost_estimate.output_video_costs"), outputVideoCosts)}
+      {renderGroup(t("cost_estimate.other_costs"), otherCosts)}
     </div>
   );
 };
@@ -278,113 +232,76 @@ const CostEstimateDialog: React.FC<CostEstimateDialogProps> = ({
   providerId,
   providerName,
   maxInputImages,
-  children,
   open,
   onOpenChange,
 }) => {
-  const [internalOpen, setInternalOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const isControlled = open !== undefined;
-  const show = isControlled ? open : internalOpen;
-  
-  const handleOpenChange = (newVal: boolean) => {
-    if (!isControlled) setInternalOpen(newVal);
-    onOpenChange?.(newVal);
-  };
 
-  const handleClick = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleOpenChange(true);
-  };
-
-  const trigger = isControlled && !children ? null : children ? (
-    <span
-      onClick={handleClick}
-      onPointerDown={(e) => { e.stopPropagation(); }}
-      onPointerUp={(e) => { e.stopPropagation(); }}
-      onMouseDown={(e) => { e.stopPropagation(); }}
-      onMouseUp={(e) => { e.stopPropagation(); }}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleClick(e);
-        }
-      }}
-      className="cursor-pointer inline-flex"
-    >
-      {children}
-    </span>
-  ) : (
-    <button
-      onClick={handleClick}
-      className="p-1 hover:bg-accent/20 rounded-full transition-colors"
-      type="button"
-    >
-      <Info className="h-4 w-4 text-muted-foreground" />
-    </button>
+  const heading = (
+    <>
+      <span className="text-base leading-6 font-semibold text-foreground">
+        {t("cost_estimate.title")}
+      </span>
+      {(toolName || providerName) && (
+        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+          {providerId && (
+            <ProviderIcon
+              providerId={providerId}
+              className="h-4 w-4 shrink-0 opacity-80"
+            />
+          )}
+          <span className="text-sm font-medium text-primary">{toolName}</span>
+          {providerName && (
+            <span className="text-sm text-muted-foreground">
+              · {providerName}
+            </span>
+          )}
+        </span>
+      )}
+    </>
   );
 
   if (isDesktop) {
     return (
-      <>
-        {trigger}
-        <Dialog open={show} onOpenChange={handleOpenChange}>
-          <DialogContent className="sm:max-w-[500px] glass-dark-static p-[2.5rem] rounded-3xl" showCloseButton={false}>
-            <DialogClose className="absolute top-8 right-8 glass rounded-full cursor-pointer h-7 w-7 flex items-center justify-center">
+      <Dialog open={open} onOpenChange={onOpenChange}>
+          <DialogContent
+            className="max-h-[min(42rem,calc(100vh-3rem))] gap-0 overflow-y-auto rounded-3xl border-border bg-popover px-7 py-7 shadow-[0_28px_90px_oklch(0.03_0.01_292/0.55)] sm:max-w-[520px]"
+            showCloseButton={false}
+          >
+            <DialogClose className="absolute top-5 end-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-border bg-surface-subtle/90 text-muted-foreground transition-colors hover:text-foreground">
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t("close")}</span>
             </DialogClose>
-            <DialogHeader>
-              <div className="flex items-center gap-3">
-                {providerId && (
-                  <ProviderIcon providerId={providerId} className="w-5 h-5 opacity-80 shrink-0" />
-                )}
-                <DialogTitle className="text-white">{t("cost_estimate.title")}</DialogTitle>
-              </div>
-              {(toolName || providerName) && (
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-medium text-accent-amber">{toolName}</span>
-                  {providerName && (
-                    <span className="text-sm text-accent-amber/70">· {providerName}</span>
-                  )}
-                </div>
-              )}
+            <DialogHeader className="gap-0 pe-10">
+              <DialogTitle className="flex flex-col items-start">
+                {heading}
+              </DialogTitle>
             </DialogHeader>
-            <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
+            <div className="mt-[1.5rem]">
+              <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
+            </div>
           </DialogContent>
         </Dialog>
-      </>
     );
   }
 
   return (
-    <>
-      {trigger}
-      <Drawer open={show} onOpenChange={handleOpenChange}>
-        <DrawerContent className="glass-dark-static p-[1rem] pb-[max(2rem,env(safe-area-inset-bottom))] rounded-t-3xl">
-          <DrawerHeader className="mt-[2rem]">
-            <div className="flex items-center gap-3">
-              {providerId && (
-                <ProviderIcon providerId={providerId} className="w-5 h-5 opacity-80 shrink-0" />
-              )}
-              <DrawerTitle className="text-white">{t("cost_estimate.title")}</DrawerTitle>
-            </div>
-            {(toolName || providerName) && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-medium text-accent-amber">{toolName}</span>
-                {providerName && (
-                  <span className="text-sm text-accent-amber/70">· {providerName}</span>
-                )}
-              </div>
-            )}
+    <Drawer open={open} onOpenChange={onOpenChange}>
+        {/* DrawerContent already provides its own inner scroll region, so this
+            must not scroll too — a second scroller lets the header slide away.
+            the base radius comes from an attribute selector, hence `!` */}
+        <DrawerContent className="border-border bg-popover px-5 rounded-t-[1.75rem]!">
+          <DrawerHeader className="gap-0 px-0 pt-[1.25rem] pb-0 text-left md:gap-0">
+            <DrawerTitle className="flex flex-col items-start">
+              {heading}
+            </DrawerTitle>
           </DrawerHeader>
-          <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
+          <div className="mt-[1.5rem] pb-[max(2rem,env(safe-area-inset-bottom))]">
+            <CostEstimateContent toolName={toolName} costEstimate={costEstimate} maxInputImages={maxInputImages} />
+          </div>
         </DrawerContent>
       </Drawer>
-    </>
   );
 };
 

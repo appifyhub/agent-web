@@ -65,7 +65,10 @@ function DrawerContent({
         )}
         {...props}
       >
-        <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
+        {/* vaul's Handle owns the drag behavior and ships its own base styles,
+            including a light background and `display:block`, so the theme color
+            and the bottom-only visibility are re-asserted here */}
+        <DrawerPrimitive.Handle className="bg-muted! mx-auto mt-[1rem] hidden! h-2! w-[100px]! shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block!" />
         <div className="flex-1 overflow-y-auto" data-vaul-no-drag>
           {children}
         </div>
@@ -79,7 +82,7 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="drawer-header"
       className={cn(
-        "flex flex-col gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-1.5 md:text-left",
+        "flex flex-col gap-0.5 px-4 py-4 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-1.5 md:text-left",
         className
       )}
       {...props}
@@ -91,7 +94,7 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="drawer-footer"
-      className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+      className={cn("mt-auto flex flex-col gap-2 px-4 py-4", className)}
       {...props}
     />
   )

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ChartNoAxesCombined, BadgeCent, ShoppingCart, ArrowRightLeft } from "lucide-react";
+import { ChartNoAxesCombined, BadgeCent } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError, cleanUsername } from "@/lib/utils";
@@ -363,12 +363,10 @@ const UsagePage: React.FC = () => {
         cardTitle={isTransferring ? t("usage.transfer.card_title") : t("usage.card_title")}
         onActionClicked={isTransferring ? handleSaveTransfer : handleBuyMore}
         actionDisabled={isTransferring ? !isTransferValid : false}
-        actionIcon={isTransferring ? undefined : <ShoppingCart className="h-5 w-5" />}
-        actionButtonText={isTransferring ? t("save") : t("purchases.buy_credits")}
+        actionButtonText={isTransferring ? t("save") : t("usage.top_up")}
         showSecondaryButton={!isTransferring}
         onSecondaryClicked={handleStartTransfer}
-        secondaryIcon={<ArrowRightLeft className="h-5 w-5" />}
-        secondaryTooltipText={t("usage.transfer.button")}
+        secondaryText={t("usage.transfer.action")}
         showCancelButton={isTransferring}
         onCancelClicked={handleCancelTransfer}
         isContentLoading={isLoadingState || isTransferSaving}
@@ -376,7 +374,7 @@ const UsagePage: React.FC = () => {
         onExternalErrorDismiss={() => setError(null)}
       >
       {isTransferring ? (
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-start gap-6">
           <PlatformHandleInput
             label={t("usage.transfer.handle_label")}
             selectedPlatform={transferPlatform}
@@ -384,7 +382,7 @@ const UsagePage: React.FC = () => {
             platformHandle={transferHandle}
             onPlatformHandleChange={setTransferHandle}
             disabled={!!error?.isBlocker}
-            className="w-full sm:w-auto"
+            className="settings-field"
             onKeyboardConfirm={() => {
               if (!error?.isBlocker && isTransferValid) {
                 handleSaveTransfer();
@@ -399,7 +397,7 @@ const UsagePage: React.FC = () => {
             disabled={!!error?.isBlocker}
             placeholder={t("usage.transfer.amount_placeholder")}
             type="number"
-            className="w-full sm:w-auto"
+            className="settings-field"
             onKeyboardConfirm={() => {
               if (!error?.isBlocker && isTransferValid) {
                 handleSaveTransfer();
@@ -415,13 +413,13 @@ const UsagePage: React.FC = () => {
             placeholder={t("usage.transfer.note_placeholder")}
             minRows={2}
             maxRows={6}
-            className="w-full sm:w-auto"
+            className="settings-field"
           />
         </div>
       ) : (
         <>
           {userSettings && (
-            <div className="flex items-center justify-center gap-2 text-lg mt-2">
+            <div className="flex items-center justify-center gap-2 text-lg mt-[0.5rem]">
               <span className="text-muted-foreground font-light">
                 {t("usage.credit_balance", { balance: "" }).trim()}
               </span>

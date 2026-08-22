@@ -1,5 +1,11 @@
 {
   "chat": "Chat",
+  "chat_context": {
+    "private": "Privater Chat",
+    "group": "Gruppenchat",
+    "defaults": "Chat-Standards",
+    "response_behavior": "Antwortverhalten"
+  },
   "profile": "Profil",
   "sponsorships": "Sponsoring",
   "close": "Schließen",
@@ -9,7 +15,7 @@
   "help": "Hilfe",
   "configure_title": "{botName}s Verhalten konfigurieren",
   "intelligence_card_title": "Verstärke {botName}s Intelligenz",
-  "access": "Zugang",
+  "access": "Zugang (BYOK)",
   "intelligence": "Intelligenz",
   "access_card_title": "Machen Sie {botName} unabhängig",
   "access_use_credits_warning_prefix": "Um Credits zu verwenden, entfernen Sie alle API-Schlüssel",
@@ -45,11 +51,11 @@
   "always": "Immer",
   "reply_frequency": "{percent}% der Zeit",
   "sponsorship": {
-    "users_you_sponsor": "Benutzer, die Sie sponsern",
+    "users_you_sponsor": "Sponsoring verwalten",
     "no_sponsorships_found": "Keine Sponsorings gefunden",
     "configure_ai_access_first": "Sie müssen zuerst den KI-Zugang konfigurieren, bevor Sie andere Benutzer und Profile sponsern können.",
     "incognito": "Inkognito",
-    "add_sponsorship": "Sponsern",
+    "add_sponsorship": "Hinzufügen",
     "platform_handle_label": "Benutzername oder Telefon des Benutzers, den Sie sponsern möchten",
     "platform_handle_placeholder": "@benutzername oder +00-telefon",
     "platform_handle_placeholder_telegram": "@benutzername",
@@ -69,11 +75,12 @@
       "waitlist": "Auf der Warteliste",
       "yes": "Ja",
       "no": "Nein"
-    }
+    },
+    "profiles_i_sponsor": "Profile, die ich sponsere"
   },
   "usage": {
     "page_title": "Nutzung",
-    "card_title": "Nutzungshistorie",
+    "card_title": "Guthaben & Verlauf",
     "no_records_found": "Keine Nutzungsdaten gefunden",
     "filters": {
       "scope_section": "UMFANG",
@@ -154,22 +161,22 @@
       "from": "Von",
       "note": "Notiz",
       "card_title": "Guthaben überweisen",
-      "button": "Guthaben überweisen",
       "handle_label": "Benutzername oder Telefonnummer des Empfängers",
       "amount_label": "Betrag",
       "amount_placeholder": "1,00",
       "note_label": "Notiz (optional)",
-      "note_placeholder": "Grund der Überweisung…"
+      "note_placeholder": "Grund der Überweisung…",
+      "action": "Transfer"
     },
     "load_more": "Mehr laden",
-    "credit_balance": "Guthaben, die ich besitze: {balance}"
+    "credit_balance": "Guthaben, die ich besitze: {balance}",
+    "top_up": "Aufladen"
   },
   "purchases": {
     "page_title": "Käufe",
     "card_title": "Kaufverlauf",
     "use_license": "Lizenz verwenden",
     "license": "Lizenz",
-    "buy": "Kaufen",
     "license_key_label": "Geben Sie Ihren Lizenzschlüssel ein",
     "license_key_placeholder": "Fügen Sie Ihren Lizenzschlüssel ein oder geben Sie ihn ein",
     "bind_success": "Lizenz erfolgreich verknüpft!",
@@ -218,13 +225,17 @@
     "personal": "Persönlich",
     "agent": "Assistent",
     "resources": "Ressourcen",
-    "people": "Personen"
+    "people": "Sozial"
+  },
+  "navigation": {
+    "title": "Navigation",
+    "show_session_timer": "Verbleibende Sitzungszeit anzeigen",
+    "toggle_sidebar": "Seitenleiste ein- oder ausblenden",
+    "description": "Einstellungsseiten und verfügbare Chats durchsuchen."
   },
   "linked_profiles": {
     "page_title": "Verknüpfte Profile",
-    "card_title": "Profile verbinden",
-    "show_my_key": "Meinen Verbindungsschlüssel anzeigen",
-    "hide_my_key": "Meinen Verbindungsschlüssel ausblenden",
+    "card_title": "Verbinden, verknüpfen und zusammenführen",
     "copy_key": "Kopieren",
     "regenerate_key": "Erneuern",
     "share_key": "Teilen",
@@ -239,7 +250,7 @@
     "connect_button": "Verbinden",
     "connecting": "Verbinden...",
     "main_info": "Sie können dieses Profil mit einem anderen Profil verbinden, wenn Sie den Verbindungsschlüssel dieses Profils haben. Dies kann beispielsweise verwendet werden, um Ihre WhatsApp- und Telegram-Profile zusammenzuführen. Der Verbindungsschlüssel jedes Profils ist eindeutig und geheim! Um den Verbindungsschlüssel von einem anderen Profil zu erhalten, müssen Sie diese Seite über den Chat dieses Profils mit {botName} öffnen. Das Verbinden der beiden Profile führt sie zu einem einzigen Profil zusammen.",
-    "my_key_info": "Dies ist Ihr Verbindungsschlüssel. Teilen Sie Ihren Verbindungsschlüssel nicht mit anderen als Ihren anderen Profilen!",
+    "my_key_info": "Dies ist Ihr Connect Key.",
     "command_info": "Sie können diesen Schlüssel auch direkt an {botName} auf einer der unterstützten Plattformen senden, indem Sie einen Verbindungsbefehl verwenden. Dies verbindet automatisch dieses Profil mit dem Profil, an das Sie es senden:",
     "chat_command_info": "Alternativ können Sie {botName} bitten, sich über den Chat mit einem anderen Profil zu verbinden:",
     "chat_command_example": "Bitte verbinde mich mit diesem Profil: {connectKey}.",
@@ -248,7 +259,9 @@
     "connect_success": "Profile erfolgreich verbunden!",
     "regenerate_success": "Verbindungsschlüssel erfolgreich erneuert!",
     "copy_failed": "Kopieren fehlgeschlagen",
-    "generic_error": "Ein Fehler ist aufgetreten"
+    "generic_error": "Ein Fehler ist aufgetreten",
+    "my_key": "Mein Schlüssel",
+    "key_warning": "Teilen Sie Ihren Connect Key mit niemandem außer Ihren anderen Profilen!"
   },
   "about_me_label": "{botName} weiß Folgendes über mich:",
   "about_me_name_fallback": "Nutzer",
@@ -294,7 +307,7 @@
     "platform_user_id": "Plattform-Benutzer-ID",
     "platform_handle": "Plattform-Benutzername",
     "version": "KI-Version",
-    "reveal_placeholder": "Informationen, die Sie identifizieren"
+    "session_details": "Sitzungsdetails"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -303,6 +316,7 @@
   },
   "provider_needed_for": "{botName} benötigt dies für: {tools}",
   "where_is_my_key": "Wo ist mein {providerName}-Schlüssel?",
+  "configure_profile": "Profil anpassen",
   "configure_intelligence": "Intelligenz konfigurieren",
   "configure_ai_providers": "KI-Anbieter konfigurieren",
   "configure_access_keys": "Zugriffsschlüssel konfigurieren",
@@ -401,6 +415,7 @@
     "custom": "Benutzerdefiniert",
     "custom_description": "Individuell angepasste Tool-Auswahl."
   },
+  "intelligence_preset_title": "Intelligenz-Voreinstellung",
   "detailed_tool_choices": "Tool-Auswahl anpassen",
   "errors": {
     "oh_no": "Oh nein!",
@@ -458,8 +473,8 @@
     "not_chat_admin": "Benutzer ist kein Admin in diesem Chat",
     "not_target_user": "Zielbenutzer stimmt nicht mit dem aktuellen Benutzer überein",
     "not_developer": "Aktueller Benutzer ist kein Entwickler",
-    "no_private_chat": "Benutzer hat keinen privaten Chat mit dem Bot",
-    "bot_cannot_set_alerts": "Bot kann keine Preisalarme setzen",
+    "no_private_chat": "Der Benutzer hat keinen privaten Chat mit dem Agenten",
+    "bot_cannot_set_alerts": "Der Agent kann keine Preisalarme einrichten",
     "unauthorized_seller": "Nicht autorisierter Verkäufer",
     "empty_token": "Leeres Token",
     "no_user_id_in_token": "Keine Benutzer-ID im Token vorhanden",
@@ -519,49 +534,72 @@
     "invalid_social_card_video_configuration": "Ungültige Social-Card-Video-Konfiguration",
     "invalid_social_card_mode": "Ungültiger Social-Card-Modus"
   },
-  "features": {
-    "header": "Funktionen",
-    "title": "Was kann {botName} tun?",
-    "items": {
-      "language_intelligence": {
-        "title": "Sprachintelligenz",
-        "description": "Der Assistent versteht und antwortet in Ihrer bevorzugten Sprache mit Unterstützung für über 50 Sprachen, wodurch Konversationen natürlich und für Benutzer weltweit zugänglich werden. Fragen Sie alles und erhalten Sie schnelle, intelligente Antworten."
+  "not_found_page": {
+    "title": "Seite nicht gefunden",
+    "description": "Diese Adresse führt nicht zum Bereich deines Agenten.",
+    "action": "Zur Startseite"
+  },
+  "help_page": {
+    "intro_eyebrow": "Eine praktische Übersicht",
+    "intro_title": "Sorge dafür, dass {botName} so arbeitet, wie du es erwartest.",
+    "intro_description": "Wähle dein gewünschtes Ergebnis. Jeder Leitfaden erklärt, was du konfigurieren musst, was sich im Hintergrund ändert und wie es weitergeht.",
+    "principle_label": "Der entscheidende Unterschied",
+    "principle_title": "Nach Ergebnis fragen. Nach Fähigkeit konfigurieren.",
+    "principle_description": "Du arbeitest im Chat mit {botName}. Die Einstellungen legen fest, welche Tools, Zugriffswege und Regeln die jeweilige Aufgabe unterstützen.",
+    "guides_title": "Anleitungen",
+    "example": "Ein konkretes Ziel",
+    "how_it_works": "So funktioniert es",
+    "keep_in_mind": "Wichtig",
+    "open_destination": "{destination} öffnen",
+    "guides": {
+      "setup": {
+        "title": "Richten Sie {botName} nur einmal ein",
+        "summary": "Nutzen Sie Gemini, ChatGPT, Claude und andere unterstützte Modelle, ohne bei jedem ihrer Anbieter ein separates Konto zu erstellen.",
+        "example": "Ich möchte einen Assistenten für Gemini, OpenAI, Claude und andere Dienste – und nicht für jeden eine separate Einrichtung.",
+        "guide": "Richten Sie Ihr {botName}-Profil, den Kontext und Ihre gewünschten Einstellungen einmal ein. Nutzen Sie Guthaben, um auf unterstützte Anbieter zuzugreifen, ohne einzelne API-Schlüssel verwalten zu müssen, oder verknüpfen Sie Ihre eigenen Schlüssel, wenn Sie BYOK bevorzugen. Wählen Sie unter „Intelligenz“ das beste Modell für jede Funktion aus, während {botName} bei allen Anbietern dieselbe Identität und dasselbe Verhalten beibehält.",
+        "note": "Verfügbarkeit und Kosten unterscheiden sich je nach Anbieter. Für BYOK gilt: Durch das Hinzufügen eines API-Schlüssels wird der entsprechende Anbieter verfügbar, seine Modelle werden jedoch nicht automatisch ausgewählt; die Modellauswahl erfolgt weiterhin unter „Intelligenz“."
       },
-      "independent": {
-        "title": "Unabhängig",
-        "description": "Wechseln Sie zwischen Chat-Apps und KI-Plattformen, ohne Ihren Chat-Verlauf oder Ihre Einstellungen zu verlieren. Der Assistent sorgt für eine konsistente und nahtlose Erfahrung, wo immer Sie interagieren."
+      "intelligence": {
+        "title": "Intelligenz konfigurieren",
+        "summary": "Wähle für jede Fähigkeit das passende Modell oder Tool statt eines einzigen globalen Modells.",
+        "example": "Ein leistungsstarkes Modell fürs Schlussfolgern, aber ein günstigeres für alltägliche Chats.",
+        "guide": "Die Intelligenz wird für jede Fähigkeit einzeln konfiguriert. Beginne mit einer Voreinstellung oder passe Chat, Schlussfolgern, Bildverständnis, Transkription, Bild- und Videoerzeugung, Websuche und Datentools separat an. Konfiguriere Anbieterschlüssel unter Zugriff oder verwende Prepaid-Guthaben.",
+        "note": "Durch das Hinzufügen eines Anbieterschlüssels wird dieser Anbieter nicht automatisch ausgewählt. Für ein ausgewähltes Tool muss außerdem ein nutzbarer Anbieterschlüssel, Prepaid-Guthaben oder gesponserter Zugriff vorhanden sein."
       },
-      "privacy": {
-        "title": "Offen, aber privat",
-        "description": "Der Code ist vollständig Open Source für Transparenz, aber Ihre Daten und Unterhaltungen bleiben privat und nur für Sie zugänglich. Hosten Sie selbst, um noch mehr Kontrolle über Ihre Informationen zu haben."
+      "behavior": {
+        "title": "Profil und Chatverhalten anpassen",
+        "summary": "Trenne kontoweiten Kontext von Regeln, die nur für einen Chat gelten.",
+        "example": "Merke dir überall, was ich mache, aber halte einen Gruppenchat knapp.",
+        "guide": "Im Profil werden dein Name, dein Hintergrund und deine persönlichen Anweisungen chatübergreifend gespeichert. Jeder Chat kann Kontext, Verlaufstiefe, Ausgabelänge, Grenzen fürs Schlussfolgern und Medienverhalten separat steuern. Gruppenweite Einstellungen erfordern Chatadministratorrechte.",
+        "note": "Private Chats antworten immer, wenn sie angesprochen werden. Die Antwortwahrscheinlichkeit in Gruppen und gemeinsame Chateinstellungen sind nur verfügbar, wenn die Plattform und deine Administratorrolle dies zulassen."
       },
-      "web_search": {
-        "title": "Web-Suche",
-        "description": "Erhalten Sie aktuelle Informationen aus dem Web, einschließlich Nachrichten, Analysen, Wechselkursen, Kryptowährungspreisen, Vermögenswerten und mehr – direkt im Chat."
+      "capabilities": {
+        "title": "Mehr als Text nutzen",
+        "summary": "Nutze Suche, Medien, Generierung, Monitoring und Gruppentools direkt im Chat.",
+        "example": "Beobachte dieses Thema, benachrichtige mich bei Änderungen und fasse die Quelle zusammen.",
+        "guide": "Sende Text, Bilder, Sprachnachrichten oder Dokumente und beschreibe das gewünschte Ergebnis. Wenn die erforderliche Fähigkeit konfiguriert ist, kann der Agent suchen, analysieren, transkribieren, Medien erstellen oder bearbeiten und unterstützte Themen überwachen.",
+        "note": "Die Verfügbarkeit hängt von der Chatplattform, dem ausgewählten Tool, dem Anbieterzugriff und der Bereitstellung ab. Ist eine Fähigkeit nicht verfügbar, prüfe zuerst Intelligenz und Zugriff."
       },
-      "media": {
-        "title": "Anhänge & Medien",
-        "description": "Senden Sie Bilder, Sprachnachrichten und Dokumente an den Assistenten – er kann diese verarbeiten und für hilfreiche Antworten oder Aufgaben verwenden. Chatten Sie mit Ihren Fotos oder Dokumenten, nicht nur mit Text."
-      },
-      "imaging": {
-        "title": "KI-Bilderstellung",
-        "description": "Erstellen Sie neue Bilder, bearbeiten Sie vorhandene Bilder mit Textanweisungen oder stellen Sie alte und beschädigte Bilder mit Hilfe fortschrittlicher KI-Modelle wieder her. Der Assistent setzt Ihre Ideen mit leistungsstarken und einfach zu bedienenden Tools um."
-      },
-      "monitoring": {
-        "title": "Überwachung",
-        "description": "Bleiben Sie informiert mit Echtzeit-Überwachung von Nachrichten, Märkten und Themen, die Sie interessieren. Der Assistent hält Sie proaktiv auf dem Laufenden, damit Sie nichts verpassen."
-      },
-      "profile": {
-        "title": "Benutzerprofil",
-        "description": "Ein einheitliches Benutzerprofil ermöglicht es Ihnen, Ihre Identität, Abrechnung, Guthaben, Tool-Einstellungen und KI-Anbieter-Einstellungen über alle Chat-Plattformen hinweg zu verwalten. Passen Sie alles an – bitten Sie den Assistenten einfach, Ihre Einstellungen zu öffnen, oder geben Sie `/settings` im Chat ein."
-      },
-      "chat_settings": {
-        "title": "Chat-Einstellungen",
-        "description": "Passen Sie das Verhalten des Assistenten in jedem Chat an, einschließlich Sprache, Antwortstil und Benachrichtigungseinstellungen. Greifen Sie jederzeit auf diese Optionen zu, indem Sie den Assistenten bitten, die Einstellungen zu öffnen, oder `/settings` im Chat eingeben."
+      "costs": {
+        "title": "Guthaben und Kosten verstehen",
+        "summary": "Sieh, wie jede Aufgabe bezahlt wurde, und wähle die Finanzierung der künftigen Nutzung.",
+        "example": "Zeige mir, was diesen Monat Guthaben verbraucht hat und welche Tools dafür verantwortlich waren.",
+        "guide": "Kaufe Prepaid-Guthaben unter Käufe oder hinterlege unter Zugriff eigene Anbieterschlüssel. Unter Nutzung siehst du Zahler, Anbieter, Zweck, Token- oder Laufzeitdetails, Übertragungen, gesponserte Nutzung und fehlgeschlagene Aufrufe.",
+        "note": "Die Kosten unterscheiden sich je nach Modell und Inhalt. Eine Suche kann mehrere kostenpflichtige Abfragen auslösen. Fehlgeschlagene Aufrufe bleiben sichtbar, ziehen aber kein Guthaben ab. Detaillierte Nutzungsdaten werden 30 Tage lang gespeichert."
       },
       "sponsorships": {
-        "title": "Sponsoring",
-        "description": "Teilen Sie Ihren Zugriff auf den Assistenten mit anderen und behalten Sie dabei die Privatsphäre Ihrer und ihrer Nutzung bei. Sponsoring ermöglicht es Ihnen, die Vorteile des Assistenten mit Freunden oder Familie zu teilen, und Sie können es jederzeit über den Assistenten oder durch Eingabe von `/settings` im Chat verwalten."
+        "title": "Eine andere Person sponsern",
+        "summary": "Finanziere die Agent-Nutzung einer anderen Person, ohne Konten oder private Daten zu teilen.",
+        "example": "Einem Familienmitglied Zugriff geben, ohne meine Anbieterschlüssel zu teilen.",
+        "guide": "Ein Sponsor kann ein anderes Profil über dessen Plattform-Handle finanzieren, ohne Konten, Schlüssel, Einstellungen oder Chats zu teilen. Der Sponsor benötigt Guthaben oder mindestens einen Anbieterschlüssel. Neue Empfänger nehmen an, indem sie den Agenten starten.",
+        "note": "Selbstsponsoring, Sponsoring-Ketten sowie Empfänger mit Anbieterschlüsseln oder einem bestehenden Sponsor sind nicht zulässig. Ein ausstehendes Sponsoring läuft nach 30 Tagen ab und kann widerrufen werden."
+      },
+      "profiles": {
+        "title": "Telegram und WhatsApp verbinden",
+        "summary": "Führe zwei plattformübergreifende Profile zu einer Agent-Identität zusammen.",
+        "example": "Ein Konto und ein Guthaben für Telegram und WhatsApp verwenden.",
+        "guide": "Öffne Mein Schlüssel in einem Profil und gib diesen Schlüssel anschließend im Profil der anderen Plattform ein. Telegram- und WhatsApp-Profile können plattformübergreifend zusammengeführt werden; Guthaben, Nachrichten, Benachrichtigungen und Sponsoring-Beziehungen werden kombiniert.",
+        "note": "Die Zusammenführung hat weitreichende Folgen: Bei widersprüchlichen Einstellungen gilt das ältere Profil, das andere Konto wird gelöscht und der Verbindungsschlüssel wird erneuert. Prüfe beide Profile, bevor du fortfährst."
       }
     }
   },
@@ -613,6 +651,14 @@
   },
   "onboarding": {
     "page_title": "Loslegen",
+    "intro": "Vier klare Schritte richten Sprache, Persönlichkeit, Intelligenz und den Zugriff ein, die {botName} benötigt.",
+    "progress": "Schritt {current} von {total}",
+    "steps": {
+      "policies": "Richtlinien",
+      "profile": "Profil",
+      "intelligence": "Intelligenz",
+      "access": "Zugriff"
+    },
     "interface_language_label": "{botName} wird hauptsächlich diese Sprache verwenden",
     "policy_prefix": "Diese Richtlinien müssen vor dem Start akzeptiert werden. Haben Sie beide gelesen und stimmen zu?",
     "policy_label": "Ich akzeptiere",
@@ -621,13 +667,13 @@
     "access_credits_title": "Credits kaufen",
     "access_credits_description": "Nutzen Sie Prepaid-Credits für Ihre KI-Interaktionen. Keine API-Schlüssel erforderlich.",
     "finish": "Los geht's!",
-    "start": "Starten",
+    "continue": "Weiter",
     "waitlist_title": "Sie stehen auf der Warteliste",
     "waitlist_message": "Wir benachrichtigen Sie, sobald eine Kontoaktivierung wieder möglich ist.",
     "success": "{botName} ist jetzt bereit! Gehe zurück in deinen Chat und stelle eine Frage."
   },
-  "check_out_project": "Projekt ansehen",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzrichtlinie",

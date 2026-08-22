@@ -1,5 +1,11 @@
 {
   "chat": "Čet",
+  "chat_context": {
+    "private": "Privatni čet",
+    "group": "Grupni čet",
+    "defaults": "Podrazumevana podešavanja četa",
+    "response_behavior": "Ponašanje odgovora"
+  },
   "profile": "Profil",
   "sponsorships": "Sponzorstva",
   "close": "Zatvori",
@@ -9,7 +15,7 @@
   "help": "Pomoć",
   "configure_title": "Podesi ponašanje {botName}a",
   "intelligence_card_title": "Unapredi {botName}ovu Inteligenciju",
-  "access": "Pristup",
+  "access": "Pristup (BYOK)",
   "intelligence": "Inteligencija",
   "access_card_title": "Učini {botName}a nezavisnim",
   "access_use_credits_warning_prefix": "Da biste koristili kredite, uklonite sve API ključeve",
@@ -45,11 +51,11 @@
   "always": "Uvek",
   "reply_frequency": "{percent}% vremena",
   "sponsorship": {
-    "users_you_sponsor": "Korisnici koje sponzorišem",
+    "users_you_sponsor": "Upravljanje sponzorstvima",
     "no_sponsorships_found": "Nisu pronađena sponzorstva",
     "configure_ai_access_first": "Morate prvo da konfigurišete AI pristup, pre nego što možete da sponzorišete druge korisnike i profile.",
     "incognito": "Inkognito",
-    "add_sponsorship": "Sponzoriši",
+    "add_sponsorship": "Dodaj",
     "platform_handle_label": "Korisničko ime ili telefon korisnika koga želite da sponzorišete",
     "platform_handle_placeholder": "@korisnik ili +00-telefon",
     "platform_handle_placeholder_telegram": "@korisničko_ime",
@@ -69,11 +75,12 @@
       "waitlist": "Na čekanju",
       "yes": "Da",
       "no": "Ne"
-    }
+    },
+    "profiles_i_sponsor": "Profili koje sponzorišem"
   },
   "usage": {
     "page_title": "Korišćenje",
-    "card_title": "Istorija korišćenja",
+    "card_title": "Krediti i istorija",
     "no_records_found": "Nema pronađenih zapisa o korišćenju",
     "filters": {
       "scope_section": "OPSEG",
@@ -154,22 +161,22 @@
       "from": "Od",
       "note": "Napomena",
       "card_title": "Prenos kredita",
-      "button": "Prenos kredita",
       "handle_label": "Korisničko ime ili telefon primaoca",
       "amount_label": "Iznos",
       "amount_placeholder": "1,00",
       "note_label": "Napomena (opciono)",
-      "note_placeholder": "Razlog prenosa…"
+      "note_placeholder": "Razlog prenosa…",
+      "action": "Transfer"
     },
     "load_more": "Učitaj još",
-    "credit_balance": "Krediti koje posedujem: {balance}"
+    "credit_balance": "Krediti koje posedujem: {balance}",
+    "top_up": "Dopuni"
   },
   "purchases": {
     "page_title": "Kupovine",
     "card_title": "Istorija kupovina",
     "use_license": "Unesite licencu",
     "license": "Licenca",
-    "buy": "Kupi",
     "license_key_label": "Unesite vašu licencnu oznaku",
     "license_key_placeholder": "Nalepite ili unesite vašu licencnu oznaku",
     "bind_success": "Licenca uspešno povezana!",
@@ -218,13 +225,17 @@
     "personal": "Lično",
     "agent": "Asistent",
     "resources": "Resursi",
-    "people": "Ljudi"
+    "people": "Društveno"
+  },
+  "navigation": {
+    "title": "Navigacija",
+    "show_session_timer": "Prikaži preostalo vreme sesije",
+    "toggle_sidebar": "Uključi ili isključi bočnu traku",
+    "description": "Pregledajte stranice podešavanja i dostupne razgovore."
   },
   "linked_profiles": {
     "page_title": "Povezani profili",
-    "card_title": "Poveži profile",
-    "show_my_key": "Prikaži moj ključ za povezivanje",
-    "hide_my_key": "Sakrij moj ključ za povezivanje",
+    "card_title": "Poveži, pridruži i spoji",
     "copy_key": "Kopiraj",
     "regenerate_key": "Osveži",
     "share_key": "Podeli",
@@ -239,7 +250,7 @@
     "connect_button": "Poveži",
     "connecting": "Povezivanje...",
     "main_info": "Možete povezati ovaj profil sa drugim profilom ako imate ključ za povezivanje tog profila. Na primer, ovo se može koristiti za spajanje vaših WhatsApp i Telegram profila. Ključ za povezivanje svakog profila je jedinstven i tajan! Da biste dobili ključ za povezivanje drugog profila, morate otvoriti ovu istu stranicu koristeći čet tog profila sa {botName}om. Povezivanje dva profila spaja ih u jedan profil.",
-    "my_key_info": "Ovo je vaš ključ za povezivanje. Ne delite svoj ključ za povezivanje sa bilo kim osim sa svojim drugim profilima!",
+    "my_key_info": "Ovo je vaš ključ za povezivanje.",
     "command_info": "Takođe možete direktno poslati ovaj ključ {botName}u na jednoj od podržanih platformi, koristeći komandu za povezivanje. Ovo će automatski povezati ovaj profil sa profilom kome ga pošaljete:",
     "chat_command_info": "Alternativno, možete zamoliti {botName}a da se poveže sa drugim profilom koristeći čet:",
     "chat_command_example": "Molim te poveži me sa ovim profilom: {connectKey}.",
@@ -248,7 +259,9 @@
     "connect_success": "Profili su uspešno povezani!",
     "regenerate_success": "Ključ za povezivanje je uspešno regenerisan!",
     "copy_failed": "Neuspešno kopiranje",
-    "generic_error": "Došlo je do greške"
+    "generic_error": "Došlo je do greške",
+    "my_key": "Moj ključ",
+    "key_warning": "Ne delite svoj ključ za povezivanje ni sa kim osim sa svojim drugim profilima!"
   },
   "about_me_label": "{botName} zna ovo o meni:",
   "about_me_name_fallback": "Korisnik",
@@ -294,7 +307,7 @@
     "platform_user_id": "Plat. korisnički ID",
     "platform_handle": "Plat. korisničko ime",
     "version": "AI Verzija",
-    "reveal_placeholder": "Informacije koje vas identifikuju"
+    "session_details": "Detalji sesije"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -303,6 +316,7 @@
   },
   "provider_needed_for": "{botName} ovo koristi za: {tools}",
   "where_is_my_key": "Gde je moj {providerName} ključ?",
+  "configure_profile": "Prilagodi profil",
   "configure_intelligence": "Podesi inteligenciju",
   "configure_ai_providers": "Podesi AI provajdere",
   "configure_access_keys": "Podesi pristupne ključeve",
@@ -401,6 +415,7 @@
     "custom": "Prilagođen",
     "custom_description": "Individualno prilagođen izbor alata."
   },
+  "intelligence_preset_title": "Režim inteligencije",
   "detailed_tool_choices": "Prilagodi izbore alata",
   "errors": {
     "oh_no": "O ne!",
@@ -458,8 +473,8 @@
     "not_chat_admin": "Korisnik nije administrator u ovom četu",
     "not_target_user": "Ciljni korisnik se ne poklapa sa trenutnim korisnikom",
     "not_developer": "Trenutni korisnik nije programer",
-    "no_private_chat": "Korisnik nema privatni čet sa botom",
-    "bot_cannot_set_alerts": "Bot ne može podesiti upozorenja o ceni",
+    "no_private_chat": "Korisnik nema privatni čet sa agentom",
+    "bot_cannot_set_alerts": "Agent ne može podesiti upozorenja o ceni",
     "unauthorized_seller": "Neautorizovan prodavac",
     "empty_token": "Prazan token",
     "no_user_id_in_token": "Korisnički ID nije prisutan u tokenu",
@@ -519,49 +534,72 @@
     "invalid_social_card_video_configuration": "Nevažeća konfiguracija videa za društvenu karticu",
     "invalid_social_card_mode": "Nevažeći režim društvene kartice"
   },
-  "features": {
-    "header": "Mogućnosti",
-    "title": "Šta {botName} može da uradi?",
-    "items": {
-      "language_intelligence": {
-        "title": "Jezička inteligencija",
-        "description": "Agent razume i odgovara na jeziku po vašem izboru, uz podršku više od 50 jezika, čineći razgovore prirodnim i pristupačnim korisnicima širom sveta. Pitajte bilo šta i brzo dobijajte pametne odgovore."
+  "not_found_page": {
+    "title": "Stranica nije pronađena",
+    "description": "Ova adresa ne vodi do prostora vašeg agenta.",
+    "action": "Idi na početnu"
+  },
+  "help_page": {
+    "intro_eyebrow": "Praktična mapa",
+    "intro_title": "Podesite {botName}a da radi kako očekujete.",
+    "intro_description": "Izaberite željeni ishod. Svaki vodič objašnjava šta treba podesiti, šta se menja u pozadini i kako da nastavite.",
+    "principle_label": "Važna razlika",
+    "principle_title": "Tražite prema ishodu. Podesite prema mogućnosti.",
+    "principle_description": "Sa {botName}om radite u četu. Podešavanja određuju koji alati, pristupi i pravila podržavaju svaki zadatak.",
+    "guides_title": "Praktični vodiči",
+    "example": "Stvaran cilj",
+    "how_it_works": "Kako funkcioniše",
+    "keep_in_mind": "Imajte u vidu",
+    "open_destination": "Otvori {destination}",
+    "guides": {
+      "setup": {
+        "title": "Podesite {botName}a samo jednom",
+        "summary": "Koristite Gemini, ChatGPT, Claude i druge podržane modele bez ponovnog pravljenja naloga za svakog od njihovih provajdera.",
+        "example": "Želim jednog asistenta za Gemini, OpenAI, Claude i druge usluge, a ne zasebno podešavanje za svaku.",
+        "guide": "Jednom podesite svoj profil za {botName}a, kontekst i željene postavke. Koristite kredite za pristup podržanim provajderima bez upravljanja pojedinačnim API ključevima ili povežite sopstvene ključeve ako više volite BYOK. U odeljku „Inteligencija“ izaberite najbolji model za svaku mogućnost, dok {botName} zadržava isti identitet i ponašanje kod svih provajdera.",
+        "note": "Dostupnost i troškovi razlikuju se među provajderima. Za BYOK: dodavanje API ključa čini tog provajdera dostupnim, ali ne bira automatski njegove modele; modeli se i dalje biraju u odeljku „Inteligencija“."
       },
-      "independent": {
-        "title": "Nezavisnost",
-        "description": "Prebacujte se između chat aplikacija i AI platformi bez gubitka istorije četa ili podešavanja. Asistent čini vaše iskustvo konzistentnim i besprekornim, gde god da komunicirate."
+      "intelligence": {
+        "title": "Podesite Inteligenciju",
+        "summary": "Izaberite odgovarajući model ili alat za svaku mogućnost umesto jednog globalnog modela.",
+        "example": "Koristi snažan model za rezonovanje, a jeftiniji za svakodnevni čet.",
+        "guide": "Inteligencija se podešava za svaku mogućnost zasebno. Počnite sa unapred definisanim podešavanjem ili zasebno prilagodite čet, rezonovanje, vid, transkripciju, generisanje slika i video-zapisa, veb-pretragu i alatke za podatke. Za BYOK upotrebu podesite ključeve provajdera; za kredite: nema dodatnih podešavanja.",
+        "note": "Dodavanje ključa provajdera ne bira automatski tog provajdera. Izabrani alat takođe mora da ima upotrebljiv ključ provajdera, unapred plaćene kredite ili sponzorisani pristup."
       },
-      "privacy": {
-        "title": "Otvoreno, a ipak privatno",
-        "description": "Kôd je potpuno javan radi transparentnosti, ali vaši podaci i razgovori ostaju privatni i dostupni samo vama. Hostujte sami za još veću kontrolu nad svojim informacijama."
+      "behavior": {
+        "title": "Oblikujte profil i ponašanje četova",
+        "summary": "Odvojite kontekst za ceo nalog od pravila koja važe samo za jedan čet.",
+        "example": "Pamti svuda čime se bavim. U grupama odgovaraj jako kratko, a privatno malo duže.",
+        "guide": "Profil čuva vaše ime, biografske podatke i lična uputstva u svim četovima - opciono, i enkriptovano. Svaki čet može zasebno da kontroliše kontekst, dubinu istorije, dužinu izlaza, ograničenja rezonovanja i ponašanje medija. Kontrole za celu grupu zahtevaju dozvolu administratora četa.",
+        "note": "Privatni četovi uvek odgovaraju kada im se obratite. Verovatnoća odgovora u grupama i deljena podešavanja četa dostupni su samo ako vaša administratorska uloga to dozvoljava."
       },
-      "web_search": {
-        "title": "Web pretraga",
-        "description": "Dobijajte ažurirane informacije sa interneta, uključujući vesti, analize, kurseve valuta, cene kriptovaluta, hartije od vrednosti i još mnogo toga, direktno u četu."
+      "capabilities": {
+        "title": "Radite i izvan teksta",
+        "summary": "Koristite Internet pretragu, medije, generisanje, praćenje i grupne alate iz četa.",
+        "example": "Prati ovu temu, obavesti me kada se promeni i sažmi izvor.",
+        "guide": "Pošaljite tekst, slike, glasovne poruke ili dokumente i opišite željeni ishod. Kada je potrebni alat podešen, agent može da pretražuje, analizira, transkribuje, pravi ili uređuje medije i prati podržane teme.",
+        "note": "Dostupnost zavisi od čet platforme, izabranog alata, pristupa provajderu i implementacije. Ako vam mogućnost nije dostupna, prvo proverite Inteligenciju i Pristup."
       },
-      "media": {
-        "title": "Prilozi i mediji",
-        "description": "Pošaljite slike, glasovne poruke i dokumente asistentu – on ih može obraditi i iskoristiti za kreiranje korisnih odgovora ili izvršavanje zadataka. Četujte koristeći svoje fotografije ili dokumente, ne samo tekst."
-      },
-      "imaging": {
-        "title": "AI kreiranje slika",
-        "description": "Kreirajte nove slike, uređujte postojeće slike pomoću tekstualnih uputstava ili obnavljajte stare i oštećene slike koristeći napredne AI modele. Asistent oživljava vaše ideje uz moćne i jednostavne alate."
-      },
-      "monitoring": {
-        "title": "Praćenje",
-        "description": "Ostanite informisani uz praćenje vesti, tržišta i tema koje vas zanimaju u realnom vremenu. Asistent proaktivno vas obaveštava, tako da ništa ne promakne."
-      },
-      "profile": {
-        "title": "Korisnički profil",
-        "description": "Jedinstveni korisnički profil omogućava vam da upravljate svojim identitetom, naplatom, kreditima, podešavanjima alata i postavkama AI izdavača na svim chat platformama. Podesite sve – samo zamolite asistenta da otvori vaša podešavanja ili otkucajte `/settings` u četu."
-      },
-      "chat_settings": {
-        "title": "Podešavanja četa",
-        "description": "Prilagodite ponašanje asistenta u svakom četu, uključujući jezik, stil odgovora i podešavanja obaveštenja. Pristupite ovim opcijama u svakom trenutku tako što ćete zamoliti asistenta da otvori podešavanja ili otkucati `/settings` u četu."
+      "costs": {
+        "title": "Razumite kredite i troškove",
+        "summary": "Pogledajte kako je svaki zadatak plaćen i izaberite kako će se finansirati buduća upotreba.",
+        "example": "Pokaži mi šta je koristilo kredite danas, i koji alati su ih potrošili.",
+        "guide": "Dokupite nove kredite u Kupovinama ili unesite sopstvene API ključeve u Pristupu (BYOK). Upotreba prikazuje platioca, provajdera, svrhu, detalje o tokenima ili vremenu izvršavanja, prenose, sponzorisanu upotrebu i neuspele pozive.",
+        "note": "Troškovi zavise od modela i sadržaja. Pretraga može da napravi više od jednog naplativog upita. Neuspeli pozivi ostaju vidljivi, ali ne oduzimaju kredite, a detaljni podaci o upotrebi čuvaju se 30 dana."
       },
       "sponsorships": {
-        "title": "Sponzorstva",
-        "description": "Podelite vašeg asistenta sa drugima, zadržavajući vašu i njihovu upotrebu privatnom. Sponzorstva vam omogućavaju da podelite prednosti asistenta sa prijateljima ili porodicom, a možete ih uvek podesiti pitajući asistenta ili kucanjem `/settings` u četu."
+        "title": "Sponzorišite drugi profil",
+        "summary": "Finansirajte tuđe korišćenje agenta bez deljenja naloga ili privatnih podataka.",
+        "example": "Omogući članu porodice pristup bez deljenja mojih ključeva i pristupa nalogu.",
+        "guide": "Sponzor može da finansira drugi profil preko korisničkog imena na platformi bez deljenja naloga, ključeva, podešavanja ili poruka. Sponzoru su potrebni krediti ili najmanje jedan API ključ. Novi primaoci prihvataju sponzorstvo pokretanjem agenta.",
+        "note": "Samo-sponzorisanje i lanci sponzorstava nisu dozvoljeni, a primaoci koji imaju API ključeve (ili već imaju sponzora) ne ispunjavaju uslove. Sponzorstvo na čekanju ističe nakon 30 dana, i može da se opozove po potrebi iz Sponzorstava."
+      },
+      "profiles": {
+        "title": "Povežite Telegram i WhatsApp",
+        "summary": "Spojite dva profila sa različitih platformi u jedan identitet.",
+        "example": "Koristi jedan nalog i stanje na Telegramu i WhatsApp-u.",
+        "guide": "Pogledajte svoj „Connect“ ključ na jednom profilu, a zatim unesite taj ključ iz profila na drugoj platformi. Telegram i WhatsApp profili mogu da se spoje između platformi; krediti, poruke, upozorenja i sponzorski odnosi se objedinjuju.",
+        "note": "Spajanje ima ozbiljne posledice: stariji profil ima prednost kod neusaglašenih podešavanja, drugi nalog se uklanja, i ključ za povezivanje se menja. Pregledajte oba profila pre nego što nastavite."
       }
     }
   },
@@ -585,7 +623,7 @@
   "cost_estimate": {
     "title": "Procena troškova",
     "description": "Procenjeni troškovi korišćenja. Sve vrednosti su u kreditima.",
-    "disclaimer": "Napomena: Procene se mogu promeniti bez prethodne najave zbog promena cena dobavljača.",
+    "disclaimer": "Napomena: Procene se mogu promeniti bez prethodne najave zbog promena cena provajdera.",
     "no_data": "Nema dostupnih informacija o troškovima za ovaj alat.",
     "token_costs": "Troškovi tokena",
     "input_tokens": "Po milion ulaznih tokena",
@@ -613,6 +651,14 @@
   },
   "onboarding": {
     "page_title": "Početak",
+    "intro": "Četiri jasna koraka podešavaju jezik, ličnost, inteligenciju i pristup koji su potrebni {botName}u.",
+    "progress": "Korak {current} od {total}",
+    "steps": {
+      "policies": "Polise",
+      "profile": "Profil",
+      "intelligence": "Inteligencija",
+      "access": "Pristup"
+    },
     "interface_language_label": "{botName} će koristiti uglavnom ovaj jezik",
     "policy_prefix": "Neophodno je prihvatiti ove polise pre početka korišćenja. Da li ste pročitali i slažete se sa obe?",
     "policy_label": "Prihvatam",
@@ -621,13 +667,13 @@
     "access_credits_title": "Kupujem kredite",
     "access_credits_description": "Koristiću unapred plaćene kredite za AI interakcije, bez podešavanja ključeva.",
     "finish": "Počnimo!",
-    "start": "Počni",
+    "continue": "Nastavi",
     "waitlist_title": "Na listi čekanja ste",
     "waitlist_message": "Obavestićemo vas kada opet bude moguće aktivirati nalog.",
-    "success": "{botName} je sada spreman! Vrati se u chat i postavi bilo koje pitanje."
+    "success": "{botName} je sada spreman! Vrati se u čet i postavi bilo koje pitanje."
   },
-  "check_out_project": "Pogledaj projekat",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Uslovi korišćenja",
     "privacy": "Politika privatnosti",

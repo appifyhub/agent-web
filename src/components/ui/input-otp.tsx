@@ -68,7 +68,7 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="input-otp-separator"
       role="separator"
-      className="flex items-center justify-center w-full sm:w-4 shrink-0"
+      className="flex w-full shrink-0 items-center justify-center min-[42rem]:w-4"
       {...props}
     >
       <span className="text-muted-foreground text-sm font-medium">—</span>

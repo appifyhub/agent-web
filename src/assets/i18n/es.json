@@ -1,5 +1,11 @@
 {
   "chat": "Chat",
+  "chat_context": {
+    "private": "Chat privado",
+    "group": "Chat grupal",
+    "defaults": "Configuración predeterminada del chat",
+    "response_behavior": "Comportamiento de respuesta"
+  },
   "profile": "Perfil",
   "sponsorships": "Patrocinios",
   "close": "Cerrar",
@@ -9,7 +15,7 @@
   "help": "Ayuda",
   "configure_title": "Configurar el comportamiento de {botName}",
   "intelligence_card_title": "Potencia la Inteligencia de {botName}",
-  "access": "Acceso",
+  "access": "Acceso (BYOK)",
   "intelligence": "Inteligencia",
   "access_card_title": "Haz que {botName} sea independiente",
   "access_use_credits_warning_prefix": "Para usar créditos, elimina todas las claves de API",
@@ -45,11 +51,11 @@
   "always": "Siempre",
   "reply_frequency": "{percent}% del tiempo",
   "sponsorship": {
-    "users_you_sponsor": "Usuarios que patrocinas",
+    "users_you_sponsor": "Gestionar patrocinios",
     "no_sponsorships_found": "No se encontraron patrocinios",
     "configure_ai_access_first": "Debe configurar primero el acceso a la IA, antes de poder patrocinar a otros usuarios y perfiles.",
     "incognito": "Incógnito",
-    "add_sponsorship": "Patrocinar",
+    "add_sponsorship": "Añadir",
     "platform_handle_label": "Nombre de usuario o teléfono del usuario que quieres patrocinar",
     "platform_handle_placeholder": "@usuario o +00-teléfono",
     "platform_handle_placeholder_telegram": "@nombre_usuario",
@@ -69,11 +75,12 @@
       "waitlist": "En lista de espera",
       "yes": "Sí",
       "no": "No"
-    }
+    },
+    "profiles_i_sponsor": "Perfiles que patrocino"
   },
   "usage": {
     "page_title": "Uso",
-    "card_title": "Historial de uso",
+    "card_title": "Créditos e historial",
     "no_records_found": "No se encontraron registros de uso",
     "filters": {
       "scope_section": "ALCANCE",
@@ -154,22 +161,22 @@
       "from": "De",
       "note": "Nota",
       "card_title": "Transferir créditos",
-      "button": "Transferir créditos",
       "handle_label": "Nombre de usuario o teléfono del destinatario",
       "amount_label": "Cantidad",
       "amount_placeholder": "1,00",
       "note_label": "Nota (opcional)",
-      "note_placeholder": "Motivo de la transferencia…"
+      "note_placeholder": "Motivo de la transferencia…",
+      "action": "Transferir"
     },
     "load_more": "Cargar más",
-    "credit_balance": "Créditos que poseo: {balance}"
+    "credit_balance": "Créditos que poseo: {balance}",
+    "top_up": "Recargar"
   },
   "purchases": {
     "page_title": "Compras",
     "card_title": "Historial de Compras",
     "use_license": "Usar una Licencia",
     "license": "Licencia",
-    "buy": "Comprar",
     "license_key_label": "Ingrese su clave de licencia",
     "license_key_placeholder": "Pegue o escriba su clave de licencia",
     "bind_success": "Licencia vinculada correctamente!",
@@ -218,13 +225,17 @@
     "personal": "Personal",
     "agent": "Asistente",
     "resources": "Recursos",
-    "people": "Personas"
+    "people": "Social"
+  },
+  "navigation": {
+    "title": "Navegación",
+    "show_session_timer": "Mostrar el tiempo restante de la sesión",
+    "toggle_sidebar": "Alternar barra lateral",
+    "description": "Explora las páginas de configuración y los chats disponibles."
   },
   "linked_profiles": {
     "page_title": "Perfiles Vinculados",
-    "card_title": "Conectar Perfiles",
-    "show_my_key": "Mostrar mi Clave de Conexión",
-    "hide_my_key": "Ocultar mi Clave de Conexión",
+    "card_title": "Conectar, vincular y fusionar",
     "copy_key": "Copiar",
     "regenerate_key": "Regenerar",
     "share_key": "Compartir",
@@ -239,7 +250,7 @@
     "connect_button": "Conectar",
     "connecting": "Conectando...",
     "main_info": "Puedes conectar este perfil a otro perfil si tienes la Clave de Conexión de ese perfil. Por ejemplo, esto se puede usar para fusionar tus perfiles de WhatsApp y Telegram. ¡La Clave de Conexión de cada perfil es única y secreta! Para obtener la Clave de Conexión de otro perfil, debes abrir esta misma página usando el chat de ese perfil con {botName}. Conectar los dos perfiles los fusiona en un solo perfil.",
-    "my_key_info": "Esta es tu Clave de Conexión. ¡No compartas tu Clave de Conexión con nadie más que con tus otros perfiles!",
+    "my_key_info": "Esta es tu clave de conexión.",
     "command_info": "También puedes enviar directamente esta clave a {botName} en una de las plataformas compatibles, usando un comando de Conexión. Esto conectará automáticamente este perfil con el perfil al que se la envíes:",
     "chat_command_info": "Alternativamente, puedes pedirle a {botName} que se conecte a otro perfil usando el chat:",
     "chat_command_example": "Por favor, conéctame a este perfil: {connectKey}.",
@@ -248,7 +259,9 @@
     "connect_success": "¡Perfiles conectados exitosamente!",
     "regenerate_success": "¡Clave de conexión regenerada exitosamente!",
     "copy_failed": "Error al copiar",
-    "generic_error": "Ocurrió un error"
+    "generic_error": "Ocurrió un error",
+    "my_key": "Mi clave",
+    "key_warning": "¡No compartas tu clave de conexión con nadie que no sean tus otros perfiles!"
   },
   "about_me_label": "{botName} sabe esto sobre mí:",
   "about_me_name_fallback": "Usuario",
@@ -294,7 +307,7 @@
     "platform_user_id": "ID de usuario de plataforma",
     "platform_handle": "Nombre de usuario de plataforma",
     "version": "Versión de IA",
-    "reveal_placeholder": "Información que te identifica"
+    "session_details": "Detalles de la sesión"
   },
   "platforms": {
     "telegram": "Telegram",
@@ -303,6 +316,7 @@
   },
   "provider_needed_for": "{botName} necesita esto para: {tools}",
   "where_is_my_key": "¿Dónde está mi clave de {providerName}?",
+  "configure_profile": "Personalizar perfil",
   "configure_intelligence": "Configurar inteligencia",
   "configure_ai_providers": "Configurar proveedores de IA",
   "configure_access_keys": "Configurar las claves de acceso",
@@ -401,6 +415,7 @@
     "custom": "Personalizado",
     "custom_description": "Selección de herramientas personalizada individualmente."
   },
+  "intelligence_preset_title": "Ajuste de inteligencia",
   "detailed_tool_choices": "Personalizar selecciones de herramientas",
   "errors": {
     "oh_no": "¡Oh no!",
@@ -458,8 +473,8 @@
     "not_chat_admin": "El usuario no es administrador en este chat",
     "not_target_user": "El usuario objetivo no coincide con el usuario actual",
     "not_developer": "El usuario actual no es desarrollador",
-    "no_private_chat": "El usuario no tiene chat privado con el bot",
-    "bot_cannot_set_alerts": "El bot no puede establecer alertas de precio",
+    "no_private_chat": "El usuario no tiene ningún chat privado con el Agente",
+    "bot_cannot_set_alerts": "El Agente no puede configurar alertas de precios",
     "unauthorized_seller": "Vendedor no autorizado",
     "empty_token": "Token vacío",
     "no_user_id_in_token": "No hay ID de usuario presente en el token",
@@ -519,49 +534,72 @@
     "invalid_social_card_video_configuration": "Configuración de video de tarjeta social no válida",
     "invalid_social_card_mode": "Modo de tarjeta social no válido"
   },
-  "features": {
-    "header": "Funciones",
-    "title": "¿Qué puede hacer {botName}?",
-    "items": {
-      "language_intelligence": {
-        "title": "Inteligencia de lenguaje",
-        "description": "El asistente entiende y responde en tu idioma preferido con soporte para más de 50 idiomas, lo que hace que las conversaciones sean naturales y accesibles para usuarios de todo el mundo. Pregunta cualquier cosa y obtén respuestas inteligentes rápidamente."
+  "not_found_page": {
+    "title": "Página no encontrada",
+    "description": "Esta dirección no lleva al espacio de tu agente.",
+    "action": "Ir al inicio"
+  },
+  "help_page": {
+    "intro_eyebrow": "Un mapa práctico",
+    "intro_title": "Haz que {botName} funcione como esperas.",
+    "intro_description": "Elige el resultado que quieres. Cada guía explica qué configurar, qué cambia entre bastidores y cuál es el siguiente paso.",
+    "principle_label": "La distinción útil",
+    "principle_title": "Pide por resultado. Configura por capacidad.",
+    "principle_description": "Trabajas con {botName} en el chat. Los ajustes determinan qué herramientas, vía de acceso y reglas respaldan cada tarea.",
+    "guides_title": "Guías prácticas",
+    "example": "Un objetivo real",
+    "how_it_works": "Cómo funciona",
+    "keep_in_mind": "Ten en cuenta",
+    "open_destination": "Abrir {destination}",
+    "guides": {
+      "setup": {
+        "title": "Configura {botName} una sola vez",
+        "summary": "Usa Gemini, ChatGPT, Claude y otros modelos compatibles sin crear una cuenta aparte con cada uno de sus proveedores.",
+        "example": "Quiero un único asistente para Gemini, OpenAI, Claude y otros servicios, no una configuración aparte para cada uno.",
+        "guide": "Configura una sola vez tu perfil de {botName}, el contexto y tus preferencias. Usa créditos para acceder a los proveedores compatibles sin gestionar claves de API individuales, o conecta tus propias claves si prefieres BYOK. En «Inteligencia», elige el mejor modelo para cada capacidad, mientras {botName} mantiene la misma identidad y el mismo comportamiento con todos los proveedores.",
+        "note": "La disponibilidad y los costes varían entre proveedores. Para BYOK: añadir una clave de API hace que ese proveedor esté disponible, pero no selecciona automáticamente sus modelos; los modelos se siguen seleccionando en «Inteligencia»."
       },
-      "independent": {
-        "title": "Independiente",
-        "description": "Cambia entre aplicaciones de chat y plataformas de IA sin perder tu historial de chat ni tus configuraciones. El asistente mantiene tu experiencia consistente y fluida dondequiera que interactúes."
+      "intelligence": {
+        "title": "Configurar Inteligencia",
+        "summary": "Elige el modelo o la herramienta adecuados para cada capacidad en vez de un único modelo global.",
+        "example": "Usar un modelo potente para razonar y otro más económico para el chat diario.",
+        "guide": "La Inteligencia se configura por capacidad. Empieza con un preajuste o personaliza por separado el chat, el razonamiento, la visión, la transcripción, la generación de imágenes y vídeos, la búsqueda web y las herramientas de datos. Configura las claves de proveedor en Acceso o usa créditos prepagados.",
+        "note": "Añadir una clave de proveedor no selecciona automáticamente a ese proveedor. La herramienta seleccionada también debe disponer de una clave de proveedor válida, créditos prepagados o acceso patrocinado."
       },
-      "privacy": {
-        "title": "Abierto, pero privado",
-        "description": "El código es completamente de código abierto para mayor transparencia, pero tus datos y conversaciones siguen siendo privados y accesibles solo para ti. Aloja tú mismo para tener un control aún mayor sobre tu información."
+      "behavior": {
+        "title": "Adaptar el perfil y el comportamiento del chat",
+        "summary": "Separa el contexto de toda la cuenta de las reglas que solo pertenecen a un chat.",
+        "example": "Recuerda a qué me dedico en todas partes, pero mantén conciso un chat de grupo.",
+        "guide": "El perfil guarda tu nombre, experiencia e instrucciones personales en todos los chats. Cada chat puede controlar por separado el contexto, la profundidad del historial, la longitud de las respuestas, los límites de razonamiento y el comportamiento multimedia. Los controles para todo el grupo requieren permiso de administrador del chat.",
+        "note": "Los chats privados siempre responden cuando te diriges a ellos. La probabilidad de respuesta en grupos y los ajustes compartidos del chat solo están disponibles si la plataforma y tu rol de administrador lo permiten."
       },
-      "web_search": {
-        "title": "Búsqueda web",
-        "description": "Obtén información actualizada de la web, incluidas noticias, análisis, precios de divisas, precios de criptomonedas, activos y más, directamente en el chat."
+      "capabilities": {
+        "title": "Trabajar más allá del texto",
+        "summary": "Usa búsquedas, contenido multimedia, generación, supervisión y herramientas de grupo desde el chat.",
+        "example": "Supervisa este tema, avísame cuando cambie y resume la fuente.",
+        "guide": "Envía texto, imágenes, mensajes de voz o documentos y describe el resultado. El Agente puede buscar, analizar, transcribir, crear o editar contenido multimedia y supervisar temas compatibles cuando la capacidad necesaria esté configurada.",
+        "note": "La disponibilidad depende de la plataforma de chat, la herramienta seleccionada, el acceso al proveedor y la implementación. Si una capacidad no está disponible, comprueba primero Inteligencia y Acceso."
       },
-      "media": {
-        "title": "Adjuntos y medios",
-        "description": "Envía imágenes, mensajes de voz y documentos al asistente: puede procesarlos y usarlos para crear respuestas útiles o realizar tareas. Chatea con tus fotos o documentos, no solo con texto."
-      },
-      "imaging": {
-        "title": "Imágenes con IA",
-        "description": "Crea nuevas imágenes, edita imágenes existentes usando instrucciones de texto o restaura imágenes antiguas y dañadas usando modelos de IA avanzados. El asistente da vida a tus ideas con herramientas potentes y fáciles de usar."
-      },
-      "monitoring": {
-        "title": "Monitoreo",
-        "description": "Mantente informado con monitoreo en tiempo real de noticias, mercados y temas que te interesan. El asistente te mantiene al tanto de forma proactiva para que nunca te pierdas nada."
-      },
-      "profile": {
-        "title": "Perfil de usuario",
-        "description": "Un perfil de usuario unificado te permite administrar tu identidad, facturación, créditos, preferencias de herramientas y configuraciones de proveedor de IA en todas las plataformas de chat. Ajusta todo: simplemente pide al asistente que abra tu configuración o escribe `/settings` en el chat."
-      },
-      "chat_settings": {
-        "title": "Configuración de chat",
-        "description": "Personaliza cómo se comporta el asistente en cada chat, incluido el idioma, el estilo de respuesta y las preferencias de notificaciones. Accede a estas opciones en cualquier momento pidiendo al asistente que abra la configuración o escribiendo `/settings` en el chat."
+      "costs": {
+        "title": "Entender los créditos y los costes",
+        "summary": "Consulta cómo se pagó cada tarea y elige cómo financiar el uso futuro.",
+        "example": "Muéstrame qué consumió créditos este mes y qué herramientas causaron ese consumo.",
+        "guide": "Compra créditos prepagados en Compras o añade tus propias claves de proveedor en Acceso. Uso muestra el pagador, el proveedor, la finalidad, los detalles de tokens o tiempo de ejecución, las transferencias, el uso patrocinado y las llamadas fallidas.",
+        "note": "Los costes varían según el modelo y el contenido. Una búsqueda puede generar más de una consulta facturada. Las llamadas fallidas siguen visibles, pero no descuentan créditos; el uso detallado se conserva durante 30 días."
       },
       "sponsorships": {
-        "title": "Patrocinios",
-        "description": "Comparte tu acceso al asistente con otros mientras mantienes privada tu uso y el de ellos. Los patrocinios te permiten extender los beneficios del asistente a amigos o familiares, y siempre puedes administrarlos a través del asistente o escribiendo `/settings` en el chat."
+        "title": "Patrocinar a otra persona",
+        "summary": "Financia el uso del Agente de otra persona sin compartir cuentas ni datos privados.",
+        "example": "Dar acceso a un familiar sin compartir mis claves de proveedor.",
+        "guide": "Un patrocinador puede financiar otro perfil mediante su identificador de plataforma sin compartir cuentas, claves, configuraciones ni chats. El patrocinador necesita créditos o al menos una clave de proveedor. Los nuevos destinatarios aceptan iniciando el Agente.",
+        "note": "No se admite el autopatrocinio, las cadenas de patrocinio ni destinatarios que tengan claves de proveedor o un patrocinador existente. Un patrocinio pendiente caduca a los 30 días y puede revocarse."
+      },
+      "profiles": {
+        "title": "Conectar Telegram y WhatsApp",
+        "summary": "Fusiona dos perfiles multiplataforma en una sola identidad del Agente.",
+        "example": "Usar una sola cuenta y saldo en Telegram y WhatsApp.",
+        "guide": "Abre Mi clave en un perfil e introduce esa clave desde el perfil de la otra plataforma. Los perfiles de Telegram y WhatsApp pueden fusionarse entre plataformas; se combinan los créditos, mensajes, alertas y relaciones de patrocinio.",
+        "note": "La fusión tiene consecuencias importantes: el perfil más antiguo prevalece en los ajustes en conflicto, la otra cuenta se elimina y la clave de conexión se renueva. Revisa ambos perfiles antes de continuar."
       }
     }
   },
@@ -613,6 +651,14 @@
   },
   "onboarding": {
     "page_title": "Comenzar",
+    "intro": "Cuatro pasos claros configuran el idioma, la personalidad, la inteligencia y el acceso que necesita {botName}.",
+    "progress": "Paso {current} de {total}",
+    "steps": {
+      "policies": "Políticas",
+      "profile": "Perfil",
+      "intelligence": "Inteligencia",
+      "access": "Acceso"
+    },
     "interface_language_label": "{botName} usará principalmente este idioma",
     "policy_prefix": "Estas políticas deben aceptarse antes de comenzar. ¿Las has leído y estás de acuerdo con ambas?",
     "policy_label": "Acepto",
@@ -621,13 +667,13 @@
     "access_credits_title": "Comprar créditos",
     "access_credits_description": "Usa créditos de prepago para tus interacciones de IA. No se necesitan claves API.",
     "finish": "¡Vamos!",
-    "start": "Empezar",
+    "continue": "Continuar",
     "waitlist_title": "Estás en la lista de espera",
     "waitlist_message": "Te notificaremos cuando sea posible activar tu cuenta de nuevo.",
     "success": "¡{botName} ya está listo! Vuelve a tu chat y pregunta lo que quieras."
   },
-  "check_out_project": "Ver el proyecto",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "Logo",
     "terms": "Términos de Servicio",
     "privacy": "Política de Privacidad",

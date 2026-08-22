@@ -1,7 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap");
-@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "tailwindcss" source(none);
 @import "tw-animate-css";
+
+/* tailwind's automatic source detection walks the whole project, which pulls class
+   names out of prose in markdown (openspec specs) and emits utilities nothing
+   renders. `source(none)` disables that, and detection is scoped to the app. */
+@source "../src";
 
 @tailwind utilities;
 
@@ -49,12 +53,19 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-success: var(--success);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-brand-coral: var(--brand-coral);
+  --color-brand-coral-light: var(--brand-coral-light);
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-plum: var(--brand-plum);
 }
 
 :root {
-  --font-heebo: "Heebo", "SF Pro Display", "Arial", sans-serif;
-  --font-playfair: "Playfair Display", "Georgia", "Times New Roman", serif;
-  --radius: 0.625rem;
+  --font-sans: "Inter Variable", "Inter", -apple-system, blinkmacsystemfont,
+    "Segoe UI", sans-serif;
+  --font-utility: "SFMono-Regular", consolas, "Liberation Mono", monospace;
+  --radius: 0.75rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
@@ -92,58 +103,58 @@
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
   --success: oklch(0.7471 0.1431 171.45);
+  --surface-raised: oklch(0.19 0.024 292);
+  --surface-subtle: oklch(0.15 0.018 292);
+  --brand-coral: oklch(0.72 0.18 25);
+  --brand-coral-light: oklch(0.82 0.13 25);
+  --brand-indigo: oklch(0.48 0.12 285);
+  --brand-plum: oklch(0.35 0.1 326);
 }
 
 .dark {
-  --background: oklch(0.15 0.0337 258.28);
-  --foreground: oklch(0.985 0.002 247.839);
-  --card: oklch(0.2 0.0337 258.28);
-  --card-foreground: oklch(0.985 0.002 247.839);
-  --popover: oklch(0.96 0.0173 360);
-  --popover-foreground: oklch(0.25 0.0888 360);
-  --primary: oklch(0.928 0.006 264.531);
-  --primary-foreground: oklch(0.21 0.034 264.665);
-  --secondary: oklch(0.278 0.033 256.848);
-  --secondary-foreground: oklch(0.985 0.002 247.839);
-  --tertiary: oklch(0.4191 0.0937 337.24);
-  --tertiary-foreground: oklch(0.985 0.002 247.839);
-  --muted: oklch(0.278 0.033 256.848);
-  --muted-foreground: oklch(0.707 0.022 261.325);
-  --accent: oklch(0.4 0.2174 17.05 / 30%);
-  --accent-dark: oklch(0.27 0.0797 342.21);
-  --accent-strong: oklch(0.7191 0.2072 17.05);
-  --accent-foreground: oklch(0.985 0.002 247.839);
-  --accent-amber: oklch(0.8044 0.1011 35.47);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
+  --background: oklch(0.105 0.012 292);
+  --foreground: oklch(0.96 0.012 78);
+  --card: oklch(0.17 0.021 292);
+  --card-foreground: oklch(0.96 0.012 78);
+  --popover: oklch(0.16 0.022 292);
+  --popover-foreground: oklch(0.96 0.012 78);
+  --primary: oklch(0.72 0.18 25);
+  --primary-foreground: oklch(0.13 0.018 292);
+  --secondary: oklch(0.21 0.029 292);
+  --secondary-foreground: oklch(0.95 0.012 78);
+  --tertiary: oklch(0.31 0.08 326);
+  --tertiary-foreground: oklch(0.96 0.012 78);
+  --muted: oklch(0.19 0.022 292);
+  --muted-foreground: oklch(0.7 0.022 282);
+  --accent: oklch(0.29 0.075 326);
+  --accent-dark: oklch(0.23 0.058 326);
+  --accent-strong: oklch(0.72 0.18 25);
+  --accent-foreground: oklch(0.97 0.01 78);
+  --accent-amber: oklch(0.78 0.12 62);
+  --destructive: oklch(0.68 0.2 24);
+  --border: oklch(0.9 0.015 285 / 12%);
+  --input: oklch(0.9 0.015 285 / 14%);
+  --ring: oklch(0.72 0.18 25);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.034 264.665);
-  --sidebar-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-accent: oklch(0.278 0.033 256.848);
-  --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
-  --success: oklch(0.7471 0.1431 171.45);
-}
-
-@layer typography {
-  .font-playfair {
-    font-family: var(--font-playfair);
-    letter-spacing: 0.05em;
-  }
-
-  .font-heebo {
-    font-family: var(--font-heebo);
-    letter-spacing: 0.01em;
-  }
+  --sidebar: oklch(0.13 0.016 292);
+  --sidebar-foreground: oklch(0.94 0.012 78);
+  --sidebar-primary: oklch(0.72 0.18 25);
+  --sidebar-primary-foreground: oklch(0.13 0.018 292);
+  --sidebar-accent: oklch(0.21 0.035 310);
+  --sidebar-accent-foreground: oklch(0.97 0.01 78);
+  --sidebar-border: oklch(0.9 0.015 285 / 10%);
+  --sidebar-ring: oklch(0.72 0.18 25);
+  --success: oklch(0.75 0.13 165);
+  --surface-raised: oklch(0.18 0.022 292);
+  --surface-subtle: oklch(0.145 0.017 292);
+  --brand-coral: oklch(0.72 0.18 25);
+  --brand-coral-light: oklch(0.82 0.13 25);
+  --brand-indigo: oklch(0.48 0.12 285);
+  --brand-plum: oklch(0.35 0.1 326);
 }
 
 @layer base {
@@ -151,22 +162,100 @@
     @apply border-border;
   }
 
-  body {
-    @apply text-foreground text-lg;
+  a[href]:not([aria-disabled="true"]),
+  button:not(:disabled),
+  summary,
+  select:not(:disabled),
+  input:is(
+      [type="button"],
+      [type="submit"],
+      [type="reset"],
+      [type="checkbox"],
+      [type="radio"],
+      [type="range"],
+      [type="color"],
+      [type="file"]
+    ):not(:disabled),
+  [role="button"]:not(:disabled, [aria-disabled="true"], [data-disabled]),
+  [role="link"]:not([aria-disabled="true"], [data-disabled]),
+  [role="menuitem"]:not([aria-disabled="true"], [data-disabled]),
+  [role="option"]:not([aria-disabled="true"], [data-disabled]),
+  [role="tab"]:not([aria-disabled="true"], [data-disabled]),
+  [role="checkbox"]:not([aria-disabled="true"], [data-disabled]),
+  [role="radio"]:not([aria-disabled="true"], [data-disabled]),
+  [role="switch"]:not([aria-disabled="true"], [data-disabled]) {
+    cursor: pointer;
+  }
 
-    background: linear-gradient(
-      to bottom right,
-      oklch(0.15 0.0337 258.28) 0%,
-      oklch(0.3 0.0641 271.06) 100%
-    ) !important;
+  body {
+    @apply bg-background text-foreground text-base antialiased;
+
+    min-width: 20rem;
+    background:
+      radial-gradient(
+        70rem 36rem at 78% -12%,
+        oklch(0.35 0.1 326 / 22%),
+        transparent 68%
+      ),
+      linear-gradient(
+        150deg,
+        oklch(0.105 0.012 292) 0%,
+        oklch(0.125 0.018 298) 100%
+      ) !important;
+    background-attachment: fixed !important;
   }
 }
 
 #root {
   @apply p-0 m-0 w-full h-full;
 
-  font-family: var(--font-heebo);
-  letter-spacing: 0.01em;
+  font-family: var(--font-sans);
+  letter-spacing: -0.008em;
+}
+
+.settings-pane-atmosphere {
+  --settings-pane-left-glow-opacity: 22%;
+
+  background:
+    radial-gradient(
+      52rem 34rem at 0% 0%,
+      oklch(0.4 0.12 326 / var(--settings-pane-left-glow-opacity)),
+      transparent 68%
+    ),
+    radial-gradient(
+      48rem 34rem at 100% 100%,
+      oklch(0.42 0.11 285 / 15%),
+      transparent 70%
+    );
+}
+
+.settings-section-content {
+  container-type: inline-size;
+}
+
+.settings-field {
+  width: 100%;
+  max-width: 36rem;
+}
+
+/* tool names share a long common prefix and are told apart by their tail, so the
+   ellipsis belongs at the start. css can only relocate it by flipping `direction`
+   on the clipping box; the label inside is wrapped in `<bdi>` so it still reads
+   left to right. do NOT add `unicode-bidi: plaintext` here — it re-derives
+   direction from the first strong character and cancels the flip. */
+.truncate-start {
+  direction: rtl;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+@media (width < 40rem) {
+  .settings-pane-atmosphere {
+    --settings-pane-left-glow-opacity: 14%;
+  }
 }
 
 ::selection {
@@ -174,219 +263,41 @@
   color: oklch(0.8574 0.0913 360);
 }
 
-.text-accent-strong {
-  color: var(--color-accent-strong);
+.font-mono {
+  font-family: var(--font-utility);
 }
 
-.glass {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 7%);
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 4%) 0%,
-    rgb(255 255 255 / 8%) 100%
-  );
-  backdrop-filter: blur(10px);
+/* the customization section expands and collapses on a grid-row transition so it
+   animates both in and out. tailwind 4.3.3 emits the `animate-*` shorthand
+   without separators, and radix collapsible sets `hidden` (display:none) while
+   closed, so neither can animate this — hence the explicit rules. */
+.settings-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 300ms ease-out;
 }
 
-.glass-static {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 7%) !important;
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 4%) 0%,
-    rgb(255 255 255 / 8%) 100%
-  ) !important;
-  backdrop-filter: blur(10px);
+.settings-reveal > * {
+  min-height: 0;
+  overflow: hidden;
 }
 
-.glass:hover {
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 5%) 0%,
-    rgb(255 255 255 / 10%) 100%
-  );
-  backdrop-filter: blur(10px);
+.settings-reveal[data-expanded="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
-.glass-active {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 15%);
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 15%) 0%,
-    rgb(255 255 255 / 40%) 100%
-  );
-  backdrop-filter: blur(10px);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.glass-active-static {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 15%) !important;
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 15%) 0%,
-    rgb(255 255 255 / 40%) 100%
-  ) !important;
-  backdrop-filter: blur(10px);
-}
-
-.glass-active:hover {
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 25%) 0%,
-    rgb(255 255 255 / 50%) 100%
-  ) !important;
-  backdrop-filter: blur(10px);
-}
-
-.glass-dark {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 7%);
-  background: linear-gradient(
-    to bottom right,
-    oklch(0.2 0.0543 262.66 / 60%) 0%,
-    oklch(0.25 0.0543 262.66 / 70%) 100%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-dark-static {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 9%) !important;
-  background: linear-gradient(
-    to bottom right,
-    oklch(0.2 0.0543 262.66 / 60%) 0%,
-    oklch(0.25 0.0543 262.66 / 70%) 100%
-  ) !important;
-  backdrop-filter: blur(10px);
-}
-
-.glass-dark:hover {
-  @apply transition-all duration-200 ease-in-out;
-
-  background: linear-gradient(
-    to bottom right,
-    oklch(0.22 0.0543 262.66 / 60%) 0%,
-    oklch(0.33 0.0543 262.66 / 70%) 100%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-accent-static {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(from var(--color-accent-strong) r g b / 50%) !important;
-  background: linear-gradient(
-    to bottom right,
-    rgb(from var(--color-accent-dark) r g b / 60%) 30%,
-    rgb(from var(--color-accent-strong) r g b / 70%) 250%
-  ) !important;
-  backdrop-filter: blur(10px);
-}
-
-.dotted-underline {
-  /* stylelint-disable declaration-block-no-redundant-longhand-properties */
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: #93c5fd50;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
-  /* stylelint-enable declaration-block-no-redundant-longhand-properties */
-}
-
-.glass-muted {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: rgb(255 255 255 / 7%);
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 2%) 0%,
-    rgb(255 255 255 / 5%) 100%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-muted:hover {
-  background: linear-gradient(
-    to bottom right,
-    rgb(255 255 255 / 4%) 0%,
-    rgb(255 255 255 / 8%) 100%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-purple {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: oklch(0.7 0.12 280 / 20%);
-  background: linear-gradient(
-    to bottom right,
-    oklch(62.539% 0.1719 290.717 / 5%) -10%,
-    oklch(61.943% 0.1637 277.367 / 15%) -10%,
-    oklch(62.231% 0.2541 304.019 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-purple:hover {
-  background: linear-gradient(
-    to bottom right,
-    oklch(70.493% 0.1937 322.027 / 5%) -10%,
-    oklch(61.943% 0.1637 277.367 / 15%) -10%,
-    oklch(69.835% 0.2733 322.014 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-red {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: oklch(0.7 0.12 280 / 20%);
-  background: linear-gradient(
-    to bottom right,
-    oklch(69.951% 0.1587 351.697 / 5%) -10%,
-    oklch(68.75% 0.1467 13.248 / 15%) -10%,
-    oklch(67.725% 0.2165 11.701 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-red:hover {
-  background: linear-gradient(
-    to bottom right,
-    oklch(74.8% 0.1432 350.571 / 5%) -10%,
-    oklch(75.207% 0.1389 12.598 / 15%) -10%,
-    oklch(71.782% 0.1831 8.404 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-green {
-  @apply transition-all duration-200 ease-in-out;
-
-  border-color: oklch(0.7 0.12 280 / 20%);
-  background: linear-gradient(
-    to bottom right,
-    oklch(83.603% 0.1568 151.859 / 5%) -10%,
-    oklch(83.435% 0.1652 149.386 / 15%) -10%,
-    oklch(90.093% 0.1535 174.78 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}
-
-.glass-green:hover {
-  background: linear-gradient(
-    to bottom right,
-    oklch(86.805% 0.1514 152.352 / 5%) -10%,
-    oklch(88.353% 0.1609 149.731 / 15%) -10%,
-    oklch(90.691% 0.1427 175.674 / 25%) 80%
-  );
-  backdrop-filter: blur(10px);
-}

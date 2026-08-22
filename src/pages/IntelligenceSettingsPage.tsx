@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { toast } from "sonner";
@@ -16,6 +16,7 @@ import {
   Key,
   ShoppingCart,
   Lightbulb,
+  UserRound,
 } from "lucide-react";
 import {
   saveUserSettings,
@@ -34,6 +35,8 @@ import {
   detectCurrentPreset,
 } from "@/lib/tool-presets";
 import CardSelector from "@/components/CardSelector";
+import SettingsSection from "@/components/settings/SettingsSection";
+import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 
 const IntelligenceSettingsPage: React.FC = () => {
   const { user_id, lang_iso_code } = useParams<{
@@ -44,7 +47,8 @@ const IntelligenceSettingsPage: React.FC = () => {
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
 
-  const { navigateToAccess, navigateToPurchases } = useNavigation();
+  const { navigateToAccess, navigateToPurchases, navigateToProfile } =
+    useNavigation();
 
   const { userSettings: remoteSettings, updateSettingsCache } = useUserSettings(
     user_id,
@@ -61,6 +65,8 @@ const IntelligenceSettingsPage: React.FC = () => {
   const [openAccordionSection, setOpenAccordionSection] = useState<string>("");
   const [selectedPreset, setSelectedPreset] = useState<ToolPreset | null>(null);
   const [isWarningDismissed, setIsWarningDismissed] = useState(false);
+  const customSectionRef = useRef<HTMLDivElement>(null);
+  const hasScrolledToCustom = useRef(false);
 
   if (remoteSettings && !userSettings) {
     setUserSettings(remoteSettings);
@@ -72,6 +78,23 @@ const IntelligenceSettingsPage: React.FC = () => {
       setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
     }
   }, [remoteSettings, lang_iso_code, user_id, error, setError]);
+
+  // scroll the customization section into view once it has expanded, both when
+  // the user picks custom and when the loaded settings already are custom. the
+  // delay lets the reveal transition play instead of being cut short by the jump
+  useEffect(() => {
+    if (selectedPreset !== "custom" || hasScrolledToCustom.current) return;
+    const section = customSectionRef.current;
+    if (!section) return;
+    hasScrolledToCustom.current = true;
+    const timer = setTimeout(() => {
+      const headerOffset = 96;
+      const top =
+        section.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 180);
+    return () => clearTimeout(timer);
+  }, [selectedPreset]);
 
   const hasSettingsChanged = !!(
     userSettings &&
@@ -136,6 +159,10 @@ const IntelligenceSettingsPage: React.FC = () => {
   const handlePresetChange = (preset: string) => {
     const typedPreset = preset as ToolPreset;
     setSelectedPreset(typedPreset);
+    if (typedPreset !== "custom") {
+      // allow the reveal-and-scroll to run again next time custom is picked
+      hasScrolledToCustom.current = false;
+    }
     if (typedPreset === "custom" || !userSettings || !externalToolsData) return;
     const choices = computePresetChoices(typedPreset, externalToolsData.presets);
     const newSettings = { ...userSettings };
@@ -189,6 +216,18 @@ const IntelligenceSettingsPage: React.FC = () => {
       isContentLoading={isLoadingState || isExternalToolsLoading}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
+      contentVariant="flow"
+      followupContent={
+        <SettingsGuideChip
+          icon={UserRound}
+          label={t("configure_profile")}
+          onActionClicked={() => {
+            if (user_id && lang_iso_code) {
+              navigateToProfile(user_id, lang_iso_code);
+            }
+          }}
+        />
+      }
       topBanner={
         showNoAccessWarning ? (
           <WarningBanner
@@ -207,40 +246,51 @@ const IntelligenceSettingsPage: React.FC = () => {
       }
     >
       {externalToolsData ? (
-        <>
-          <CardSelector
-            value={selectedPreset}
-            remoteValue={remotePreset}
-            onChange={handlePresetChange}
-            disabled={!!error?.isBlocker}
-            options={[
-              { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
-              { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },
-              { value: "agent_choice", icon: Scale, title: t("intelligence_presets.agent_choice"), description: t("intelligence_presets.agent_choice_description") },
-              { value: "custom", icon: Settings, title: t("intelligence_presets.custom"), description: t("intelligence_presets.custom_description") },
-            ]}
-          />
-          {selectedPreset === "custom" && (
-            <>
-              <div className="h-4" />
-              <h3 className="leading-none font-semibold text-center mx-auto mt-14 text-bas text-blue-300">
-                {t("detailed_tool_choices")}
-              </h3>
-              <AdvancedToolsPanel
-                tools={externalToolsData.tools}
-                providers={externalToolsData.providers}
-                userSettings={userSettings}
-                remoteSettings={remoteSettings}
-                onToolChoiceChange={handleToolChoiceChange}
-                disabled={!!error?.isBlocker}
-                onProviderNavigate={handleProviderNavigate}
-                hasCredits={hasCredits}
-                openSection={openAccordionSection}
-                onOpenSectionChange={setOpenAccordionSection}
-              />
-            </>
-          )}
-        </>
+        <div className="flex flex-col">
+          <SettingsSection title={t("intelligence_preset_title")}>
+            <CardSelector
+              value={selectedPreset}
+              remoteValue={remotePreset}
+              onChange={handlePresetChange}
+              disabled={!!error?.isBlocker}
+              options={[
+                { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
+                { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },
+                { value: "agent_choice", icon: Scale, title: t("intelligence_presets.agent_choice"), description: t("intelligence_presets.agent_choice_description") },
+                { value: "custom", icon: Settings, title: t("intelligence_presets.custom"), description: t("intelligence_presets.custom_description") },
+              ]}
+            />
+          </SettingsSection>
+          <div
+            className="settings-reveal"
+            data-expanded={selectedPreset === "custom"}
+            // the content stays mounted so it can animate out, so `inert` is what
+            // keeps a collapsed section out of the tab order and a11y tree
+            inert={selectedPreset !== "custom"}
+          >
+            {/* the gap lives inside the animated region so a collapsed section
+                leaves no leftover space above it */}
+            <div ref={customSectionRef} className="pt-[1.25rem]">
+              <SettingsSection
+                title={t("detailed_tool_choices")}
+                contentClassName="gap-5"
+              >
+                <AdvancedToolsPanel
+                  tools={externalToolsData.tools}
+                  providers={externalToolsData.providers}
+                  userSettings={userSettings}
+                  remoteSettings={remoteSettings}
+                  onToolChoiceChange={handleToolChoiceChange}
+                  disabled={!!error?.isBlocker}
+                  onProviderNavigate={handleProviderNavigate}
+                  hasCredits={hasCredits}
+                  openSection={openAccordionSection}
+                  onOpenSectionChange={setOpenAccordionSection}
+                />
+              </SettingsSection>
+            </div>
+          </div>
+        </div>
       ) : !isLoadingState ? (
         <div className="flex flex-col items-center space-y-10 text-center mt-12">
           <Sparkles className="h-12 w-12 text-accent-amber" />

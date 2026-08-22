@@ -71,7 +71,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
       url: donationProduct.url,
       label: getProductLabel(donationProduct.id, donationProduct.name),
       icon: <Coffee className="h-4 w-4 shrink-0 text-teal-200" />,
-      itemClassName: "glass-green",
+      itemClassName: "bg-[oklch(0.25_0.06_160)]/60 border border-teal-400/20",
     });
   }
   if (shopUrl) {
@@ -79,7 +79,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
       url: shopUrl,
       label: t("products.shop.open_shop"),
       icon: <InfinityIcon className="h-4 w-4 shrink-0 text-teal-200" />,
-      itemClassName: "glass-green",
+      itemClassName: "bg-[oklch(0.25_0.06_160)]/60 border border-teal-400/20",
     });
   }
 
@@ -124,7 +124,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
                 rel="noopener noreferrer"
                 onClick={onClose}
                 className={cn(
-                  "flex items-center justify-between px-5 py-4 glass-muted border cursor-pointer w-full",
+                  "flex items-center justify-between px-5 py-4 bg-surface-subtle/50 border cursor-pointer w-full",
                   getListItemClasses(index, creditPacks.length),
                 )}
               >
@@ -162,8 +162,11 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[500px] glass-dark-static p-[2.5rem] rounded-3xl" showCloseButton={false}>
-          <DialogClose className="absolute top-8 right-8 glass rounded-full cursor-pointer h-7 w-7 flex items-center justify-center">
+        <DialogContent
+          className="flex max-h-[calc(100dvh-3rem)] flex-col overflow-hidden rounded-3xl border border-border/80 bg-card/90 p-[2.5rem] sm:max-w-[500px]"
+          showCloseButton={false}
+        >
+          <DialogClose className="absolute top-8 right-8 bg-surface-raised/50 border border-border/60 rounded-full cursor-pointer h-7 w-7 flex items-center justify-center">
             <X className="h-4 w-4" />
             <span className="sr-only">{t("close")}</span>
           </DialogClose>
@@ -173,7 +176,13 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
               <DialogTitle className="text-white">{t("products.shop.title")}</DialogTitle>
             </div>
           </DialogHeader>
-          <ProductPickerContent products={products} shopUrl={shopUrl} onClose={() => onOpenChange(false)} />
+          <div className="min-h-0 overflow-y-auto pe-1">
+            <ProductPickerContent
+              products={products}
+              shopUrl={shopUrl}
+              onClose={() => onOpenChange(false)}
+            />
+          </div>
         </DialogContent>
       </Dialog>
     );
@@ -181,7 +190,7 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="glass-dark-static p-[1rem] pb-[max(2rem,env(safe-area-inset-bottom))] rounded-t-3xl">
+      <DrawerContent className="bg-card/90 border border-border/80 p-[1rem] pb-[max(2rem,env(safe-area-inset-bottom))] rounded-t-3xl">
         <DrawerHeader className="mt-[2rem]">
           <div className="flex items-center gap-3">
             <ShoppingCart className="w-5 h-5 opacity-80 shrink-0" />

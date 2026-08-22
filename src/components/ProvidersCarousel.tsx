@@ -1,14 +1,14 @@
 import React from "react";
-import { ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ExternalLink } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-
+import { Button } from "@/components/ui/button";
 import SettingInput from "@/components/SettingInput";
-import { Info } from "lucide-react";
+import SettingsSection from "@/components/settings/SettingsSection";
 import { t } from "@/lib/translations";
 import { ExternalToolProvider } from "@/services/external-tools-service";
 import {
@@ -17,28 +17,23 @@ import {
 } from "@/services/user-settings-service";
 import { formatToolsForDisplay as format } from "@/services/external-tools-service";
 import ProviderIcon from "@/components/ProviderIcon";
-import { cn } from "@/lib/utils";
 
 interface ProvidersCarouselProps {
   providers: ExternalToolProvider[];
   userSettings: UserSettings | null;
-  providerConfigStatus?: Map<string, boolean>;
   onSettingChange: (providerId: string, value: string) => void;
   disabled?: boolean;
   setNavigationApi?: (navigateTo: (providerId: string) => void) => void;
   setApi?: (api: CarouselApi) => void;
-  onNavigateToIntelligence?: () => void;
 }
 
 const ProvidersCarousel: React.FC<ProvidersCarouselProps> = ({
   providers,
   userSettings,
-  providerConfigStatus,
   onSettingChange,
   disabled = false,
   setNavigationApi,
   setApi: setParentApi,
-  onNavigateToIntelligence,
 }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -67,14 +62,9 @@ const ProvidersCarousel: React.FC<ProvidersCarouselProps> = ({
     if (!api || !setNavigationApi) return;
 
     const navigateTo = (providerId: string) => {
-      console.log("Navigating to provider:", providerId);
       const index = providers.findIndex((p) => p.id === providerId);
-      console.log("Provider index:", index, "out of", providers.length);
       if (index !== -1) {
-        console.log("Calling scrollTo:", index);
         api.scrollTo(index);
-      } else {
-        console.warn("Provider not found:", providerId);
       }
     };
 
@@ -92,128 +82,119 @@ const ProvidersCarousel: React.FC<ProvidersCarouselProps> = ({
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
 
   return (
-    <Carousel setApi={setApi} className="w-full max-w-sm sm:max-w-lg mx-auto">
-      <CarouselContent>
-        {providers.map((provider) => (
-          <CarouselItem key={provider.id} className="px-2 sm:px-0">
-            <div className="space-y-8 px-2">
-              {/* Header with logo and navigation */}
-              <div className="flex items-center justify-center space-x-16">
+    <Carousel setApi={setApi} className="w-full">
+      <CarouselContent className="ms-0">
+        {providers.map((provider) => {
+          return (
+            <CarouselItem key={provider.id} className="ps-0">
+              <SettingsSection className="relative overflow-hidden">
+                {/* gradient edge nav — sm+ only */}
                 {canScrollPrev && !disabled && (
-                  <button
+                  <Button
+                    type="button"
+                    variant="ghost"
                     onClick={() => api?.scrollPrev()}
-                    className="h-8 w-8 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors focus:outline-none flex items-center justify-center"
+                    aria-label={t("back")}
+                    className="group absolute inset-y-0 start-0 z-10 hidden h-auto w-20 cursor-pointer items-center justify-start rounded-none bg-gradient-to-r from-[oklch(0.16_0.021_292)] to-transparent ps-4 hover:from-[oklch(0.12_0.018_292)] hover:bg-transparent dark:hover:bg-transparent sm:flex"
                   >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
+                    <ChevronsLeft className="h-5 w-5 text-foreground/50 transition-all duration-200 group-hover:text-foreground/90 group-hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
+                  </Button>
+                )}
+                {canScrollNext && !disabled && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => api?.scrollNext()}
+                    aria-label={t("next")}
+                    className="group absolute inset-y-0 end-0 z-10 hidden h-auto w-20 cursor-pointer items-center justify-end rounded-none bg-gradient-to-l from-[oklch(0.16_0.021_292)] to-transparent pe-4 hover:from-[oklch(0.12_0.018_292)] hover:bg-transparent dark:hover:bg-transparent sm:flex"
+                  >
+                    <ChevronsRight className="h-5 w-5 text-foreground/50 transition-all duration-200 group-hover:text-foreground/90 group-hover:drop-shadow-[0_0_6px_oklch(0.6_0.15_285/0.6)]" />
+                  </Button>
                 )}
 
-                {!canScrollPrev && <div className="h-8 w-8" />}
+                <div className="flex flex-col items-center gap-6 sm:mx-20">
+                  {/* header with logo and inline nav (narrow only) */}
+                  <div className="relative flex w-full items-center justify-center px-10 py-1 sm:px-0">
+                    {canScrollPrev && !disabled && (
+                      <Button
+                        variant="utility"
+                        size="icon"
+                        className="absolute start-0 h-8 w-8 rounded-full sm:hidden"
+                        onClick={() => api?.scrollPrev()}
+                        aria-label={t("back")}
+                      >
+                        <ChevronLeft className="h-5 w-5" />
+                      </Button>
+                    )}
 
-                <div className="flex flex-col items-center justify-center space-y-2">
-                  <div className="flex items-center justify-center w-10 h-10">
-                    <ProviderIcon
-                      providerId={provider.id}
-                      className="w-full h-full"
-                      alt={`${provider.name} logo`}
-                    />
-                    {!provider.id && (
-                      <span className="text-white text-lg font-bold text-center">
-                        {provider.name.charAt(0).toUpperCase()}
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="flex h-10 w-10 items-center justify-center">
+                        <ProviderIcon
+                          providerId={provider.id}
+                          className="w-full h-full"
+                          alt={`${provider.name} logo`}
+                        />
+                      </div>
+                      <span className="text-base font-bold text-foreground/90 text-center">
+                        {provider.name}
                       </span>
+                    </div>
+
+                    {canScrollNext && !disabled && (
+                      <Button
+                        variant="utility"
+                        size="icon"
+                        className="absolute end-0 h-8 w-8 rounded-full sm:hidden"
+                        onClick={() => api?.scrollNext()}
+                        aria-label={t("next")}
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </Button>
                     )}
                   </div>
-                  <span className="text-white/90 text-base font-bold text-center">
-                    {provider.name}
-                  </span>
-                </div>
 
-                {canScrollNext && !disabled && (
-                  <button
-                    onClick={() => api?.scrollNext()}
-                    className="h-8 w-8 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors focus:outline-none flex items-center justify-center"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                )}
+                  {/* setting input */}
+                  <SettingInput
+                    id={`token-${provider.id}`}
+                    label={t("provider_needed_for", {
+                      botName,
+                      tools: format(provider.tools),
+                    })}
+                    value={
+                      (userSettings?.[
+                        getSettingsFieldName(
+                          provider.id,
+                        ) as keyof typeof userSettings
+                      ] as string) || ""
+                    }
+                    onChange={(value) => onSettingChange(provider.id, value)}
+                    disabled={disabled}
+                    placeholder={provider.token_format}
+                    type="text"
+                    autoComplete="off"
+                    spellCheck={false}
+                    inputClassName="font-mono"
+                    onClear={() => onSettingChange(provider.id, "")}
+                    className="settings-field"
+                  />
 
-                {!canScrollNext && <div className="h-8 w-8" />}
-              </div>
-
-              {/* Setting input */}
-              <SettingInput
-                id={`token-${provider.id}`}
-                label={t("provider_needed_for", {
-                  botName,
-                  tools: format(provider.tools),
-                })}
-                value={
-                  (userSettings?.[
-                    getSettingsFieldName(
-                      provider.id
-                    ) as keyof typeof userSettings
-                  ] as string) || ""
-                }
-                onChange={(value) => onSettingChange(provider.id, value)}
-                disabled={disabled}
-                placeholder={provider.token_format}
-                type="text"
-                autoComplete="off"
-                spellCheck={false}
-                inputClassName="font-mono"
-                labelClassName="flex items-center leading-tight"
-                onClear={() => onSettingChange(provider.id, "")}
-              />
-
-              {/* Info links */}
-              <div className="flex flex-col space-y-2 ps-2 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-2">
-                  <Info className="h-4 w-4 text-accent-amber/70" />
+                  {/* info link */}
                   <a
                     href={provider.token_management_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer"
+                    className="ms-1 inline-flex items-center gap-2 text-sm text-blue-200/80 underline underline-offset-3 decoration-blue-300/40 transition-colors hover:text-blue-100"
                   >
                     {t("where_is_my_key", {
                       providerName: provider.name,
                     })}
+                    <ExternalLink className="h-3.5 w-3.5 shrink-0" />
                   </a>
                 </div>
-
-                {onNavigateToIntelligence &&
-                  (() => {
-                    const isConfigured =
-                      providerConfigStatus?.get(provider.id) ?? false;
-                    return (
-                      <div className="flex items-center space-x-2">
-                        <ChevronsRight
-                          className={cn(
-                            "h-4 w-4",
-                            isConfigured
-                              ? "text-accent-amber/70"
-                              : "text-muted-foreground/50"
-                          )}
-                        />
-                        {isConfigured ? (
-                          <button
-                            onClick={onNavigateToIntelligence}
-                            className="underline underline-offset-3 decoration-accent-amber/70 text-accent-amber/70 hover:text-accent-amber cursor-pointer"
-                          >
-                            {t("configure_intelligence")}
-                          </button>
-                        ) : (
-                          <span className="text-muted-foreground/50 cursor-not-allowed">
-                            {t("configure_intelligence")}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-              </div>
-            </div>
-          </CarouselItem>
-        ))}
+              </SettingsSection>
+            </CarouselItem>
+          );
+        })}
       </CarouselContent>
     </Carousel>
   );

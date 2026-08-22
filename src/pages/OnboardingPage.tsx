@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { PageError, cn } from "@/lib/utils";
@@ -25,6 +25,8 @@ import SettingToggle from "@/components/SettingToggle";
 import SettingInput from "@/components/SettingInput";
 import SettingTextarea from "@/components/SettingTextarea";
 import SettingSelector from "@/components/SettingSelector";
+import SettingsSection from "@/components/settings/SettingsSection";
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -32,17 +34,15 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import {
-  Wallet,
-  Sparkles,
-  Scale,
-  Key,
   BadgeCent,
-  HeartHandshake,
-  Clock,
   ChevronLeft,
-  ScrollText,
-  UserRound,
-  Split,
+  ChevronRight,
+  Clock,
+  HeartHandshake,
+  Key,
+  Scale,
+  Sparkles,
+  Wallet,
 } from "lucide-react";
 
 type AccessChoice = "api_keys" | "credits";
@@ -56,22 +56,25 @@ const OnboardingPage: React.FC = () => {
     user_id: string;
     lang_iso_code: string;
   }>();
-
   const location = useLocation();
-
-  const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
-    usePageSession();
-
+  const {
+    error,
+    accessToken,
+    isLoadingState,
+    setError,
+    setIsLoadingState,
+  } = usePageSession();
   const { userSettings: remoteSettings, updateSettingsCache } = useUserSettings(
     user_id,
     accessToken?.raw,
   );
-
-  const { navigateToAccess, navigateToPurchases, navigateToSponsorships, navigateWithLanguageChange } =
-    useNavigation();
-
+  const {
+    navigateToAccess,
+    navigateToPurchases,
+    navigateToSponsorships,
+    navigateWithLanguageChange,
+  } = useNavigation();
   const { externalTools } = useExternalTools(user_id, accessToken?.raw);
-
   const {
     chats,
     isLoading: areChatsLoading,
@@ -83,9 +86,8 @@ const OnboardingPage: React.FC = () => {
   const [aboutMe, setAboutMe] = useState("");
   const [customPrompt, setCustomPrompt] = useState("");
   const [hasSyncedRemote, setHasSyncedRemote] = useState(false);
-  const [selectedPreset, setSelectedPreset] = useState<IntelligencePreset | null>(
-    "agent_choice",
-  );
+  const [selectedPreset, setSelectedPreset] =
+    useState<IntelligencePreset | null>("agent_choice");
   const [accessChoice, setAccessChoice] = useState<AccessChoice | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | undefined>();
@@ -99,6 +101,7 @@ const OnboardingPage: React.FC = () => {
 
   useEffect(() => {
     if (!carouselApi) return;
+
     const updateIndex = () => setCurrentStep(carouselApi.selectedScrollSnap());
     updateIndex();
     carouselApi.on("select", updateIndex);
@@ -110,22 +113,39 @@ const OnboardingPage: React.FC = () => {
   const isWaitlisted = !!(
     remoteSettings?.is_on_waitlist && !remoteSettings?.is_invited_to_start
   );
-
   const isSponsored = !!remoteSettings?.is_sponsored;
-
+  const hasPresets = externalTools?.presets !== undefined;
   const canFinish =
     isPolicyAccepted &&
     selectedPreset !== null &&
-    !!externalTools?.presets &&
+    hasPresets &&
     (isSponsored || accessChoice !== null) &&
     currentStep === TOTAL_STEPS - 1;
+  const canContinue =
+    currentStep === 0
+      ? isPolicyAccepted
+      : currentStep === 1
+        ? true
+        : currentStep === 2
+          ? selectedPreset !== null && hasPresets
+          : isSponsored || accessChoice !== null;
+  const isInteractionDisabled = !!error?.isBlocker;
 
-  const handleNext = () => carouselApi?.scrollNext();
+  const handleNext = () => {
+    if (canContinue) carouselApi?.scrollNext();
+  };
   const handlePrev = () => carouselApi?.scrollPrev();
 
   const handleFinish = async () => {
     const presets = externalTools?.presets;
-    if (!user_id || !accessToken || !selectedPreset || !presets) return;
+    if (
+      !user_id ||
+      !lang_iso_code ||
+      !accessToken ||
+      !selectedPreset ||
+      !presets
+    )
+      return;
     if (!isSponsored && !accessChoice) return;
 
     setIsLoadingState(true);
@@ -145,9 +165,13 @@ const OnboardingPage: React.FC = () => {
         (payload as Record<string, unknown>)[fieldName] = toolId;
       }
 
-      const llmLanguageMatch = LLM_LANGUAGES.find((l) => l.isoCode === lang_iso_code);
+      const llmLanguageMatch = LLM_LANGUAGES.find(
+        (language) => language.isoCode === lang_iso_code,
+      );
       if (!llmLanguageMatch) {
-        throw new Error(`No LLM language matches interface language '${lang_iso_code}'`);
+        throw new Error(
+          `No LLM language matches interface language '${lang_iso_code}'`,
+        );
       }
       if (areChatsLoading) {
         throw new Error("Chat settings are still loading");
@@ -156,9 +180,11 @@ const OnboardingPage: React.FC = () => {
         throw chatsError;
       }
 
-      const ownChats = chats.filter((c) => c.chat_config.is_own);
+      const ownChats = chats.filter((chat) => chat.chat_config.is_own);
       if (ownChats.length === 0) {
-        throw new Error("No own chats are available for the language update");
+        throw new Error(
+          "No own chats are available for the language update",
+        );
       }
       await Promise.all(
         ownChats.map((chat) =>
@@ -192,11 +218,11 @@ const OnboardingPage: React.FC = () => {
 
       toast(t("onboarding.success", { botName }));
       if (isSponsored) {
-        navigateToSponsorships(user_id, lang_iso_code!);
+        navigateToSponsorships(user_id, lang_iso_code);
       } else if (accessChoice === "api_keys") {
-        navigateToAccess(user_id, lang_iso_code!);
+        navigateToAccess(user_id, lang_iso_code);
       } else {
-        navigateToPurchases(user_id, lang_iso_code!);
+        navigateToPurchases(user_id, lang_iso_code);
       }
     } catch (err) {
       console.error("Error during onboarding!", err);
@@ -211,241 +237,317 @@ const OnboardingPage: React.FC = () => {
   };
 
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
+  const steps = [
+    t("onboarding.steps.policies"),
+    t("onboarding.steps.profile"),
+    t("onboarding.steps.intelligence"),
+    t("onboarding.steps.access"),
+  ];
+  const activeStep = steps[currentStep];
+
+  const renderStep = () => {
+    if (currentStep === 0) {
+      return (
+        <div className="flex flex-col gap-7">
+          <SettingSelector
+            label={t("onboarding.interface_language_label", { botName })}
+            value={lang_iso_code}
+            onChange={(isoCode) =>
+              navigateWithLanguageChange(isoCode, location.pathname)
+            }
+            options={INTERFACE_LANGUAGES.map((language) => ({
+              value: language.isoCode,
+              label: <LanguageItemContent lang={language} />,
+              disabled: language.isoCode === lang_iso_code,
+            }))}
+            disabled={isInteractionDisabled}
+          />
+          <div className="space-y-4">
+            <p className="text-sm leading-6 text-muted-foreground">
+              {t("onboarding.policy_prefix")}
+              <span className="mt-[0.5rem] block">
+                <a
+                  href={TERMS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+                >
+                  {t("footer.terms")}
+                </a>
+                {" · "}
+                <a
+                  href={PRIVACY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+                >
+                  {t("footer.privacy")}
+                </a>
+              </span>
+            </p>
+            <SettingToggle
+              id="policy-accept"
+              label={t("onboarding.policy_label")}
+              checked={isPolicyAccepted}
+              onChange={(checked) => {
+                setIsPolicyAccepted(checked);
+                if (checked) {
+                  window.setTimeout(() => carouselApi?.scrollNext(), 100);
+                }
+              }}
+              disabled={isInteractionDisabled || isPolicyAccepted}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    if (currentStep === 1) {
+      return (
+        <div className="flex flex-col gap-6">
+          <SettingInput
+            id="full-name"
+            label={t("profile_full_name_label", { botName })}
+            value={fullName}
+            onChange={setFullName}
+            onClear={() => setFullName("")}
+            disabled={isInteractionDisabled || !isPolicyAccepted}
+            placeholder={t("profile_full_name_placeholder")}
+          />
+          <SettingTextarea
+            id="about-me"
+            label={t("about_me_label", { botName })}
+            value={aboutMe}
+            onChange={setAboutMe}
+            onClear={() => setAboutMe("")}
+            disabled={isInteractionDisabled || !isPolicyAccepted}
+            placeholder={
+              isPolicyAccepted
+                ? t("about_me_placeholder", {
+                    name: fullName || t("about_me_name_fallback"),
+                  })
+                : "—"
+            }
+            minRows={2}
+            maxRows={6}
+          />
+          <SettingTextarea
+            id="custom-prompt"
+            label={t("custom_prompt_label", { botName })}
+            value={customPrompt}
+            onChange={setCustomPrompt}
+            onClear={() => setCustomPrompt("")}
+            disabled={isInteractionDisabled || !isPolicyAccepted}
+            placeholder={
+              isPolicyAccepted
+                ? t("custom_prompt_placeholder", { botName })
+                : "—"
+            }
+            minRows={2}
+            maxRows={6}
+          />
+        </div>
+      );
+    }
+
+    if (currentStep === 2) {
+      return (
+        <CardSelector
+          value={selectedPreset}
+          onChange={(value) =>
+            setSelectedPreset(value as IntelligencePreset)
+          }
+          disabled={isInteractionDisabled || !isPolicyAccepted}
+          options={[
+            {
+              value: "lowest_price",
+              icon: Wallet,
+              title: t("intelligence_presets.lowest_price"),
+              description: t(
+                "intelligence_presets.lowest_price_description",
+              ),
+            },
+            {
+              value: "highest_price",
+              icon: Sparkles,
+              title: t("intelligence_presets.highest_price"),
+              description: t(
+                "intelligence_presets.highest_price_description",
+              ),
+            },
+            {
+              value: "agent_choice",
+              icon: Scale,
+              title: t("intelligence_presets.agent_choice"),
+              description: t(
+                "intelligence_presets.agent_choice_description",
+              ),
+            },
+          ]}
+        />
+      );
+    }
+
+    if (isSponsored) {
+      return (
+        <div className="flex items-start gap-4 rounded-xl border border-success/25 bg-success/8 px-5 py-5">
+          <HeartHandshake className="mt-0.5 size-6 shrink-0 text-success" />
+          <div className="space-y-1">
+            <p className="font-semibold text-foreground">{t("sponsorships")}</p>
+            <p className="text-sm leading-6 text-muted-foreground">
+              {t("sponsorship.you_are_sponsored")}
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <CardSelector
+        value={accessChoice}
+        onChange={(value) => setAccessChoice(value as AccessChoice)}
+        disabled={isInteractionDisabled || !isPolicyAccepted}
+        options={[
+          {
+            value: "credits",
+            icon: BadgeCent,
+            title: t("onboarding.access_credits_title"),
+            description: t("onboarding.access_credits_description"),
+          },
+          {
+            value: "api_keys",
+            icon: Key,
+            title: t("onboarding.access_api_keys_title"),
+            description: t("onboarding.access_api_keys_description"),
+          },
+        ]}
+      />
+    );
+  };
+
   return (
     <BaseSettingsPage
       page="onboarding"
-      onActionClicked={
-        currentStep === TOTAL_STEPS - 1 ? handleFinish : handleNext
-      }
-      actionDisabled={
-        currentStep === TOTAL_STEPS - 1
-          ? !canFinish
-          : currentStep === 0 && !isPolicyAccepted
-      }
-      actionButtonText={
-        currentStep === TOTAL_STEPS - 1 ? t("onboarding.finish") : t("next")
-      }
-      showActionButton={!isWaitlisted}
-      showSecondaryButton={
-        currentStep > (isPolicyAccepted ? 1 : 0) && !isWaitlisted
-      }
-      onSecondaryClicked={handlePrev}
-      secondaryIcon={<ChevronLeft className="h-5 w-5" />}
-      secondaryTooltipText={t("back")}
       isContentLoading={isLoadingState}
       externalError={error}
       onExternalErrorDismiss={() => setError(null)}
     >
-      {isWaitlisted ? (
-        <div className="flex flex-col items-center space-y-6 text-center mt-4 mb-8">
-          <Clock className="h-14 w-14 text-accent-amber" />
-          <h3 className="text-xl font-semibold">
-            {t("onboarding.waitlist_title")}
-          </h3>
-          <p className="text-muted-foreground font-light">
-            {t("onboarding.waitlist_message")}
+      <div className="space-y-6 sm:space-y-8">
+        <header className="max-w-2xl space-y-3">
+          <h1 className="text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl">
+            {t("onboarding.page_title")}
+          </h1>
+          <p className="text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+            {t("onboarding.intro", { botName })}
           </p>
-        </div>
-      ) : (
-        <>
-          <Carousel opts={{ watchDrag: false }} setApi={setCarouselApi}>
-            <CarouselContent>
-              {/* Step 0: Policy acceptance */}
-              <CarouselItem>
-                <div className="flex flex-col items-center justify-center min-h-60 px-4 sm:px-0">
-                  <div className="h-8" />
-                  <ScrollText
-                    className="h-12 w-12 text-accent-amber shrink-0"
-                    strokeWidth={1.2}
-                  />
-                  <div className="h-18" />
-                  <SettingSelector
-                    label={t("onboarding.interface_language_label", { botName })}
-                    value={lang_iso_code}
-                    onChange={(isoCode) => navigateWithLanguageChange(isoCode, location.pathname)}
-                    options={INTERFACE_LANGUAGES.map((lang) => ({
-                      value: lang.isoCode,
-                      label: <LanguageItemContent lang={lang} />,
-                      disabled: lang.isoCode === lang_iso_code,
-                    }))}
-                    className="w-full sm:w-auto"
-                  />
-                  <div className="h-14" />
-                  <p className="text-[1.05rem] font-light text-center [hyphens:auto] w-full sm:w-md">
-                    {t("onboarding.policy_prefix")}
-                    <br />
-                    <a
-                      href={TERMS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline underline-offset-2 text-accent-amber/80 hover:text-accent-amber"
+        </header>
+
+        {isWaitlisted ? (
+          <SettingsSection title={t("onboarding.waitlist_title")}>
+            <div className="flex items-start gap-4">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent-amber/12">
+                <Clock className="size-5 text-accent-amber" />
+              </div>
+              <p className="pt-1.5 text-sm leading-6 text-muted-foreground">
+                {t("onboarding.waitlist_message")}
+              </p>
+            </div>
+          </SettingsSection>
+        ) : (
+          <>
+            <ol
+              className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4"
+              aria-label={t("onboarding.progress", {
+                current: currentStep + 1,
+                total: TOTAL_STEPS,
+              })}
+            >
+              {steps.map((step, index) => (
+                <li
+                  key={step}
+                  aria-current={index === currentStep ? "step" : undefined}
+                  className={cn(
+                    "flex min-w-0 items-center gap-2.5 border-t-2 pt-[0.75rem] transition-colors motion-reduce:transition-none",
+                    index === currentStep
+                      ? "border-primary text-foreground"
+                      : index < currentStep
+                        ? "border-primary/45 text-foreground"
+                        : "border-border text-muted-foreground",
+                  )}
+                >
+                  <span className="font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="truncate text-xs font-medium sm:text-sm">
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <SettingsSection title={activeStep} contentClassName="gap-6">
+              <Carousel
+                opts={{ watchDrag: false }}
+                setApi={setCarouselApi}
+                aria-live="polite"
+              >
+                <CarouselContent className="ml-0">
+                  {steps.map((step, index) => (
+                    <CarouselItem key={step} className="ps-0">
+                      {index === currentStep ? renderStep() : null}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+
+              {(currentStep > 0 || isPolicyAccepted) && (
+                <div
+                  className={cn(
+                    "flex items-center gap-3 border-t border-border/70 pt-[1.25rem]",
+                    currentStep > 0 ? "justify-between" : "justify-end",
+                  )}
+                >
+                  {currentStep > 0 && (
+                    <Button
+                      type="button"
+                      variant="utility"
+                      size="lg"
+                      onClick={handlePrev}
+                      disabled={isInteractionDisabled}
                     >
-                      {t("footer.terms")}
-                    </a>
-                    {" · "}
-                    <a
-                      href={PRIVACY_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline underline-offset-2 text-accent-amber/80 hover:text-accent-amber"
-                    >
-                      {t("footer.privacy")}
-                    </a>
-                  </p>
-                  <div className="h-8" />
-                  <div className="flex justify-center">
-                    <SettingToggle
-                      id="policy-accept"
-                      label={t("onboarding.policy_label")}
-                      labelClassName="text-lg"
-                      checked={isPolicyAccepted}
-                      onChange={(checked) => {
-                        setIsPolicyAccepted(checked);
-                        if (checked) setTimeout(handleNext, 200);
-                      }}
-                      disabled={isPolicyAccepted}
-                      switchClassName="scale-150 me-2"
-                    />
-                  </div>
-                </div>
-              </CarouselItem>
-
-              {/* Step 1: Name & About */}
-              <CarouselItem>
-                <div className="flex flex-col items-center gap-6 px-1 pb-1">
-                  <div className="h-4" />
-                  <UserRound
-                    className="h-12 w-12 text-accent-amber mx-auto shrink-0"
-                    strokeWidth={1.2}
-                  />
-                  <div className="h-4" />
-                  <SettingInput
-                    id="full-name"
-                    label={t("profile_full_name_label", { botName })}
-                    value={fullName}
-                    onChange={setFullName}
-                    onClear={() => setFullName("")}
-                    disabled={!!error?.isBlocker || !isPolicyAccepted}
-                    placeholder={t("profile_full_name_placeholder")}
-                    className="w-full sm:w-auto"
-                  />
-                  <SettingTextarea
-                    id="about-me"
-                    label={t("about_me_label", { botName })}
-                    value={aboutMe}
-                    onChange={setAboutMe}
-                    onClear={() => setAboutMe("")}
-                    disabled={!!error?.isBlocker || !isPolicyAccepted}
-                    placeholder={
-                      isPolicyAccepted
-                        ? t("about_me_placeholder", {
-                            name: fullName || t("about_me_name_fallback"),
-                          })
-                        : "—"
+                      <ChevronLeft />
+                      {t("back")}
+                    </Button>
+                  )}
+                  <Button
+                    type="button"
+                    variant="brand"
+                    size="lg"
+                    onClick={
+                      currentStep === TOTAL_STEPS - 1
+                        ? handleFinish
+                        : handleNext
                     }
-                    minRows={2}
-                    maxRows={6}
-                    className="w-full sm:w-auto"
-                  />
-                  <SettingTextarea
-                    id="custom-prompt"
-                    label={t("custom_prompt_label", { botName })}
-                    value={customPrompt}
-                    onChange={setCustomPrompt}
-                    onClear={() => setCustomPrompt("")}
-                    disabled={!!error?.isBlocker || !isPolicyAccepted}
-                    placeholder={
-                      isPolicyAccepted
-                        ? t("custom_prompt_placeholder", { botName })
-                        : "—"
+                    disabled={
+                      isInteractionDisabled ||
+                      (currentStep === TOTAL_STEPS - 1
+                        ? !canFinish
+                        : !canContinue)
                     }
-                    minRows={2}
-                    maxRows={6}
-                    className="w-full sm:w-auto"
-                  />
-                  <div className="h-0.5" />
+                  >
+                    {currentStep === 0
+                      ? t("next")
+                      : currentStep === TOTAL_STEPS - 1
+                        ? t("onboarding.finish")
+                        : t("onboarding.continue")}
+                    {currentStep < TOTAL_STEPS - 1 && <ChevronRight />}
+                  </Button>
                 </div>
-              </CarouselItem>
-
-              {/* Step 2: Preset */}
-              <CarouselItem>
-                <div className="flex flex-col items-center gap-6 px-1 pb-1">
-                  <div className="h-4" />
-                  <Sparkles
-                    className="h-12 w-12 text-accent-amber mx-auto shrink-0"
-                    strokeWidth={1.2}
-                  />
-                  <div className="h-4" />
-                  <CardSelector
-                    value={selectedPreset}
-                    onChange={(v) => setSelectedPreset(v as IntelligencePreset)}
-                    disabled={!!error?.isBlocker || !isPolicyAccepted}
-                    options={[
-                      { value: "lowest_price", icon: Wallet, title: t("intelligence_presets.lowest_price"), description: t("intelligence_presets.lowest_price_description") },
-                      { value: "highest_price", icon: Sparkles, title: t("intelligence_presets.highest_price"), description: t("intelligence_presets.highest_price_description") },
-                      { value: "agent_choice", icon: Scale, title: t("intelligence_presets.agent_choice"), description: t("intelligence_presets.agent_choice_description") },
-                    ]}
-                  />
-                </div>
-              </CarouselItem>
-
-              {/* Step 3: Access choice */}
-              <CarouselItem>
-                {isSponsored ? (
-                  <div className="flex flex-col items-center justify-center min-h-60 px-4 sm:px-0">
-                    <div className="h-6" />
-                    <HeartHandshake
-                      className="h-12 w-12 text-accent-amber shrink-0"
-                      strokeWidth={1.2}
-                    />
-                    <div className="h-16" />
-                    <p className="text-[1.05rem] font-light text-center">
-                      {t("sponsorships")}
-                    </p>
-                    <div className="h-2" />
-                    <p className="text-[1.05rem] font-light text-muted-foreground text-center">
-                      {t("sponsorship.you_are_sponsored")}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center gap-6 px-1 pb-1">
-                    <div className="h-4" />
-                    <Split
-                      className="h-12 w-12 text-accent-amber mx-auto shrink-0"
-                      strokeWidth={1.2}
-                    />
-                    <div className="h-4" />
-                    <CardSelector
-                      value={accessChoice}
-                      onChange={(v) => setAccessChoice(v as AccessChoice)}
-                      disabled={!!error?.isBlocker || !isPolicyAccepted}
-                      options={[
-                        { value: "credits", icon: BadgeCent, title: t("onboarding.access_credits_title"), description: t("onboarding.access_credits_description") },
-                        { value: "api_keys", icon: Key, title: t("onboarding.access_api_keys_title"), description: t("onboarding.access_api_keys_description") },
-                      ]}
-                    />
-                  </div>
-                )}
-              </CarouselItem>
-            </CarouselContent>
-          </Carousel>
-
-          {/* Step indicator dots */}
-          <div className="flex gap-2 items-center justify-center mt-12">
-            {Array.from({ length: TOTAL_STEPS }, (_, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "h-2 rounded-full transition-all",
-                  currentStep === i
-                    ? "w-6 bg-accent-amber"
-                    : "w-2 bg-foreground/20",
-                )}
-              />
-            ))}
-          </div>
-        </>
-      )}
+              )}
+            </SettingsSection>
+          </>
+        )}
+      </div>
     </BaseSettingsPage>
   );
 };

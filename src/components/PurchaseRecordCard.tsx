@@ -49,15 +49,15 @@ const PurchaseRecordCard: React.FC<PurchaseRecordCardProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col px-5 glass-muted border cursor-pointer w-full space-y-4",
-        isExpanded ? "py-8" : "py-3",
+        "flex flex-col px-5 py-3 bg-surface-subtle/50 border border-border/50 cursor-pointer w-full transition-[padding,gap,background] duration-300",
+        isExpanded ? "py-8 gap-4 bg-[radial-gradient(20rem_8rem_at_0%_0%,oklch(0.42_0.11_285/15%),transparent_76%)]" : "gap-0",
         roundedClasses,
         borderClasses
       )}
       onClick={onToggleExpand}
     >
       <div className="flex items-center w-full">
-        <div className="flex flex-col flex-1 min-w-0 pr-4">
+        <div className="flex flex-col flex-1 min-w-0 pe-4">
           <div className="flex items-center gap-2">
             <span className="text-md font-medium truncate">
               {record.product_name}
@@ -98,123 +98,132 @@ const PurchaseRecordCard: React.FC<PurchaseRecordCardProps> = ({
         </div>
       </div>
 
-      {isExpanded && (
-        <>
-          <div className="flex md:hidden items-center justify-center gap-2 pb-2">
-            {record.test && (
-              <Badge variant="outline" className="text-xs px-1.5 py-0 shrink-0">
-                {t("purchases.record.test")}
-              </Badge>
-            )}
-            {record.is_preorder_authorization && (
-              <Badge variant="outline" className="text-xs px-1.5 py-0 shrink-0">
-                {t("purchases.record.pre")}
-              </Badge>
-            )}
-          </div>
-          <div className="flex flex-col gap-y-2 gap-x-2 md:grid md:grid-cols-2">
-            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-              <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                {t("purchases.record.product_details")}
-              </h4>
-              <div className="flex flex-col space-y-1 text-sm">
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("purchases.record.product_name")}
-                  </span>
-                  <span className="shrink-0">{record.product_name}</span>
+      {/* Expanded view */}
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows,opacity] duration-300",
+          isExpanded ? "opacity-100" : "opacity-0"
+        )}
+        style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className="mt-[0.5rem]">
+            <div className="flex md:hidden items-center justify-center gap-2 pb-[0.5rem]">
+              {record.test && (
+                <Badge variant="outline" className="text-xs px-1.5 py-0 shrink-0">
+                  {t("purchases.record.test")}
+                </Badge>
+              )}
+              {record.is_preorder_authorization && (
+                <Badge variant="outline" className="text-xs px-1.5 py-0 shrink-0">
+                  {t("purchases.record.pre")}
+                </Badge>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-3 gap-x-3 md:grid md:grid-cols-2">
+              <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
+                <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
+                  {t("purchases.record.product_details")}
+                </h4>
+                <div className="flex flex-col space-y-1 text-sm">
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("purchases.record.product_name")}
+                    </span>
+                    <span className="shrink-0">{record.product_name}</span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("purchases.record.quantity")}
+                    </span>
+                    <span className="shrink-0">{record.quantity}</span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {record.refunded
+                        ? t("purchases.record.refunded_label")
+                        : record.is_preorder_authorization
+                          ? t("purchases.record.preorder_label")
+                          : t("purchases.record.price")}
+                    </span>
+                    <span className={cn("shrink-0", record.refunded && "line-through text-red-400")}>
+                      {formatCurrency(record.price)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("purchases.record.sale_date")}
+                    </span>
+                    <span className="shrink-0">{saleDate}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("purchases.record.quantity")}
-                  </span>
-                  <span className="shrink-0">{record.quantity}</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {record.refunded
-                      ? t("purchases.record.refunded_label")
-                      : record.is_preorder_authorization
-                        ? t("purchases.record.preorder_label")
-                        : t("purchases.record.price")}
-                  </span>
-                  <span className={cn("shrink-0", record.refunded && "line-through text-red-400")}>
-                    {formatCurrency(record.price)}
-                  </span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("purchases.record.sale_date")}
-                  </span>
-                  <span className="shrink-0">{saleDate}</span>
+              </div>
+
+              <div className="border border-border/50 rounded-md p-[1rem] space-y-2 bg-[oklch(0.22_0.02_292)]">
+                <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
+                  {t("purchases.record.purchase_info")}
+                </h4>
+                <div className="flex flex-col space-y-1 text-sm">
+                  {record.license_key && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-muted-foreground text-xs">
+                        {t("purchases.record.license_key")}
+                      </span>
+                      <code className="text-xs bg-muted/50 px-2 py-1 rounded break-all">
+                        {record.license_key}
+                      </code>
+                    </div>
+                  )}
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("purchases.record.gumroad_fee")}
+                    </span>
+                    <span className="shrink-0">{formatCurrency(record.gumroad_fee)}</span>
+                  </div>
+                  {record.discover_fee_charge && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("purchases.record.discover_fee")}
+                      </span>
+                      <span className="shrink-0">{t("always")}</span>
+                    </div>
+                  )}
+                  {record.affiliate_credit_amount_cents > 0 && (
+                    <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground min-w-0 truncate">
+                        {t("purchases.record.affiliate_credit")}
+                      </span>
+                      <span className="shrink-0">
+                        {formatCurrency(record.affiliate_credit_amount_cents)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className="border-1 border-muted-foreground/30 rounded-md space-y-1 p-[0.5rem]">
-              <h4 className="text-sm font-medium text-blue-300/80 uppercase truncate">
-                {t("purchases.record.purchase_info")}
-              </h4>
-              <div className="flex flex-col space-y-1 text-sm">
-                {record.license_key && (
-                  <div className="flex flex-col gap-1">
-                    <span className="text-muted-foreground text-xs">
-                      {t("purchases.record.license_key")}
-                    </span>
-                    <code className="text-xs bg-muted/50 px-2 py-1 rounded break-all">
-                      {record.license_key}
-                    </code>
-                  </div>
-                )}
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("purchases.record.gumroad_fee")}
-                  </span>
-                  <span className="shrink-0">{formatCurrency(record.gumroad_fee)}</span>
-                </div>
-                {record.discover_fee_charge && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("purchases.record.discover_fee")}
-                    </span>
-                    <span className="shrink-0">{t("always")}</span>
-                  </div>
-                )}
-                {record.affiliate_credit_amount_cents > 0 && (
-                  <div className="flex justify-between gap-4">
-                    <span className="text-muted-foreground min-w-0 truncate">
-                      {t("purchases.record.affiliate_credit")}
-                    </span>
-                    <span className="shrink-0">
-                      {formatCurrency(record.affiliate_credit_amount_cents)}
-                    </span>
-                  </div>
-                )}
+            {record.product_permalink && (
+              <div className="flex justify-center pt-[1rem]">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full text-white bg-[oklch(0.3_0.08_290)]/80 border border-purple-400/20 cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const url = new URL(record.product_permalink);
+                    url.searchParams.set("user_id", userId.replace(/-/g, ""));
+                    url.searchParams.set("origin", "agent_settings_buy_again");
+                    window.open(url.toString(), "_blank", "noopener,noreferrer");
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1.5" />
+                  {t("purchases.record.buy_again")}
+                </Button>
               </div>
-            </div>
+            )}
           </div>
-
-          {record.product_permalink && (
-            <div className="flex justify-center pt-4">
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full text-white glass-purple cursor-pointer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const url = new URL(record.product_permalink);
-                  url.searchParams.set("user_id", userId.replace(/-/g, ""));
-                  url.searchParams.set("origin", "agent_settings_buy_again");
-                  window.open(url.toString(), "_blank", "noopener,noreferrer");
-                }}
-              >
-                <Plus className="h-4 w-4 mr-1.5" />
-                {t("purchases.record.buy_again")}
-              </Button>
-            </div>
-          )}
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,13 +1,12 @@
 import React from "react";
 import { toast } from "sonner";
 import { t } from "@/lib/translations";
+import { Button } from "@/components/ui/button";
 
 interface CopyValueProps {
   value: string | number;
 }
 
-// We'll use dynamic import to avoid SSR issues or circular deps
-// and to keep this component decoupled from toast provider location
 const CopyValue: React.FC<CopyValueProps> = ({ value }) => {
   const fullValue = String(value);
   const displayValue =
@@ -17,7 +16,7 @@ const CopyValue: React.FC<CopyValueProps> = ({ value }) => {
 
   const spanRef = React.useRef<HTMLSpanElement>(null);
 
-  const handleCopy = async (e: React.MouseEvent) => {
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -36,17 +35,16 @@ const CopyValue: React.FC<CopyValueProps> = ({ value }) => {
   };
 
   return (
-    <span
-      className="relative cursor-pointer select-all outline-none"
+    <Button
+      type="button"
+      variant="link"
+      className="h-auto max-w-full cursor-pointer select-all p-0 font-mono font-light text-blue-300/70 underline decoration-dotted decoration-2 decoration-blue-300/30 underline-offset-4 hover:text-blue-200"
       onClick={handleCopy}
-      tabIndex={0}
       title={fullValue}
-      ref={spanRef}
+      aria-label={`${t("linked_profiles.copy_key")}: ${fullValue}`}
     >
-      <span className="dotted-underline text-blue-300/40 font-mono font-light">
-        {displayValue}
-      </span>
-    </span>
+      <span ref={spanRef}>{displayValue}</span>
+    </Button>
   );
 };
 

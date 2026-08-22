@@ -1,5 +1,11 @@
 {
   "chat": "聊天",
+  "chat_context": {
+    "private": "私聊",
+    "group": "群聊",
+    "defaults": "聊天默认设置",
+    "response_behavior": "回复行为"
+  },
   "profile": "个人资料",
   "sponsorships": "赞助",
   "close": "关闭",
@@ -9,7 +15,7 @@
   "help": "帮助",
   "configure_title": "配置{botName}的行为",
   "intelligence_card_title": "提升 {botName} 的智能",
-  "access": "访问",
+  "access": "访问 (BYOK)",
   "intelligence": "智能",
   "access_card_title": "让 {botName} 独立",
   "access_use_credits_warning_prefix": "要使用积分，请删除所有API密钥",
@@ -45,11 +51,11 @@
   "always": "总是",
   "reply_frequency": "{percent}% 的时间",
   "sponsorship": {
-    "users_you_sponsor": "您赞助的用户",
+    "users_you_sponsor": "管理赞助",
     "no_sponsorships_found": "未找到赞助",
     "configure_ai_access_first": "在您可以赞助其他用户和资料之前，必须先配置AI访问权限。",
     "incognito": "匿名",
-    "add_sponsorship": "赞助",
+    "add_sponsorship": "添加",
     "platform_handle_label": "您想要赞助的用户的用户名或电话",
     "platform_handle_placeholder": "@用户名 或 +00-电话",
     "platform_handle_placeholder_telegram": "@用户名",
@@ -69,11 +75,12 @@
       "waitlist": "等待名单中",
       "yes": "是",
       "no": "否"
-    }
+    },
+    "profiles_i_sponsor": "我赞助的资料"
   },
   "usage": {
     "page_title": "使用情况",
-    "card_title": "使用历史",
+    "card_title": "积分与历史",
     "no_records_found": "未找到使用记录",
     "filters": {
       "scope_section": "范围",
@@ -154,22 +161,22 @@
       "from": "来自",
       "note": "备注",
       "card_title": "转账积分",
-      "button": "转账积分",
       "handle_label": "收款人的用户名或电话",
       "amount_label": "金额",
       "amount_placeholder": "1.00",
       "note_label": "备注（可选）",
-      "note_placeholder": "转账原因…"
+      "note_placeholder": "转账原因…",
+      "action": "转账"
     },
     "load_more": "加载更多",
-    "credit_balance": "我拥有的积分：{balance}"
+    "credit_balance": "我拥有的积分：{balance}",
+    "top_up": "充值"
   },
   "purchases": {
     "page_title": "购买",
     "card_title": "购买历史",
     "use_license": "使用许可证",
     "license": "许可证",
-    "buy": "购买",
     "license_key_label": "输入您的许可证密钥",
     "license_key_placeholder": "粘贴或输入您的许可证密钥",
     "bind_success": "许可证链接成功！",
@@ -218,13 +225,17 @@
     "personal": "个人",
     "agent": "助手",
     "resources": "资源",
-    "people": "联系人"
+    "people": "社交"
+  },
+  "navigation": {
+    "title": "导航",
+    "show_session_timer": "显示剩余会话时间",
+    "toggle_sidebar": "切换侧边栏",
+    "description": "浏览设置页面和可用聊天。"
   },
   "linked_profiles": {
     "page_title": "关联的配置文件",
-    "card_title": "连接配置文件",
-    "show_my_key": "显示我的连接密钥",
-    "hide_my_key": "隐藏我的连接密钥",
+    "card_title": "连接、关联和合并",
     "copy_key": "复制",
     "regenerate_key": "重新生成",
     "share_key": "分享",
@@ -239,7 +250,7 @@
     "connect_button": "连接",
     "connecting": "连接中...",
     "main_info": "如果您拥有该配置文件的连接密钥，则可以将此配置文件连接到另一个配置文件。例如，这可用于合并您的 WhatsApp 和 Telegram 配置文件。每个配置文件的连接密钥都是唯一且保密的！要从另一个配置文件获取连接密钥，您必须使用该配置文件与 {botName} 的聊天打开此页面。连接两个配置文件会将它们合并为一个配置文件。",
-    "my_key_info": "这是您的连接密钥。不要与您的其他配置文件以外的任何人分享您的连接密钥！",
+    "my_key_info": "这是您的连接密钥。",
     "command_info": "您也可以使用连接命令在支持的平台之一中直接将此密钥发送给 {botName}。这将自动将此配置文件与您发送到的配置文件连接：",
     "chat_command_info": "或者，您可以要求 {botName} 使用聊天连接到另一个配置文件：",
     "chat_command_example": "请将我连接到此配置文件：{connectKey}。",
@@ -248,7 +259,9 @@
     "connect_success": "配置文件连接成功！",
     "regenerate_success": "连接密钥重新生成成功！",
     "copy_failed": "复制失败",
-    "generic_error": "发生错误"
+    "generic_error": "发生错误",
+    "my_key": "我的密钥",
+    "key_warning": "不要与除您的其他个人资料以外的任何人分享您的连接密钥！"
   },
   "about_me_label": "{botName} 知道关于我的这些：",
   "about_me_name_fallback": "用户",
@@ -294,7 +307,7 @@
     "platform_user_id": "平台用户ID",
     "platform_handle": "平台用户名",
     "version": "AI 版本",
-    "reveal_placeholder": "识别您的信息"
+    "session_details": "会话详情"
   },
   "platforms": {
     "telegram": "电报",
@@ -303,6 +316,7 @@
   },
   "provider_needed_for": "{botName} 需要此用于: {tools}",
   "where_is_my_key": "我的 {providerName} 密钥在哪里？",
+  "configure_profile": "自定义个人资料",
   "configure_intelligence": "配置智能",
   "configure_ai_providers": "配置 AI 提供商",
   "configure_access_keys": "配置访问密钥",
@@ -401,6 +415,7 @@
     "custom": "自定义",
     "custom_description": "个性化定制的工具选择。"
   },
+  "intelligence_preset_title": "智能预设",
   "detailed_tool_choices": "自定义工具选择",
   "errors": {
     "oh_no": "哦不！",
@@ -458,8 +473,8 @@
     "not_chat_admin": "用户不是此聊天的管理员",
     "not_target_user": "目标用户与当前用户不匹配",
     "not_developer": "当前用户不是开发者",
-    "no_private_chat": "用户与机器人没有私聊",
-    "bot_cannot_set_alerts": "机器人无法设置价格提醒",
+    "no_private_chat": "用户没有与智能体的私聊",
+    "bot_cannot_set_alerts": "智能体无法设置价格提醒",
     "unauthorized_seller": "未授权的卖家",
     "empty_token": "令牌为空",
     "no_user_id_in_token": "令牌中不存在用户ID",
@@ -519,49 +534,72 @@
     "invalid_social_card_video_configuration": "社交卡片视频配置无效",
     "invalid_social_card_mode": "社交卡片模式无效"
   },
-  "features": {
-    "header": "功能",
-    "title": "{botName} 可以做什么？",
-    "items": {
-      "language_intelligence": {
-        "title": "语言智能",
-        "description": "助手支持超过 50 种语言，能够理解并以您首选的语言进行回复，让对话更自然，并让全球用户都能轻松使用。随时提问，快速获得智能答案。"
+  "not_found_page": {
+    "title": "未找到页面",
+    "description": "此地址无法进入您的智能体空间。",
+    "action": "返回首页"
+  },
+  "help_page": {
+    "intro_eyebrow": "实用指南",
+    "intro_title": "让 {botName} 按你的预期工作。",
+    "intro_description": "选择你想要的结果。每份指南都会说明需要配置什么、后台会发生什么变化，以及下一步该做什么。",
+    "principle_label": "关键区别",
+    "principle_title": "按结果提出请求，按能力进行配置。",
+    "principle_description": "你通过聊天与 {botName} 协作。设置决定了每项任务所使用的工具、访问路径和规则。",
+    "guides_title": "操作指南",
+    "example": "实际目标",
+    "how_it_works": "工作原理",
+    "keep_in_mind": "请注意",
+    "open_destination": "打开{destination}",
+    "guides": {
+      "setup": {
+        "title": "只需设置一次 {botName}",
+        "summary": "使用 Gemini、ChatGPT、Claude 和其他受支持的模型，无需为其每个提供商分别创建账户。",
+        "example": "我希望用一个助手使用 Gemini、OpenAI、Claude 和其他服务，而不是为每项服务分别设置。",
+        "guide": "只需设置一次您的 {botName} 个人资料、上下文和偏好设置。使用点数即可访问受支持的提供商，无需管理各个 API 密钥；如果您更喜欢 BYOK，也可以连接自己的密钥。在“智能”中为每项能力选择最佳模型，同时 {botName} 在所有提供商中保持相同的身份和行为。",
+        "note": "不同提供商的可用性和费用各不相同。对于 BYOK：添加 API 密钥会使相应提供商可用，但不会自动选择其模型；模型仍需在“智能”中选择。"
       },
-      "independent": {
-        "title": "独立",
-        "description": "在聊天应用和 AI 平台之间切换时，不会丢失聊天记录或设置。助手可确保在任何交互场景下，都能提供一致且无缝的体验。"
+      "intelligence": {
+        "title": "配置智能",
+        "summary": "根据每项能力选择合适的模型或工具，而不是只使用一个全局模型。",
+        "example": "推理使用性能强大的模型，日常聊天则使用成本较低的模型。",
+        "guide": "智能按能力分别配置。你可以先使用预设，也可以分别自定义聊天、推理、视觉、转录、图像和视频生成、网页搜索以及数据工具。在“访问”中配置服务商密钥，或使用预付费点数。",
+        "note": "添加服务商密钥并不会自动选择该服务商。所选工具还必须有可用的服务商密钥、预付费点数或受赞助访问权限。"
       },
-      "privacy": {
-        "title": "开放且私密",
-        "description": "源码完全开源以确保透明，但您的数据和对话保持私密，仅您可访问。自行托管以获得对信息的更大控制权。"
+      "behavior": {
+        "title": "调整个人资料和聊天行为",
+        "summary": "将账户级上下文与仅适用于单个聊天的规则分开。",
+        "example": "在所有聊天中记住我的工作，但在某个群聊中保持简洁。",
+        "guide": "个人资料会保存你的姓名、背景和个人指令，并应用于所有聊天。每个聊天可单独控制上下文、历史记录深度、输出长度、推理限制和媒体行为。群组级控制需要聊天管理员权限。",
+        "note": "在私聊中，只要你向智能体发消息，它就一定会回复。群聊回复概率和共享聊天设置仅在平台和你的管理员角色允许时可用。"
       },
-      "web_search": {
-        "title": "网络搜索",
-        "description": "在聊天中直接获取最新的网页信息，包括新闻、分析、货币价格、加密货币价格、资产等。"
+      "capabilities": {
+        "title": "处理文本以外的任务",
+        "summary": "直接在聊天中使用搜索、媒体、生成、监控和群组工具。",
+        "example": "监控这个主题，在它发生变化时提醒我，并总结信息来源。",
+        "guide": "发送文本、图像、语音消息或文档，并说明你想要的结果。配置所需能力后，智能体可以搜索、分析、转录、创建或编辑媒体，并监控受支持的主题。",
+        "note": "是否可用取决于聊天平台、所选工具、服务商访问权限和部署方式。如果某项能力不可用，请先检查“智能”和“访问”。"
       },
-      "media": {
-        "title": "附件和媒体",
-        "description": "向助手发送图像、语音消息和文档——它可以处理这些内容，并用于生成有用的回复或执行任务。不仅限于文本，还可以与照片或文档进行对话。"
-      },
-      "imaging": {
-        "title": "AI 图像",
-        "description": "使用 AI 模型创建新图像、根据文本指令编辑现有图像，或恢复旧的和损坏的图像。助手通过强大且易用的工具，将您的创意变为现实。"
-      },
-      "monitoring": {
-        "title": "监控",
-        "description": "通过实时监控新闻、市场和您关心的主题，保持信息畅通。助手会主动提醒，确保您不错过任何重要信息。"
-      },
-      "profile": {
-        "title": "用户档案",
-        "description": "统一的用户档案可让您在所有聊天平台上管理身份、计费、积分、工具偏好和 AI 提供商设置。只需让助手打开您的设置或在聊天中输入 `/settings`，即可进行调整。"
-      },
-      "chat_settings": {
-        "title": "聊天设置",
-        "description": "自定义助手在每次聊天中的行为，包括语言、回复风格和通知偏好。您可以随时请求助手打开设置或在聊天中输入 `/settings` 来访问这些选项。"
+      "costs": {
+        "title": "了解点数和费用",
+        "summary": "查看每项任务的付费方式，并选择今后如何为使用付费。",
+        "example": "显示本月哪些操作使用了点数，以及是哪些工具产生的。",
+        "guide": "在“购买”中购买预付费点数，或在“访问”中提供自己的服务商密钥。“使用情况”会显示付款方、服务商、用途、令牌或运行时间详情、转账、受赞助使用情况和失败调用。",
+        "note": "费用因模型和内容而异。一次搜索可能会产生多个计费查询。失败调用仍会显示，但不会扣除点数；详细使用记录会保留 30 天。"
       },
       "sponsorships": {
-        "title": "赞助",
-        "description": "在保持您和他们的使用私密的前提下，与他人分享对助手的访问权限。赞助可让您将助手的好处扩展给朋友或家人，并且您始终可以通过助手或在聊天中输入 `/settings` 来管理它们。"
+        "title": "赞助其他人",
+        "summary": "无需共享账户或私人数据，即可资助他人使用智能体。",
+        "example": "让家人获得访问权限，但不共享我的服务商密钥。",
+        "guide": "赞助者可以通过平台用户名资助其他个人资料，而无需共享账户、密钥、设置或聊天。赞助者需要拥有点数或至少一个服务商密钥。新接收者可通过启动智能体来接受赞助。",
+        "note": "不允许赞助自己、形成赞助链，也不允许赞助已有服务商密钥或已有赞助者的接收者。待接受的赞助会在 30 天后到期，并且可以撤销。"
+      },
+      "profiles": {
+        "title": "连接 Telegram 和 WhatsApp",
+        "summary": "将两个跨平台个人资料合并为一个智能体身份。",
+        "example": "在 Telegram 和 WhatsApp 上使用同一个账户和余额。",
+        "guide": "在一个个人资料中打开“我的密钥”，然后在另一个平台的个人资料中输入该密钥。Telegram 和 WhatsApp 个人资料可以跨平台合并；点数、消息、提醒和赞助关系也会合并。",
+        "note": "合并会产生重大影响：发生设置冲突时，以较早创建的个人资料为准；另一个账户会被删除；连接密钥会轮换。继续前请检查两个个人资料。"
       }
     }
   },
@@ -585,7 +623,7 @@
   "cost_estimate": {
     "title": "成本估算：",
     "description": "使用 的估算成本。所有值均以积分为单位。",
-    "disclaimer": "注意：由于供应商定价变动，估算值可能会在不另行通知的情况下更改。",
+    "disclaimer": "注意：由于服务商定价变动，估算值可能会在不另行通知的情况下更改。",
     "no_data": "此工具没有可用的成本信息。",
     "token_costs": "代币成本",
     "input_tokens": "每百万输入代币",
@@ -613,6 +651,14 @@
   },
   "onboarding": {
     "page_title": "开始使用",
+    "intro": "通过四个清晰步骤，设置 {botName} 所需的语言、个性、智能和访问方式。",
+    "progress": "第 {current} 步，共 {total} 步",
+    "steps": {
+      "policies": "政策",
+      "profile": "个人资料",
+      "intelligence": "智能",
+      "access": "访问"
+    },
     "interface_language_label": "{botName} 将主要使用此语言",
     "policy_prefix": "开始之前必须接受这些政策。您是否已阅读并同意这两项内容？",
     "policy_label": "我接受",
@@ -621,13 +667,13 @@
     "access_credits_title": "购买积分",
     "access_credits_description": "使用预付积分驱动 AI 交互，无需 API 密钥。",
     "finish": "出发吧！",
-    "start": "开始",
+    "continue": "继续",
     "waitlist_title": "您已加入等待列表",
     "waitlist_message": "当再次可以激活您的账户时，我们会通知您。",
     "success": "{botName} 现在已就绪！返回您的对话，提出任何问题。"
   },
-  "check_out_project": "查看项目",
   "footer": {
+    "brand_name": "Appify Hub",
     "logo_alt": "标志",
     "terms": "服务条款",
     "privacy": "隐私政策",

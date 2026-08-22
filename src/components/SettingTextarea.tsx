@@ -78,13 +78,13 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
   };
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-2.5", className)}>
       <div className="space-y-1">
-        <div className="flex items-center justify-between w-full sm:w-md">
+        <div className="flex w-full items-center justify-between">
           <Label
             htmlFor={id}
             className={cn(
-              "ps-2 text-[1.05rem] font-light",
+              "text-sm font-medium tracking-tight text-foreground",
               disabled ? "text-muted-foreground/50" : "",
               labelClassName
             )}
@@ -95,8 +95,9 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
+                  variant="utility"
+                  size="icon"
+                  className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                   onClick={handleClear}
                   disabled={disabled || !value}
                 >
@@ -110,7 +111,7 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
         {helperText && (
           <p
             className={cn(
-              "ps-2 text-sm font-light opacity-80",
+              "ps-1 text-sm leading-6",
               disabled ? "text-muted-foreground/50" : "text-muted-foreground"
             )}
           >
@@ -122,7 +123,7 @@ const SettingTextarea: React.FC<SettingTextareaProps> = ({
         id={id}
         ref={textareaRef}
         className={cn(
-          "py-6 px-6 w-full sm:w-md text-[1.05rem] glass rounded-xl resize-none",
+          "w-full resize-none rounded-xl border-border bg-background/45 px-4 py-3 text-base leading-6 shadow-none",
           disabled ? "cursor-not-allowed" : "",
           textareaClassName
         )}

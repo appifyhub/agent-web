@@ -1,6 +1,12 @@
 import React from "react";
 import { ExternalToolProvider } from "@/services/external-tools-service";
 import ProviderIcon from "@/components/ProviderIcon";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface ProviderTabsProps {
@@ -16,38 +22,42 @@ const ProviderTabs: React.FC<ProviderTabsProps> = ({
   onProviderClick,
   disabled = false,
 }) => {
-  if (providers.length === 0) return null;
-
-  // Don't show tabs if there's only one provider
-  if (providers.length === 1) return null;
+  if (providers.length <= 1) return null;
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2 px-2 pb-[2rem] max-w-50 sm:max-w-none mx-auto">
+    <div
+      role="tablist"
+      className="grid grid-cols-5 sm:grid-cols-10 place-items-center gap-2 mx-auto w-fit pb-[2rem]"
+    >
       {providers.map((provider, index) => (
-        <button
-          key={provider.id}
-          onClick={() => !disabled && onProviderClick(index)}
-          disabled={disabled}
-          className={cn(
-            "flex items-center justify-center p-1.5 rounded-full border transition-all duration-200",
-            "focus:outline-none focus:ring-2 focus:ring-accent-amber/50 focus:ring-offset-2 focus:ring-offset-background",
-            disabled
-              ? "cursor-not-allowed opacity-30 border-white/10"
-              : "cursor-pointer",
-            selectedIndex === index
-              ? "opacity-100 border-white/70"
-              : "opacity-40 hover:opacity-70 border-white/20"
-          )}
-          title={provider.name}
-        >
-          <div className="w-4 h-4">
-            <ProviderIcon
-              providerId={provider.id}
-              className="w-full h-full"
-              alt={`${provider.name} logo`}
-            />
-          </div>
-        </button>
+        <Tooltip key={provider.id}>
+          <TooltipTrigger asChild>
+            <Button
+              variant="utility"
+              size="icon"
+              role="tab"
+              aria-selected={selectedIndex === index}
+              aria-label={provider.name}
+              onClick={() => onProviderClick(index)}
+              disabled={disabled}
+              className={cn(
+                "h-8 w-8 cursor-pointer rounded-full border transition-all duration-200",
+                selectedIndex === index
+                  ? "border-foreground/60 opacity-100"
+                  : "border-border/40 opacity-40 hover:opacity-70",
+              )}
+            >
+              <div className="h-4 w-4">
+                <ProviderIcon
+                  providerId={provider.id}
+                  className="w-full h-full"
+                  alt={`${provider.name} logo`}
+                />
+              </div>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>{provider.name}</TooltipContent>
+        </Tooltip>
       ))}
     </div>
   );

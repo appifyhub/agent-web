@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BadgeCent, Clipboard, ShoppingCart, ReceiptCent, X, Plus } from "lucide-react";
+import { BadgeCent, Clipboard, ReceiptCent, X } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { PageError, buildSponsoredBlockerError } from "@/lib/utils";
 import { toast } from "sonner";
@@ -292,25 +292,6 @@ const PurchasesPage: React.FC = () => {
     }
   };
 
-  const getActionIcon = () => {
-    return isEditing ? undefined : <ShoppingCart className="h-5 w-5" />;
-  };
-
-  const getActionButtonText = () => {
-    return isEditing ? t("save") : t("purchases.buy");
-  };
-
-  const getActionHandler = () => {
-    return isEditing ? handleSaveLicenseKey : handleBuyMore;
-  };
-
-  const isActionDisabled = () => {
-    if (isEditing && !licenseKey.trim().length) {
-      return true;
-    }
-    return false;
-  };
-
   const shouldShowCancelButton = isEditing;
   const shouldShowSecondaryButton = !isEditing;
 
@@ -335,16 +316,12 @@ const PurchasesPage: React.FC = () => {
         cardTitle={
           isEditing ? t("purchases.use_license") : t("purchases.card_title")
         }
-        onActionClicked={getActionHandler()}
-        actionDisabled={isActionDisabled()}
-        actionIcon={getActionIcon()}
-        actionButtonText={getActionButtonText()}
+        onActionClicked={isEditing ? handleSaveLicenseKey : handleBuyMore}
+        actionDisabled={isEditing && !licenseKey.trim().length}
+        actionButtonText={isEditing ? t("save") : t("usage.top_up")}
         showSecondaryButton={shouldShowSecondaryButton}
         onSecondaryClicked={handleStartEditing}
-        secondaryIcon={<Plus className="h-5 w-5" />}
         secondaryText={t("purchases.license")}
-        secondaryTooltipText={t("purchases.use_license")}
-        secondaryClassName="glass-purple text-white"
         showCancelButton={shouldShowCancelButton}
         onCancelClicked={handleCancelEditing}
         cancelIcon={<X className="h-6 w-6" />}
@@ -364,14 +341,14 @@ const PurchasesPage: React.FC = () => {
                   size="sm"
                   onClick={handlePaste}
                   disabled={!!error?.isBlocker}
-                  className="glass rounded-full cursor-pointer h-8 w-8 p-0 shrink-0"
+                  className="bg-surface-raised/50 border border-border/60 rounded-full cursor-pointer h-8 w-8 p-0 shrink-0"
                 >
                   <Clipboard className="h-4 w-4" />
                 </Button>
               </div>
               <Input
                 id="license-key"
-                className="py-6 px-6 w-full max-w-2xl text-[1.05rem] glass rounded-2xl"
+                className="py-6 px-6 w-full max-w-2xl text-[1.05rem] bg-surface-raised/50 border border-border/60 rounded-2xl"
                 placeholder={t("purchases.license_key_placeholder")}
                 disabled={!!error?.isBlocker}
                 value={licenseKey}
@@ -387,7 +364,7 @@ const PurchasesPage: React.FC = () => {
         ) : (
           <>
             {userSettings?.credit_balance !== undefined && (
-              <div className="flex items-center justify-center gap-2 text-lg mt-2">
+              <div className="flex items-center justify-center gap-2 text-lg mt-[0.5rem]">
                 <span className="text-muted-foreground font-light">
                   {t("usage.credit_balance", { balance: "" }).trim()}
                 </span>

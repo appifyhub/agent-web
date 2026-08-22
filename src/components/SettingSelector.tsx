@@ -56,14 +56,14 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
   const selectValue = validOption ? value : undefined;
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-2.5", className)}>
       <div className="space-y-1">
-        <div className="flex items-center justify-between w-full sm:w-md">
+        <div className="flex w-full items-center justify-between">
           <Label
             className={cn(
-              "text-[1.05rem] font-light",
+              "text-sm font-medium tracking-tight text-foreground",
               disabled ? "text-muted-foreground/50" : "",
-              labelClassName
+              labelClassName,
             )}
           >
             {label}
@@ -72,8 +72,9 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="glass rounded-full cursor-pointer h-8 w-8 p-1.5 shrink-0"
+                  variant="utility"
+                  size="icon"
+                  className="h-8 w-8 shrink-0 cursor-pointer rounded-full"
                   onClick={onUndo}
                   disabled={disabled || !selectValue}
                 >
@@ -87,8 +88,10 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
         {helperText && (
           <p
             className={cn(
-              "text-sm font-light opacity-80",
-              disabled ? "text-muted-foreground/50" : "text-muted-foreground"
+              "ps-1 text-sm leading-6",
+              disabled
+                ? "text-muted-foreground/50"
+                : "text-muted-foreground",
             )}
           >
             {helperText}
@@ -98,17 +101,16 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
       <Select value={selectValue} disabled={disabled} onValueChange={onChange}>
         <SelectTrigger
           className={cn(
-            "py-6 px-6 w-full sm:w-md text-[1.05rem] overflow-hidden rounded-2xl cursor-pointer",
-            disabled ? "text-muted-foreground/80 glass-static" : "glass",
-            triggerClassName
+            "h-12 w-full cursor-pointer overflow-hidden rounded-xl border-border bg-background/45 px-4 text-base shadow-none data-[size=default]:h-12",
+            triggerClassName,
           )}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent
           className={cn(
-            "p-4 glass-dark-static rounded-2xl text-foreground",
-            contentClassName
+            "rounded-xl border-border bg-popover px-2 py-2 text-foreground shadow-2xl",
+            contentClassName,
           )}
         >
           {options.map((opt) => (
@@ -117,8 +119,8 @@ const SettingSelector: React.FC<SettingSelectorProps> = ({
               value={opt.value}
               disabled={opt.disabled || opt.value === value}
               className={cn(
-                "py-4 px-4 cursor-pointer text-foreground",
-                opt.value === value ? "bg-accent/70" : ""
+                "cursor-pointer rounded-lg px-3 py-2.5 text-foreground",
+                opt.value === value ? "bg-accent/70" : "",
               )}
             >
               {opt.label}
