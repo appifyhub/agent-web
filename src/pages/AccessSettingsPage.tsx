@@ -17,7 +17,12 @@ import {
   buildChangedPayload,
   areSettingsChanged,
   hasAnyApiKey,
+  type UserSettingsPayload,
 } from "@/services/user-settings-service";
+import {
+  trackUserSettingsFailed,
+  trackUserSettingsSaved,
+} from "@/lib/analytics-settings";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import {
   fetchExternalTools,
@@ -180,11 +185,12 @@ const AccessSettingsPage: React.FC = () => {
 
     setIsLoadingState(true);
     setError(null);
+    let payload: UserSettingsPayload = {};
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
       // Only send fields that have actually changed (smart diffing)
-      const payload = buildChangedPayload(userSettings, remoteSettings);
+      payload = buildChangedPayload(userSettings, remoteSettings);
 
       await saveUserSettings({
         apiBaseUrl,
@@ -192,6 +198,7 @@ const AccessSettingsPage: React.FC = () => {
         rawToken: accessToken.raw,
         payload,
       });
+      trackUserSettingsSaved("access", payload);
 
       // Refetch external tools data to get updated is_configured status
       const updatedExternalTools = await fetchExternalTools({
@@ -210,6 +217,7 @@ const AccessSettingsPage: React.FC = () => {
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
+      trackUserSettingsFailed("access", payload, saveError);
       setError(
         saveError instanceof ApiError
           ? PageError.fromApiError(saveError)

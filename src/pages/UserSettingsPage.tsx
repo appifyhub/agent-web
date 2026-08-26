@@ -14,7 +14,12 @@ import {
   buildChangedPayload,
   areSettingsChanged,
   hasAnyApiKey,
+  type UserSettingsPayload,
 } from "@/services/user-settings-service";
+import {
+  trackUserSettingsFailed,
+  trackUserSettingsSaved,
+} from "@/lib/analytics-settings";
 import { useNavigation } from "@/hooks/useNavigation";
 import SettingTextarea from "@/components/SettingTextarea";
 import SettingInput from "@/components/SettingInput";
@@ -80,6 +85,7 @@ const UserSettingsPage: React.FC = () => {
 
     setIsLoadingState(true);
     setError(null);
+    let payload: UserSettingsPayload = {};
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -101,7 +107,7 @@ const UserSettingsPage: React.FC = () => {
       };
 
       // Only send fields that have actually changed (smart diffing)
-      const payload = buildChangedPayload(trimmedSettings, remoteSettings);
+      payload = buildChangedPayload(trimmedSettings, remoteSettings);
 
       await saveUserSettings({
         apiBaseUrl,
@@ -113,9 +119,11 @@ const UserSettingsPage: React.FC = () => {
       // Sync UI state to what we actually saved (trimmed)
       setUserSettings(trimmedSettings);
       setRemoteSettings(trimmedSettings);
+      trackUserSettingsSaved("profile", payload);
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
+      trackUserSettingsFailed("profile", payload, saveError);
       setError(
         saveError instanceof ApiError
           ? PageError.fromApiError(saveError)

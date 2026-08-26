@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
 import { PageError, cn } from "@/lib/utils";
+import { trackOnboardingProgress } from "@/lib/analytics";
 import { usePageSession } from "@/hooks/usePageSession";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import { useExternalTools } from "@/hooks/useExternalTools";
@@ -48,6 +49,12 @@ import {
 type AccessChoice = "api_keys" | "credits";
 
 const TOTAL_STEPS = 4;
+const ONBOARDING_STEP_IDS = [
+  "policies",
+  "profile",
+  "intelligence",
+  "access",
+] as const;
 const TERMS_URL = "https://www.appifyhub.com/terms.html";
 const PRIVACY_URL = "https://www.appifyhub.com/privacy.html";
 
@@ -110,6 +117,13 @@ const OnboardingPage: React.FC = () => {
     };
   }, [carouselApi]);
 
+  useEffect(() => {
+    trackOnboardingProgress({
+      stepId: ONBOARDING_STEP_IDS[currentStep],
+      action: "view",
+    });
+  }, [currentStep]);
+
   const isWaitlisted = !!(
     remoteSettings?.is_on_waitlist && !remoteSettings?.is_invited_to_start
   );
@@ -132,9 +146,20 @@ const OnboardingPage: React.FC = () => {
   const isInteractionDisabled = !!error?.isBlocker;
 
   const handleNext = () => {
-    if (canContinue) carouselApi?.scrollNext();
+    if (!canContinue) return;
+    trackOnboardingProgress({
+      stepId: ONBOARDING_STEP_IDS[currentStep],
+      action: "continue",
+    });
+    carouselApi?.scrollNext();
   };
-  const handlePrev = () => carouselApi?.scrollPrev();
+  const handlePrev = () => {
+    trackOnboardingProgress({
+      stepId: ONBOARDING_STEP_IDS[currentStep],
+      action: "back",
+    });
+    carouselApi?.scrollPrev();
+  };
 
   const handleFinish = async () => {
     const presets = externalTools?.presets;
@@ -209,6 +234,20 @@ const OnboardingPage: React.FC = () => {
         rawToken: accessToken.raw,
         payload,
       });
+
+      trackOnboardingProgress({
+        stepId: ONBOARDING_STEP_IDS[ONBOARDING_STEP_IDS.length - 1],
+        action: "complete",
+        choiceId: selectedPreset,
+        choiceEnabled: isPolicyAccepted,
+      });
+      if (accessChoice) {
+        trackOnboardingProgress({
+          stepId: "access",
+          action: "complete",
+          choiceId: accessChoice,
+        });
+      }
 
       if (remoteSettings) {
         updateSettingsCache({ ...remoteSettings, ...payload });
