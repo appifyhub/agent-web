@@ -350,28 +350,28 @@ const loadAnalytics = (pageContext: CanonicalPageContext): boolean => {
     window.gtag = (...args: unknown[]) => {
       window.dataLayer?.push(args);
     };
+    isConfigured = false;
   }
 
   if (!isConfigured) {
     window.gtag("js", new Date());
-    window.gtag("set", "user_properties", getUserProperties(currentIdentity));
-    window.gtag(
-      "config",
-      selectedEnvironment.measurementId,
-      getConfig(pageContext),
-    );
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${selectedEnvironment.measurementId}`;
-    document.head.append(script);
+  }
+  window.gtag("set", "user_properties", getUserProperties(currentIdentity));
+  window.gtag(
+    "config",
+    selectedEnvironment.measurementId,
+    getConfig(pageContext),
+  );
+
+  if (!isConfigured) {
+    const tagSrc = `https://www.googletagmanager.com/gtag/js?id=${selectedEnvironment.measurementId}`;
+    if (!document.querySelector(`script[src="${tagSrc}"]`)) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = tagSrc;
+      document.head.append(script);
+    }
     isConfigured = true;
-  } else {
-    window.gtag("set", "user_properties", getUserProperties(currentIdentity));
-    window.gtag(
-      "config",
-      selectedEnvironment.measurementId,
-      getConfig(pageContext),
-    );
   }
 
   return true;
