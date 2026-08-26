@@ -177,7 +177,7 @@ interface CanonicalPageContext {
 
 declare global {
   interface Window {
-    dataLayer?: unknown[][];
+    dataLayer?: IArguments[];
     gtag?: Gtag;
   }
 }
@@ -347,8 +347,11 @@ const loadAnalytics = (pageContext: CanonicalPageContext): boolean => {
 
   if (!window.dataLayer) window.dataLayer = [];
   if (!window.gtag) {
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer?.push(args);
+    window.gtag = function gtag() {
+      // GA requires the raw `arguments` object here; a rest-parameter array is
+      // silently ignored by the tag runtime and no request is ever dispatched
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer?.push(arguments);
     };
     isConfigured = false;
   }
