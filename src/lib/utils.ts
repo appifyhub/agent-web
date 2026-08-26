@@ -15,15 +15,21 @@ export class PageError {
   public readonly errorData: ErrorData | null;
   public readonly isBlocker: boolean;
   public readonly showGenericAppendix: boolean;
+  public readonly apiErrorCode?: number;
+  public readonly httpStatus?: number;
 
   public constructor(
     errorData: ErrorData | null,
     isBlocker: boolean,
-    showGenericAppendix: boolean
+    showGenericAppendix: boolean,
+    apiErrorCode?: number,
+    httpStatus?: number,
   ) {
     this.errorData = errorData;
     this.isBlocker = isBlocker;
     this.showGenericAppendix = showGenericAppendix;
+    this.apiErrorCode = apiErrorCode;
+    this.httpStatus = httpStatus;
   }
 
   public static simple(
@@ -74,7 +80,9 @@ export class PageError {
     return new PageError(
       { translationKey, variables },
       isBlocker,
-      showGenericAppendix
+      showGenericAppendix,
+      apiError.errorCode,
+      apiError.httpStatus,
     );
   }
 }
