@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Geçersiz sosyal kart videosu yapılandırması",
     "invalid_social_card_mode": "Geçersiz sosyal kart modu"
   },
+  "auth_required_page": {
+    "title": "Oturum açmadınız",
+    "description": "Agentinizden ayarlarınızı açmasını isteyin.",
+    "action": "Ana sayfaya git"
+  },
   "not_found_page": {
     "title": "Sayfa bulunamadı",
     "description": "Bu adres agentinizin alanına yönlendirmiyor.",

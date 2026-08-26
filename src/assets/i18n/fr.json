@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Configuration vidéo de carte sociale invalide",
     "invalid_social_card_mode": "Mode de carte sociale invalide"
   },
+  "auth_required_page": {
+    "title": "Vous n’êtes pas connecté",
+    "description": "Demandez à votre agent d’ouvrir vos paramètres.",
+    "action": "Retour à l’accueil"
+  },
   "not_found_page": {
     "title": "Page introuvable",
     "description": "Cette adresse ne mène pas à l’espace de votre agent.",

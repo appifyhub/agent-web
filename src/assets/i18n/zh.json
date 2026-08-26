@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "社交卡片视频配置无效",
     "invalid_social_card_mode": "社交卡片模式无效"
   },
+  "auth_required_page": {
+    "title": "你尚未登录",
+    "description": "请让您的智能体打开您的设置。",
+    "action": "返回首页"
+  },
   "not_found_page": {
     "title": "未找到页面",
     "description": "此地址无法进入您的智能体空间。",
