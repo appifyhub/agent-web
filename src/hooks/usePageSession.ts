@@ -8,9 +8,17 @@ import {
 } from "@/lib/tokens";
 import { tokenStorage } from "@/lib/token-storage";
 
+export type PageSessionAuthIssue =
+  | "token_missing"
+  | "token_invalid"
+  | "token_expired_initial"
+  | "token_expired_runtime";
+
 export interface PageSessionState {
   error: PageError | null;
   accessToken: AccessToken | null;
+  authIssue: PageSessionAuthIssue | null;
+  hasTokenQuery: boolean;
   isLoadingState: boolean;
   setError: (error: PageError | null) => void;
   setIsLoadingState: (loading: boolean) => void;
@@ -20,19 +28,23 @@ export interface PageSessionState {
 export const usePageSession = (): PageSessionState => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const hasTokenQuery = searchParams.has("token");
   const [externalError, setError] = useState<PageError | null>(null);
   const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
+  const [runtimeAuthIssue, setRuntimeAuthIssue] =
+    useState<PageSessionAuthIssue | null>(null);
 
   const handleTokenExpired = () => {
     console.warn("Settings token expired");
     tokenStorage.clearToken();
+    setRuntimeAuthIssue("token_expired_runtime");
     setError(PageError.blocker("errors.expired"));
   };
 
   // Parse token and validate, deriving both token and error state
   // Priority: sessionStorage first, then URL as fallback
   // IMPORTANT: Save token to sessionStorage synchronously during render to avoid race conditions
-  const { accessToken, tokenError } = useMemo(() => {
+  const { accessToken, tokenError, initialAuthIssue } = useMemo(() => {
     try {
       // Check sessionStorage first
       let rawToken = tokenStorage.getToken();
@@ -62,6 +74,7 @@ export const usePageSession = (): PageSessionState => {
         return {
           accessToken: null,
           tokenError: PageError.blocker("errors.not_found"),
+          initialAuthIssue: "token_missing" as const,
         };
       }
 
@@ -69,25 +82,32 @@ export const usePageSession = (): PageSessionState => {
 
       console.info("Session parameters are available!", token.decoded);
 
-      return { accessToken: token, tokenError: null };
+      return {
+        accessToken: token,
+        tokenError: null,
+        initialAuthIssue: null,
+      };
     } catch (err) {
       if (err instanceof TokenExpiredError) {
         tokenStorage.clearToken();
         return {
           accessToken: null,
           tokenError: PageError.blocker("errors.expired"),
+          initialAuthIssue: "token_expired_initial" as const,
         };
       } else if (err instanceof TokenMissingError) {
         console.warn("No token found in sessionStorage or URL.");
         return {
           accessToken: null,
           tokenError: PageError.blocker("errors.not_found"),
+          initialAuthIssue: "token_missing" as const,
         };
       } else {
         console.warn("Error decoding token:", err);
         return {
           accessToken: null,
           tokenError: PageError.blocker("errors.not_valid"),
+          initialAuthIssue: "token_invalid" as const,
         };
       }
     }
@@ -112,10 +132,13 @@ export const usePageSession = (): PageSessionState => {
 
   // Use tokenError if present, otherwise use external error
   const error = tokenError || externalError;
+  const authIssue = initialAuthIssue ?? runtimeAuthIssue;
 
   return {
     error,
     accessToken,
+    authIssue,
+    hasTokenQuery,
     isLoadingState,
     setError,
     setIsLoadingState,

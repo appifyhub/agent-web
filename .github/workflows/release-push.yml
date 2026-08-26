@@ -35,6 +35,8 @@ jobs:
           VITE_LANDING_PAGE_URL: ${{ vars.VITE_LANDING_PAGE_URL }}
           VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
           VITE_APP_NAME_SHORT: ${{ vars.VITE_APP_NAME_SHORT }}
+          VITE_ANALYTICS_MEASUREMENT_ID: ${{ vars.VITE_ANALYTICS_MEASUREMENT_ID }}
+          VITE_ANALYTICS_DEBUG_MODE: ${{ vars.VITE_ANALYTICS_DEBUG_MODE }}
         run: bun run build
 
       - name: Upload artifact

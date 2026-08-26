@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Invalid social card video configuration",
     "invalid_social_card_mode": "Invalid social card mode"
   },
+  "auth_required_page": {
+    "title": "You’re not signed in",
+    "description": "Ask your agent to open your settings.",
+    "action": "Go home"
+  },
   "not_found_page": {
     "title": "Page not found",
     "description": "This address does not lead to your agent's space.",

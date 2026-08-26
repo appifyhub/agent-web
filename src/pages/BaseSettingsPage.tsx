@@ -5,17 +5,21 @@ import React, {
   forwardRef,
   useEffect,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SettingActionBar from "@/components/SettingActionBar";
 import ErrorMessage from "@/components/ErrorMessage";
+import { AuthRequiredPage } from "@/components/AuthRequiredPage";
 import SettingsPageSkeleton from "@/components/SettingsPageSkeleton";
 import GenericPageSkeleton from "@/components/GenericPageSkeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { DEFAULT_LANGUAGE, INTERFACE_LANGUAGES } from "@/lib/languages";
 import { t } from "@/lib/translations";
-import { usePageSession } from "@/hooks/usePageSession";
+import {
+  type PageSessionAuthIssue,
+  usePageSession,
+} from "@/hooks/usePageSession";
 import { useChats } from "@/hooks/useChats";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import { useNavigation } from "@/hooks/useNavigation";
@@ -26,8 +30,32 @@ import {
   getSettingsPageTitle,
   type SettingsPage,
 } from "@/lib/settings-pages";
+import {
+  buildAnalyticsChatContext,
+  buildAnalyticsIdentity,
+  clearAnalyticsIdentity,
+  clearPageError,
+  trackPageError,
+  trackPageView,
+  type AnalyticsPageErrorCode,
+} from "@/lib/analytics";
 
 const ACTION_BAR_TOP_OFFSET = 80;
+
+const INITIAL_AUTH_ERROR_CODES: Record<
+  Exclude<PageSessionAuthIssue, "token_expired_runtime">,
+  AnalyticsPageErrorCode
+> = {
+  token_missing: "token_missing",
+  token_invalid: "token_invalid",
+  token_expired_initial: "token_expired_initial",
+};
+
+const API_AUTHENTICATION_ERROR_CODES: Record<number, true> = {
+  4001: true,
+  4002: true,
+  4003: true,
+};
 
 export interface BaseSettingsPageRef {
   openDrawer: () => void;
@@ -103,8 +131,19 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     const { lang_iso_code } = useParams<{
       lang_iso_code: string;
     }>();
-    const { error, accessToken, isLoadingState, handleTokenExpired, setError } =
-      usePageSession();
+    const location = useLocation();
+    const selectedLanguage =
+      INTERFACE_LANGUAGES.find((lang) => lang.isoCode === lang_iso_code) ||
+      DEFAULT_LANGUAGE;
+    const {
+      error,
+      accessToken,
+      authIssue,
+      hasTokenQuery,
+      isLoadingState,
+      handleTokenExpired,
+      setError,
+    } = usePageSession();
 
     const { navigateToOnboarding, navigateToProfile } = useNavigation();
 
@@ -120,6 +159,10 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     const isShellLocked =
       page === "onboarding" ||
       (page === "help" && (!accessToken || isHelpLocked));
+    const isPolicyRedirectPending =
+      gateSettings !== null &&
+      ((page !== "onboarding" && !gateSettings.are_policies_accepted) ||
+        (page === "onboarding" && gateSettings.are_policies_accepted));
 
     // Gate: redirect based on policies accepted state
     useEffect(() => {
@@ -146,6 +189,110 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
     // Fetch chats once at this level to avoid duplicate calls
     const { chats, isLoading: isChatsLoading } = useChats(accessToken?.decoded?.sub, accessToken?.raw);
+    const displayError = externalError || error;
+
+    useEffect(() => {
+      if (
+        hasTokenQuery ||
+        authIssue ||
+        !accessToken ||
+        !gateSettings ||
+        isGateLoading ||
+        isPolicyRedirectPending ||
+        (page === "chat" && (isChatsLoading || !selectedChat))
+      ) {
+        return;
+      }
+
+      const identity = buildAnalyticsIdentity(
+        accessToken.decoded,
+        gateSettings,
+      );
+      if (!identity) return;
+
+      trackPageView({
+        pageId: page,
+        pageState: "ready",
+        occurrenceId: location.key,
+        interfaceLanguage: selectedLanguage.isoCode,
+        identity,
+        chatContext: selectedChat
+          ? buildAnalyticsChatContext(selectedChat)
+          : undefined,
+      });
+    }, [
+      accessToken,
+      authIssue,
+      gateSettings,
+      hasTokenQuery,
+      isChatsLoading,
+      isGateLoading,
+      isPolicyRedirectPending,
+      location.key,
+      page,
+      selectedChat,
+      selectedLanguage.isoCode,
+    ]);
+
+    useEffect(() => {
+      if (hasTokenQuery) return;
+
+      if (authIssue && authIssue !== "token_expired_runtime") {
+        const errorCode = INITIAL_AUTH_ERROR_CODES[authIssue];
+        trackPageView({
+          pageId: page,
+          pageState: "auth_error",
+          occurrenceId: location.key,
+          interfaceLanguage: selectedLanguage.isoCode,
+          identity: null,
+        });
+        trackPageError({
+          pageId: page,
+          occurrenceId: location.key,
+          errorCategory: "authentication",
+          errorCode,
+        });
+        return;
+      }
+
+      if (authIssue === "token_expired_runtime") {
+        trackPageError({
+          pageId: page,
+          occurrenceId: location.key,
+          errorCategory: "authentication",
+          errorCode: "token_expired_runtime",
+        });
+        clearAnalyticsIdentity();
+        return;
+      }
+
+      const apiErrorCode = displayError?.apiErrorCode;
+      const isApiAuthenticationError =
+        displayError?.httpStatus === 401 ||
+        (apiErrorCode !== undefined &&
+          API_AUTHENTICATION_ERROR_CODES[apiErrorCode] === true);
+      if (isApiAuthenticationError) {
+        trackPageError({
+          pageId: page,
+          occurrenceId: location.key,
+          errorCategory: "authentication",
+          errorCode: "api_authentication_failed",
+          apiErrorCode,
+          httpStatus: displayError?.httpStatus,
+        });
+        clearAnalyticsIdentity();
+        return;
+      }
+
+      clearPageError(page, location.key);
+    }, [
+      authIssue,
+      displayError,
+      hasTokenQuery,
+      location.key,
+      page,
+      selectedLanguage.isoCode,
+    ]);
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const stickySentinelRef = useRef<HTMLDivElement>(null);
@@ -167,7 +314,6 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
     }));
 
     // prioritize external error if provided
-    const displayError = externalError || error;
     const getErrorText = (
       error: PageError | null,
     ): string | React.ReactNode => {
@@ -183,9 +329,18 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       }
       return "";
     };
+    const isInitialAuthFailure =
+      authIssue !== null && authIssue !== "token_expired_runtime";
+    if (!hasTokenQuery && isInitialAuthFailure) {
+      return <AuthRequiredPage sourcePage={page} />;
+    }
 
     // show the early loading state (before token or during gate check)
-    if ((!accessToken && !error) || isGateLoading) {
+    if (
+      (hasTokenQuery && !accessToken) ||
+      (!accessToken && !error) ||
+      isGateLoading
+    ) {
       console.info("Rendering the loading state!");
       return (
         <div className="container mx-auto px-4 py-4 h-screen">
@@ -207,11 +362,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
           userId={accessToken?.decoded?.sub}
           rawAccessToken={accessToken?.raw}
           decodedToken={accessToken?.decoded}
-          selectedLanguage={
-            INTERFACE_LANGUAGES.find(
-              (lang) => lang.isoCode === lang_iso_code,
-            ) || DEFAULT_LANGUAGE
-          }
+          selectedLanguage={selectedLanguage}
           expiryTimestamp={accessToken?.decoded?.exp}
           onTokenExpired={handleTokenExpired}
           isLocked
@@ -302,11 +453,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
         userId={accessToken?.decoded?.sub}
         rawAccessToken={accessToken?.raw}
         decodedToken={accessToken?.decoded}
-        selectedLanguage={
-          INTERFACE_LANGUAGES.find(
-            (lang) => lang.isoCode === lang_iso_code,
-          ) || DEFAULT_LANGUAGE
-        }
+        selectedLanguage={selectedLanguage}
         expiryTimestamp={accessToken?.decoded?.exp}
         onTokenExpired={handleTokenExpired}
         showProfileButton={showProfileButton}

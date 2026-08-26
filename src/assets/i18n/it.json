@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "Configurazione video della scheda social non valida",
     "invalid_social_card_mode": "Modalità scheda social non valida"
   },
+  "auth_required_page": {
+    "title": "Non hai effettuato l’accesso",
+    "description": "Chiedi al tuo agent di aprire le tue impostazioni.",
+    "action": "Vai alla home"
+  },
   "not_found_page": {
     "title": "Pagina non trovata",
     "description": "Questo indirizzo non porta allo spazio del tuo agent.",

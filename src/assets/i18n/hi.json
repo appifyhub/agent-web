@@ -534,6 +534,11 @@
     "invalid_social_card_video_configuration": "अमान्य सोशल कार्ड वीडियो कॉन्फ़िगरेशन",
     "invalid_social_card_mode": "अमान्य सोशल कार्ड मोड"
   },
+  "auth_required_page": {
+    "title": "आप साइन इन नहीं हैं",
+    "description": "अपने एजेंट से अपनी सेटिंग खोलने के लिए कहें।",
+    "action": "होम पर जाएँ"
+  },
   "not_found_page": {
     "title": "पेज नहीं मिला",
     "description": "यह पता आपके एजेंट के स्थान पर नहीं ले जाता।",

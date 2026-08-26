@@ -291,6 +291,8 @@ const SponsorshipsPage: React.FC = () => {
       showCancelButton={shouldShowCancelButton}
       onCancelClicked={handleCancelEditing}
       isContentLoading={isLoadingState}
+      externalError={error}
+      onExternalErrorDismiss={() => setError(null)}
       contentVariant="flow"
     >
       {userSettings?.is_sponsored ? (
@@ -304,22 +306,24 @@ const SponsorshipsPage: React.FC = () => {
           </div>
         </>
       ) : isEditing ? (
-        <div className="flex flex-col items-center gap-6">
-          <PlatformHandleInput
-            label={t("sponsorship.platform_handle_label")}
-            selectedPlatform={selectedPlatform}
-            onPlatformChange={setSelectedPlatform}
-            platformHandle={platformHandle}
-            onPlatformHandleChange={setPlatformHandle}
-            disabled={!!error?.isBlocker}
-            className="w-full sm:w-auto"
-            onKeyboardConfirm={() => {
-              if (!error?.isBlocker) {
-                handleSaveSponsorship();
-              }
-            }}
-          />
-        </div>
+        <SettingsSection contentClassName="gap-6">
+          <div className="flex flex-col items-center gap-6">
+            <PlatformHandleInput
+              label={t("sponsorship.platform_handle_label")}
+              selectedPlatform={selectedPlatform}
+              onPlatformChange={setSelectedPlatform}
+              platformHandle={platformHandle}
+              onPlatformHandleChange={setPlatformHandle}
+              disabled={!!error?.isBlocker}
+              className="w-full sm:w-auto"
+              onKeyboardConfirm={() => {
+                if (!error?.isBlocker) {
+                  handleSaveSponsorship();
+                }
+              }}
+            />
+          </div>
+        </SettingsSection>
       ) : (
         <SettingsSection
           title={t("sponsorship.profiles_i_sponsor")}
