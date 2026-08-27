@@ -566,3 +566,21 @@ export const trackReportFilterChanged = (
     option_id: optionId,
   });
 };
+
+// backend product ids are opaque vendor strings, so the reported value is
+// derived from the product's credit amount instead of any hard-coded id
+export const getProductSlug = (credits: number): string | undefined => {
+  if (!Number.isFinite(credits)) return undefined;
+  if (credits <= 0) return "donation";
+  return `pack_${Math.trunc(credits)}`;
+};
+
+export const getErrorDetails = (error: unknown): AnalyticsErrorDetails => {
+  const apiError = error as { errorCode?: unknown; httpStatus?: unknown } | null;
+  return {
+    apiErrorCode:
+      typeof apiError?.errorCode === "number" ? apiError.errorCode : undefined,
+    httpStatus:
+      typeof apiError?.httpStatus === "number" ? apiError.httpStatus : undefined,
+  };
+};

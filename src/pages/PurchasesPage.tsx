@@ -7,6 +7,12 @@ import { toast } from "sonner";
 import { t } from "@/lib/translations";
 import { ApiError } from "@/lib/api-error";
 import {
+  getErrorDetails,
+  getProductSlug,
+  trackFeatureAction,
+  trackReportFilterChanged,
+} from "@/lib/analytics";
+import {
   fetchPurchaseRecords,
   fetchPurchaseStats,
   bindLicenseKey,
@@ -205,11 +211,21 @@ const PurchasesPage: React.FC = () => {
       setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
       return;
     }
+    trackFeatureAction({
+      featureId: "license_binding",
+      action: "open",
+      sourceArea: "purchases",
+    });
     setIsEditing(true);
     setLicenseKey("");
   };
 
   const handleCancelEditing = () => {
+    trackFeatureAction({
+      featureId: "license_binding",
+      action: "cancel",
+      sourceArea: "purchases",
+    });
     setIsEditing(false);
     setLicenseKey("");
   };
@@ -227,6 +243,12 @@ const PurchasesPage: React.FC = () => {
         resource_id: user_id,
         rawToken: accessToken.raw,
         license_key: cleanKey,
+      });
+      trackFeatureAction({
+        featureId: "license_binding",
+        action: "complete",
+        result: "success",
+        sourceArea: "purchases",
       });
 
       const dateRange = calculateDateRange(timeRange);
@@ -266,6 +288,13 @@ const PurchasesPage: React.FC = () => {
       toast(t("purchases.bind_success"));
     } catch (err) {
       console.error("Error binding license key!", err);
+      trackFeatureAction({
+        featureId: "license_binding",
+        action: "complete",
+        result: "failure",
+        sourceArea: "purchases",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
@@ -300,6 +329,11 @@ const PurchasesPage: React.FC = () => {
       setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
       return;
     }
+    trackFeatureAction({
+      featureId: "store_picker",
+      action: "open",
+      sourceArea: "purchases",
+    });
     setShopOpen(true);
   };
 
@@ -307,6 +341,7 @@ const PurchasesPage: React.FC = () => {
     <>
       <ProductPickerDialog
         products={shopProducts}
+        sourceArea="purchases"
         open={shopOpen}
         onOpenChange={setShopOpen}
         shopUrl={shopUrl}
@@ -386,8 +421,24 @@ const PurchasesPage: React.FC = () => {
               <PurchaseFilters
                 timeRange={timeRange}
                 selectedProduct={selectedProduct}
-                onTimeRangeChange={setTimeRange}
-                onProductChange={setSelectedProduct}
+                onTimeRangeChange={(value) => {
+                  trackReportFilterChanged({
+                    reportId: "purchases",
+                    filterId: "time_range",
+                    optionId: value,
+                  });
+                  setTimeRange(value);
+                }}
+                onProductChange={(value) => {
+                  const credits = shopProducts.find((p) => p.id === value)?.credits;
+                  trackReportFilterChanged({
+                    reportId: "purchases",
+                    filterId: "product",
+                    optionId:
+                      value === "all" ? "all" : credits === undefined ? "" : (getProductSlug(credits) ?? ""),
+                  });
+                  setSelectedProduct(value);
+                }}
                 stats={stats}
                 disabled={isLoadingState}
                 isExpanded={filtersExpanded}

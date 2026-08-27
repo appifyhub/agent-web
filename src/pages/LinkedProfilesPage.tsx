@@ -17,6 +17,7 @@ import WarningBanner from "@/components/WarningBanner";
 import SettingsSection from "@/components/settings/SettingsSection";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { t } from "@/lib/translations";
+import { getErrorDetails, trackFeatureAction } from "@/lib/analytics";
 import { usePageSession } from "@/hooks/usePageSession";
 import { PageError, cn } from "@/lib/utils";
 import { ApiError } from "@/lib/api-error";
@@ -141,6 +142,12 @@ const LinkedProfilesPage: React.FC = () => {
 
   const handleCopyKey = () => {
     if (!connectKey) return;
+    trackFeatureAction({
+      featureId: "linked_profile_key",
+      action: "copy",
+      optionId: "key",
+      sourceArea: "linked_profiles",
+    });
     // Copy the formatted key (as displayed) since that's what user sees
     handleCopy(formatDisplayKey(connectKey));
   };
@@ -260,11 +267,23 @@ const LinkedProfilesPage: React.FC = () => {
 
   const handleCopyCommand = () => {
     if (!connectKey) return;
+    trackFeatureAction({
+      featureId: "linked_profile_key",
+      action: "copy",
+      optionId: "command",
+      sourceArea: "linked_profiles",
+    });
     handleCopy(`/connect ${formatDisplayKey(connectKey)}`);
   };
 
   const handleCopyChat = () => {
     if (!connectKey) return;
+    trackFeatureAction({
+      featureId: "linked_profile_key",
+      action: "copy",
+      optionId: "chat",
+      sourceArea: "linked_profiles",
+    });
     handleCopy(
       t("linked_profiles.chat_command_example", {
         connectKey: formatDisplayKey(connectKey),
@@ -285,9 +304,22 @@ const LinkedProfilesPage: React.FC = () => {
       });
       console.info("Regenerated connect key!");
       setConnectKey(response.connect_key);
+      trackFeatureAction({
+        featureId: "linked_profile_key",
+        action: "regenerate",
+        result: "success",
+        sourceArea: "linked_profiles",
+      });
       toast.success(t("linked_profiles.regenerate_success"));
     } catch (err) {
       console.error("Error regenerating connect key!", err);
+      trackFeatureAction({
+        featureId: "linked_profile_key",
+        action: "regenerate",
+        result: "failure",
+        sourceArea: "linked_profiles",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
@@ -321,11 +353,23 @@ const LinkedProfilesPage: React.FC = () => {
 
   const handleShareCommand = () => {
     if (!connectKey) return;
+    trackFeatureAction({
+      featureId: "linked_profile_key",
+      action: "share",
+      optionId: "command",
+      sourceArea: "linked_profiles",
+    });
     handleShareKey(`/connect ${formatDisplayKey(connectKey)}`);
   };
 
   const handleShareChat = () => {
     if (!connectKey) return;
+    trackFeatureAction({
+      featureId: "linked_profile_key",
+      action: "share",
+      optionId: "chat",
+      sourceArea: "linked_profiles",
+    });
     handleShareKey(
       t("linked_profiles.chat_command_example", {
         connectKey: formatDisplayKey(connectKey),
@@ -367,6 +411,12 @@ const LinkedProfilesPage: React.FC = () => {
         rawToken: accessToken.raw,
         connect_key: formattedKey,
       });
+      trackFeatureAction({
+        featureId: "linked_profile_connection",
+        action: "connect",
+        result: "success",
+        sourceArea: "linked_profiles",
+      });
 
       console.info("Profiles connected successfully!");
       toast.success(t("linked_profiles.connect_success"));
@@ -379,6 +429,13 @@ const LinkedProfilesPage: React.FC = () => {
       }
     } catch (err) {
       console.error("Error connecting profiles!", err);
+      trackFeatureAction({
+        featureId: "linked_profile_connection",
+        action: "connect",
+        result: "failure",
+        sourceArea: "linked_profiles",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
@@ -409,7 +466,15 @@ const LinkedProfilesPage: React.FC = () => {
       }
       showSecondaryButton={!isMyKeySectionOpen}
       secondaryText={t("linked_profiles.my_key")}
-      onSecondaryClicked={() => setIsMyKeySectionOpen(true)}
+      onSecondaryClicked={() => {
+        trackFeatureAction({
+          featureId: "linked_profile_key",
+          action: "view",
+          optionId: "key",
+          sourceArea: "linked_profiles",
+        });
+        setIsMyKeySectionOpen(true);
+      }}
       secondaryDisabled={!connectKey}
       showCancelButton={isMyKeySectionOpen}
       onCancelClicked={() => setIsMyKeySectionOpen(false)}

@@ -4,6 +4,11 @@ import { ChartNoAxesCombined, BadgeCent } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { ApiError } from "@/lib/api-error";
 import { PageError, buildSponsoredBlockerError, cleanUsername } from "@/lib/utils";
+import {
+  getErrorDetails,
+  trackFeatureAction,
+  trackReportFilterChanged,
+} from "@/lib/analytics";
 import { toast } from "sonner";
 import { t } from "@/lib/translations";
 import {
@@ -291,6 +296,11 @@ const UsagePage: React.FC = () => {
       setError(buildSponsoredBlockerError(lang_iso_code!, user_id!));
       return;
     }
+    trackFeatureAction({
+      featureId: "store_picker",
+      action: "open",
+      sourceArea: "usage",
+    });
     setShopOpen(true);
   };
 
@@ -300,6 +310,11 @@ const UsagePage: React.FC = () => {
     setTransferAmount("");
     setTransferNote("");
     setTransferPlatform(Platform.TELEGRAM);
+    trackFeatureAction({
+      featureId: "credit_transfer",
+      action: "open",
+      sourceArea: "usage",
+    });
   };
 
   const handleCancelTransfer = () => {
@@ -334,12 +349,27 @@ const UsagePage: React.FC = () => {
           note: transferNote.trim() || undefined,
         },
       });
+      trackFeatureAction({
+        featureId: "credit_transfer",
+        action: "complete",
+        result: "success",
+        optionId: transferPlatform,
+        sourceArea: "usage",
+      });
       handleCancelTransfer();
       setDataRefreshCounter((c) => c + 1);
       await refreshSettings();
       toast(t("saved"));
     } catch (err) {
       console.error("Error transferring credits!", err);
+      trackFeatureAction({
+        featureId: "credit_transfer",
+        action: "complete",
+        result: "failure",
+        optionId: transferPlatform,
+        sourceArea: "usage",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
@@ -350,10 +380,19 @@ const UsagePage: React.FC = () => {
     }
   };
 
+  const trackUsageToggle = (filterId: string, value: boolean): void => {
+    trackReportFilterChanged({
+      reportId: "usage",
+      filterId,
+      optionId: value ? "enabled" : "disabled",
+    });
+  };
+
   return (
     <>
       <ProductPickerDialog
         products={shopProducts}
+        sourceArea="usage"
         open={shopOpen}
         onOpenChange={setShopOpen}
         shopUrl={shopUrl}
@@ -368,7 +407,14 @@ const UsagePage: React.FC = () => {
         onSecondaryClicked={handleStartTransfer}
         secondaryText={t("usage.transfer.action")}
         showCancelButton={isTransferring}
-        onCancelClicked={handleCancelTransfer}
+        onCancelClicked={() => {
+          trackFeatureAction({
+            featureId: "credit_transfer",
+            action: "cancel",
+            sourceArea: "usage",
+          });
+          handleCancelTransfer();
+        }}
         isContentLoading={isLoadingState || isTransferSaving}
         externalError={error}
         onExternalErrorDismiss={() => setError(null)}
@@ -442,16 +488,56 @@ const UsagePage: React.FC = () => {
               selectedProvider={selectedProvider}
               includeSponsored={includeSponsored}
               excludeSelf={excludeSelf}
-              onTimeRangeChange={setTimeRange}
-              onToolChange={setSelectedTool}
-              onPurposeChange={setSelectedPurpose}
-              onProviderChange={setSelectedProvider}
-              onIncludeSponsoredChange={setIncludeSponsored}
-              onExcludeSelfChange={setExcludeSelf}
+              onTimeRangeChange={(value) => {
+                trackReportFilterChanged({
+                  reportId: "usage",
+                  filterId: "time_range",
+                  optionId: value,
+                });
+                setTimeRange(value);
+              }}
+              onToolChange={(value) => {
+                trackReportFilterChanged({
+                  reportId: "usage",
+                  filterId: "tool",
+                  optionId: value,
+                });
+                setSelectedTool(value);
+              }}
+              onPurposeChange={(value) => {
+                trackReportFilterChanged({
+                  reportId: "usage",
+                  filterId: "purpose",
+                  optionId: value,
+                });
+                setSelectedPurpose(value);
+              }}
+              onProviderChange={(value) => {
+                trackReportFilterChanged({
+                  reportId: "usage",
+                  filterId: "provider",
+                  optionId: value,
+                });
+                setSelectedProvider(value);
+              }}
+              onIncludeSponsoredChange={(value) => {
+                trackUsageToggle("include_sponsored", value);
+                setIncludeSponsored(value);
+              }}
+              onExcludeSelfChange={(value) => {
+                trackUsageToggle("exclude_self", value);
+                setExcludeSelf(value);
+              }}
               includeTransfers={includeTransfers}
-              onIncludeTransfersChange={setIncludeTransfers}
+              onIncludeTransfersChange={(value) => {
+                trackUsageToggle("include_transfers", value);
+                setIncludeTransfers(value);
+              }}
               onlyTransfers={onlyTransfers}
-              onOnlyTransfersChange={setOnlyTransfers}
+              onOnlyTransfersChange={(value) => {
+                trackUsageToggle("only_transfers", value);
+                setOnlyTransfers(value);
+              }}
               stats={stats}
               disabled={isLoadingState}
               isExpanded={filtersExpanded}

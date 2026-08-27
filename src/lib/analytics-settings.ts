@@ -1,10 +1,10 @@
 import {
+  getErrorDetails,
   trackSettingSaved,
   trackSettingsSaved,
   type AnalyticsSettingState,
   type AnalyticsSettingsArea,
 } from "@/lib/analytics";
-import type { ApiError } from "@/lib/api-error";
 import type { UserSettingsPayload } from "@/services/user-settings-service";
 import type {
   ChatConfig,
@@ -116,16 +116,11 @@ export const trackUserSettingsFailed = (
   payload: UserSettingsPayload,
   saveError: unknown,
 ): void => {
-  const apiError = saveError as Partial<ApiError> | null;
-
   trackSettingsSaved({
     area,
     result: "failure",
     changedFieldCount: Object.keys(payload).length,
-    apiErrorCode:
-      typeof apiError?.errorCode === "number" ? apiError.errorCode : undefined,
-    httpStatus:
-      typeof apiError?.httpStatus === "number" ? apiError.httpStatus : undefined,
+    ...getErrorDetails(saveError),
   });
 };
 
@@ -212,17 +207,10 @@ export const trackChatSettingsFailed = (
   userChatConfig: UserChatConfigPayload | undefined,
   saveError: unknown,
 ): void => {
-  const apiError = saveError as Partial<ApiError> | null;
-
   trackSettingsSaved({
     area: "chat",
     result: "failure",
     changedFieldCount: countChatFields(chatConfig, userChatConfig),
-    apiErrorCode:
-      typeof apiError?.errorCode === "number" ? apiError.errorCode : undefined,
-    httpStatus:
-      typeof apiError?.httpStatus === "number"
-        ? apiError.httpStatus
-        : undefined,
+    ...getErrorDetails(saveError),
   });
 };
