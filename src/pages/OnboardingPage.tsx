@@ -236,18 +236,24 @@ const OnboardingPage: React.FC = () => {
       });
 
       trackOnboardingProgress({
-        stepId: ONBOARDING_STEP_IDS[ONBOARDING_STEP_IDS.length - 1],
+        stepId: "onboarding",
         action: "complete",
-        choiceId: selectedPreset,
+      });
+      trackOnboardingProgress({
+        stepId: "policies",
+        action: "complete",
         choiceEnabled: isPolicyAccepted,
       });
-      if (accessChoice) {
-        trackOnboardingProgress({
-          stepId: "access",
-          action: "complete",
-          choiceId: accessChoice,
-        });
-      }
+      trackOnboardingProgress({
+        stepId: "intelligence",
+        action: "complete",
+        choiceId: selectedPreset,
+      });
+      trackOnboardingProgress({
+        stepId: "access",
+        action: "complete",
+        choiceId: isSponsored ? "sponsored" : accessChoice || undefined,
+      });
 
       if (remoteSettings) {
         updateSettingsCache({ ...remoteSettings, ...payload });
