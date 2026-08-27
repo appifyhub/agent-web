@@ -34,6 +34,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import logoVector from "@/assets/logo-vector.svg";
+import { trackFeatureAction } from "@/lib/analytics";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import type { Language } from "@/lib/languages";
@@ -343,6 +344,12 @@ const Header: React.FC<HeaderProps> = ({
       return;
     }
 
+    trackFeatureAction({
+      featureId: "interface_language",
+      action: "change",
+      optionId: isoCode,
+      sourceArea: page,
+    });
     navigateWithLanguageChange(isoCode, location.pathname);
   };
 

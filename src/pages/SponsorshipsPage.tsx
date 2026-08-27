@@ -9,6 +9,7 @@ import { ApiError } from "@/lib/api-error";
 import { PageError, cleanUsername } from "@/lib/utils";
 import { toast } from "sonner";
 import { t } from "@/lib/translations";
+import { getErrorDetails, trackFeatureAction } from "@/lib/analytics";
 import {
   fetchUserSponsorships,
   createSponsorship,
@@ -121,9 +122,19 @@ const SponsorshipsPage: React.FC = () => {
   const handleStartEditing = () => {
     setIsEditing(true);
     setPlatformHandle("");
+    trackFeatureAction({
+      featureId: "sponsorship",
+      action: "open",
+      sourceArea: "sponsorships",
+    });
   };
 
   const handleCancelEditing = () => {
+    trackFeatureAction({
+      featureId: "sponsorship",
+      action: "cancel",
+      sourceArea: "sponsorships",
+    });
     setIsEditing(false);
     setPlatformHandle("");
     setSelectedPlatform(Platform.TELEGRAM);
@@ -145,6 +156,13 @@ const SponsorshipsPage: React.FC = () => {
         platform: selectedPlatform,
       });
 
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "add",
+        result: "success",
+        optionId: selectedPlatform,
+        sourceArea: "sponsorships",
+      });
       setSponsorships((prev) => sortSponsorships([...prev, result.sponsorship]));
 
       // Exit editing mode and show success
@@ -154,6 +172,14 @@ const SponsorshipsPage: React.FC = () => {
       toast(t("saved"));
     } catch (err) {
       console.error("Error saving sponsorship!", err);
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "add",
+        result: "failure",
+        optionId: selectedPlatform,
+        sourceArea: "sponsorships",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)
@@ -178,6 +204,13 @@ const SponsorshipsPage: React.FC = () => {
         platform: sponsorship.platform,
         rawToken: accessToken.raw,
       });
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "remove",
+        result: "success",
+        optionId: sponsorship.platform,
+        sourceArea: "sponsorships",
+      });
 
       toast(t("saved"));
 
@@ -193,6 +226,14 @@ const SponsorshipsPage: React.FC = () => {
       }, 300);
     } catch (err) {
       console.error("Error saving sponsorship!", err);
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "remove",
+        result: "failure",
+        optionId: sponsorship.platform,
+        sourceArea: "sponsorships",
+        ...getErrorDetails(err),
+      });
       setRemovingIndex(null);
       setError(
         err instanceof ApiError
@@ -214,10 +255,23 @@ const SponsorshipsPage: React.FC = () => {
         resource_id: user_id,
         rawToken: accessToken.raw,
       });
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "unlink",
+        result: "success",
+        sourceArea: "sponsorships",
+      });
       toast(t("saved"));
       await refreshSettings();
     } catch (err) {
       console.error("Error saving sponsorship!", err);
+      trackFeatureAction({
+        featureId: "sponsorship",
+        action: "unlink",
+        result: "failure",
+        sourceArea: "sponsorships",
+        ...getErrorDetails(err),
+      });
       setError(
         err instanceof ApiError
           ? PageError.fromApiError(err)

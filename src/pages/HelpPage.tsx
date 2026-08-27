@@ -15,6 +15,7 @@ import {
   UserRound,
 } from "lucide-react";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
+import { trackFeatureAction } from "@/lib/analytics";
 import SettingsSection from "@/components/settings/SettingsSection";
 import SettingsGuideChip from "@/components/settings/SettingsGuideChip";
 import {
@@ -119,6 +120,13 @@ export default function HelpPage() {
       sponsorships: navigateToSponsorships,
       linked_profiles: navigateToLinkedProfiles,
     };
+
+    trackFeatureAction({
+      featureId: "help_guide",
+      action: "open",
+      optionId: destination,
+      sourceArea: "help",
+    });
 
     navigationByDestination[destination](userId, lang_iso_code);
   };
@@ -235,9 +243,17 @@ export default function HelpPage() {
                 type="single"
                 collapsible
                 value={openGuide}
-                onValueChange={(value) =>
-                  setOpenGuide(value as GuideId | "")
-                }
+                onValueChange={(value) => {
+                  if (value) {
+                    trackFeatureAction({
+                      featureId: "help_guide",
+                      action: "view",
+                      optionId: value,
+                      sourceArea: "help",
+                    });
+                  }
+                  setOpenGuide(value as GuideId | "");
+                }}
               >
                 {guideIds.map((guideId) => {
                   const Icon = guideIcons[guideId];

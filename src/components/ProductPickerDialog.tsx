@@ -4,6 +4,12 @@ import { t } from "@/lib/translations";
 import { cn } from "@/lib/utils";
 import { Product } from "@/services/purchase-service";
 import {
+  getProductSlug,
+  trackFeatureAction,
+  type AnalyticsPageId,
+} from "@/lib/analytics";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -16,32 +22,24 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-const PRODUCT_ID_PACK_100 = "MdNfIIA-QpvTVdbsmt2Y-Q==";
-const PRODUCT_ID_PACK_200 = "6qh4TvbD0qz6A94Itgh1OQ==";
-const PRODUCT_ID_PACK_300 = "JKSxTO8XziVzs6rB6OP0OQ==";
-const PRODUCT_ID_PACK_500 = "Flvyd9RzyrGPBwF6gIc92A==";
-const PRODUCT_ID_PACK_1000 = "lKIUyknbw5PB2oD_SEruLQ==";
-const PRODUCT_ID_PACK_2000 = "IakAM0UnnX7KZsM_26zG4A==";
-const PRODUCT_ID_PACK_3000 = "LqFFt3peqn4xjDEk2pX0Gg==";
-const PRODUCT_ID_PACK_5000 = "UFnrqvu8Z_j7gv5D25zEEA==";
-const PRODUCT_ID_PACK_10000 = "PRntDF9xf2fg96XhwAo03g==";
-const PRODUCT_ID_DONATION = "m4Uw8SZcfYnlQouZ4Zyx4g==";
+// products are identified by their credit amount rather than opaque vendor
+// ids, so the shop needs no per-product id constants; donations carry no credits
+const isDonation = (product: Product): boolean => product.credits <= 0;
 
-function getProductLabel(id: string, fallbackName: string): string {
-  switch (id) {
-    case PRODUCT_ID_PACK_100: return t("products.shop.pack_100");
-    case PRODUCT_ID_PACK_200: return t("products.shop.pack_200");
-    case PRODUCT_ID_PACK_300: return t("products.shop.pack_300");
-    case PRODUCT_ID_PACK_500: return t("products.shop.pack_500");
-    case PRODUCT_ID_PACK_1000: return t("products.shop.pack_1000");
-    case PRODUCT_ID_PACK_2000: return t("products.shop.pack_2000");
-    case PRODUCT_ID_PACK_3000: return t("products.shop.pack_3000");
-    case PRODUCT_ID_PACK_5000: return t("products.shop.pack_5000");
-    case PRODUCT_ID_PACK_10000: return t("products.shop.pack_10000");
-    case PRODUCT_ID_DONATION: return t("products.shop.donation");
-    default: return fallbackName;
+function getProductLabel(product: Product): string {
+  switch (getProductSlug(product.credits)) {
+    case "donation": return t("products.shop.donation");
+    case "pack_100": return t("products.shop.pack_100");
+    case "pack_200": return t("products.shop.pack_200");
+    case "pack_300": return t("products.shop.pack_300");
+    case "pack_500": return t("products.shop.pack_500");
+    case "pack_1000": return t("products.shop.pack_1000");
+    case "pack_2000": return t("products.shop.pack_2000");
+    case "pack_3000": return t("products.shop.pack_3000");
+    case "pack_5000": return t("products.shop.pack_5000");
+    case "pack_10000": return t("products.shop.pack_10000");
+    default: return product.name;
   }
 }
 
@@ -56,20 +54,33 @@ function getListItemClasses(index: number, total: number): string {
 
 interface ProductPickerContentProps {
   products: Product[];
+  sourceArea: AnalyticsPageId;
   shopUrl?: string;
   onClose: () => void;
 }
 
-const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, shopUrl, onClose }) => {
-  const donationProduct = products.find((p) => p.id === PRODUCT_ID_DONATION);
-  const creditPacks = products.filter((p) => p.id !== PRODUCT_ID_DONATION);
+const ProductPickerContent: React.FC<ProductPickerContentProps> = ({
+  products,
+  sourceArea,
+  shopUrl,
+  onClose,
+}) => {
+  const donationProduct = products.find(isDonation);
+  const creditPacks = products.filter((p) => !isDonation(p));
 
-  type CtaItem = { url: string; label: string; icon: React.ReactNode; itemClassName: string };
+  type CtaItem = {
+    url: string;
+    label: string;
+    optionId: string;
+    icon: React.ReactNode;
+    itemClassName: string;
+  };
   const ctaItems: CtaItem[] = [];
   if (donationProduct) {
     ctaItems.push({
       url: donationProduct.url,
-      label: getProductLabel(donationProduct.id, donationProduct.name),
+      label: getProductLabel(donationProduct),
+      optionId: getProductSlug(donationProduct.credits) ?? "donation",
       icon: <Coffee className="h-4 w-4 shrink-0 text-teal-200" />,
       itemClassName: "bg-[oklch(0.25_0.06_160)]/60 border border-teal-400/20",
     });
@@ -78,6 +89,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
     ctaItems.push({
       url: shopUrl,
       label: t("products.shop.open_shop"),
+      optionId: "shop",
       icon: <InfinityIcon className="h-4 w-4 shrink-0 text-teal-200" />,
       itemClassName: "bg-[oklch(0.25_0.06_160)]/60 border border-teal-400/20",
     });
@@ -93,7 +105,15 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onClose}
+              onClick={() => {
+                trackFeatureAction({
+                  featureId: "product_link",
+                  action: "open",
+                  optionId: item.optionId,
+                  sourceArea,
+                });
+                onClose();
+              }}
               className={cn(
                 "flex items-center justify-between px-5 py-4 border cursor-pointer w-full",
                 getListItemClasses(index, ctaItems.length),
@@ -122,7 +142,15 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
                 href={product.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={onClose}
+                onClick={() => {
+                  trackFeatureAction({
+                    featureId: "product_link",
+                    action: "open",
+                    optionId: getProductSlug(product.credits),
+                    sourceArea,
+                  });
+                  onClose();
+                }}
                 className={cn(
                   "flex items-center justify-between px-5 py-4 bg-surface-subtle/50 border cursor-pointer w-full",
                   getListItemClasses(index, creditPacks.length),
@@ -131,7 +159,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
                 <div className="flex items-center gap-3">
                   <PackagePlus className="h-4 w-4 shrink-0 text-blue-300" />
                   <span className="text-sm font-medium">
-                    {getProductLabel(product.id, product.name)}
+                    {getProductLabel(product)}
                   </span>
                 </div>
                 <ExternalLink className="h-4 w-4 text-blue-300 hover:text-blue-400 transition-colors shrink-0" />
@@ -146,6 +174,7 @@ const ProductPickerContent: React.FC<ProductPickerContentProps> = ({ products, s
 
 interface ProductPickerDialogProps {
   products: Product[];
+  sourceArea: AnalyticsPageId;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   shopUrl?: string;
@@ -156,6 +185,7 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
   open,
   onOpenChange,
   shopUrl,
+  sourceArea,
 }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -180,6 +210,7 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
             <ProductPickerContent
               products={products}
               shopUrl={shopUrl}
+              sourceArea={sourceArea}
               onClose={() => onOpenChange(false)}
             />
           </div>
@@ -197,7 +228,12 @@ const ProductPickerDialog: React.FC<ProductPickerDialogProps> = ({
             <DrawerTitle className="text-white">{t("products.shop.title")}</DrawerTitle>
           </div>
         </DrawerHeader>
-        <ProductPickerContent products={products} shopUrl={shopUrl} onClose={() => onOpenChange(false)} />
+        <ProductPickerContent
+          products={products}
+          sourceArea={sourceArea}
+          shopUrl={shopUrl}
+          onClose={() => onOpenChange(false)}
+        />
       </DrawerContent>
     </Drawer>
   );

@@ -11,6 +11,10 @@ import { usePageSession } from "@/hooks/usePageSession";
 import { ApiError } from "@/lib/api-error";
 import { t } from "@/lib/translations";
 import { PageError } from "@/lib/utils";
+import {
+  trackChatSettingsFailed,
+  trackChatSettingsSaved,
+} from "@/lib/analytics-settings";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
 import { setCachedChats } from "@/services/chat-cache";
 import {
@@ -165,6 +169,7 @@ const ChatSettingsPage: React.FC = () => {
         chatConfig: chatConfigPayload,
         userChatConfig: userChatConfigPayload,
       });
+      trackChatSettingsSaved(chatConfigPayload, userChatConfigPayload);
       setRemoteSettings(chatSettings);
       const updatedChats = chats.map((chat) =>
         chat.chat_config.chat_id === chat_id ? chatSettings : chat,
@@ -176,6 +181,11 @@ const ChatSettingsPage: React.FC = () => {
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
+      trackChatSettingsFailed(
+        chatConfigPayload,
+        userChatConfigPayload,
+        saveError,
+      );
       setError(
         saveError instanceof ApiError
           ? PageError.fromApiError(saveError)

@@ -23,7 +23,13 @@ import {
   UserSettings,
   buildChangedPayload,
   areSettingsChanged,
+  type UserSettingsPayload,
 } from "@/services/user-settings-service";
+import { trackSettingSaved } from "@/lib/analytics";
+import {
+  trackUserSettingsFailed,
+  trackUserSettingsSaved,
+} from "@/lib/analytics-settings";
 import { useUserSettings } from "@/hooks/useUserSettings";
 import { useExternalTools } from "@/hooks/useExternalTools";
 import { ToolType } from "@/services/external-tools-service";
@@ -120,11 +126,12 @@ const IntelligenceSettingsPage: React.FC = () => {
 
     setIsLoadingState(true);
     setError(null);
+    let payload: UserSettingsPayload = {};
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
       // Only send fields that have actually changed (smart diffing)
-      const payload = buildChangedPayload(userSettings, remoteSettings);
+      payload = buildChangedPayload(userSettings, remoteSettings);
 
       await saveUserSettings({
         apiBaseUrl,
@@ -132,6 +139,15 @@ const IntelligenceSettingsPage: React.FC = () => {
         rawToken: accessToken.raw,
         payload,
       });
+      trackUserSettingsSaved("intelligence", payload);
+      const savedPreset = detectCurrentPreset(userSettings, externalToolsData.presets);
+      if (savedPreset) {
+        trackSettingSaved({
+          area: "intelligence",
+          settingId: "preset",
+          optionId: savedPreset,
+        });
+      }
 
       // Refetch external tools data to get updated is_configured status
       await refreshExternalTools();
@@ -146,6 +162,7 @@ const IntelligenceSettingsPage: React.FC = () => {
       });
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
+      trackUserSettingsFailed("intelligence", payload, saveError);
       setError(
         saveError instanceof ApiError
           ? PageError.fromApiError(saveError)
