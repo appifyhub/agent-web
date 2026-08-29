@@ -1,21 +1,21 @@
 {
-  "name": "Abot",
+  "name": "Abot · Open Intelligent Assistant",
   "short_name": "Abot",
   "icons": [
     {
-      "src": "/favicon/web-app-manifest-192x192.png",
+      "src": "/favicon/web-app-manifest-192x192.png?v=20260829",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/favicon/web-app-manifest-512x512.png",
+      "src": "/favicon/web-app-manifest-512x512.png?v=20260829",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#131220",
-  "background_color": "#131220",
+  "theme_color": "#060019",
+  "background_color": "#060019",
   "display": "standalone"
 }
