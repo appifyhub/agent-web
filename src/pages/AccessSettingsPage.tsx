@@ -84,7 +84,7 @@ const AccessSettingsPage: React.FC = () => {
         });
         console.info("Fetched external tools!", externalTools);
         const visibleProviders = externalTools.providers.filter(
-          (p) => p.definition.id !== "internal",
+          (p) => getSettingsFieldName(p.definition.id) !== undefined,
         );
         setExternalToolProviders(
           visibleProviders.map((p) => p.definition),
@@ -209,7 +209,7 @@ const AccessSettingsPage: React.FC = () => {
 
       updateSettingsCache(userSettings!);
       const updatedVisibleProviders = updatedExternalTools.providers.filter(
-        (p) => p.definition.id !== "internal",
+        (p) => getSettingsFieldName(p.definition.id) !== undefined,
       );
       setExternalToolProviders(
         updatedVisibleProviders.map((p) => p.definition),

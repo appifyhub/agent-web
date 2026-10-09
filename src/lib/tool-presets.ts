@@ -1,12 +1,25 @@
 import {
+  ApiPresetChoices,
   IntelligencePreset,
+  isSelectableToolType,
   PresetChoices,
   ToolType,
+  UsagePurpose,
 } from "@/services/external-tools-service";
 import { UserSettings } from "@/services/user-settings-service";
 
 export type ToolPreset = IntelligencePreset | "custom";
-export type ApiPresets = Record<IntelligencePreset, PresetChoices>;
+export type ApiPresets = Record<IntelligencePreset, ApiPresetChoices>;
+
+function getSelectableChoices(choices: ApiPresetChoices): PresetChoices {
+  const selectableChoices: PresetChoices = {};
+  for (const toolType of Object.keys(choices) as UsagePurpose[]) {
+    if (isSelectableToolType(toolType)) {
+      selectableChoices[toolType] = choices[toolType];
+    }
+  }
+  return selectableChoices;
+}
 
 export function computePresetChoices(
   preset: IntelligencePreset,
@@ -17,7 +30,7 @@ export function computePresetChoices(
     console.warn(`Preset "${preset}" has no tool choices configured`);
     return {};
   }
-  return choices;
+  return getSelectableChoices(choices);
 }
 
 export function detectCurrentPreset(
@@ -27,8 +40,9 @@ export function detectCurrentPreset(
   const presetNames = Object.keys(apiPresets) as IntelligencePreset[];
 
   for (const preset of presetNames) {
-    const choices = apiPresets[preset];
+    const choices = getSelectableChoices(apiPresets[preset]);
     const typesWithChoices = Object.keys(choices) as ToolType[];
+    if (typesWithChoices.length === 0) continue;
 
     const matches = typesWithChoices.every((toolType) => {
       const fieldName = `tool_choice_${toolType}` as keyof UserSettings;

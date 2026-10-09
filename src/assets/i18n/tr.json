@@ -126,6 +126,7 @@
       "model_cost": "Model Maliyeti",
       "remote_cost": "Uzak Maliyet",
       "api_call_cost": "API Çağrı Maliyeti",
+      "delivery_cost": "Teslimat Maliyeti",
       "maintenance_fee": "Bakım Ücreti",
       "total": "Toplam"
     },
@@ -142,6 +143,7 @@
       "time_label": "Saat",
       "runtime_label": "Çalışma süresi",
       "user_label": "Kullanıcı",
+      "recipient_label": "Alıcı",
       "user_me": "Ben",
       "user_sponsored": "Sponsorlu Kullanıcı",
       "chat_label": "Sohbet",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Giriş Görselleri",
       "status_label": "Durum",
       "status_completed": "Tamamlandı",
+      "status_pending": "Beklemede",
       "status_failed": "Başarısız",
       "output_video_size": "Çıktı videosu",
       "output_video_duration": "Video süresi"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Kredi Transferi",
         "description": "Kullanıcılar arasında kredi transferi için dahili araç."
+      },
+      "message_delivery": {
+        "title": "Mesaj Teslimatı",
+        "description": "Bir asistan yanıtını mesajlaşma platformu üzerinden teslim etme maliyeti."
       },
       "deprecated": {
         "title": "Kullanımdan Kaldırıldı",

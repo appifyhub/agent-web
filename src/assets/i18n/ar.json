@@ -126,6 +126,7 @@
       "model_cost": "تكلفة النموذج",
       "remote_cost": "التكلفة عن بُعد",
       "api_call_cost": "تكلفة استدعاء API",
+      "delivery_cost": "تكلفة التسليم",
       "maintenance_fee": "رسوم الصيانة",
       "total": "المجموع"
     },
@@ -142,6 +143,7 @@
       "time_label": "الوقت",
       "runtime_label": "مدة التشغيل",
       "user_label": "المستخدم",
+      "recipient_label": "المستلم",
       "user_me": "أنا",
       "user_sponsored": "مستخدم مُرعى",
       "chat_label": "المحادثة",
@@ -152,6 +154,7 @@
       "input_image_sizes": "صور الإدخال",
       "status_label": "الحالة",
       "status_completed": "مكتمل",
+      "status_pending": "قيد الانتظار",
       "status_failed": "فشل",
       "output_video_size": "فيديو الإخراج",
       "output_video_duration": "مدة الفيديو"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "تحويل الأرصدة",
         "description": "أداة داخلية لتحويل الأرصدة بين المستخدمين."
+      },
+      "message_delivery": {
+        "title": "تسليم الرسائل",
+        "description": "تكلفة تسليم رد الوكيل عبر منصة مراسلة."
       },
       "deprecated": {
         "title": "مُهمل",

@@ -19,6 +19,12 @@ export type ToolType =
   | "credit_transfer"
   | "deprecated";
 
+export type UsagePurpose = ToolType | "message_delivery";
+
+export function isSelectableToolType(toolType: UsagePurpose): toolType is ToolType {
+  return toolType !== "message_delivery";
+}
+
 export interface CostEstimate {
   input_1m_tokens?: number;
   output_1m_tokens?: number;
@@ -43,7 +49,7 @@ export interface ExternalTool {
   id: string;
   name: string;
   provider: ExternalToolProvider;
-  types: ToolType[];
+  types: UsagePurpose[];
   cost_estimate: CostEstimate;
   max_input_images: number;
 }
@@ -67,12 +73,13 @@ export interface ExternalToolProviderResponse {
 }
 
 export type IntelligencePreset = "lowest_price" | "highest_price" | "agent_choice";
+export type ApiPresetChoices = Partial<Record<UsagePurpose, string>>;
 export type PresetChoices = Partial<Record<ToolType, string>>;
 
 export interface ExternalToolsResponse {
   tools: ExternalToolResponse[];
   providers: ExternalToolProviderResponse[];
-  presets: Record<IntelligencePreset, PresetChoices>;
+  presets: Record<IntelligencePreset, ApiPresetChoices>;
 }
 
 export async function fetchExternalTools({

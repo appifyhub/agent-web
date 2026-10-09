@@ -126,6 +126,7 @@
       "model_cost": "Model Cost",
       "remote_cost": "Remote Cost",
       "api_call_cost": "API Call Cost",
+      "delivery_cost": "Delivery Cost",
       "maintenance_fee": "Maintenance Fee",
       "total": "Total"
     },
@@ -142,6 +143,7 @@
       "time_label": "Time",
       "runtime_label": "Runtime",
       "user_label": "User",
+      "recipient_label": "Recipient",
       "user_me": "Me",
       "user_sponsored": "Sponsored User",
       "chat_label": "Chat",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Input Images",
       "status_label": "Status",
       "status_completed": "Completed",
+      "status_pending": "Pending",
       "status_failed": "Failed",
       "output_video_size": "Output Video",
       "output_video_duration": "Video Duration"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Credit Transfer",
         "description": "Internal tool for transferring credits between users."
+      },
+      "message_delivery": {
+        "title": "Message Delivery",
+        "description": "Cost of delivering an agent response through a messaging platform."
       },
       "deprecated": {
         "title": "Deprecated",

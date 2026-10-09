@@ -126,6 +126,7 @@
       "model_cost": "Cena modela",
       "remote_cost": "Udaljena cena",
       "api_call_cost": "Cena API poziva",
+      "delivery_cost": "Cena isporuke",
       "maintenance_fee": "Naknada za održavanje",
       "total": "Ukupno"
     },
@@ -142,6 +143,7 @@
       "time_label": "Vreme",
       "runtime_label": "Trajanje",
       "user_label": "Korisnik",
+      "recipient_label": "Primalac",
       "user_me": "Ja",
       "user_sponsored": "Sponzorisani korisnik",
       "chat_label": "Čet",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Ulazne slike",
       "status_label": "Status",
       "status_completed": "Uspešno",
+      "status_pending": "Na čekanju",
       "status_failed": "Neuspešno",
       "output_video_size": "Izlazni video",
       "output_video_duration": "Trajanje videa"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Transfer kredita",
         "description": "Interni alat za transfer kredita između korisnika."
+      },
+      "message_delivery": {
+        "title": "Isporuka poruka",
+        "description": "Cena isporuke odgovora agenta putem platforme za dopisivanje."
       },
       "deprecated": {
         "title": "Zastarelo",

@@ -34,6 +34,7 @@ import SectionedSelector, {
 import {
   ExternalToolResponse,
   ExternalToolProviderResponse,
+  isSelectableToolType,
   ToolType,
 } from "@/services/external-tools-service";
 import { UserSettings } from "@/services/user-settings-service";
@@ -311,7 +312,7 @@ const AdvancedToolsPanel: React.FC<AdvancedToolsPanelProps> = ({
     const allToolTypes: ToolType[] = [];
     tools.forEach((tool) => {
       tool.definition.types.forEach((type) => {
-        if (!allToolTypes.includes(type)) {
+        if (isSelectableToolType(type) && !allToolTypes.includes(type)) {
           allToolTypes.push(type);
         }
       });

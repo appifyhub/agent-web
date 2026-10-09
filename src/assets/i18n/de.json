@@ -126,6 +126,7 @@
       "model_cost": "Modellkosten",
       "remote_cost": "Remote-Kosten",
       "api_call_cost": "API-Aufrufkosten",
+      "delivery_cost": "Zustellkosten",
       "maintenance_fee": "Wartungsgebühr",
       "total": "Gesamt"
     },
@@ -142,6 +143,7 @@
       "time_label": "Uhrzeit",
       "runtime_label": "Laufzeit",
       "user_label": "Benutzer",
+      "recipient_label": "Empfänger",
       "user_me": "Ich",
       "user_sponsored": "Gesponserter Benutzer",
       "chat_label": "Chat",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Eingabebilder",
       "status_label": "Status",
       "status_completed": "Abgeschlossen",
+      "status_pending": "Ausstehend",
       "status_failed": "Fehlgeschlagen",
       "output_video_size": "Ausgabevideo",
       "output_video_duration": "Videodauer"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Guthabenüberweisung",
         "description": "Internes Tool zur Überweisung von Guthaben zwischen Benutzern."
+      },
+      "message_delivery": {
+        "title": "Nachrichtenzustellung",
+        "description": "Kosten für die Zustellung einer Agentenantwort über eine Messaging-Plattform."
       },
       "deprecated": {
         "title": "Veraltet",

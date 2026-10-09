@@ -41,6 +41,15 @@ const ProviderIcon: React.FC<ProviderIconProps> = ({
     return logoMap[id] || null;
   };
 
+  if (providerId === "meta") {
+    return (
+      <PlatformIcon
+        platform={Platform.WHATSAPP}
+        className={className}
+      />
+    );
+  }
+
   // First try AI provider logos
   const logoPath = getAIProviderLogo(providerId);
   if (logoPath) {

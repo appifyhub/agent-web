@@ -126,6 +126,7 @@
       "model_cost": "Costo modello",
       "remote_cost": "Costo remoto",
       "api_call_cost": "Costo chiamata API",
+      "delivery_cost": "Costo di consegna",
       "maintenance_fee": "Tariffa di manutenzione",
       "total": "Totale"
     },
@@ -142,6 +143,7 @@
       "time_label": "Ora",
       "runtime_label": "Durata",
       "user_label": "Utente",
+      "recipient_label": "Destinatario",
       "user_me": "Io",
       "user_sponsored": "Utente sponsorizzato",
       "chat_label": "Chat",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Immagini di input",
       "status_label": "Stato",
       "status_completed": "Completato",
+      "status_pending": "In attesa",
       "status_failed": "Fallito",
       "output_video_size": "Video di output",
       "output_video_duration": "Durata video"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Trasferimento crediti",
         "description": "Strumento interno per trasferire crediti tra utenti."
+      },
+      "message_delivery": {
+        "title": "Consegna dei messaggi",
+        "description": "Costo per recapitare una risposta dell'agente tramite una piattaforma di messaggistica."
       },
       "deprecated": {
         "title": "Obsoleto",

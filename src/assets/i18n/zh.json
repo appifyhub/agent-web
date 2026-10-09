@@ -126,6 +126,7 @@
       "model_cost": "模型费用",
       "remote_cost": "远程费用",
       "api_call_cost": "API调用费用",
+      "delivery_cost": "消息投递费用",
       "maintenance_fee": "维护费",
       "total": "总计"
     },
@@ -142,6 +143,7 @@
       "time_label": "时间",
       "runtime_label": "运行时间",
       "user_label": "用户",
+      "recipient_label": "接收者",
       "user_me": "我",
       "user_sponsored": "被赞助用户",
       "chat_label": "聊天",
@@ -152,6 +154,7 @@
       "input_image_sizes": "输入图像",
       "status_label": "状态",
       "status_completed": "已完成",
+      "status_pending": "待确认",
       "status_failed": "失败",
       "output_video_size": "输出视频",
       "output_video_duration": "视频时长"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "积分转账",
         "description": "用于用户之间转移积分的内部工具。"
+      },
+      "message_delivery": {
+        "title": "消息投递",
+        "description": "通过消息平台投递智能助手回复的费用。"
       },
       "deprecated": {
         "title": "已弃用",
