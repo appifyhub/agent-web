@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronDown, BadgeCent, Gift, Key, Clock, XCircle, SquareArrowRightExit, SquareArrowRightEnter } from "lucide-react";
+import { ChevronDown, BadgeCent, Gift, Key, Clock, Hourglass, XCircle, SquareArrowRightExit, SquareArrowRightEnter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/translations";
 import { TranslationKey } from "@/lib/translation-keys";
@@ -65,6 +65,8 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   const isSponsoredByMeForOthers = normalizedPayerId === normalizedCurrentId && normalizedUserId !== normalizedCurrentId;
 
   const isTransfer = record.tool_purpose === "credit_transfer";
+  const isDelivery = record.tool_purpose === "message_delivery";
+  const isDeliveryPending = isDelivery && !record.is_delivery_reconciled;
   const normalizedCounterpartId = record.counterpart_id?.replace(/-/g, "") ?? "";
   const isTransferReceived = isTransfer && normalizedCounterpartId === normalizedCurrentId;
   const isTransferSent = isTransfer && !isTransferReceived;
@@ -115,10 +117,18 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
   };
 
   const getCounterpartDisplay = (): string | null => {
-    const cp = record.participant_details?.counterpart;
-    if (!cp) return null;
-    return cp.full_name || cp.handle || middleTruncateId(cp.user_id);
+    const counterpart = record.participant_details?.counterpart;
+    if (counterpart) {
+      return counterpart.full_name || counterpart.handle || middleTruncateId(counterpart.user_id);
+    }
+    if (!record.counterpart_id) return null;
+    if (normalizedCounterpartId === normalizedCurrentId) {
+      return t("usage.context_ids.user_me");
+    }
+    return middleTruncateId(record.counterpart_id);
   };
+
+  const counterpartDisplay = getCounterpartDisplay();
 
   // Get chat display - try to find chat name from chats list
   const getChatDisplay = (): string => {
@@ -211,8 +221,20 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
               <span className={cn("text-md font-medium truncate", record.is_failed && "line-through")}>
                 {record.tool.name}
               </span>
-              <span className={cn("text-sm text-muted-foreground truncate", record.is_failed && "line-through")}>
-                {getPurposeTitle()}
+              <span
+                className={cn(
+                  "text-sm text-muted-foreground truncate flex items-center gap-1.5",
+                  record.is_failed && "line-through",
+                )}
+              >
+                <span className="truncate">{getPurposeTitle()}</span>
+                {isDeliveryPending && (
+                  <Hourglass
+                    className="h-3.5 w-3.5 shrink-0 text-accent-amber"
+                    role="img"
+                    aria-label={t("usage.context_ids.status_pending")}
+                  />
+                )}
               </span>
             </>
           )}
@@ -259,12 +281,14 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
               </>
             )}
           </div>
-          <div className="hidden md:flex items-center space-x-1 min-w-[4.5rem] justify-end">
-            <Clock className="h-4 w-4 text-blue-300" />
-            <span className="text-base font-mono text-blue-300">
-              {formatRuntime(record.runtime_seconds)}
-            </span>
-          </div>
+          {!isDelivery && (
+            <div className="hidden md:flex items-center space-x-1 min-w-[4.5rem] justify-end">
+              <Clock className="h-4 w-4 text-blue-300" />
+              <span className="text-base font-mono text-blue-300">
+                {formatRuntime(record.runtime_seconds)}
+              </span>
+            </div>
+          )}
           <ChevronDown
             className={cn(
               "h-5 w-5 text-muted-foreground shrink-0 transition-transform duration-300 mb-0.5",
@@ -312,7 +336,9 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                   {record.api_call_cost_credits > 0 && (
                     <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground min-w-0 truncate">
-                        {t("usage.cost_breakdown.api_call_cost")}
+                        {isDelivery
+                          ? t("usage.cost_breakdown.delivery_cost")
+                          : t("usage.cost_breakdown.api_call_cost")}
                       </span>
                       <span className="shrink-0">{formatCredits(record.api_call_cost_credits)}</span>
                     </div>
@@ -416,12 +442,14 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                   </span>
                   <span className="shrink-0">{timeStr}</span>
                 </div>
-                <div className="flex md:hidden justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("usage.context_ids.runtime_label")}
-                  </span>
-                  <span className="shrink-0">{formatRuntime(record.runtime_seconds)}</span>
-                </div>
+                {!isDelivery && (
+                  <div className="flex md:hidden justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("usage.context_ids.runtime_label")}
+                    </span>
+                    <span className="shrink-0">{formatRuntime(record.runtime_seconds)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between gap-4">
                   <span className="text-muted-foreground min-w-0 truncate">
                     {t("usage.context_ids.status_label")}
@@ -429,24 +457,44 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                   <span
                     className={cn(
                       "shrink-0",
-                      record.is_failed ? "text-destructive" : "text-success",
+                      record.is_failed
+                        ? "text-destructive"
+                        : isDeliveryPending
+                          ? "text-accent-amber"
+                          : "text-success",
                     )}
                   >
-                    {record.is_failed ? t("usage.context_ids.status_failed") : t("usage.context_ids.status_completed")}
+                    {record.is_failed
+                      ? t("usage.context_ids.status_failed")
+                      : isDeliveryPending
+                        ? t("usage.context_ids.status_pending")
+                        : t("usage.context_ids.status_completed")}
                   </span>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-muted-foreground min-w-0 truncate">
-                    {t("usage.context_ids.user_label")}
-                  </span>
-                  <span className="shrink-0">{getUserDisplayName()}</span>
-                </div>
-                {isTransfer && getCounterpartDisplay() && (
+                {!isTransfer && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("usage.context_ids.user_label")}
+                    </span>
+                    <span className="shrink-0">{getUserDisplayName()}</span>
+                  </div>
+                )}
+                {isTransfer && counterpartDisplay && (
                   <div className="flex justify-between gap-4">
                     <span className="text-muted-foreground min-w-0 truncate">
                       {isTransferSent ? t("usage.transfer.to") : t("usage.transfer.from")}
                     </span>
-                    <span className="shrink-0">{getCounterpartDisplay()}</span>
+                    <span className="shrink-0">
+                      {isTransferSent ? counterpartDisplay : getOwnerDisplay()}
+                    </span>
+                  </div>
+                )}
+                {isDelivery && counterpartDisplay && (
+                  <div className="flex justify-between gap-4">
+                    <span className="text-muted-foreground min-w-0 truncate">
+                      {t("usage.context_ids.recipient_label")}
+                    </span>
+                    <span className="shrink-0">{counterpartDisplay}</span>
                   </div>
                 )}
                 {(!isTransfer || record.chat_id) && (
@@ -465,7 +513,7 @@ const UsageRecordCard: React.FC<UsageRecordCardProps> = ({
                     <span className="max-w-1/2 text-right break-words">{record.note}</span>
                   </div>
                 )}
-                {record.remote_runtime_seconds != null && (
+                {!isDelivery && record.remote_runtime_seconds != null && (
                   <div className="flex justify-between gap-4">
                     <span className="text-muted-foreground min-w-0 truncate">
                       {t("usage.context_ids.remote_runtime")}

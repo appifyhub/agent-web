@@ -1,5 +1,5 @@
 import { request } from "@/services/networking";
-import { ExternalTool, ToolType } from "@/services/external-tools-service";
+import { ExternalTool, UsagePurpose } from "@/services/external-tools-service";
 import { Platform } from "@/lib/platform";
 import { parseApiError } from "@/lib/api-error";
 
@@ -22,7 +22,7 @@ export interface UsageRecord {
   uses_credits: boolean;
   chat_id?: string;
   tool: ExternalTool;
-  tool_purpose: ToolType;
+  tool_purpose: UsagePurpose;
   timestamp: string;
   runtime_seconds: number;
   remote_runtime_seconds?: number;
@@ -40,6 +40,7 @@ export interface UsageRecord {
   output_video_size?: string | null;
   output_video_duration_seconds?: number | null;
   is_failed: boolean;
+  is_delivery_reconciled: boolean;
   participant_details?: ParticipantDetails;
   counterpart_id?: string;
   note?: string;
