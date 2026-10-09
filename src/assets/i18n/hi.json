@@ -126,6 +126,7 @@
       "model_cost": "मॉडल लागत",
       "remote_cost": "रिमोट लागत",
       "api_call_cost": "API कॉल लागत",
+      "delivery_cost": "डिलीवरी लागत",
       "maintenance_fee": "रखरखाव शुल्क",
       "total": "कुल"
     },
@@ -142,6 +143,7 @@
       "time_label": "समय",
       "runtime_label": "रनटाइम",
       "user_label": "उपयोगकर्ता",
+      "recipient_label": "प्राप्तकर्ता",
       "user_me": "मैं",
       "user_sponsored": "प्रायोजित उपयोगकर्ता",
       "chat_label": "चैट",
@@ -152,6 +154,7 @@
       "input_image_sizes": "इनपुट छवियाँ",
       "status_label": "स्थिति",
       "status_completed": "पूर्ण",
+      "status_pending": "लंबित",
       "status_failed": "विफल",
       "output_video_size": "आउटपुट वीडियो",
       "output_video_duration": "वीडियो अवधि"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "क्रेडिट ट्रांसफर",
         "description": "उपयोगकर्ताओं के बीच क्रेडिट ट्रांसफर करने के लिए आंतरिक उपकरण।"
+      },
+      "message_delivery": {
+        "title": "संदेश डिलीवरी",
+        "description": "मैसेजिंग प्लेटफ़ॉर्म के माध्यम से एजेंट की प्रतिक्रिया पहुँचाने की लागत।"
       },
       "deprecated": {
         "title": "अप्रचलित",

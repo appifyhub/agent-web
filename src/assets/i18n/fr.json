@@ -126,6 +126,7 @@
       "model_cost": "Coût du modèle",
       "remote_cost": "Coût distant",
       "api_call_cost": "Coût d'appel API",
+      "delivery_cost": "Coût de livraison",
       "maintenance_fee": "Frais de maintenance",
       "total": "Total"
     },
@@ -142,6 +143,7 @@
       "time_label": "Heure",
       "runtime_label": "Durée d'exécution",
       "user_label": "Utilisateur",
+      "recipient_label": "Destinataire",
       "user_me": "Moi",
       "user_sponsored": "Utilisateur parrainé",
       "chat_label": "Chat",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Images d'entrée",
       "status_label": "Statut",
       "status_completed": "Terminé",
+      "status_pending": "En attente",
       "status_failed": "Échoué",
       "output_video_size": "Vidéo de sortie",
       "output_video_duration": "Durée de la vidéo"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Transfert de crédits",
         "description": "Outil interne pour transférer des crédits entre utilisateurs."
+      },
+      "message_delivery": {
+        "title": "Livraison des messages",
+        "description": "Coût de livraison d'une réponse de l'agent via une plateforme de messagerie."
       },
       "deprecated": {
         "title": "Obsolète",

@@ -126,6 +126,7 @@
       "model_cost": "Стоимость модели",
       "remote_cost": "Удалённая стоимость",
       "api_call_cost": "Стоимость API-вызова",
+      "delivery_cost": "Стоимость доставки",
       "maintenance_fee": "Плата за обслуживание",
       "total": "Итого"
     },
@@ -142,6 +143,7 @@
       "time_label": "Время",
       "runtime_label": "Время выполнения",
       "user_label": "Пользователь",
+      "recipient_label": "Получатель",
       "user_me": "Я",
       "user_sponsored": "Спонсируемый пользователь",
       "chat_label": "Чат",
@@ -152,6 +154,7 @@
       "input_image_sizes": "Входные изображения",
       "status_label": "Статус",
       "status_completed": "Выполнено",
+      "status_pending": "Ожидает подтверждения",
       "status_failed": "Ошибка",
       "output_video_size": "Выходное видео",
       "output_video_duration": "Длительность видео"
@@ -390,6 +393,10 @@
       "credit_transfer": {
         "title": "Перевод кредитов",
         "description": "Внутренний инструмент для перевода кредитов между пользователями."
+      },
+      "message_delivery": {
+        "title": "Доставка сообщений",
+        "description": "Стоимость доставки ответа агента через платформу обмена сообщениями."
       },
       "deprecated": {
         "title": "Устаревший",
