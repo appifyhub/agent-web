@@ -3,6 +3,12 @@ export default {
   rules: {
     "at-rule-no-unknown": null,
     "at-rule-no-deprecated": null,
+    "at-rule-prelude-no-invalid": [
+      true,
+      {
+        ignoreAtRules: ["apply"],
+      },
+    ],
     "color-function-notation": null,
     "hue-degree-notation": null,
     "lightness-notation": null,
