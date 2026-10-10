@@ -84,6 +84,8 @@ This will live-update the app as you make changes. Check the console for the URL
 bun run lint
 ```
 
+Stylelint skips standard CSS prelude validation for Tailwind's `@apply` directives while retaining it for other at-rules.
+
 #### Build for Production
 
 ```sh
