@@ -56,6 +56,8 @@ Because the complete codebase is open-source, you can inspect and run the servic
 bun install
 ```
 
+When changing dependencies, regenerate and commit both `package-lock.json` and `bun.lock`. Verify that the Bun lockfile is synchronized with `bun install --frozen-lockfile`.
+
 #### Development
 
 If the prerequisites are met, you still need to provide a single piece of information to run the app: the environment file. You can create it by copying the example file:
