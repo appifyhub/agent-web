@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "Use my behavior instructions",
   "use_custom_prompt_helper": "When enabled, {botName} will follow your personal behavior instructions in this chat.",
   "use_custom_prompt_which_instructions": "Which instructions?",
+  "split_messages_label": "Natural chat flow",
+  "split_messages_helper": "When enabled, {botName} will send several shorter messages in quick succession, instead of one long reply. This may increase delivery costs on platforms that charge per message.",
   "llm_limits": {
     "response_length_label": "Response length",
     "response_length_helper": "{botName} will write up to this many words per reply.",

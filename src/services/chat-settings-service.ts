@@ -20,6 +20,7 @@ export interface ChatConfig {
 
 export interface UserChatConfig {
   use_about_me: boolean;
+  split_messages: boolean;
   use_custom_prompt: boolean;
   max_output_tokens: number;
   max_chat_history_depth: number;

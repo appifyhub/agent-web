@@ -246,6 +246,8 @@ export type TranslationKey =
   | "use_custom_prompt_label"
   | "use_custom_prompt_helper"
   | "use_custom_prompt_which_instructions"
+  | "split_messages_label"
+  | "split_messages_helper"
   | "llm_limits.response_length_label"
   | "llm_limits.response_length_helper"
   | "llm_limits.response_length_minimum"

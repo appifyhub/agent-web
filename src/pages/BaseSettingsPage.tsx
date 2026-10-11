@@ -65,6 +65,7 @@ interface BaseSettingsPageProps {
   page: SettingsPage;
   children: React.ReactNode;
   cardTitle?: string;
+  stickyTitleSubtitle?: string;
   onActionClicked?: () => void;
   actionDisabled?: boolean;
   followupContent?: React.ReactNode;
@@ -99,6 +100,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
       page,
       children,
       cardTitle,
+      stickyTitleSubtitle,
       onActionClicked = () => {},
       actionDisabled = false,
       followupContent,
@@ -487,8 +489,23 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
                 <div className="absolute top-0 left-0 w-full animate-in border-b border-border bg-background/94 bg-[radial-gradient(28rem_10rem_at_0%_50%,oklch(0.4_0.12_326/18%),transparent_70%)] py-3 shadow-[0_16px_34px_oklch(0.05_0.01_292/0.24)] fade-in-0 slide-in-from-top-1 duration-200 ease-out backdrop-blur-xl">
                   <div className={contentContainerClassName}>
                     {renderActionBar(
-                      <span className="truncate text-base font-semibold tracking-tight text-foreground">
-                        {getSettingsPageTitle(page)}
+                      <span className="flex min-w-0 items-center gap-2">
+                        <span className="shrink-0 text-base font-semibold tracking-tight text-foreground">
+                          {getSettingsPageTitle(page)}
+                        </span>
+                        {stickyTitleSubtitle && (
+                          <>
+                            <span
+                              aria-hidden="true"
+                              className="shrink-0 text-muted-foreground/55"
+                            >
+                              ·
+                            </span>
+                            <span className="truncate text-sm font-medium text-muted-foreground">
+                              {stickyTitleSubtitle}
+                            </span>
+                          </>
+                        )}
                       </span>,
                     )}
                   </div>

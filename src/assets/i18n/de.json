@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "Meine Verhaltensanweisungen verwenden",
   "use_custom_prompt_helper": "Wenn aktiviert, befolgt {botName} in diesem Chat Ihre eigenen Verhaltensanweisungen.",
   "use_custom_prompt_which_instructions": "Welche Anweisungen?",
+  "split_messages_label": "Natürlicher Gesprächsfluss",
+  "split_messages_helper": "Wenn aktiviert, sendet {botName} mehrere kürzere Nachrichten schnell hintereinander statt einer einzigen langen Antwort. Dies kann die Zustellkosten auf Plattformen erhöhen, die pro Nachricht abrechnen.",
   "llm_limits": {
     "response_length_label": "Antwortlänge",
     "response_length_helper": "{botName} schreibt maximal so viele Wörter pro Antwort.",

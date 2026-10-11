@@ -16,7 +16,6 @@ import {
   trackChatSettingsSaved,
 } from "@/lib/analytics-settings";
 import BaseSettingsPage from "@/pages/BaseSettingsPage";
-import { setCachedChats } from "@/services/chat-cache";
 import {
   saveChatSettings,
   type ChatConfig,
@@ -40,6 +39,7 @@ const hasUserChatConfigChanges = (
 ): boolean =>
   current.use_about_me !== remote.use_about_me ||
   current.use_custom_prompt !== remote.use_custom_prompt ||
+  current.split_messages !== remote.split_messages ||
   current.max_output_tokens !== remote.max_output_tokens ||
   current.max_chat_history_depth !== remote.max_chat_history_depth ||
   current.max_iterations !== remote.max_iterations;
@@ -53,10 +53,7 @@ const ChatSettingsPage: React.FC = () => {
   const { error, accessToken, isLoadingState, setError, setIsLoadingState } =
     usePageSession();
   const { navigateToProfile } = useNavigation();
-  const { chats, isLoading: isChatsLoading } = useChats(
-    user_id || accessToken?.decoded.sub,
-    accessToken?.raw,
-  );
+  const { chats, isLoading: isChatsLoading, updateChats } = useChats(user_id || accessToken?.decoded.sub, accessToken?.raw);
   const selectedChat = chats.find(
     (chat) => chat.chat_config.chat_id === chat_id,
   );
@@ -152,6 +149,7 @@ const ChatSettingsPage: React.FC = () => {
       ? {
           use_about_me: chatSettings.user_chat_config.use_about_me,
           use_custom_prompt: chatSettings.user_chat_config.use_custom_prompt,
+          split_messages: chatSettings.user_chat_config.split_messages,
           max_output_tokens: chatSettings.user_chat_config.max_output_tokens,
           max_chat_history_depth:
             chatSettings.user_chat_config.max_chat_history_depth,
@@ -171,13 +169,11 @@ const ChatSettingsPage: React.FC = () => {
       });
       trackChatSettingsSaved(chatConfigPayload, userChatConfigPayload);
       setRemoteSettings(chatSettings);
-      const updatedChats = chats.map((chat) =>
-        chat.chat_config.chat_id === chat_id ? chatSettings : chat,
+      updateChats(
+        chats.map((chat) =>
+          chat.chat_config.chat_id === chat_id ? chatSettings : chat,
+        ),
       );
-      const resolvedUserId = user_id || accessToken.decoded.sub;
-      if (resolvedUserId) {
-        setCachedChats(resolvedUserId, updatedChats);
-      }
       toast(t("saved"));
     } catch (saveError) {
       console.error("Error saving settings!", saveError);
@@ -216,6 +212,11 @@ const ChatSettingsPage: React.FC = () => {
       onExternalErrorDismiss={() => setError(null)}
       contentVariant="flow"
       selectedChat={selectedChat}
+      stickyTitleSubtitle={
+        selectedChat
+          ? selectedChat.chat_config.title || t("untitled")
+          : undefined
+      }
       followupContent={
         <SettingsGuideChip
           icon={UserRound}

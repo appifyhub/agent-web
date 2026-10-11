@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "استخدم تعليمات سلوكي",
   "use_custom_prompt_helper": "عند التمكين، سيتبع {botName} تعليمات سلوكك الخاصة في هذه المحادثة.",
   "use_custom_prompt_which_instructions": "أي تعليمات؟",
+  "split_messages_label": "محادثة طبيعية",
+  "split_messages_helper": "عند التمكين، سيرسل {botName} عدة رسائل أقصر بتتابع سريع بدلاً من رد واحد طويل. قد يؤدي ذلك إلى زيادة تكاليف التوصيل على المنصات التي تفرض رسوماً على كل رسالة.",
   "llm_limits": {
     "response_length_label": "طول الرد",
     "response_length_helper": "{botName} سيكتب حتى هذا العدد من الكلمات لكل رد.",
