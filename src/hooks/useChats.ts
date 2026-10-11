@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchAllChatSettings, ChatSettings } from "@/services/chat-settings-service";
 import {
   getCachedChats,
@@ -8,6 +8,7 @@ import {
 
 export interface UseChatsResult {
   chats: ChatSettings[];
+  updateChats: (updatedChats: ChatSettings[]) => void;
   isLoading: boolean;
   error: Error | null;
 }
@@ -61,8 +62,19 @@ export const useChats = (
     fetchChats();
   }, [userId, rawToken]);
 
+  const updateChats = useCallback(
+    (updatedChats: ChatSettings[]) => {
+      setChats(updatedChats);
+      if (userId) {
+        setCachedChats(userId, updatedChats);
+      }
+    },
+    [userId],
+  );
+
   return {
     chats,
+    updateChats,
     isLoading,
     error,
   };

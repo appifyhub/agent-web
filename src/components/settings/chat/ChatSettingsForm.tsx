@@ -398,6 +398,18 @@ const ChatSettingsForm: React.FC<ChatSettingsFormProps> = ({
           onProfileLinkClick={onProfileLinkClick}
           profileLinkText={t("use_custom_prompt_which_instructions")}
         />
+
+        <SettingToggle
+          id="split-messages"
+          label={t("split_messages_label")}
+          helperText={t("split_messages_helper", { botName })}
+          checked={userChatConfig.split_messages}
+          onChange={(splitMessages) =>
+            onUserChatConfigChange({ split_messages: splitMessages })
+          }
+          disabled={disabled}
+          className={fieldClassName}
+        />
       </SettingsSection>
     </div>
   );
