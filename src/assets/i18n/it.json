@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "Usa le mie istruzioni di comportamento",
   "use_custom_prompt_helper": "Quando abilitato, {botName} seguirà le tue proprie istruzioni di comportamento in questa chat.",
   "use_custom_prompt_which_instructions": "Quali istruzioni?",
+  "split_messages_label": "Flusso di conversazione naturale",
+  "split_messages_helper": "Quando abilitato, {botName} invierà diversi messaggi più brevi in rapida successione, invece di un'unica risposta lunga. Questo può aumentare i costi di consegna sulle piattaforme che addebitano ogni messaggio.",
   "llm_limits": {
     "response_length_label": "Lunghezza risposta",
     "response_length_helper": "{botName} scriverà al massimo questo numero di parole per risposta.",

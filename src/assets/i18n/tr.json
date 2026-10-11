@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "Benim davranış talimatlarımı kullan",
   "use_custom_prompt_helper": "Etkinleştirildiğinde, {botName} bu sohbette kişisel davranış talimatlarınızı takip edecektir.",
   "use_custom_prompt_which_instructions": "Hangi talimatlar?",
+  "split_messages_label": "Doğal sohbet akışı",
+  "split_messages_helper": "Etkinleştirildiğinde, {botName} tek bir uzun yanıt yerine art arda birkaç kısa mesaj gönderecektir. Bu, mesaj başına ücret alan platformlarda teslimat maliyetlerini artırabilir.",
   "llm_limits": {
     "response_length_label": "Yanıt uzunluğu",
     "response_length_helper": "{botName} yanıt başına en fazla bu kadar kelime yazacaktır.",

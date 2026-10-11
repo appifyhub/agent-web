@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "मेरे व्यवहार निर्देशों का उपयोग करें",
   "use_custom_prompt_helper": "सक्षम होने पर, {botName} इस चैट में आपके व्यक्तिगत व्यवहार निर्देशों का पालन करेगा।",
   "use_custom_prompt_which_instructions": "कौन से निर्देश?",
+  "split_messages_label": "स्वाभाविक बातचीत",
+  "split_messages_helper": "सक्षम होने पर, {botName} एक लंबे जवाब के बजाय कई छोटे संदेश जल्दी-जल्दी भेजेगा। इससे हर संदेश के लिए शुल्क लेने वाले प्लेटफ़ॉर्म पर डिलीवरी की लागत बढ़ सकती है।",
   "llm_limits": {
     "response_length_label": "उत्तर की लंबाई",
     "response_length_helper": "{botName} प्रति उत्तर अधिकतम इतने शब्द लिखेगा।",

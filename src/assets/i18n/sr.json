@@ -277,6 +277,8 @@
   "use_custom_prompt_label": "Koristi moja uputstva za ponašanje",
   "use_custom_prompt_helper": "Kada je omogućeno, {botName} će pratiti Vaša lična uputstva za ponašanje u ovom četu.",
   "use_custom_prompt_which_instructions": "Koja uputstva?",
+  "split_messages_label": "Prirodan tok razgovora",
+  "split_messages_helper": "Kada je omogućeno, {botName} će slati nekoliko kraćih poruka zaredom, umesto jednog dugačkog odgovora. Ovo može povećati troškove dostave na platformama koje naplaćuju svaku poruku.",
   "llm_limits": {
     "response_length_label": "Dužina odgovora",
     "response_length_helper": "{botName} će napisati najviše ovoliko reči po odgovoru.",
