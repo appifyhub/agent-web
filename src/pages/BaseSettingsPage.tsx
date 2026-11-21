@@ -191,7 +191,7 @@ const BaseSettingsPage = forwardRef<BaseSettingsPageRef, BaseSettingsPageProps>(
 
     // Fetch chats once at this level to avoid duplicate calls
     const { chats, isLoading: isChatsLoading } = useChats(accessToken?.decoded?.sub, accessToken?.raw);
-    const displayError = externalError || error;
+    const displayError = error?.isBlocker ? error : externalError || error;
 
     useEffect(() => {
       if (

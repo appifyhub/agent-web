@@ -8,6 +8,7 @@ export type SettingsPage =
   | "access"
   | "intelligence"
   | "linked_profiles"
+  | "command_line"
   | "usage"
   | "purchases"
   | "onboarding";
@@ -28,6 +29,8 @@ export const getSettingsPageTitle = (page: SettingsPage): string => {
       return t("intelligence");
     case "linked_profiles":
       return t("linked_profiles.page_title");
+    case "command_line":
+      return t("command_line.page_title");
     case "usage":
       return t("usage.page_title");
     case "purchases":

@@ -7,6 +7,7 @@ export interface NavigationHelpers {
   navigateToIntelligence: (userId: string, langIsoCode: string) => void;
   navigateToSponsorships: (userId: string, langIsoCode: string) => void;
   navigateToLinkedProfiles: (userId: string, langIsoCode: string) => void;
+  navigateToCommandLine: (userId: string, langIsoCode: string) => void;
   navigateToUsage: (userId: string, langIsoCode: string) => void;
   navigateToPurchases: (userId: string, langIsoCode: string) => void;
   navigateToHelp: (langIsoCode: string) => void;
@@ -71,6 +72,13 @@ export const useNavigation = (): NavigationHelpers => {
     );
   };
 
+  const navigateToCommandLine = (userId: string, langIsoCode: string) => {
+    console.info("Navigating to command line:", userId);
+    navigate(
+      `/${langIsoCode}/user/${userId}/command-line${getPreservedSearchParams()}`,
+    );
+  };
+
   const navigateToUsage = (userId: string, langIsoCode: string) => {
     console.info("Navigating to usage:", userId);
     navigate(
@@ -121,6 +129,7 @@ export const useNavigation = (): NavigationHelpers => {
     navigateToIntelligence,
     navigateToSponsorships,
     navigateToLinkedProfiles,
+    navigateToCommandLine,
     navigateToUsage,
     navigateToPurchases,
     navigateToHelp,

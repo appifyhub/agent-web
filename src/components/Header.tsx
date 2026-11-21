@@ -9,6 +9,7 @@ import {
   Merge,
   ShoppingCart,
   Sparkles,
+  Terminal,
   UserRound,
 } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
@@ -299,6 +300,7 @@ const Header: React.FC<HeaderProps> = ({
     navigateToIntelligence,
     navigateToSponsorships,
     navigateToLinkedProfiles,
+    navigateToCommandLine,
     navigateToUsage,
     navigateToPurchases,
     navigateToHelp,
@@ -329,6 +331,7 @@ const Header: React.FC<HeaderProps> = ({
     page === "profile" || page === "chat"
       ? t("menu_section.personal")
       : page === "intelligence" ||
+          page === "command_line" ||
           page === "help" ||
           page === "onboarding"
         ? t("menu_section.agent")
@@ -369,6 +372,7 @@ const Header: React.FC<HeaderProps> = ({
       | "intelligence"
       | "sponsorships"
       | "linked_profiles"
+      | "command_line"
       | "usage"
       | "purchases",
   ) => {
@@ -383,6 +387,7 @@ const Header: React.FC<HeaderProps> = ({
       intelligence: navigateToIntelligence,
       sponsorships: navigateToSponsorships,
       linked_profiles: navigateToLinkedProfiles,
+      command_line: navigateToCommandLine,
       usage: navigateToUsage,
       purchases: navigateToPurchases,
     };
@@ -430,6 +435,13 @@ const Header: React.FC<HeaderProps> = ({
           icon: Sparkles,
           visible: canNavigateToUserPages,
           onSelect: () => navigateToUserPage("intelligence"),
+        },
+        {
+          page: "command_line",
+          label: t("command_line.page_title"),
+          icon: Terminal,
+          visible: canNavigateToUserPages,
+          onSelect: () => navigateToUserPage("command_line"),
         },
         {
           page: "help",

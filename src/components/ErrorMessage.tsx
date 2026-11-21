@@ -108,7 +108,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({
   }
 
   return (
-    <div className="max-w-md mx-auto fixed bottom-5 lg:top-30 inset-x-0 px-6 z-50">
+    <div className="max-w-md mx-auto fixed bottom-5 lg:top-30 lg:bottom-auto inset-x-0 px-6 z-50">
       {alertContent}
     </div>
   );

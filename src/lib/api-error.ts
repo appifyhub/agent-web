@@ -67,6 +67,10 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 1040: return "error_codes.invalid_asset_type";
     case 1041: return "error_codes.invalid_asset_amount";
     case 1042: return "error_codes.invalid_stock_symbol";
+    case 1043: return "error_codes.invalid_cli_ttl";
+    case 1044: return "error_codes.cli_ttl_too_long";
+    case 1045: return "error_codes.invalid_cli_device";
+    case 1046: return "error_codes.invalid_notification_message";
     case 2001: return "error_codes.user_not_found";
     case 2002: return "error_codes.chat_not_found";
     case 2003: return "error_codes.attachment_not_found";
@@ -81,6 +85,7 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 2012: return "error_codes.no_authorized_chats";
     case 2013: return "error_codes.transfer_recipient_not_found";
     case 2014: return "error_codes.stock_quote_not_found";
+    case 2015: return "error_codes.connect_key_not_found";
     case 3001: return "error_codes.not_chat_admin";
     case 3002: return "error_codes.not_target_user";
     case 3003: return "error_codes.not_developer";
@@ -90,9 +95,12 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 3007: return "error_codes.waitlist_account_not_active";
     case 3008: return "error_codes.waitlist_invited_policies_required";
     case 3009: return "error_codes.not_chat_member";
+    case 3010: return "error_codes.delivery_refused";
     case 4001: return "error_codes.empty_token";
     case 4002: return "error_codes.no_user_id_in_token";
     case 4003: return "error_codes.invalid_resource_token";
+    case 4004: return "error_codes.invalid_cli_token";
+    case 4005: return "error_codes.cli_access_revoked";
     case 5001: return "error_codes.image_generation_failed";
     case 5002: return "error_codes.web_fetch_failed";
     case 5003: return "error_codes.llm_unexpected_response";
@@ -109,9 +117,11 @@ export function getErrorTranslationKey(errorCode: number): TranslationKey | null
     case 5015: return "error_codes.video_preparation_failed";
     case 5016: return "error_codes.video_generation_failed";
     case 5017: return "error_codes.social_card_video_composition_failed";
+    case 5018: return "error_codes.notification_delivery_failed";
     case 6001: return "error_codes.user_limit_reached";
     case 6002: return "error_codes.insufficient_credits"; // legacy, moved to 1034
     case 6003: return "error_codes.stock_quote_rate_limited";
+    case 6004: return "error_codes.provider_rate_limited";
     case 7001: return "error_codes.unsupported_chat_type";
     case 7002: return "error_codes.unsupported_provider";
     case 7003: return "error_codes.missing_chat_context";

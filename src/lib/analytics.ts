@@ -56,7 +56,10 @@ export type AnalyticsFeatureId =
   | "interface_language"
   | "auth_required_recovery"
   | "not_found_recovery"
-  | "purchase";
+  | "purchase"
+  | "cli_connect_key"
+  | "cli_install"
+  | "cli_access";
 export type AnalyticsFeatureAction =
   | "open"
   | "cancel"
@@ -71,7 +74,8 @@ export type AnalyticsFeatureAction =
   | "remove"
   | "unlink"
   | "change"
-  | "return";
+  | "return"
+  | "revoke";
 export type AnalyticsReportId = "usage" | "purchases";
 
 interface AnalyticsEnvironment {
@@ -190,6 +194,7 @@ const PAGE_PATHS: Record<AnalyticsPageId, string> = {
   access: "/app/access",
   intelligence: "/app/intelligence",
   linked_profiles: "/app/linked-profiles",
+  command_line: "/app/command-line",
   usage: "/app/usage",
   purchases: "/app/purchases",
   onboarding: "/app/onboarding",
@@ -205,6 +210,7 @@ const PAGE_TITLES: Record<AnalyticsPageId, string> = {
   access: `${APP_NAME} | Access`,
   intelligence: `${APP_NAME} | Intelligence`,
   linked_profiles: `${APP_NAME} | Linked Profiles`,
+  command_line: `${APP_NAME} | Command Line`,
   usage: `${APP_NAME} | Usage`,
   purchases: `${APP_NAME} | Purchases`,
   onboarding: `${APP_NAME} | Onboarding`,
