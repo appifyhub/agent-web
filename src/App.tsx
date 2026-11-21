@@ -8,6 +8,7 @@ import AccessSettingsPage from "@/pages/AccessSettingsPage";
 import IntelligenceSettingsPage from "@/pages/IntelligenceSettingsPage";
 import SponsorshipsPage from "@/pages/SponsorshipsPage";
 import LinkedProfilesPage from "@/pages/LinkedProfilesPage";
+import CommandLinePage from "@/pages/CommandLinePage";
 import UsagePage from "@/pages/UsagePage";
 import PurchasesPage from "@/pages/PurchasesPage";
 import HelpPage from "@/pages/HelpPage";
@@ -113,6 +114,10 @@ function App() {
         <Route
           path="/:lang_iso_code/user/:user_id/linked-profiles"
           element={<LinkedProfilesPage />}
+        />
+        <Route
+          path="/:lang_iso_code/user/:user_id/command-line"
+          element={<CommandLinePage />}
         />
         <Route
           path="/:lang_iso_code/user/:user_id/usage"

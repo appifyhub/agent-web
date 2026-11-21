@@ -7,7 +7,7 @@ export interface CardSelectorOption {
   value: string;
   icon: React.ComponentType<{ className?: string }>;
   title: string;
-  description: string;
+  description?: React.ReactNode;
 }
 
 interface CardSelectorProps {
@@ -16,6 +16,7 @@ interface CardSelectorProps {
   onChange: (value: string) => void;
   options: readonly CardSelectorOption[];
   disabled?: boolean;
+  showSelectedCheckmark?: boolean;
 }
 
 // the selector stacks into rows and becomes one horizontal strip at
@@ -32,6 +33,7 @@ const CardSelector: React.FC<CardSelectorProps> = ({
   onChange,
   options,
   disabled = false,
+  showSelectedCheckmark = true,
 }) => {
     const active = options.find((option) => option.value === value);
     const isPending = remoteValue != null && remoteValue !== value;
@@ -64,7 +66,7 @@ const CardSelector: React.FC<CardSelectorProps> = ({
                   "data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:hover:bg-primary data-[state=on]:hover:text-primary-foreground",
                 )}
               >
-                {isSelected ? (
+                {isSelected && showSelectedCheckmark ? (
                   <CircleCheck className="h-4 w-4 shrink-0" strokeWidth={2.75} />
                 ) : (
                   <Icon className="h-4 w-4 shrink-0" />
@@ -81,7 +83,7 @@ const CardSelector: React.FC<CardSelectorProps> = ({
             );
           })}
         </ToggleGroup>
-        {active && (
+        {active && (active.description || isPending) && (
           <p className="ps-1 text-sm leading-6 text-muted-foreground">
             {active.description}
             {isPending && (

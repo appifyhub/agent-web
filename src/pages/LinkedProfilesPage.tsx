@@ -22,13 +22,14 @@ import { usePageSession } from "@/hooks/usePageSession";
 import { PageError, cn } from "@/lib/utils";
 import { ApiError } from "@/lib/api-error";
 import { toast } from "sonner";
+import { formatConnectKey } from "@/lib/connect-key";
+import CopyableCommand from "@/components/CopyableCommand";
 import {
   getConnectKey,
   regenerateConnectKey,
   connectProfiles,
 } from "@/services/connect-key-service";
 import {
-  Copy,
   RefreshCw,
   Share2,
   ClipboardPaste,
@@ -65,12 +66,6 @@ const LinkedProfilesPage: React.FC = () => {
 
   const botName = import.meta.env.VITE_APP_NAME_SHORT;
 
-  // Format connect key for display (XXXX-XXXX-XXXX)
-  const formatDisplayKey = (key: string) => {
-    const clean = key.replace(/-/g, "");
-    return `${clean.slice(0, 4)}-${clean.slice(4, 8)}-${clean.slice(8, 12)}`;
-  };
-
   // Fetch connect key when session is ready
   useEffect(() => {
     if (!accessToken || !user_id || error) return;
@@ -101,45 +96,6 @@ const LinkedProfilesPage: React.FC = () => {
     fetchData();
   }, [accessToken, user_id, error, setError, setIsLoadingState]);
 
-  const handleCopy = async (text: string) => {
-    try {
-      // Check if Clipboard API is available
-      if (
-        window.navigator &&
-        window.navigator.clipboard &&
-        window.navigator.clipboard.writeText
-      ) {
-        await window.navigator.clipboard.writeText(text);
-        toast(t("copied"));
-      } else {
-        // Fallback for browsers without clipboard API
-        // Create a temporary textarea element
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
-        textarea.style.left = "-999999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        textarea.setSelectionRange(0, text.length);
-        try {
-          const successful = document.execCommand("copy");
-          if (successful) {
-            toast(t("copied"));
-          } else {
-            throw new Error("execCommand('copy') failed");
-          }
-        } finally {
-          document.body.removeChild(textarea);
-        }
-      }
-    } catch (err) {
-      console.error("Failed to copy", err);
-      setIsCopyDisabled(true);
-      toast.error(t("linked_profiles.copy_failed"));
-    }
-  };
-
   const handleCopyKey = () => {
     if (!connectKey) return;
     trackFeatureAction({
@@ -148,8 +104,6 @@ const LinkedProfilesPage: React.FC = () => {
       optionId: "key",
       sourceArea: "linked_profiles",
     });
-    // Copy the formatted key (as displayed) since that's what user sees
-    handleCopy(formatDisplayKey(connectKey));
   };
 
   const handlePaste = async () => {
@@ -273,7 +227,6 @@ const LinkedProfilesPage: React.FC = () => {
       optionId: "command",
       sourceArea: "linked_profiles",
     });
-    handleCopy(`/connect ${formatDisplayKey(connectKey)}`);
   };
 
   const handleCopyChat = () => {
@@ -284,11 +237,6 @@ const LinkedProfilesPage: React.FC = () => {
       optionId: "chat",
       sourceArea: "linked_profiles",
     });
-    handleCopy(
-      t("linked_profiles.chat_command_example", {
-        connectKey: formatDisplayKey(connectKey),
-      })
-    );
   };
 
   const handleRegenerateKey = async () => {
@@ -359,7 +307,7 @@ const LinkedProfilesPage: React.FC = () => {
       optionId: "command",
       sourceArea: "linked_profiles",
     });
-    handleShareKey(`/connect ${formatDisplayKey(connectKey)}`);
+    handleShareKey(`/connect ${formatConnectKey(connectKey)}`);
   };
 
   const handleShareChat = () => {
@@ -372,7 +320,7 @@ const LinkedProfilesPage: React.FC = () => {
     });
     handleShareKey(
       t("linked_profiles.chat_command_example", {
-        connectKey: formatDisplayKey(connectKey),
+        connectKey: formatConnectKey(connectKey),
       })
     );
   };
@@ -584,27 +532,16 @@ const LinkedProfilesPage: React.FC = () => {
             {t("linked_profiles.my_key_info")}
           </p>
 
-          <div className="flex items-center gap-2">
-            <span
-              ref={copyKeyRef}
-              className="flex-1 h-12 min-h-12 px-4 flex items-center font-mono text-sm bg-card/90 border border-border/80 rounded-xl select-all overflow-x-auto overflow-y-hidden whitespace-nowrap text-accent-amber"
-            >
-              {formatDisplayKey(connectKey)}
-            </span>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCopyKey(); }}
-                  disabled={!!error?.isBlocker || isCopyDisabled}
-                >
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("linked_profiles.copy_key")}</TooltipContent>
-            </Tooltip>
+          <CopyableCommand
+            command={formatConnectKey(connectKey)}
+            textRef={copyKeyRef}
+            textClassName="text-accent-amber"
+            onCopy={handleCopyKey}
+            onCopyFailed={() => setIsCopyDisabled(true)}
+            copyDisabled={!!error?.isBlocker || isCopyDisabled}
+            copyTooltipText={t("linked_profiles.copy_key")}
+            copyErrorText={t("linked_profiles.copy_failed")}
+          >
             {isMobile && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -612,7 +549,7 @@ const LinkedProfilesPage: React.FC = () => {
                     variant="outline"
                     size="icon"
                     className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleShareKey(formatDisplayKey(connectKey)); }}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleShareKey(formatConnectKey(connectKey)); }}
                     disabled={!!error?.isBlocker || isShareDisabled}
                   >
                     <Share2 className="h-4 w-4" />
@@ -635,93 +572,71 @@ const LinkedProfilesPage: React.FC = () => {
               </TooltipTrigger>
               <TooltipContent>{t("linked_profiles.regenerate_key")}</TooltipContent>
             </Tooltip>
-          </div>
+          </CopyableCommand>
 
           <p className="text-[1.05rem] font-light md:text-justify [hyphens:auto] opacity-80">
             {t("linked_profiles.command_info", { botName })}
           </p>
 
-          <div className="flex items-center gap-2">
-            <span
-              ref={copyCommandRef}
-              className="flex-1 h-12 min-h-12 px-4 flex items-center font-mono text-sm bg-card/90 border border-border/80 rounded-xl select-all overflow-x-auto overflow-y-hidden whitespace-nowrap"
-            >
-              {`/connect ${formatDisplayKey(connectKey)}`}
-            </span>
-            {isMobile && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                    onClick={handleShareCommand}
-                    disabled={!!error?.isBlocker || isShareDisabled}
-                  >
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>{t("linked_profiles.share_key")}</TooltipContent>
-              </Tooltip>
-            )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                  onClick={handleCopyCommand}
-                  disabled={!!error?.isBlocker || isCopyDisabled}
-                >
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("linked_profiles.copy_key")}</TooltipContent>
-            </Tooltip>
-          </div>
+          <CopyableCommand
+            command={`/connect ${formatConnectKey(connectKey)}`}
+            textRef={copyCommandRef}
+            onCopy={handleCopyCommand}
+            onCopyFailed={() => setIsCopyDisabled(true)}
+            copyDisabled={!!error?.isBlocker || isCopyDisabled}
+            copyTooltipText={t("linked_profiles.copy_key")}
+            copyErrorText={t("linked_profiles.copy_failed")}
+            beforeCopy={
+              isMobile && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
+                      onClick={handleShareCommand}
+                      disabled={!!error?.isBlocker || isShareDisabled}
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("linked_profiles.share_key")}</TooltipContent>
+                </Tooltip>
+              )
+            }
+          />
 
           <p className="text-[1.05rem] font-light md:text-justify [hyphens:auto] opacity-80">
             {t("linked_profiles.chat_command_info", { botName })}
           </p>
 
-          <div className="flex items-center gap-2">
-            <span
-              ref={copyChatRef}
-              className="flex-1 h-12 min-h-12 px-4 flex items-center font-mono text-sm bg-card/90 border border-border/80 rounded-xl select-all overflow-x-auto overflow-y-hidden whitespace-nowrap"
-            >
-              {t("linked_profiles.chat_command_example", { connectKey: formatDisplayKey(connectKey) })}
-            </span>
-            {isMobile && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                    onClick={handleShareChat}
-                    disabled={!!error?.isBlocker || isShareDisabled}
-                  >
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>{t("linked_profiles.share_key")}</TooltipContent>
-              </Tooltip>
-            )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
-                  onClick={handleCopyChat}
-                  disabled={!!error?.isBlocker || isCopyDisabled}
-                >
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("linked_profiles.copy_key")}</TooltipContent>
-            </Tooltip>
-          </div>
+          <CopyableCommand
+            command={t("linked_profiles.chat_command_example", { connectKey: formatConnectKey(connectKey) })}
+            textRef={copyChatRef}
+            onCopy={handleCopyChat}
+            onCopyFailed={() => setIsCopyDisabled(true)}
+            copyDisabled={!!error?.isBlocker || isCopyDisabled}
+            copyTooltipText={t("linked_profiles.copy_key")}
+            copyErrorText={t("linked_profiles.copy_failed")}
+            beforeCopy={
+              isMobile && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="bg-surface-raised/50 border border-border/60 rounded-xl h-12 w-12 cursor-pointer"
+                      onClick={handleShareChat}
+                      disabled={!!error?.isBlocker || isShareDisabled}
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("linked_profiles.share_key")}</TooltipContent>
+                </Tooltip>
+              )
+            }
+          />
         </SettingsSection>
       ) : null}
     </BaseSettingsPage>
